@@ -1,10 +1,10 @@
 %% parameters_base_1fm
 
 %% 'globals'
-sampleTime = 0.001; % sample time [s] Note: make sure the same sample time is set in TwinCAT XAE.
-Lf = 0.238;         % forearm length [m]
-Lu = 0.153;         % upperarm length [m]
-Lb = 0.07;          % base width [m]
+sampleTime = 0.001;             % sample time [s] Note: make sure the same sample time is set in TwinCAT XAE.
+Lf = 0.238;                     % forearm length [m]
+Lu = 0.153;                     % upperarm length [m]
+Lb = 0.07;                      % base width [m]
 
 %% RobotStruct_FM1
 clear FM1
@@ -36,8 +36,6 @@ FM1.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torq
 FM1.Actuator2.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM1.Actuator2.JointPositionGuardMin = -25*pi/180;       % maximum allowable joint position [rad]
 FM1.Actuator2.JointPositionGuardMax = 135*pi/180;       % maximum allowable joint position [rad]
-
-
 
 % force/torque sensor data
 FM1.FTSensor.MaxAllowableForcesTorqueSensor = [100 100 200 2 2 2]*0.9; % maximum allowable forces and torques
