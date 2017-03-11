@@ -42,3 +42,4 @@ FM1.Actuator2.JointPositionGuardMax = 205*pi/180;       % maximum allowable join
 
 % force/torque sensor data
 FM1.FTSensor.MaxAllowableForcesTorqueSensor = [100 100 200 2 2 2]*0.7; % maximum allowable forces and torques
+FM1.FTSensor.TransformationMatrixSide = 1; % 1 = transformation matrix based from q1, 2 = transformation from q5.
