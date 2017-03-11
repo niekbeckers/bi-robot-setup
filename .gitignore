@@ -1,2 +1,4 @@
-.DS_Store
-*.m~
+simulink/experiments/slprj/
+simulink/experiments/base_1fm_tct/html/navToolbar.html
+simulink/experiments/base_1fm_tct/
+*.mexw64
