@@ -2,3 +2,5 @@ simulink/experiments/slprj/
 simulink/experiments/base_1fm_tct/html/navToolbar.html
 simulink/experiments/base_1fm_tct/
 *.mexw64
+simulink/calibration/model_affc_tct/
+simulink/calibration/slprj/
