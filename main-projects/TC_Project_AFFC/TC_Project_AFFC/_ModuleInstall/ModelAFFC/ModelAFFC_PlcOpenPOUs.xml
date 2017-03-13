@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-11T21:43:46" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-13T08:55:01" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelAFFC_FB">
     <coordinateInfo>
       <fbd>
@@ -324,6 +324,11 @@
 						<variable name="TargetCurrent_joint2">
 							<type>
 								<derived name="INT" />
+							</type>
+						</variable>
+						<variable name="pause_logger">
+							<type>
+								<derived name="BOOL" />
 							</type>
 						</variable>
 					</struct>
@@ -2062,17 +2067,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#b177b8fd;
-clsId.Data2 := 16#4ab4;
-clsId.Data3 := 16#4c06;
-clsId.Data4[0] := 16#99;
-clsId.Data4[1] := 16#3e;
-clsId.Data4[2] := 16#6c;
-clsId.Data4[3] := 16#21;
-clsId.Data4[4] := 16#7c;
-clsId.Data4[5] := 16#ad;
-clsId.Data4[6] := 16#23;
-clsId.Data4[7] := 16#b1;
+clsId.Data1 := 16#9cc27363;
+clsId.Data2 := 16#897f;
+clsId.Data3 := 16#4422;
+clsId.Data4[0] := 16#a6;
+clsId.Data4[1] := 16#70;
+clsId.Data4[2] := 16#35;
+clsId.Data4[3] := 16#1f;
+clsId.Data4[4] := 16#5a;
+clsId.Data4[5] := 16#92;
+clsId.Data4[6] := 16#6e;
+clsId.Data4[7] := 16#f4;
 
 AssignClassId(clsId);
                     
@@ -2124,7 +2129,7 @@ stInitData.ModelParameters.FM1.Actuator1.JointAbsoluteEncoderCounts_rev := 65536
 stInitData.ModelParameters.FM1.Actuator1.AbsEncoderOffset := 0;
 stInitData.ModelParameters.FM1.Actuator1.MotorEncoderCounts_rev := 4096;
 stInitData.ModelParameters.FM1.Actuator1.FOAWNoiseLevel := 9.587379924285257e-05;
-stInitData.ModelParameters.FM1.Actuator1.transmissionRatio := 7.3;
+stInitData.ModelParameters.FM1.Actuator1.transmissionRatio := 7.2976;
 stInitData.ModelParameters.FM1.Actuator1.motorTorqueConstant := 0.08486;
 stInitData.ModelParameters.FM1.Actuator1.drivePeakCurrent := 20;
 stInitData.ModelParameters.FM1.Actuator1.AbsoluteMaximumTorque_Nm := 8;
@@ -2135,7 +2140,7 @@ stInitData.ModelParameters.FM1.Actuator2.JointAbsoluteEncoderCounts_rev := 65536
 stInitData.ModelParameters.FM1.Actuator2.AbsEncoderOffset := 0;
 stInitData.ModelParameters.FM1.Actuator2.MotorEncoderCounts_rev := 4096;
 stInitData.ModelParameters.FM1.Actuator2.FOAWNoiseLevel := 9.587379924285257e-05;
-stInitData.ModelParameters.FM1.Actuator2.transmissionRatio := 7.3;
+stInitData.ModelParameters.FM1.Actuator2.transmissionRatio := 7.331;
 stInitData.ModelParameters.FM1.Actuator2.motorTorqueConstant := 0.08486;
 stInitData.ModelParameters.FM1.Actuator2.drivePeakCurrent := 20;
 stInitData.ModelParameters.FM1.Actuator2.AbsoluteMaximumTorque_Nm := 8;
@@ -2333,6 +2338,7 @@ stInitData.ModelParameters.Memory1_7_X0_k := 0;
 stInitData.ModelParameters.Memory1_8_X0_k := 0;
 stInitData.ModelParameters.Memory1_9_X0_k := 0;
 stInitData.ModelParameters.Gain_Gain_c := 57.29577951308232;
+stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
 stInitData.ModelParameters.Output_InitialCondition := 0;
 stInitData.ModelParameters.FixPtConstant_Value := 1;
 stInitData.ModelParameters.Constant_Value_p := 0;

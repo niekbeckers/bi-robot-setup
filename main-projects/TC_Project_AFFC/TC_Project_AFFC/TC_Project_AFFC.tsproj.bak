@@ -552,8 +552,8 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{E0EE97C3-8213-29C4-D4CF-644005AABA45}">P_model_affc_T</Name>
-			<BitSize>14656</BitSize>
+			<Name GUID="{CAA8BD63-32CD-DB23-604E-906831BDAB83}">P_model_affc_T</Name>
+			<BitSize>14720</BitSize>
 			<SubItem>
 				<Name>FM1</Name>
 				<Type GUID="{B3BE9CE1-3B5C-9E4F-FE82-760746C9F353}">struct_lkfUzMqghWzSMi9Hx1kmtC</Type>
@@ -1449,155 +1449,164 @@
 				<BitOffs>13760</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Output_InitialCondition</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<BitSize>32</BitSize>
+				<Name>Recorddata1yes0no_Value</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
 				<BitOffs>13824</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>FixPtConstant_Value</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>13856</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Constant_Value_p</Name>
+				<Name>Output_InitialCondition</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>13888</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Output_InitialCondition_l</Name>
+				<Name>FixPtConstant_Value</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>13920</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>FixPtConstant_Value_b</Name>
+				<Name>Constant_Value_p</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>13952</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Constant_Value_j</Name>
+				<Name>Output_InitialCondition_l</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>13984</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>FixPtConstant_Value_l</Name>
+				<Name>FixPtConstant_Value_b</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>14016</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Output_InitialCondition_a</Name>
+				<Name>Constant_Value_j</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>14048</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Constant_Value_d</Name>
+				<Name>FixPtConstant_Value_l</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>14080</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Switch_Threshold</Name>
+				<Name>Output_InitialCondition_a</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>14112</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Constant_Value_d</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>14144</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Switch_Threshold</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>14176</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>ManualSwitch_CurrentSetting</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14144</BitOffs>
+				<BitOffs>14208</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_m</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14152</BitOffs>
+				<BitOffs>14216</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_c</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14160</BitOffs>
+				<BitOffs>14224</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_l</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14168</BitOffs>
+				<BitOffs>14232</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14176</BitOffs>
+				<BitOffs>14240</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>14184</BitOffs>
+				<BitOffs>14248</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_k</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14312</BitOffs>
+				<BitOffs>14376</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_b</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14320</BitOffs>
+				<BitOffs>14384</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_i</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14328</BitOffs>
+				<BitOffs>14392</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_p</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>14336</BitOffs>
+				<BitOffs>14400</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_d1</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14464</BitOffs>
+				<BitOffs>14528</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_n</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14472</BitOffs>
+				<BitOffs>14536</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_e</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>14480</BitOffs>
+				<BitOffs>14544</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_n</Name>
 				<Type GUID="{BF7AB3B9-D984-0687-6E65-D8D661DFF747}">P_LatchRising_model_affc_T</Type>
 				<BitSize>64</BitSize>
-				<BitOffs>14528</BitOffs>
+				<BitOffs>14592</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_i</Name>
 				<Type GUID="{BF7AB3B9-D984-0687-6E65-D8D661DFF747}">P_LatchRising_model_affc_T</Type>
 				<BitSize>64</BitSize>
-				<BitOffs>14592</BitOffs>
+				<BitOffs>14656</BitOffs>
 			</SubItem>
+			<Hides>
+				<Hide GUID="{E0EE97C3-8213-29C4-D4CF-644005AABA45}"/>
+			</Hides>
 		</DataType>
 		<DataType>
 			<Name GUID="{963CB5A3-6751-8F27-77A1-6BF2975252C1}">matrix_49_real_T</Name>
@@ -1919,6 +1928,196 @@
 			</SubItem>
 		</DataType>
 		<DataType>
+			<Name GUID="{6A966D7F-28AB-49E4-98DB-24BC5D3A26D2}">ITcExtendedFileWriter</Name>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>fopen</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>filename</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="1">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>filemode</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="1">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>filetype</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="1">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>parameter</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="2">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>numparameter</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>columns</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000006}">INT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>fwrite</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ptr</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>size</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>count</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>writtenbytes</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}" ReferenceTo="true">UDINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>fclose</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+		</DataType>
+		<DataType>
+			<Name GUID="{D3FB660D-2931-4EB7-BAD0-B9694B808A69}">ITcExtendedFileWriterCGMat4</Name>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{6A966D7F-28AB-49E4-98DB-24BC5D3A26D2}">ITcExtendedFileWriter</BaseType>
+			<Method>
+				<Name>fopen</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>filename</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="1">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>filemode</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="1">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>filetype</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="1">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>setColumns</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>columns</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>setParameter</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>Parameter</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000003}" PointerTo="2">SINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>nParameter</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>setInitState</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>InitState</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>getInitState</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>InitState</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000002}" ReferenceTo="true">USINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stream</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}" ReferenceTo="true">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+		</DataType>
+		<DataType>
+			<Name GUID="{409DAF5E-5B98-81A1-5D7B-F46DBA7A192D}">ExtU_FileWriter_T</Name>
+			<BitSize>8</BitSize>
+			<SubItem>
+				<Name>Pause</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
 			<Name GUID="{85DC3E7A-8ADA-435B-9479-25573909A7DB}" Namespace="AX5000" TcBaseType="true">E_AX5000_P_0275_ActiveFeedbackAndMemory</Name>
 			<BitSize>8</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
@@ -2002,9 +2201,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelAFFC)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{B177B8FD-4AB4-4C06-993E-6C217CAD23B1}">
+					<TmcDesc GUID="{9CC27363-897F-4422-A670-351F5A926EF4}">
 						<Name>ModelAFFC</Name>
-						<CLSID ClassFactory="ModelAFFC">{B177B8FD-4AB4-4C06-993E-6C217CAD23B1}</CLSID>
+						<CLSID ClassFactory="ModelAFFC">{9CC27363-897F-4422-A670-351F5A926EF4}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -2017,6 +2216,11 @@
 						<Contexts>
 							<Context>
 								<Id>0</Id>
+								<ManualConfig>
+									<OTCID>#x02010010</OTCID>
+								</ManualConfig>
+								<Priority>1</Priority>
+								<CycleTime>1000000</CycleTime>
 							</Context>
 						</Contexts>
 						<Interfaces>
@@ -2120,8 +2324,8 @@
 							</Parameter>
 							<Parameter>
 								<Name>ModelParameters</Name>
-								<BitSize>14656</BitSize>
-								<BaseType GUID="{E0EE97C3-8213-29C4-D4CF-644005AABA45}">P_model_affc_T</BaseType>
+								<BitSize>14720</BitSize>
+								<BaseType GUID="{CAA8BD63-32CD-DB23-604E-906831BDAB83}">P_model_affc_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -2264,7 +2468,7 @@
 								<AreaNo AreaType="OutputSrc" CreateSymbols="true">1</AreaNo>
 								<Name>Output</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>14</ByteSize>
+								<ByteSize>15</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>EnableCircuit</Name>
 									<BitSize>8</BitSize>
@@ -2313,6 +2517,13 @@
 									<BaseType GUID="{18071995-0000-0000-0000-000000000006}">INT</BaseType>
 									<PTCID>#x8100000c</PTCID>
 									<BitOffs>96</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>pause_logger</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8100000e</PTCID>
+									<BitOffs>112</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -3602,7 +3813,7 @@
 									<BitOffs>20144</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Uk1</Name>
+									<Name>LogicalOperator1_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x820009d7</PTCID>
@@ -3802,7 +4013,7 @@
 								<AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
 								<Name>ModelParameters</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>1832</ByteSize>
+								<ByteSize>1840</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>FM1</Name>
 									<BitSize>2496</BitSize>
@@ -4847,179 +5058,186 @@
 									<BitOffs>13760</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Output_InitialCondition</Name>
-									<BitSize>32</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<Name>Recorddata1yes0no_Value</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x830006c0</PTCID>
 									<BitOffs>13824</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtConstant_Value</Name>
-									<BitSize>32</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
-									<PTCID>#x830006c4</PTCID>
-									<BitOffs>13856</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_p</Name>
+									<Name>Output_InitialCondition</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006c8</PTCID>
 									<BitOffs>13888</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Output_InitialCondition_l</Name>
+									<Name>FixPtConstant_Value</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006cc</PTCID>
 									<BitOffs>13920</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtConstant_Value_b</Name>
+									<Name>Constant_Value_p</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006d0</PTCID>
 									<BitOffs>13952</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_j</Name>
+									<Name>Output_InitialCondition_l</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006d4</PTCID>
 									<BitOffs>13984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtConstant_Value_l</Name>
+									<Name>FixPtConstant_Value_b</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006d8</PTCID>
 									<BitOffs>14016</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Output_InitialCondition_a</Name>
+									<Name>Constant_Value_j</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006dc</PTCID>
 									<BitOffs>14048</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_d</Name>
+									<Name>FixPtConstant_Value_l</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006e0</PTCID>
 									<BitOffs>14080</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Switch_Threshold</Name>
+									<Name>Output_InitialCondition_a</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x830006e4</PTCID>
 									<BitOffs>14112</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Constant_Value_d</Name>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x830006e8</PTCID>
+									<BitOffs>14144</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Switch_Threshold</Name>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x830006ec</PTCID>
+									<BitOffs>14176</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x830006e8</PTCID>
-									<BitOffs>14144</BitOffs>
+									<PTCID>#x830006f0</PTCID>
+									<BitOffs>14208</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_m</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x830006e9</PTCID>
-									<BitOffs>14152</BitOffs>
+									<PTCID>#x830006f1</PTCID>
+									<BitOffs>14216</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_c</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x830006ea</PTCID>
-									<BitOffs>14160</BitOffs>
+									<PTCID>#x830006f2</PTCID>
+									<BitOffs>14224</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_l</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830006eb</PTCID>
-									<BitOffs>14168</BitOffs>
+									<PTCID>#x830006f3</PTCID>
+									<BitOffs>14232</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830006ec</PTCID>
-									<BitOffs>14176</BitOffs>
+									<PTCID>#x830006f4</PTCID>
+									<BitOffs>14240</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x830006ed</PTCID>
-									<BitOffs>14184</BitOffs>
+									<PTCID>#x830006f5</PTCID>
+									<BitOffs>14248</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830006fd</PTCID>
-									<BitOffs>14312</BitOffs>
+									<PTCID>#x83000705</PTCID>
+									<BitOffs>14376</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_b</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830006fe</PTCID>
-									<BitOffs>14320</BitOffs>
+									<PTCID>#x83000706</PTCID>
+									<BitOffs>14384</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_i</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830006ff</PTCID>
-									<BitOffs>14328</BitOffs>
+									<PTCID>#x83000707</PTCID>
+									<BitOffs>14392</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_p</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x83000700</PTCID>
-									<BitOffs>14336</BitOffs>
+									<PTCID>#x83000708</PTCID>
+									<BitOffs>14400</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_d1</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000710</PTCID>
-									<BitOffs>14464</BitOffs>
+									<PTCID>#x83000718</PTCID>
+									<BitOffs>14528</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000711</PTCID>
-									<BitOffs>14472</BitOffs>
+									<PTCID>#x83000719</PTCID>
+									<BitOffs>14536</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000712</PTCID>
-									<BitOffs>14480</BitOffs>
+									<PTCID>#x8300071a</PTCID>
+									<BitOffs>14544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_n</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{BF7AB3B9-D984-0687-6E65-D8D661DFF747}">P_LatchRising_model_affc_T</BaseType>
-									<PTCID>#x83000718</PTCID>
-									<BitOffs>14528</BitOffs>
+									<PTCID>#x83000720</PTCID>
+									<BitOffs>14592</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_i</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{BF7AB3B9-D984-0687-6E65-D8D661DFF747}">P_LatchRising_model_affc_T</BaseType>
-									<PTCID>#x83000720</PTCID>
-									<BitOffs>14592</BitOffs>
+									<PTCID>#x83000728</PTCID>
+									<BitOffs>14656</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -5680,7 +5898,7 @@
 							</Value>
 							<Value>
 								<Name>ExtendedFileAccessOID</Name>
-								<Value>0</Value>
+								<Value>16842784</Value>
 							</Value>
 							<Value>
 								<Name>ExtModeServerVersion.TcTargetVersion[0]</Name>
@@ -5732,11 +5950,11 @@
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.InitIncomingPktBufferSize</Name>
-								<Value>10000</Value>
+								<Value>100000</Value>
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.InitOutgoingPktBufferSize</Name>
-								<Value>10000</Value>
+								<Value>100000</Value>
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.Activated</Name>
@@ -6004,7 +6222,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.transmissionRatio</Name>
-								<Value>7.3</Value>
+								<Value>7.2976</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.motorTorqueConstant</Name>
@@ -6048,7 +6266,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator2.transmissionRatio</Name>
-								<Value>7.3</Value>
+								<Value>7.331</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator2.motorTorqueConstant</Name>
@@ -6839,6 +7057,10 @@
 								<Value>57.2957795130823</Value>
 							</Value>
 							<Value>
+								<Name>ModelParameters.Recorddata1yes0no_Value</Name>
+								<Value>0</Value>
+							</Value>
+							<Value>
 								<Name>ModelParameters.Output_InitialCondition</Name>
 								<Value>0</Value>
 							</Value>
@@ -7060,19 +7282,19 @@
 							</Value>
 							<Value>
 								<Name>ContextInfoArr_0_TaskOid</Name>
-								<Value>0</Value>
+								<Value>33619984</Value>
 							</Value>
 							<Value>
 								<Name>ContextInfoArr_0_TaskPriority</Name>
-								<Value>0</Value>
+								<Value>1</Value>
 							</Value>
 							<Value>
 								<Name>ContextInfoArr_0_TaskCycleTimeNs</Name>
-								<Value>0</Value>
+								<Value>1000000</Value>
 							</Value>
 							<Value>
 								<Name>ContextInfoArr_0_TaskPort</Name>
-								<Value>0</Value>
+								<Value>350</Value>
 							</Value>
 							<Value>
 								<Name>ContextInfoArr_0_TaskSortOrder</Name>
@@ -7081,7 +7303,225 @@
 						</ParameterValues>
 					</TmcDesc>
 				</Module>
+				<Module Id="#x01010020" KeepUnrestoredLinks="2">
+					<Name>Object2 (TcExtendedFileWriter)</Name>
+					<TmcDesc GUID="{B21EA582-5818-4240-B12E-C14411470F53}">
+						<Name>TcExtendedFileWriter</Name>
+						<CLSID ClassFactory="TcExtendedFileAccess">{B21EA582-5818-4240-B12E-C14411470F54}</CLSID>
+						<Licenses>
+							<License>
+								<LicenseId>{304D006A-8299-4560-AB79-438534B50288}</LicenseId>
+							</License>
+						</Licenses>
+						<InitSequence>PSO</InitSequence>
+						<Contexts>
+							<Context>
+								<Id>0</Id>
+								<ManualConfig>
+									<OTCID>#x02010010</OTCID>
+								</ManualConfig>
+								<Priority>1</Priority>
+								<CycleTime>1000000</CycleTime>
+							</Context>
+						</Contexts>
+						<Interfaces>
+							<Interface>
+								<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+							</Interface>
+							<Interface>
+								<Type GUID="{03000010-0000-0000-E000-000000000064}">ITcCyclic</Type>
+							</Interface>
+							<Interface>
+								<Type GUID="{03000012-0000-0000-E000-000000000064}">ITcADI</Type>
+							</Interface>
+							<Interface>
+								<Type GUID="{03000018-0000-0000-E000-000000000064}">ITcWatchSource</Type>
+							</Interface>
+							<Interface>
+								<Type GUID="{D3FB660D-2931-4EB7-BAD0-B9694B808A69}">ITcExtendedFileWriterCGMat4</Type>
+							</Interface>
+							<Interface>
+								<Type GUID="{6A966D7F-28AB-49E4-98DB-24BC5D3A26D2}">ITcExtendedFileWriter</Type>
+							</Interface>
+						</Interfaces>
+						<Parameters>
+							<Parameter HideParameter="true">
+								<Name>TraceWarning</Name>
+								<Comment>
+									<![CDATA[Controls the amount of log messages.]]>
+								</Comment>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{8007AE3B-86BB-40F2-B385-EF87FCC239A4}">TcTraceLevel</BaseType>
+								<PTCID>#x03002103</PTCID>
+							</Parameter>
+							<Parameter>
+								<Name>Timeout</Name>
+								<Comment>
+									<![CDATA[Timeout used for a file access]]>
+								</Comment>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Unit>
+									<![CDATA[ms]]>
+								</Unit>
+								<PTCID>#x00000002</PTCID>
+							</Parameter>
+							<Parameter>
+								<Name>WorkingDirectory</Name>
+								<Comment>
+									<![CDATA[Anchor directory for relative Filepaths]]>
+								</Comment>
+								<BitSize>768</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-00010000005F}">STRING(95)</BaseType>
+								<PTCID>#x00000005</PTCID>
+							</Parameter>
+							<Parameter>
+								<Name>NumberOfFiles</Name>
+								<Comment>
+									<![CDATA[Limit number of files. 0 - unlimited, 1..n - 1..n Files]]>
+								</Comment>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Unit>
+									<![CDATA[Files]]>
+								</Unit>
+								<PTCID>#x00000006</PTCID>
+							</Parameter>
+							<Parameter>
+								<Name>MaxFileSize</Name>
+								<Comment>
+									<![CDATA[Size of one file until a new one is opened. filesize = 0  >= Max Filesize = 4GB]]>
+								</Comment>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Unit>
+									<![CDATA[KByte]]>
+								</Unit>
+								<PTCID>#x00000007</PTCID>
+							</Parameter>
+							<Parameter>
+								<Name>InternalBufferSize</Name>
+								<Comment>
+									<![CDATA[The Data is stored in a Buffer before beeing transfered to system service]]>
+								</Comment>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Unit>
+									<![CDATA[KByte]]>
+								</Unit>
+								<PTCID>#x00000008</PTCID>
+							</Parameter>
+							<Parameter>
+								<Name>SegmentSize</Name>
+								<Comment>
+									<![CDATA[Size of the Segments transferred to system service]]>
+								</Comment>
+								<BitSize>32</BitSize>
+								<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+								<Unit>
+									<![CDATA[KByte]]>
+								</Unit>
+								<PTCID>#x00000009</PTCID>
+							</Parameter>
+							<Parameter>
+								<Name>Input</Name>
+								<BitSize>8</BitSize>
+								<BaseType GUID="{409DAF5E-5B98-81A1-5D7B-F46DBA7A192D}">ExtU_FileWriter_T</BaseType>
+								<PTCID>#x80000000</PTCID>
+							</Parameter>
+						</Parameters>
+						<DataAreas>
+							<DataArea>
+								<AreaNo AreaType="InputDst" CreateSymbols="true">0</AreaNo>
+								<Name>Input</Name>
+								<ContextId>0</ContextId>
+								<ByteSize>1</ByteSize>
+								<Symbol CreateSymbol="true">
+									<Name>Pause</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<BitOffs>0</BitOffs>
+								</Symbol>
+							</DataArea>
+						</DataAreas>
+						<InterfacePointers>
+							<InterfacePointer>
+								<PTCID>#x03002060</PTCID>
+								<Name>CyclicCaller</Name>
+								<Type GUID="{0300001E-0000-0000-E000-000000000064}">ITcCyclicCaller</Type>
+								<Default>
+									<OTCID>#x02010010</OTCID>
+								</Default>
+							</InterfacePointer>
+						</InterfacePointers>
+						<Deployment>
+							<FileEntry TargetPlatform="TwinCAT RT (x86)">
+								<SourceFile>%TWINCAT3DIR%Config\Modules\ExtendedFileAccessModule\TwinCAT RT (x86)\%CLASSFACTORYNAME%.sys</SourceFile>
+								<DestinationFile>%TC_DRIVERAUTOINSTALLPATH%%CLASSFACTORYNAME%.sys</DestinationFile>
+							</FileEntry>
+							<FileEntry TargetPlatform="TwinCAT RT (x64)">
+								<SourceFile>%TWINCAT3DIR%Config\Modules\ExtendedFileAccessModule\TwinCAT RT (x64)\%CLASSFACTORYNAME%.sys</SourceFile>
+								<DestinationFile>%TC_DRIVERAUTOINSTALLPATH%%CLASSFACTORYNAME%.sys</DestinationFile>
+							</FileEntry>
+							<FileEntry TargetPlatform="TwinCAT UM (x86)">
+								<SourceFile>C:\TwinCat\3.1\Config\Modules\ExtendedFileAccessModule\TwinCAT UM (x86)\%CLASSFACTORYNAME%W32.dll</SourceFile>
+								<DestinationFile>%TC_SYSSRVEXEPATH%%CLASSFACTORYNAME%W32.dll</DestinationFile>
+							</FileEntry>
+							<FileEntry TargetPlatform="TwinCAT UM (x64)">
+								<SourceFile>%TWINCAT3DIR%Config\Modules\ExtendedFileAccessModule\TwinCAT UM (x64)\%CLASSFACTORYNAME%W32.dll</SourceFile>
+								<DestinationFile>%TC_SYSSRVEXEPATH%%CLASSFACTORYNAME%.sys</DestinationFile>
+							</FileEntry>
+						</Deployment>
+						<ParameterValues>
+							<Value>
+								<Name>TraceWarning</Name>
+								<EnumText>tlAlways</EnumText>
+							</Value>
+							<Value>
+								<Name>Timeout</Name>
+								<Value>1000</Value>
+							</Value>
+							<Value>
+								<Name>WorkingDirectory</Name>
+								<String>C:\Users\Labuser\Documents\repositories\fm_experiments\main-projects\data\affc\</String>
+							</Value>
+							<Value>
+								<Name>NumberOfFiles</Name>
+								<Value>0</Value>
+							</Value>
+							<Value>
+								<Name>MaxFileSize</Name>
+								<Value>1024</Value>
+							</Value>
+							<Value>
+								<Name>InternalBufferSize</Name>
+								<Value>12</Value>
+							</Value>
+							<Value>
+								<Name>SegmentSize</Name>
+								<Value>2</Value>
+							</Value>
+							<Value>
+								<Name>Input.Pause</Name>
+								<EnumText>FALSE</EnumText>
+							</Value>
+						</ParameterValues>
+						<InterfacePointerValues>
+							<Value>
+								<Name>CyclicCaller</Name>
+								<OTCID>#x02010010</OTCID>
+							</Value>
+						</InterfacePointerValues>
+					</TmcDesc>
+				</Module>
 			</Modules>
 		</System>
 	</Project>
+	<Mappings>
+		<OwnerA Name="TIRC^TcCOM Objects^Object1 (ModelAFFC)">
+			<OwnerB Name="TIRC^TcCOM Objects^Object2 (TcExtendedFileWriter)">
+				<Link VarA="Output^pause_logger" VarB="Input^Pause"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmProject>
