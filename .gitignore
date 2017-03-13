@@ -14,3 +14,4 @@ main-projects/calibration-models/model_affc_tct/
 *.autosave
 main-projects/base-models/slprj/
 main-projects/base-models/base_1fm_tct/
+*.asv

@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-11T21:44:55" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-13T08:07:03" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelTransmissionEstimation_FB">
     <coordinateInfo>
       <fbd>
@@ -1982,17 +1982,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#8d906365;
-clsId.Data2 := 16#faa4;
-clsId.Data3 := 16#41f3;
-clsId.Data4[0] := 16#ad;
-clsId.Data4[1] := 16#5a;
-clsId.Data4[2] := 16#61;
-clsId.Data4[3] := 16#46;
-clsId.Data4[4] := 16#fb;
-clsId.Data4[5] := 16#2e;
-clsId.Data4[6] := 16#e5;
-clsId.Data4[7] := 16#7b;
+clsId.Data1 := 16#ede11017;
+clsId.Data2 := 16#40e4;
+clsId.Data3 := 16#44bd;
+clsId.Data4[0] := 16#b5;
+clsId.Data4[1] := 16#eb;
+clsId.Data4[2] := 16#9b;
+clsId.Data4[3] := 16#b8;
+clsId.Data4[4] := 16#96;
+clsId.Data4[5] := 16#34;
+clsId.Data4[6] := 16#10;
+clsId.Data4[7] := 16#a7;
 
 AssignClassId(clsId);
                     
@@ -2069,7 +2069,7 @@ stInitData.ModelParameters.FM1.FTSensor.MaxAllowableForcesTorqueSensor[3] := 1.4
 stInitData.ModelParameters.FM1.FTSensor.MaxAllowableForcesTorqueSensor[4] := 1.4;
 stInitData.ModelParameters.FM1.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.4;
 stInitData.ModelParameters.FM1.FTSensor.TransformationMatrixSide := 1;
-stInitData.ModelParameters.Record1yes0no_Value := 1;
+stInitData.ModelParameters.Recordyes1no0_Value := 0;
 stInitData.ModelParameters.Gain_Gain := -1;
 stInitData.ModelParameters.Gain1_Gain := -1;
 stInitData.ContextInfoArr_0_TaskOidHdr.indexGroup := 0;
