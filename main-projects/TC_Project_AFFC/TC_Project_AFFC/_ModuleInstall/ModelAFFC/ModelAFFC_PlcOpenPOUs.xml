@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-13T15:39:40" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-15T08:29:03" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelAFFC_FB">
     <coordinateInfo>
       <fbd>
@@ -2067,17 +2067,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#be727293;
-clsId.Data2 := 16#31bc;
-clsId.Data3 := 16#49a1;
-clsId.Data4[0] := 16#8c;
-clsId.Data4[1] := 16#5f;
-clsId.Data4[2] := 16#0b;
-clsId.Data4[3] := 16#03;
-clsId.Data4[4] := 16#fd;
-clsId.Data4[5] := 16#c6;
-clsId.Data4[6] := 16#3e;
-clsId.Data4[7] := 16#b0;
+clsId.Data1 := 16#ae9fb6e7;
+clsId.Data2 := 16#744c;
+clsId.Data3 := 16#47d9;
+clsId.Data4[0] := 16#8e;
+clsId.Data4[1] := 16#11;
+clsId.Data4[2] := 16#29;
+clsId.Data4[3] := 16#b8;
+clsId.Data4[4] := 16#62;
+clsId.Data4[5] := 16#40;
+clsId.Data4[6] := 16#19;
+clsId.Data4[7] := 16#76;
 
 AssignClassId(clsId);
                     
@@ -2126,7 +2126,7 @@ stInitData.ModelParameters.FM1.DynModParams[4] := 1;
 stInitData.ModelParameters.FM1.DynModParams[5] := 1;
 stInitData.ModelParameters.FM1.DynModParams[6] := 1;
 stInitData.ModelParameters.FM1.Actuator1.JointAbsoluteEncoderCounts_rev := 65536;
-stInitData.ModelParameters.FM1.Actuator1.AbsEncoderOffset := 3.460624999774499;
+stInitData.ModelParameters.FM1.Actuator1.AbsEncoderOffset := 3.37865290142186;
 stInitData.ModelParameters.FM1.Actuator1.MotorEncoderCounts_rev := 4096;
 stInitData.ModelParameters.FM1.Actuator1.FOAWNoiseLevel := 9.587379924285257e-05;
 stInitData.ModelParameters.FM1.Actuator1.transmissionRatio := 7.2976;
@@ -2137,7 +2137,7 @@ stInitData.ModelParameters.FM1.Actuator1.TransmissionSlipAngleGuardMax := 0.0872
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMin := -0.4363323129985824;
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMax := 2.356194490192345;
 stInitData.ModelParameters.FM1.Actuator2.JointAbsoluteEncoderCounts_rev := 65536;
-stInitData.ModelParameters.FM1.Actuator2.AbsEncoderOffset := 4.941658892069857;
+stInitData.ModelParameters.FM1.Actuator2.AbsEncoderOffset := 4.455291108510867;
 stInitData.ModelParameters.FM1.Actuator2.MotorEncoderCounts_rev := 4096;
 stInitData.ModelParameters.FM1.Actuator2.FOAWNoiseLevel := 9.587379924285257e-05;
 stInitData.ModelParameters.FM1.Actuator2.transmissionRatio := 7.331;
@@ -2256,15 +2256,9 @@ stInitData.ModelParameters.JointTorqueDes_Nm_Y0_e[0] := 0;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0_e[1] := 0;
 stInitData.ModelParameters.Constant_Value[0] := 0;
 stInitData.ModelParameters.Constant_Value[1] := 0;
-stInitData.ModelParameters.q_ref_Y0[0] := 0;
-stInitData.ModelParameters.q_ref_Y0[1] := 0;
-stInitData.ModelParameters.qdot_ref_Y0[0] := 0;
-stInitData.ModelParameters.qdot_ref_Y0[1] := 0;
-stInitData.ModelParameters.qddot_ref_Y0[0] := 0;
-stInitData.ModelParameters.qddot_ref_Y0[1] := 0;
 stInitData.ModelParameters.Constant1_Value_i := 1;
 stInitData.ModelParameters.One_Value_l := 1;
-stInitData.ModelParameters.RateLimiter_RisingLim_b := 0.0002;
+stInitData.ModelParameters.RateLimiter_RisingLim_b := 0.0001;
 stInitData.ModelParameters.RateLimiter_FallingLim_d := -0.0002;
 stInitData.ModelParameters.RateLimiter_IC_c := 0;
 stInitData.ModelParameters.Saturation_UpperSat_c := 1;
@@ -2278,12 +2272,6 @@ stInitData.ModelParameters.Constant2_Value_n[0] := 0;
 stInitData.ModelParameters.Constant2_Value_n[1] := 0;
 stInitData.ModelParameters.Constant4_Value_m[0] := 0;
 stInitData.ModelParameters.Constant4_Value_m[1] := 0;
-stInitData.ModelParameters.q_ref_Y0_p[0] := 0;
-stInitData.ModelParameters.q_ref_Y0_p[1] := 0;
-stInitData.ModelParameters.qdot_ref_Y0_i[0] := 0;
-stInitData.ModelParameters.qdot_ref_Y0_i[1] := 0;
-stInitData.ModelParameters.qddot_ref_Y0_d[0] := 0;
-stInitData.ModelParameters.qddot_ref_Y0_d[1] := 0;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0_n[0] := 0;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0_n[1] := 0;
 stInitData.ModelParameters.Constant3_Value_h[0] := 0;
@@ -2318,18 +2306,27 @@ stInitData.ModelParameters.TimePerState_ms_Value[1] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value := 10;
-stInitData.ModelParameters.Kp_Gain := 0.5;
-stInitData.ModelParameters.Kd_Gain := 0.1;
-stInitData.ModelParameters.Gain_Gain := 0;
+stInitData.ModelParameters.Constant3_Value_o[0] := 0;
+stInitData.ModelParameters.Constant3_Value_o[1] := 0;
 stInitData.ModelParameters.TimePerState_ms_Value_l[0] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value_l[1] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value_l[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value_l[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value_l := 10;
+stInitData.ModelParameters.Merge1_InitialOutput[0] := 0;
+stInitData.ModelParameters.Merge1_InitialOutput[1] := 0;
+stInitData.ModelParameters.Merge2_InitialOutput[0] := 0;
+stInitData.ModelParameters.Merge2_InitialOutput[1] := 0;
+stInitData.ModelParameters.Merge3_InitialOutput[0] := 0;
+stInitData.ModelParameters.Merge3_InitialOutput[1] := 0;
+stInitData.ModelParameters.Kp_Gain := 0.5;
+stInitData.ModelParameters.Kd_Gain := 0.1;
+stInitData.ModelParameters.Gain_Gain := 0;
 stInitData.ModelParameters.rad2deg_Gain[0] := 57.29577951308232;
 stInitData.ModelParameters.rad2deg_Gain[1] := 57.29577951308232;
 stInitData.ModelParameters.rad2deg_Gain[2] := 1;
 stInitData.ModelParameters.rad2deg_Gain[3] := 1;
+stInitData.ModelParameters.Gain_Gain_c := 57.29577951308232;
 stInitData.ModelParameters.Memory1_2_X0 := 0;
 stInitData.ModelParameters.Memory1_3_X0 := 0;
 stInitData.ModelParameters.Memory1_4_X0 := 0;
