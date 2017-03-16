@@ -12,13 +12,13 @@ clear FM1
 FM1.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
 FM1.HomeLocationSize = 0.01;
 
-FM1.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 -9.954503e-04  1.006366e-01 -1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
+FM1.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
 
 % actuator 1 data
 FM1.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
 FM1.Actuator1.AbsEncoderOffset = 56176/FM1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
 FM1.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
-FM1.Actuator1.FOAWNoiseLevel = 0.5*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
+FM1.Actuator1.FOAWNoiseLevel = 2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM1.Actuator1.transmissionRatio = 7.2976;               % transmission ratio (estimated)[-]
 FM1.Actuator1.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM1.Actuator1.drivePeakCurrent = 20;                    % drive peak current [A]
@@ -31,7 +31,7 @@ FM1.Actuator1.JointPositionGuardMax = 135*pi/180;       % maximum allowable join
 FM1.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
 FM1.Actuator2.AbsEncoderOffset = 46177/FM1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
 FM1.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
-FM1.Actuator2.FOAWNoiseLevel = 0.5*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
+FM1.Actuator2.FOAWNoiseLevel = 2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM1.Actuator2.transmissionRatio = 7.3310;               % transmission ratio (estimated) [-]
 FM1.Actuator2.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM1.Actuator2.drivePeakCurrent = 20;                    % drive peak current [A]
