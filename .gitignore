@@ -15,3 +15,5 @@ main-projects/calibration-models/model_affc_tct/
 main-projects/base-models/slprj/
 main-projects/base-models/base_1fm_tct/
 *.asv
+main-projects/data/affc/
+*.original
