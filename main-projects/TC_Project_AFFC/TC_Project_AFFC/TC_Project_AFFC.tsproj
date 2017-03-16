@@ -2283,9 +2283,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelAFFC)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{E323EEFA-85DD-4D9E-9912-09DB8E5EDD73}">
+					<TmcDesc GUID="{26D6C040-2749-413B-B699-8E435DF5E214}">
 						<Name>ModelAFFC</Name>
-						<CLSID ClassFactory="ModelAFFC">{E323EEFA-85DD-4D9E-9912-09DB8E5EDD73}</CLSID>
+						<CLSID ClassFactory="ModelAFFC">{26D6C040-2749-413B-B699-8E435DF5E214}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -6855,15 +6855,15 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Learningfactors_Value[0]</Name>
-								<Value>2e-005</Value>
+								<Value>1e-005</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Learningfactors_Value[1]</Name>
-								<Value>0.01</Value>
+								<Value>0.005</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Learningfactors_Value[2]</Name>
-								<Value>0.001</Value>
+								<Value>0.0005</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Learningfactors_Value[3]</Name>
@@ -7183,7 +7183,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Gain_Gain</Name>
-								<Value>0</Value>
+								<Value>1</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Saturation_UpperSat_o</Name>
@@ -7299,7 +7299,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Recorddata1yes0no_Value</Name>
-								<Value>0</Value>
+								<Value>1</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Output_InitialCondition</Name>

@@ -17,3 +17,4 @@ main-projects/base-models/base_1fm_tct/
 *.asv
 main-projects/data/affc/
 *.original
+main-projects/base-models/model_base_1fm_tct/

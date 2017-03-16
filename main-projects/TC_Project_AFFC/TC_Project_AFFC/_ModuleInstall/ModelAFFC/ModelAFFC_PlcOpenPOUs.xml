@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-16T11:08:54" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-16T12:32:01" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelAFFC_FB">
     <coordinateInfo>
       <fbd>
@@ -2067,17 +2067,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#e323eefa;
-clsId.Data2 := 16#85dd;
-clsId.Data3 := 16#4d9e;
-clsId.Data4[0] := 16#99;
-clsId.Data4[1] := 16#12;
-clsId.Data4[2] := 16#09;
-clsId.Data4[3] := 16#db;
-clsId.Data4[4] := 16#8e;
-clsId.Data4[5] := 16#5e;
-clsId.Data4[6] := 16#dd;
-clsId.Data4[7] := 16#73;
+clsId.Data1 := 16#26d6c040;
+clsId.Data2 := 16#2749;
+clsId.Data3 := 16#413b;
+clsId.Data4[0] := 16#b6;
+clsId.Data4[1] := 16#99;
+clsId.Data4[2] := 16#8e;
+clsId.Data4[3] := 16#43;
+clsId.Data4[4] := 16#5d;
+clsId.Data4[5] := 16#f5;
+clsId.Data4[6] := 16#e2;
+clsId.Data4[7] := 16#14;
 
 AssignClassId(clsId);
                     
@@ -2244,9 +2244,9 @@ stInitData.ModelParameters.p_Y0[5] := 0;
 stInitData.ModelParameters.p_Y0[6] := 0;
 stInitData.ModelParameters.tau_affc_Y0[0] := 0;
 stInitData.ModelParameters.tau_affc_Y0[1] := 0;
-stInitData.ModelParameters.Learningfactors_Value[0] := 2e-05;
-stInitData.ModelParameters.Learningfactors_Value[1] := 0.01;
-stInitData.ModelParameters.Learningfactors_Value[2] := 0.001;
+stInitData.ModelParameters.Learningfactors_Value[0] := 1e-05;
+stInitData.ModelParameters.Learningfactors_Value[1] := 0.005;
+stInitData.ModelParameters.Learningfactors_Value[2] := 0.0005;
 stInitData.ModelParameters.Learningfactors_Value[3] := 0.001;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0[0] := 0;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0[1] := 0;
@@ -2326,7 +2326,7 @@ stInitData.ModelParameters.Merge3_InitialOutput[0] := 0;
 stInitData.ModelParameters.Merge3_InitialOutput[1] := 0;
 stInitData.ModelParameters.Kp_Gain := 0.5;
 stInitData.ModelParameters.Kd_Gain := 0.1;
-stInitData.ModelParameters.Gain_Gain := 0;
+stInitData.ModelParameters.Gain_Gain := 1;
 stInitData.ModelParameters.Saturation_UpperSat_o := 1;
 stInitData.ModelParameters.Saturation_LowerSat_hx := -2;
 stInitData.ModelParameters.TimePerState_ms_Value_l[0] := 50;
@@ -2355,7 +2355,7 @@ stInitData.ModelParameters.Memory1_6_X0_k := 0;
 stInitData.ModelParameters.Memory1_7_X0_k := 0;
 stInitData.ModelParameters.Memory1_8_X0_k := 0;
 stInitData.ModelParameters.Memory1_9_X0_k := 0;
-stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
+stInitData.ModelParameters.Recorddata1yes0no_Value := 1;
 stInitData.ModelParameters.Output_InitialCondition := 0;
 stInitData.ModelParameters.FixPtConstant_Value := 1;
 stInitData.ModelParameters.Constant_Value_p := 0;

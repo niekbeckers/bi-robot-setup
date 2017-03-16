@@ -12,7 +12,7 @@ clear FM1
 FM1.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
 FM1.HomeLocationSize = 0.01;
 
-FM1.DynModParams = [1 1 1 1 1 1 1]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
+FM1.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 -9.954503e-04  1.006366e-01 -1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
 
 % actuator 1 data
 FM1.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
