@@ -195,3 +195,8 @@ main-projects/data/base-1fm/meas2_vibration_state4/data_part10.mat
 main-projects/data/base-1fm/meas2_vibration_state4/data_part11.mat
 main-projects/data/base-1fm/meas2_vibration_state4/data_part13.mat
 main-projects/data/base-1fm/meas2_vibration_state4/data_part2.mat
+main-projects/data/base-1fm/meas11_controllerstiffness/*.mat
+main-projects/data/base-1fm/meas9_wobbly/*.mat
+main-projects/data/base-1fm/meas10_lpf/*.mat
+main-projects/data/base-1fm/meas8_affcnoise/*.mat
+main-projects/data/base-1fm/meas7_affcnoise/*.mat
