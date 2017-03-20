@@ -200,3 +200,4 @@ main-projects/data/base-1fm/meas9_wobbly/*.mat
 main-projects/data/base-1fm/meas10_lpf/*.mat
 main-projects/data/base-1fm/meas8_affcnoise/*.mat
 main-projects/data/base-1fm/meas7_affcnoise/*.mat
+main-projects/data/base-1fm/meas11_controllerstiffness/analyse_data.m
