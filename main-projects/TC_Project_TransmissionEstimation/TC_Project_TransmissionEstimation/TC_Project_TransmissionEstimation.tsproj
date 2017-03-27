@@ -408,7 +408,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{880E3393-104C-695B-B38F-6E730CD7FC34}">struct_rRMbu5hzcNne4gPVs9xIqG</Name>
+			<Name GUID="{1DC2114F-2994-59E6-D91F-D5CC28AB6A2D}">struct_axIUtypbaRAxoqEgtx5xVD</Name>
 			<BitSize>448</BitSize>
 			<SubItem>
 				<Name>MaxAllowableForcesTorqueSensor</Name>
@@ -424,7 +424,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{B3BE9CE1-3B5C-9E4F-FE82-760746C9F353}">struct_lkfUzMqghWzSMi9Hx1kmtC</Name>
+			<Name GUID="{03287780-5CD2-B23D-2146-5D85C22482B1}">struct_9L1x4IYaj9lPHWRIcDFkWC</Name>
 			<BitSize>2496</BitSize>
 			<SubItem>
 				<Name>HomeLocationOpSpace</Name>
@@ -458,17 +458,17 @@
 			</SubItem>
 			<SubItem>
 				<Name>FTSensor</Name>
-				<Type GUID="{880E3393-104C-695B-B38F-6E730CD7FC34}">struct_rRMbu5hzcNne4gPVs9xIqG</Type>
+				<Type GUID="{1DC2114F-2994-59E6-D91F-D5CC28AB6A2D}">struct_axIUtypbaRAxoqEgtx5xVD</Type>
 				<BitSize>448</BitSize>
 				<BitOffs>2048</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{CA82C5B1-44D3-8B60-D5A6-39738F2F9E67}">P_transmission_estimation_T</Name>
+			<Name GUID="{CED0332A-998D-0C72-9B6D-F85EFF0645D5}">P_transmission_estimation_T</Name>
 			<BitSize>2688</BitSize>
 			<SubItem>
 				<Name>FM1</Name>
-				<Type GUID="{B3BE9CE1-3B5C-9E4F-FE82-760746C9F353}">struct_lkfUzMqghWzSMi9Hx1kmtC</Type>
+				<Type GUID="{03287780-5CD2-B23D-2146-5D85C22482B1}">struct_9L1x4IYaj9lPHWRIcDFkWC</Type>
 				<BitSize>2496</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
@@ -491,6 +491,7 @@
 				<BitOffs>2624</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{CA82C5B1-44D3-8B60-D5A6-39738F2F9E67}"/>
 				<Hide GUID="{EEAF83E6-5220-2667-2CC9-2C6F58737E02}"/>
 			</Hides>
 		</DataType>
@@ -799,9 +800,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelTransmissionEstimation)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{EDE11017-40E4-44BD-B5EB-9BB8963410A7}">
+					<TmcDesc GUID="{D8ED25DA-FAC6-4CD6-85F3-71DE025DAE1F}">
 						<Name>ModelTransmissionEstimation</Name>
-						<CLSID ClassFactory="ModelTransmissionEstimation">{EDE11017-40E4-44BD-B5EB-9BB8963410A7}</CLSID>
+						<CLSID ClassFactory="ModelTransmissionEstimation">{D8ED25DA-FAC6-4CD6-85F3-71DE025DAE1F}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -923,7 +924,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>2688</BitSize>
-								<BaseType GUID="{CA82C5B1-44D3-8B60-D5A6-39738F2F9E67}">P_transmission_estimation_T</BaseType>
+								<BaseType GUID="{CED0332A-998D-0C72-9B6D-F85EFF0645D5}">P_transmission_estimation_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -1075,7 +1076,7 @@
 								<Symbol CreateSymbol="true">
 									<Name>FM1</Name>
 									<BitSize>2496</BitSize>
-									<BaseType GUID="{B3BE9CE1-3B5C-9E4F-FE82-760746C9F353}">struct_lkfUzMqghWzSMi9Hx1kmtC</BaseType>
+									<BaseType GUID="{03287780-5CD2-B23D-2146-5D85C22482B1}">struct_9L1x4IYaj9lPHWRIcDFkWC</BaseType>
 									<PTCID>#x83000000</PTCID>
 									<BitOffs>0</BitOffs>
 								</Symbol>
@@ -1405,31 +1406,31 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[0]</Name>
-								<Value>1</Value>
+								<Value>0.001597109</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[1]</Name>
-								<Value>1</Value>
+								<Value>0.001580786</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[2]</Name>
-								<Value>1</Value>
+								<Value>0.0702826</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[3]</Name>
-								<Value>1</Value>
+								<Value>0.07988736</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[4]</Name>
-								<Value>1</Value>
+								<Value>-0.0009954503</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[5]</Name>
-								<Value>1</Value>
+								<Value>0.1006366</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[6]</Name>
-								<Value>1</Value>
+								<Value>-0.001994173</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.JointAbsoluteEncoderCounts_rev</Name>
@@ -1437,7 +1438,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.AbsEncoderOffset</Name>
-								<Value>0</Value>
+								<Value>5.43811798295758</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.MotorEncoderCounts_rev</Name>
@@ -1445,11 +1446,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.FOAWNoiseLevel</Name>
-								<Value>9.58737992428526e-005</Value>
+								<Value>4.79368996214263e-005</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.transmissionRatio</Name>
-								<Value>7.3</Value>
+								<Value>7.2976</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator1.motorTorqueConstant</Name>
@@ -1481,7 +1482,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator2.AbsEncoderOffset</Name>
-								<Value>0</Value>
+								<Value>7.51644564453591</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator2.MotorEncoderCounts_rev</Name>
@@ -1489,11 +1490,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator2.FOAWNoiseLevel</Name>
-								<Value>9.58737992428526e-005</Value>
+								<Value>4.79368996214263e-005</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator2.transmissionRatio</Name>
-								<Value>7.3</Value>
+								<Value>7.331</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.Actuator2.motorTorqueConstant</Name>
@@ -1549,7 +1550,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Recordyes1no0_Value</Name>
-								<Value>0</Value>
+								<Value>1</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Gain_Gain</Name>

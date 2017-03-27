@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-13T08:07:03" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-27T07:55:37" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelTransmissionEstimation_FB">
     <coordinateInfo>
       <fbd>
@@ -1982,17 +1982,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#ede11017;
-clsId.Data2 := 16#40e4;
-clsId.Data3 := 16#44bd;
-clsId.Data4[0] := 16#b5;
-clsId.Data4[1] := 16#eb;
-clsId.Data4[2] := 16#9b;
-clsId.Data4[3] := 16#b8;
-clsId.Data4[4] := 16#96;
-clsId.Data4[5] := 16#34;
-clsId.Data4[6] := 16#10;
-clsId.Data4[7] := 16#a7;
+clsId.Data1 := 16#d8ed25da;
+clsId.Data2 := 16#fac6;
+clsId.Data3 := 16#4cd6;
+clsId.Data4[0] := 16#85;
+clsId.Data4[1] := 16#f3;
+clsId.Data4[2] := 16#71;
+clsId.Data4[3] := 16#de;
+clsId.Data4[4] := 16#02;
+clsId.Data4[5] := 16#5d;
+clsId.Data4[6] := 16#ae;
+clsId.Data4[7] := 16#1f;
 
 AssignClassId(clsId);
                     
@@ -2033,18 +2033,18 @@ stInitData.ModelParametersHdr.cbData := SIZEOF(stInitData.ModelParameters);
 stInitData.ModelParameters.FM1.HomeLocationOpSpace[0] := 0;
 stInitData.ModelParameters.FM1.HomeLocationOpSpace[1] := 0.25;
 stInitData.ModelParameters.FM1.HomeLocationSize := 0.01;
-stInitData.ModelParameters.FM1.DynModParams[0] := 1;
-stInitData.ModelParameters.FM1.DynModParams[1] := 1;
-stInitData.ModelParameters.FM1.DynModParams[2] := 1;
-stInitData.ModelParameters.FM1.DynModParams[3] := 1;
-stInitData.ModelParameters.FM1.DynModParams[4] := 1;
-stInitData.ModelParameters.FM1.DynModParams[5] := 1;
-stInitData.ModelParameters.FM1.DynModParams[6] := 1;
+stInitData.ModelParameters.FM1.DynModParams[0] := 0.001597109;
+stInitData.ModelParameters.FM1.DynModParams[1] := 0.001580786;
+stInitData.ModelParameters.FM1.DynModParams[2] := 0.0702826;
+stInitData.ModelParameters.FM1.DynModParams[3] := 0.07988736;
+stInitData.ModelParameters.FM1.DynModParams[4] := -0.0009954503;
+stInitData.ModelParameters.FM1.DynModParams[5] := 0.1006366;
+stInitData.ModelParameters.FM1.DynModParams[6] := -0.001994173;
 stInitData.ModelParameters.FM1.Actuator1.JointAbsoluteEncoderCounts_rev := 65536;
-stInitData.ModelParameters.FM1.Actuator1.AbsEncoderOffset := 0;
+stInitData.ModelParameters.FM1.Actuator1.AbsEncoderOffset := 5.438117982957576;
 stInitData.ModelParameters.FM1.Actuator1.MotorEncoderCounts_rev := 4096;
-stInitData.ModelParameters.FM1.Actuator1.FOAWNoiseLevel := 9.587379924285257e-05;
-stInitData.ModelParameters.FM1.Actuator1.transmissionRatio := 7.3;
+stInitData.ModelParameters.FM1.Actuator1.FOAWNoiseLevel := 4.793689962142629e-05;
+stInitData.ModelParameters.FM1.Actuator1.transmissionRatio := 7.2976;
 stInitData.ModelParameters.FM1.Actuator1.motorTorqueConstant := 0.08486;
 stInitData.ModelParameters.FM1.Actuator1.drivePeakCurrent := 20;
 stInitData.ModelParameters.FM1.Actuator1.AbsoluteMaximumTorque_Nm := 8;
@@ -2052,10 +2052,10 @@ stInitData.ModelParameters.FM1.Actuator1.TransmissionSlipAngleGuardMax := 0.0872
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMin := -0.4363323129985824;
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMax := 2.356194490192345;
 stInitData.ModelParameters.FM1.Actuator2.JointAbsoluteEncoderCounts_rev := 65536;
-stInitData.ModelParameters.FM1.Actuator2.AbsEncoderOffset := 0;
+stInitData.ModelParameters.FM1.Actuator2.AbsEncoderOffset := 7.516445644535906;
 stInitData.ModelParameters.FM1.Actuator2.MotorEncoderCounts_rev := 4096;
-stInitData.ModelParameters.FM1.Actuator2.FOAWNoiseLevel := 9.587379924285257e-05;
-stInitData.ModelParameters.FM1.Actuator2.transmissionRatio := 7.3;
+stInitData.ModelParameters.FM1.Actuator2.FOAWNoiseLevel := 4.793689962142629e-05;
+stInitData.ModelParameters.FM1.Actuator2.transmissionRatio := 7.331;
 stInitData.ModelParameters.FM1.Actuator2.motorTorqueConstant := 0.08486;
 stInitData.ModelParameters.FM1.Actuator2.drivePeakCurrent := 20;
 stInitData.ModelParameters.FM1.Actuator2.AbsoluteMaximumTorque_Nm := 8;
@@ -2069,7 +2069,7 @@ stInitData.ModelParameters.FM1.FTSensor.MaxAllowableForcesTorqueSensor[3] := 1.4
 stInitData.ModelParameters.FM1.FTSensor.MaxAllowableForcesTorqueSensor[4] := 1.4;
 stInitData.ModelParameters.FM1.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.4;
 stInitData.ModelParameters.FM1.FTSensor.TransformationMatrixSide := 1;
-stInitData.ModelParameters.Recordyes1no0_Value := 0;
+stInitData.ModelParameters.Recordyes1no0_Value := 1;
 stInitData.ModelParameters.Gain_Gain := -1;
 stInitData.ModelParameters.Gain1_Gain := -1;
 stInitData.ContextInfoArr_0_TaskOidHdr.indexGroup := 0;

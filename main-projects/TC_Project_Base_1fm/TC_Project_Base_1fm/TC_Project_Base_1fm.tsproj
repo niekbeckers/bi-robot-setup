@@ -8574,7 +8574,7 @@
 						<CoeProfile ProfileNo="402"/>
 					</EtherCAT>
 				</Box>
-				<Box BoxType="9099" Id="6">
+				<Box Disabled="true" BoxType="9099" Id="6">
 					<Name>Box 6 (GSV-8)</Name>
 					<ImageId>65</ImageId>
 					<EtherCAT SlaveType="2" PdiType="#x0e09" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" VendorId="#x00000270" ProductCode="#x00080000" RevisionNo="#x0001001a" InfoDataAddr="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="GSV-8" Desc="GSV-8" PortABoxInfo="#x01000005">

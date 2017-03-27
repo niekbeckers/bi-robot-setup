@@ -8,9 +8,9 @@ clear; close all; clc;
 data = [];
 
 currentdir = [fileparts(mfilename('fullpath')) filesep];
-datadir = '../data/transmission-ratio/meas-fm1/';
+datadir = '../data/transmission-ratio/meas-fm2/';
 
-
+str_suptitle = 'Transmission Ratio FM2';
 filename_str = 'transmission_data';
 
 cd(datadir)
@@ -28,6 +28,7 @@ end
 cd(currentdir);
 data = data.';
 
+data = data(5000:end,:);
 %% extract data
 t = data(:,1);
 pos_motorenc1 = data(:,2);  
@@ -73,6 +74,6 @@ ylabel('Position, rad'); xlabel('Time, s')
 text(0.02,0.06,['transmissionRatio = ' num2str(b2(2),'%.5f')],'units','normalized');
 legend({'Abs Enc','Inc Enc',['Fit: R^2 = ' num2str(stats2(1),'%.2f')]},'FontSize',8);
 
-suptitle('Transmission Ratio FM1')
+suptitle(str_suptitle)
 
 print([datadir '..\images\tranmission_ratio_estimation_fm1.png'],'-dpng','-r300')
