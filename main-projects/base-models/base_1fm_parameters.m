@@ -54,7 +54,7 @@ FM2.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.
 
 % actuator 1 data
 FM2.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-FM2.Actuator1.AbsEncoderOffset = 33196/FM1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
+FM2.Actuator1.AbsEncoderOffset = 33205/FM1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
 FM2.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 FM2.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM2.Actuator1.transmissionRatio = 7.36070;               % transmission ratio (estimated)[-]
@@ -67,7 +67,7 @@ FM2.Actuator1.JointPositionGuardMax = 135*pi/180;       % maximum allowable join
 
 % actuator 2 data
 FM2.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-FM2.Actuator2.AbsEncoderOffset = 14138/FM1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
+FM2.Actuator2.AbsEncoderOffset = 14143/FM1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
 FM2.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 FM2.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM2.Actuator2.transmissionRatio = 7.32214;               % transmission ratio (estimated) [-]
