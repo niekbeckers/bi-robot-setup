@@ -22,8 +22,6 @@ using TwinCAT.Ads;
 namespace AppControlDisplay
 {
 
-    
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -32,15 +30,19 @@ namespace AppControlDisplay
         // declare variables
         public bool thrRunning = false;
         public static double x = 0;
-        public const int ADSPORT = 350;
-
+        
         public Label label1;
         
         public BROSDisplay display1 = new BROSDisplay();
 
         private TcAdsClient tcClient;
+        public const int ADSPORT = 350;
         private int hVarTcADS_Enable;
         private int hVarTcADS_Disable;
+        private int hVarTcADS_StateRequest;
+        private int hVarTcADS_Errors;
+        private int hVarTcADS_SystemStates;
+        private int hVarTcADS_OpsEnabled;
 
         public MainWindow()
         {
@@ -68,8 +70,12 @@ namespace AppControlDisplay
             // Create variable handles
             try
             {
-                hVarTcADS_Enable = tcClient.CreateVariableHandle("Object1 (ModelSine).Input.In1");
-                //hVarTcADS_Disable = tcClient.CreateVariableHandle("MAIN.PLCVar");
+                hVarTcADS_Enable = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value");
+                hVarTcADS_Disable = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value");
+                hVarTcADS_StateRequest = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value");
+                hVarTcADS_Errors = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_Errors");
+                hVarTcADS_SystemStates = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates");
+                hVarTcADS_OpsEnabled = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled");
             }
             catch (Exception err)
             {
@@ -83,7 +89,11 @@ namespace AppControlDisplay
             try
             {
                 tcClient.DeleteVariableHandle(hVarTcADS_Enable);
-                //tcClient.DeleteVariableHandle(hVarTcADS_Disable);
+                tcClient.DeleteVariableHandle(hVarTcADS_Disable);
+                tcClient.DeleteVariableHandle(hVarTcADS_StateRequest);
+                tcClient.DeleteVariableHandle(hVarTcADS_Errors);
+                tcClient.DeleteVariableHandle(hVarTcADS_SystemStates);
+                tcClient.DeleteVariableHandle(hVarTcADS_OpsEnabled);
             }
             catch (Exception err)
             {
@@ -108,7 +118,7 @@ namespace AppControlDisplay
             tcThrClient.Connect(ADSPORT);
 
             // Connect to TMC output
-            int varHandleOut1 = tcThrClient.CreateVariableHandle("Object1 (ModelSine).Output.Out1");
+            int varHandleOut1 = tcThrClient.CreateVariableHandle("Object1 (ModelBaseBROS).Output.ControlWord_joint1");
 
             double data;
 
@@ -152,22 +162,39 @@ namespace AppControlDisplay
 
         void SendPulseToTC(TcAdsClient client, int hVar)
         {
+
+            WriteTCClientShort(client, hVar, 1);
+            WriteTCClientShort(client, hVar, 0);
+        }
+
+        void WriteTCClientDouble(TcAdsClient client, int hVar, double val)
+        {
             // Send pulse to model through ADS client (send 1 and 0 consecutively)
-            AdsStream dataStream = new AdsStream(2);
+            AdsStream dataStream = new AdsStream(sizeof(double));
             BinaryWriter binWrite = new BinaryWriter(dataStream);
             dataStream.Position = 0;
 
             try
             {
-                // Write 1
-                binWrite.Write((short)1);
+                binWrite.Write(val);
                 client.Write(hVar, dataStream);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
 
-                // Write 0
-                binWrite.Flush();
-                dataStream.Flush();
-                dataStream.Position = 0;
-                binWrite.Write((short)0);
+        void WriteTCClientShort(TcAdsClient client, int hVar, short val)
+        {
+            // Send pulse to model through ADS client (send 1 and 0 consecutively)
+            AdsStream dataStream = new AdsStream(sizeof(short));
+            BinaryWriter binWrite = new BinaryWriter(dataStream);
+            dataStream.Position = 0;
+
+            try
+            {
+                binWrite.Write(val);
                 client.Write(hVar, dataStream);
             }
             catch (Exception err)
@@ -213,6 +240,31 @@ namespace AppControlDisplay
             SendPulseToTC(tcClient, hVarTcADS_Disable);
         }
 
+        private void ButtonStateReq_Idle_Click(object sender, RoutedEventArgs e)
+        {
+            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 0);
+        }
+
+        private void ButtonStateReq_Calibrate_Click(object sender, RoutedEventArgs e)
+        {
+            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 2);
+        }
+
+        private void ButtonStateReq_HomingManual_Click(object sender, RoutedEventArgs e)
+        {
+            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 301);
+        }
+
+        private void ButtonStateReq_HomingAuto_Click(object sender, RoutedEventArgs e)
+        {
+            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 302);
+        }
+
+        private void ButtonStateReq_Run_Click(object sender, RoutedEventArgs e)
+        {
+            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 4);
+        }
+        
         
         // Load all 
         private void Label_Loaded(object sender, RoutedEventArgs e)
