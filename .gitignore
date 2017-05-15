@@ -1817,3 +1817,8 @@ main-projects/data/transmission-ratio/meas-fm2/transmission_data_part0.mat
 main-projects/data/transmission-ratio/meas-fm2/transmission_data_part1.mat
 main-projects/data/transmission-ratio/meas-fm2/transmission_data_part2.mat
 main-projects/base-models/model_base_bros_tct/
+main-projects/app-control-display/AppControlDisplay/AppControlDisplay/bin/
+main-projects/app-control-display/AppControlDisplay/AppControlDisplay/obj/
+main-projects/data/base-1fm/meas15_stiffness/spring_stiffness.pdf
+main-projects/data/base-1fm/meas15_stiffness/untitled.png
+main-projects/data/base-2fm/meas2_connected/analyse_data.m

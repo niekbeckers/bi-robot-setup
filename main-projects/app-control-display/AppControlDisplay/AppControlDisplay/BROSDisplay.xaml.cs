@@ -83,7 +83,10 @@ namespace AppControlDisplay
             // Ctrl+T: terminate program
             if (e.Key == Key.Escape)
             {
-
+                if (this.WindowState == WindowState.Maximized)
+                {
+                    this.WindowState = WindowState.Normal;
+                }
             }
         }
 

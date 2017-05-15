@@ -4,9 +4,25 @@
         xmlns:WPF="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
         Title="Control panel" Height="350" Width="525" 
         KeyDown="Window_KeyDown" 
-        Closing="Window_Closing">
+        Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="label1" HorizontalAlignment="Left" Margin="454,230,0,0" VerticalAlignment="Top" Loaded="Label_Loaded"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="411,289,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="label1" HorizontalAlignment="Left" Margin="452,262,0,0" VerticalAlignment="Top" Loaded="Label_Loaded"/>
+        <GroupBox Header="Enable/Disable Controls" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="92" Width="226">
+            <Grid Margin="0,0,-2,0">
+                <Button Content="Enable Drives" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,10,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="90" Height="50" 
+                        Click="ButtonEnable_Click"/>
+                <Button Content="Disable Drives" 
+                        HorizontalAlignment="Left" 
+                        Margin="116,10,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="90" 
+                        Height="50"
+                        Click="ButtonDisable_Click"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
