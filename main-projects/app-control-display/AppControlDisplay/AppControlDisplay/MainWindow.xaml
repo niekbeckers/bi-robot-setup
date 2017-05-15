@@ -1,0 +1,12 @@
+﻿<Window x:Class="AppControlDisplay.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:WPF="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
+        Title="Control panel" Height="350" Width="525" 
+        KeyDown="Window_KeyDown" 
+        Closing="Window_Closing">
+    <Grid>
+        <Label Content="label1" HorizontalAlignment="Left" Margin="454,230,0,0" VerticalAlignment="Top" Loaded="Label_Loaded"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="411,289,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>

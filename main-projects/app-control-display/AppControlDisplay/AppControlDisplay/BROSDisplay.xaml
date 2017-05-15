@@ -1,0 +1,17 @@
+﻿<Window x:Class="AppControlDisplay.BROSDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:WPF="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
+        Title="BROSDisplay" Height="300" Width="300"
+        KeyDown="Window_KeyDown" 
+        Closing="Window_Closing">
+    <Grid>
+        <!-- The main opengl control. -->
+        <WPF:OpenGLControl
+                x:Name="openGLControl"
+                OpenGLInitialized="OpenGLControl_OpenGLInitialized"
+                Resized="OpenGLControl_Resized"
+                OpenGLDraw="OpenGLControl_OpenGLDraw" />
+        
+    </Grid>
+</Window>
