@@ -80,12 +80,18 @@ namespace AppControlDisplay
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            // Ctrl+T: terminate program
-            if (e.Key == Key.Escape)
+            // Toggle fullscreen
+            if (e.Key == Key.F )
             {
                 if (this.WindowState == WindowState.Maximized)
                 {
                     this.WindowState = WindowState.Normal;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Maximized;
+                    this.WindowStyle = WindowStyle.None;
                 }
             }
         }

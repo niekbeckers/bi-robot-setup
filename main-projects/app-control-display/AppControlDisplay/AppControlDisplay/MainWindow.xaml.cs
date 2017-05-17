@@ -28,21 +28,24 @@ namespace AppControlDisplay
     public partial class MainWindow : Window
     {
         // declare variables
-        public bool thrRunning = false;
         public static double x = 0;
-        
-        public Label label1;
+
+       
         
         public BROSDisplay display1 = new BROSDisplay();
 
         private TcAdsClient tcClient;
         public const int ADSPORT = 350;
-        private int hVarTcADS_Enable;
-        private int hVarTcADS_Disable;
-        private int hVarTcADS_StateRequest;
-        private int hVarTcADS_Errors;
-        private int hVarTcADS_SystemStates;
-        private int hVarTcADS_OpsEnabled;
+       
+        private int hVarTcADS_Write_Enable;
+        private int hVarTcADS_Write_Disable;
+        private int hVarTcADS_Write_StateRequest;
+        private int hVarTcADS_Read_Errors;
+        private int hVarTcADS_Read_SystemStates;
+        private int hVarTcADS_Read_OpsEnabled;
+        private int hVarTcADS_Read_LoggerPaused;
+
+        private TCADSClientWorker tcWorker = new TCADSClientWorker();
 
         public MainWindow()
         {
@@ -54,11 +57,15 @@ namespace AppControlDisplay
             // Create TcAdsClient, set up variable handles
             CreateSetupTcADSClient();
 
-            // Threads
-            //Thread thrContRecCalc = new Thread(new ThreadStart(ThreadContReceiveCalculate));
 
-            // Start threads
-            //thrContRecCalc.Start();
+            Console.WriteLine(typeof(double).ToString());
+            
+
+            //short myShort = 1;
+            //tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Enable, myShort));
+
+            //double[] myDoubleArray = { 1.0, 2.0, 3.0 };
+            //tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Enable, myDoubleArray));
         }
 
         void CreateSetupTcADSClient()
@@ -70,30 +77,31 @@ namespace AppControlDisplay
             // Create variable handles
             try
             {
-                hVarTcADS_Enable = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value");
-                hVarTcADS_Disable = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value");
-                hVarTcADS_StateRequest = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value");
-                hVarTcADS_Errors = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_Errors");
-                hVarTcADS_SystemStates = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates");
-                hVarTcADS_OpsEnabled = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled");
+                hVarTcADS_Write_Enable = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value");
+                hVarTcADS_Write_Disable = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value");
+                hVarTcADS_Write_StateRequest = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value");
+                hVarTcADS_Read_Errors = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_Errors");
+                hVarTcADS_Read_SystemStates = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates");
+                hVarTcADS_Read_OpsEnabled = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled");
+                hVarTcADS_Read_LoggerPaused = tcClient.CreateVariableHandle("Object1 (ModelBaseBROS).Output.pause_logger");
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
-
         }
 
         void DisposeTcADSClient()
         {
             try
             {
-                tcClient.DeleteVariableHandle(hVarTcADS_Enable);
-                tcClient.DeleteVariableHandle(hVarTcADS_Disable);
-                tcClient.DeleteVariableHandle(hVarTcADS_StateRequest);
-                tcClient.DeleteVariableHandle(hVarTcADS_Errors);
-                tcClient.DeleteVariableHandle(hVarTcADS_SystemStates);
-                tcClient.DeleteVariableHandle(hVarTcADS_OpsEnabled);
+                tcClient.DeleteVariableHandle(hVarTcADS_Write_Enable);
+                tcClient.DeleteVariableHandle(hVarTcADS_Write_Disable);
+                tcClient.DeleteVariableHandle(hVarTcADS_Write_StateRequest);
+                tcClient.DeleteVariableHandle(hVarTcADS_Read_Errors);
+                tcClient.DeleteVariableHandle(hVarTcADS_Read_SystemStates);
+                tcClient.DeleteVariableHandle(hVarTcADS_Read_OpsEnabled);
+                tcClient.DeleteVariableHandle(hVarTcADS_Read_LoggerPaused);
             }
             catch (Exception err)
             {
@@ -102,124 +110,20 @@ namespace AppControlDisplay
             tcClient.Dispose();
         }
 
-        /// <summary>
-        /// Function to continuously receive data from the ADS and perform calculations
-        /// </summary>
-        void ThreadContReceiveCalculate()
-        {
-            // Thread is now running
-            thrRunning = true;
-
-            AdsStream dataStream = new AdsStream(8);
-            BinaryReader binRead = new BinaryReader(dataStream);
-
-            // Create and connect to ads client
-            TcAdsClient tcThrClient = new TcAdsClient();
-            tcThrClient.Connect(ADSPORT);
-
-            // Connect to TMC output
-            int varHandleOut1 = tcThrClient.CreateVariableHandle("Object1 (ModelBaseBROS).Output.ControlWord_joint1");
-
-            double data;
-
-            while (thrRunning)
-            {
-                try
-                {
-                    // Read varHandleOut1 (array)
-                    tcThrClient.Read(varHandleOut1, dataStream);
-                    data = binRead.ReadDouble();
-                    dataStream.Position = 0;
-
-                    // Save data in global variable
-                    x = data;
-                }
-                catch //(Exception err)
-                {
-                    //MessageBox.Show(err.Message);
-                }
-
-                // Update label text
-                App.Current.Dispatcher.Invoke((Action)delegate { this.label1.Content = x.ToString(); });
-
-                // Reduce processor load, 200Hz
-                Thread.Sleep(5);
-            }
-
-            // Thread done. Release variable handle(s), dispose of tcClient
-            try
-            {
-                tcThrClient.DeleteVariableHandle(varHandleOut1);
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
-            tcThrClient.Dispose();
-            dataStream.Dispose();
-            binRead.Dispose();
-        } 
-
-        void SendPulseToTC(TcAdsClient client, int hVar)
-        {
-
-            WriteTCClientShort(client, hVar, 1);
-            WriteTCClientShort(client, hVar, 0);
-        }
-
-        void WriteTCClientDouble(TcAdsClient client, int hVar, double val)
-        {
-            // Send pulse to model through ADS client (send 1 and 0 consecutively)
-            AdsStream dataStream = new AdsStream(sizeof(double));
-            BinaryWriter binWrite = new BinaryWriter(dataStream);
-            dataStream.Position = 0;
-
-            try
-            {
-                binWrite.Write(val);
-                client.Write(hVar, dataStream);
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
-        }
-
-        void WriteTCClientShort(TcAdsClient client, int hVar, short val)
-        {
-            // Send pulse to model through ADS client (send 1 and 0 consecutively)
-            AdsStream dataStream = new AdsStream(sizeof(short));
-            BinaryWriter binWrite = new BinaryWriter(dataStream);
-            dataStream.Position = 0;
-
-            try
-            {
-                binWrite.Write(val);
-                client.Write(hVar, dataStream);
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
-        }
-
-        
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             // Ctrl+T: terminate program
             if ((e.Key == Key.LeftCtrl) && (e.Key == Key.T))
             {
-                thrRunning = false;
-                Thread.Sleep(100);
                 Application.Current.Shutdown();
             }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // stop thread
-            thrRunning = false;
-            Thread.Sleep(100);
+
+            //
+            tcWorker.Dispose();
 
             // Dispose TcADSClient
             DisposeTcADSClient();
@@ -231,52 +135,106 @@ namespace AppControlDisplay
         private void ButtonEnable_Click(object sender, RoutedEventArgs e)
         {
             // Send Enable Drive command to Simulink model
-            SendPulseToTC(tcClient, hVarTcADS_Enable);
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_Enable, (short)1));
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_Enable, (short)0));
         }
 
         private void ButtonDisable_Click(object sender, RoutedEventArgs e)
         {
             // Send Disable Drive command to Simulink model
-            SendPulseToTC(tcClient, hVarTcADS_Disable);
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_Disable, (short)1));
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_Disable, (short)0));
         }
 
         private void ButtonStateReq_Idle_Click(object sender, RoutedEventArgs e)
         {
-            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 0);
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_StateRequest, 0.0));
         }
 
         private void ButtonStateReq_Calibrate_Click(object sender, RoutedEventArgs e)
         {
-            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 2);
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_StateRequest, 2.0));
         }
 
         private void ButtonStateReq_HomingManual_Click(object sender, RoutedEventArgs e)
         {
-            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 301);
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_StateRequest, 301.0));
         }
 
         private void ButtonStateReq_HomingAuto_Click(object sender, RoutedEventArgs e)
         {
-            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 302);
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_StateRequest, 302.0));
         }
 
         private void ButtonStateReq_Run_Click(object sender, RoutedEventArgs e)
         {
-            WriteTCClientDouble(tcClient, hVarTcADS_StateRequest, 4);
+            tcWorker.EnqueueTask(new TCADSTaskWrite(tcClient, hVarTcADS_Write_StateRequest, 4.0));
         }
         
-        
-        // Load all 
-        private void Label_Loaded(object sender, RoutedEventArgs e)
-        {
-            // ... get the label
-            label1 = sender as Label;
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             display1.Owner = this;
         }
+
+
+        ///// <summary>
+        ///// Function to continuously receive data from the ADS and perform calculations
+        ///// </summary>
+        //void ThreadContReceiveCalculate()
+        //{
+        //    // Thread is now running
+        //    thrRunning = true;
+
+        //    AdsStream dataStream = new AdsStream(8);
+        //    BinaryReader binRead = new BinaryReader(dataStream);
+
+        //    // Create and connect to ads client
+        //    TcAdsClient tcThrClient = new TcAdsClient();
+        //    tcThrClient.Connect(ADSPORT);
+
+        //    // Connect to TMC output
+        //    int varHandleOut1 = tcThrClient.CreateVariableHandle("Object1 (ModelBaseBROS).Output.ControlWord_joint1");
+
+        //    double data;
+
+        //    while (thrRunning)
+        //    {
+        //        try
+        //        {
+        //            // Read varHandleOut1 (array)
+        //            tcThrClient.Read(varHandleOut1, dataStream);
+        //            data = binRead.ReadDouble();
+        //            dataStream.Position = 0;
+
+        //            //binRead.Read
+        //            // Save data in global variable
+        //            x = data;
+        //        }
+        //        catch //(Exception err)
+        //        {
+        //            //MessageBox.Show(err.Message);
+        //        }
+
+        //        // Update label text
+        //        // App.Current.Dispatcher.Invoke((Action)delegate { this.label1.Content = x.ToString(); });
+
+        //        // Reduce processor load, 200Hz
+        //        Thread.Sleep(5);
+        //    }
+
+        //    // Thread done. Release variable handle(s), dispose of tcClient
+        //    try
+        //    {
+        //        tcThrClient.DeleteVariableHandle(varHandleOut1);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        MessageBox.Show(err.Message);
+        //    }
+        //    tcThrClient.Dispose();
+        //    dataStream.Dispose();
+        //    binRead.Dispose();
+        //} 
 
     }
 }

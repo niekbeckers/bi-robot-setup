@@ -6,7 +6,6 @@
         KeyDown="Window_KeyDown" 
         Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="label1" HorizontalAlignment="Left" Margin="452,262,0,0" VerticalAlignment="Top" Loaded="Label_Loaded"/>
         <GroupBox Header="Motor Drives Control" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" Height="150" Width="150">
             <Grid Margin="0,0,-2,-12">
                 <Button Content="Enable Drives" 
@@ -26,11 +25,36 @@
         </GroupBox>
         <GroupBox Header="Request System State" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="260" Width="150">
             <Grid HorizontalAlignment="Left" Height="242" Margin="0,10,-2,-22" VerticalAlignment="Top" Width="136">
-                <Button Content="Idle" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="ButtonStateReq_Idle_Click"/>
-                <Button Content="Calibrate" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="ButtonStateReq_Calibrate_Click"/>
-                <Button Content="Homing - manual" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="ButtonStateReq_HomingManual_Click"/>
-                <Button Content="Homing - auto" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="ButtonStateReq_HomingAuto_Click"/>
-                <Button Content="Run" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="ButtonStateReq_Run_Click"/>
+                <Button Content="Idle" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,0,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="100" Height="40" 
+                        Click="ButtonStateReq_Idle_Click"/>
+                <Button Content="Calibrate" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,45,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="100" Height="40" 
+                        Click="ButtonStateReq_Calibrate_Click"/>
+                <Button Content="Homing - manual" 
+                        HorizontalAlignment="Left"
+                        Margin="10,90,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="100" Height="40" 
+                        Click="ButtonStateReq_HomingManual_Click"/>
+                <Button Content="Homing - auto" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,135,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="100" Height="40" 
+                        Click="ButtonStateReq_HomingAuto_Click"/>
+                <Button Content="Run" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,180,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="100" Height="40" 
+                        Click="ButtonStateReq_Run_Click"/>
             </Grid>
         </GroupBox>
     </Grid>
