@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-15T15:07:16" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-17T12:36:41" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -434,6 +434,11 @@
 						<variable name="pause_logger">
 							<type>
 								<derived name="BOOL" />
+							</type>
+						</variable>
+						<variable name="DataToADS">
+							<type>
+								<derived name="matrix_8_real_T" />
 							</type>
 						</variable>
 					</struct>
@@ -2172,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#53d9095d;
-clsId.Data2 := 16#102a;
-clsId.Data3 := 16#463d;
-clsId.Data4[0] := 16#aa;
-clsId.Data4[1] := 16#3e;
-clsId.Data4[2] := 16#40;
-clsId.Data4[3] := 16#38;
-clsId.Data4[4] := 16#12;
-clsId.Data4[5] := 16#fe;
-clsId.Data4[6] := 16#b3;
-clsId.Data4[7] := 16#9f;
+clsId.Data1 := 16#2150c9d4;
+clsId.Data2 := 16#8be9;
+clsId.Data3 := 16#4dad;
+clsId.Data4[0] := 16#b2;
+clsId.Data4[1] := 16#0c;
+clsId.Data4[2] := 16#e9;
+clsId.Data4[3] := 16#4f;
+clsId.Data4[4] := 16#1e;
+clsId.Data4[5] := 16#54;
+clsId.Data4[6] := 16#03;
+clsId.Data4[7] := 16#37;
 
 AssignClassId(clsId);
                     
@@ -2465,6 +2470,10 @@ stInitData.ModelParameters.Memory1_1_X0_i := 0;
 stInitData.ModelParameters.AutoResetErrorInterval_Off_ms_k := 1000;
 stInitData.ModelParameters.AutoResetErrorInterval_On_ms_a := 3000;
 stInitData.ModelParameters.SetModeOp_val_slx_Value_o := 10;
+stInitData.ModelParameters.Constant2_Value_m[0] := 0;
+stInitData.ModelParameters.Constant2_Value_m[1] := 0;
+stInitData.ModelParameters.Constant3_Value_hr[0] := 0;
+stInitData.ModelParameters.Constant3_Value_hr[1] := 0;
 stInitData.ModelParameters.TSamp_WtEt_n := 1000;
 stInitData.ModelParameters.FreqHz_Value_os := 150;
 stInitData.ModelParameters.UnitDelay_InitialCondition_k := 0;
