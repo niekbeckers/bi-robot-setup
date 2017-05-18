@@ -124,7 +124,7 @@ namespace AppControlDisplay
 
         public TCADSTaskRead(TcAdsClient tcClientIn, int varHandleIn, ref int[]objIn)
             : base(tcClientIn, varHandleIn, objIn) { }
-
+ 
         public TCADSTaskRead(TcAdsClient tcClientIn, int varHandleIn, ref Single[] objIn)
             : base(tcClientIn, varHandleIn, objIn) { }
 

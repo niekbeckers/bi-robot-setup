@@ -4,14 +4,17 @@
         xmlns:WPF="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
         Title="BROSDisplay" Height="600" Width="600"
         KeyDown="Window_KeyDown" 
-        Closing="Window_Closing">
+        Closing="Window_Closing" 
+        ResizeMode="NoResize"
+        >
     <Grid>
         <!-- The main opengl control. -->
         <WPF:OpenGLControl
                 x:Name="openGLControl"
                 OpenGLInitialized="OpenGLControl_OpenGLInitialized"
                 Resized="OpenGLControl_Resized"
-                OpenGLDraw="OpenGLControl_OpenGLDraw" />
+                OpenGLDraw="OpenGLControl_OpenGLDraw"
+                DrawFPS="True"/>
         
     </Grid>
 </Window>

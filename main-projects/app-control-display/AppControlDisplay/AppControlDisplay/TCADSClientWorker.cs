@@ -19,7 +19,7 @@ namespace AppControlDisplay
         public TCADSClientWorker()
         {
             _worker = new Thread(Work);
-            _worker.Start();
+            //_worker.Start();
         }
 
         public void Dispose()
@@ -54,7 +54,7 @@ namespace AppControlDisplay
 
                     task = null;        // Set task to null (clean-up?)
 
-                    Thread.Sleep(1);    // simulate work...
+                    //Thread.Sleep(1);    // simulate work...
                 }
                 else
                     _wh.WaitOne();      // No more tasks - wait for a signal
