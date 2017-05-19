@@ -1,21 +1,20 @@
 #pragma once
 
+// ofx classes, addons
 #include "ofMain.h"
-#include "ofxGui.h"
+#include "ofxDatGui.h"
 
-
+// custom classes
 #include "tcAdsClient.h"
 
 class ofAppMain : public ofBaseApp{
 	private:
-		tcAdsClient* _tcClient;
+		tcAdsClient* _tcClientContRead;
 		double _AdsData[8];
-		unsigned long _lHdlVar_Read_Data;
+		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_DriveEnabled, _lHdlVar_Read_Error;
+		const unsigned long adsPort = 350;
 
 	public:
-
-		ofxPanel gui;
-		ofxButton button;
 
 		void setup();
 		void update();
@@ -35,5 +34,10 @@ class ofAppMain : public ofBaseApp{
 		void exit();
 
 		
+		ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
+		ofxDatGuiFolder* guiFldrReqSysState;
+
+		void setupGUI();
+		void onButtonEventReqState(ofxDatGuiButtonEvent e);
 
 };
