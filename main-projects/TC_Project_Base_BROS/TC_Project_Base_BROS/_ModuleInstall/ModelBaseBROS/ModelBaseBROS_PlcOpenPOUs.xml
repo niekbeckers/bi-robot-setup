@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-18T21:31:25" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-19T14:40:11" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#e89e8e87;
-clsId.Data2 := 16#021f;
-clsId.Data3 := 16#49a8;
-clsId.Data4[0] := 16#95;
-clsId.Data4[1] := 16#9f;
-clsId.Data4[2] := 16#57;
-clsId.Data4[3] := 16#f9;
-clsId.Data4[4] := 16#83;
-clsId.Data4[5] := 16#e6;
-clsId.Data4[6] := 16#a1;
-clsId.Data4[7] := 16#bf;
+clsId.Data1 := 16#5cd56b6c;
+clsId.Data2 := 16#40a0;
+clsId.Data3 := 16#4079;
+clsId.Data4[0] := 16#8b;
+clsId.Data4[1] := 16#78;
+clsId.Data4[2] := 16#46;
+clsId.Data4[3] := 16#8f;
+clsId.Data4[4] := 16#65;
+clsId.Data4[5] := 16#3f;
+clsId.Data4[6] := 16#35;
+clsId.Data4[7] := 16#45;
 
 AssignClassId(clsId);
                     
@@ -2318,7 +2318,7 @@ stInitData.ModelParameters.DiscreteDerivative_ICPrevSca_ki := 0;
 stInitData.ModelParameters.CompareToConstant_const := 201;
 stInitData.ModelParameters.CompareToConstant_const_b := 0;
 stInitData.ModelParameters.CompareToConstant_const_m := 201;
-stInitData.ModelParameters.CompareToConstant_const_p := 0;
+stInitData.ModelParameters.CompareToConstant_const_o := 0;
 stInitData.ModelParameters.CompareToConstant_const_a := 4;
 stInitData.ModelParameters.CompareToConstant_const_c := 4;
 stInitData.ModelParameters.CompareToConstant1_const := 2.75;
@@ -2443,7 +2443,7 @@ stInitData.ModelParameters.AutoResetErrorInterval_Off_ms_o := 1000;
 stInitData.ModelParameters.AutoResetErrorInterval_On_ms_f := 3000;
 stInitData.ModelParameters.SetModeOp_val_slx_Value_pw := 10;
 stInitData.ModelParameters.TorqueLimit_Value_c := 4;
-stInitData.ModelParameters.Constant2_Value_b := 0.05;
+stInitData.ModelParameters.Constant2_Value_l := 0.05;
 stInitData.ModelParameters.Merge1_InitialOutput_g[0] := 0;
 stInitData.ModelParameters.Merge1_InitialOutput_g[1] := 0;
 stInitData.ModelParameters.Kp_Gain_m := 0;
