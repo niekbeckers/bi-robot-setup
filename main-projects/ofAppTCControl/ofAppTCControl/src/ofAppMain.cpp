@@ -13,11 +13,21 @@ void ofAppMain::setup(){
 	setupGUI();
 
 	// set up tcAdsClient for data reading
-	_tcClientContRead = new tcAdsClient(adsPort);
+	_tcClientCont = new tcAdsClient(adsPort);
 
 	// get variable handles for ADS
-	char szVar[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
-	_lHdlVar_Read_Data = _tcClientContRead->getVariableHande(szVar, sizeof(szVar));
+	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
+	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
+
+	// set up tcAdsClient for data reading
+	_tcClientEvent = new tcAdsClient(adsPort);
+	//char szVar[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled" };
+	char szVar1[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates" };
+	_lHdlVar_Read_DriveEnabled = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
+	_lHdlNot_Read_DriveEnabled = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_DriveEnabled, onEventCallbackTCADS);
+	
+	
+	
 	//char szVar[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
 	//_lHdlVar_Read_SystemState = _tcClient->getVariableHande(szVar, sizeof(szVar));
 
@@ -31,7 +41,7 @@ void ofAppMain::setup(){
 void ofAppMain::update(){
 
 	// read continuous ADS data
-	_tcClientContRead->Read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
+	_tcClientCont->read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
 }
 
 //--------------------------------------------------------------
@@ -51,11 +61,11 @@ void ofAppMain::setupGUI()
 	gui->addHeader("System states");
 	gui->addFRM(0.5f); // add framerate monitor
 
-
-
 	// Folder Request State buttons
 	guiFldrReqSysState = gui->addFolder("Request System State", ofColor::aquamarine);
 	guiFldrReqSysState->addBreak()->setHeight(10.0f);
+	guiFldrReqSysState->addButton("Reset");
+	guiFldrReqSysState->addBreak()->setHeight(5.0f);
 	guiFldrReqSysState->addButton("Init");
 	guiFldrReqSysState->addBreak()->setHeight(5.0f);
 	guiFldrReqSysState->addButton("Calibrate");
@@ -74,32 +84,36 @@ void ofAppMain::onButtonEventReqState(ofxDatGuiButtonEvent e)
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
 	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value" };
-	long lHdlVar_Write_ReqState = tcClient->getVariableHande(szVar, sizeof(szVar));
+	long lHdlVar_Write_ReqState = tcClient->getVariableHandle(szVar, sizeof(szVar));
 	double reqState;
 
-	if (e.target->is("Init")) {
+	if (e.target->is("Reset")) {
+		reqState = 0.0;
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+	}
+	else if(e.target->is("Init")) {
 		reqState = 1.0;
-		tcClient->Write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
 	}
 	else if (e.target->is("Calibrate")) {
 		reqState = 2.0;
-		tcClient->Write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
 	}
 	else if (e.target->is("Homing - Auto")) {
 		reqState = 302.0;
-		tcClient->Write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
 	}
 	else if (e.target->is("Homing - Manual")) {
 		reqState = 301.0;
-		tcClient->Write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
 	}
 	else if (e.target->is("Run")) {
 		reqState = 4.0;
-		tcClient->Write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
 	}
 
 	// clean up
-	tcClient->Disconnect();
+	tcClient->disconnect();
 }
 
 //--------------------------------------------------------------
@@ -159,5 +173,17 @@ void ofAppMain::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void ofAppMain::exit() {
-	_tcClientContRead->Disconnect();
+	_tcClientCont->disconnect();
+	_tcClientEvent->disconnect();
+}
+
+
+void __stdcall onEventCallbackTCADS(AmsAddr* pAddr, AdsNotificationHeader* pNotification, ULONG hUser)
+{
+
+	double * d = (double *)pNotification->data;
+	// print (to screen)) the value of the variable 
+	cout << "Value: " << d[1] << '\n';
+	cout << "Notification: " << pNotification->hNotification << '\n';
+	cout << "SampleSize: " << pNotification->cbSampleSize << '\n';
 }

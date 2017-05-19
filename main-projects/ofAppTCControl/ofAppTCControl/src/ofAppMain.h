@@ -7,11 +7,15 @@
 // custom classes
 #include "tcAdsClient.h"
 
+void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
+
 class ofAppMain : public ofBaseApp{
 	private:
-		tcAdsClient* _tcClientContRead;
+		tcAdsClient* _tcClientCont;
+		tcAdsClient* _tcClientEvent;
 		double _AdsData[8];
-		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_DriveEnabled, _lHdlVar_Read_Error;
+		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_DriveEnabled, _lHdlVar_Read_Error,
+			_lHdlNot_Read_DriveEnabled;
 		const unsigned long adsPort = 350;
 
 	public:
@@ -39,5 +43,7 @@ class ofAppMain : public ofBaseApp{
 
 		void setupGUI();
 		void onButtonEventReqState(ofxDatGuiButtonEvent e);
+
+		
 
 };

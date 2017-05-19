@@ -3,6 +3,8 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+#include <vector>
+#include <algorithm>
 
 #include "C:\TwinCAT\AdsApi\TcAdsDll\Include\TcAdsDef.h"
 #include "C:\TwinCAT\AdsApi\TcAdsDll\Include\TcAdsApi.h"
@@ -15,15 +17,23 @@ class tcAdsClient
 		AmsAddr _addr;
 		PAmsAddr _pAddr = &_addr;
 		long _nErr, _nPort;
-		unsigned long _pcbReturn;
+		ULONG _pcbReturn;
+
+		// params for event-driven interactions with ADS
+		vector<ULONG> _hNotifications, _hVariables;
+		AdsNotificationAttrib  _adsNotificationAttrib;
 
 	public:
-		tcAdsClient(unsigned long port);
+		tcAdsClient(USHORT port);
 		~tcAdsClient();
 
-		unsigned long getVariableHande(char* szVarIn, int numBytes);
-		void Read(unsigned long lHdlVar, void *pData, int numBytes);
-		void Write(unsigned long lHdlVar, void *pData, int numBytes);
-		void Disconnect();
+		ULONG getVariableHandle(char* szVarIn, int numBytes);
+		void releaseVariableHandle(ULONG hVar);
+		ULONG registerTCAdsDeviceNotification(ULONG lhUser, PAdsNotificationFuncEx callback);
+		void unregisterTCAdsDeviceNotification(ULONG hNotification);
+		void read(ULONG lHdlVar, void *pData, int numBytes);
+		void write(ULONG lHdlVar, void *pData, int numBytes);
+		void disconnect();
+		
 };
 
