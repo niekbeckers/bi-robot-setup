@@ -1,8 +1,8 @@
-#include "tcClient.h"
+#include "tcAdsClient.h"
 
 
 
-tcClient::tcClient(unsigned long port)
+tcAdsClient::tcAdsClient(unsigned long port)
 {
 	// Open communication port on the ADS router
 	_nPort = AdsPortOpenEx();
@@ -13,11 +13,11 @@ tcClient::tcClient(unsigned long port)
 	_pAddr->port = port;
 }
 
-tcClient::~tcClient()
+tcAdsClient::~tcAdsClient()
 {
 }
 
-unsigned long tcClient::getVariableHande(char* szVarIn, int numBytes)
+unsigned long tcAdsClient::getVariableHande(char* szVarIn, int numBytes)
 {
 	unsigned long lHdlVar;
 	// Fetch handle for the PLC variable 
@@ -32,14 +32,14 @@ unsigned long tcClient::getVariableHande(char* szVarIn, int numBytes)
 	}
 }
 
-void tcClient::Read(unsigned long lHdlVar, void *pData, int numBytes)
+void tcAdsClient::Read(unsigned long lHdlVar, void *pData, int numBytes)
 {
 	// Read values of the PLC variables (by handle)
 	_nErr = AdsSyncReadReqEx2(_nPort, _pAddr, ADSIGRP_SYM_VALBYHND, lHdlVar, numBytes, pData, &_pcbReturn);
 	if (_nErr) cerr << "Error: AdsSyncReadReqEx2: " << _nErr << '\n';
 }
 
-void tcClient::Write(unsigned long lHdlVar, void *pData, int numBytes)
+void tcAdsClient::Write(unsigned long lHdlVar, void *pData, int numBytes)
 {
 	// Write to ADS (bytes).
 	_nErr = AdsSyncWriteReqEx(
@@ -52,7 +52,7 @@ void tcClient::Write(unsigned long lHdlVar, void *pData, int numBytes)
 	if (_nErr) cerr << "Error: AdsSyncWriteReqEx: " << _nErr << '\n';
 }
 
-void tcClient::Disconnect()
+void tcAdsClient::Disconnect()
 {
 	_nErr = AdsPortCloseEx(_nPort);
 	if (_nErr) cerr << "Error: AdsPortCloseEx: " << _nErr << " on nPort: " << _nPort << '\n';

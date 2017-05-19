@@ -1,15 +1,22 @@
 #pragma once
 
 #include "ofMain.h"
-#include "tcClient.h"
+#include "ofxGui.h"
 
-class ofApp : public ofBaseApp{
+
+#include "tcAdsClient.h"
+
+class ofAppMain : public ofBaseApp{
 	private:
-		tcClient* myClient;
-		double Data[8];
-		unsigned long lHdlVar;
+		tcAdsClient* _tcClient;
+		double _AdsData[8];
+		unsigned long _lHdlVar_Read_Data;
 
 	public:
+
+		ofxPanel gui;
+		ofxButton button;
+
 		void setup();
 		void update();
 		void draw();
@@ -26,4 +33,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		void exit();
+
+		
+
 };

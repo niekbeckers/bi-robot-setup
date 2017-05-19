@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class tcClient
+class tcAdsClient
 {
 	private:
 		AmsAddr _addr;
@@ -18,8 +18,8 @@ class tcClient
 		unsigned long _pcbReturn;
 
 	public:
-		tcClient(unsigned long port);
-		~tcClient();
+		tcAdsClient(unsigned long port);
+		~tcAdsClient();
 
 		unsigned long getVariableHande(char* szVarIn, int numBytes);
 		void Read(unsigned long lHdlVar, void *pData, int numBytes);
