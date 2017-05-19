@@ -1822,7 +1822,11 @@ main-projects/app-control-display/AppControlDisplay/AppControlDisplay/obj/
 main-projects/data/base-1fm/meas15_stiffness/spring_stiffness.pdf
 main-projects/data/base-1fm/meas15_stiffness/untitled.png
 main-projects/data/base-2fm/meas2_connected/analyse_data.m
-main-projects/ofAppTCControl/ofAppTCControl/bin/
 main-projects/ofAppTCControl/ofAppTCControl/obj/
 *.opendb
 *.db
+*.exe
+*.pdb
+*.lib
+*.ilk
+*.exp
