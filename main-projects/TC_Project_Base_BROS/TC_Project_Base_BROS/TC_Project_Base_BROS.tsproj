@@ -943,7 +943,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{738154DD-C443-2EFE-5606-8C52E489A8D9}">P_model_base_bros_T</Name>
+			<Name GUID="{A35E71DF-8F85-1FEF-7112-EDC8F2D241A1}">P_model_base_bros_T</Name>
 			<BitSize>22528</BitSize>
 			<SubItem>
 				<Name>FM1</Name>
@@ -1048,7 +1048,7 @@
 				<BitOffs>5888</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>CompareToConstant_const_p</Name>
+				<Name>CompareToConstant_const_o</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
 				<BitOffs>5952</BitOffs>
@@ -1732,7 +1732,7 @@
 				<BitOffs>13120</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Constant2_Value_b</Name>
+				<Name>Constant2_Value_l</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
 				<BitOffs>13184</BitOffs>
@@ -2368,20 +2368,8 @@
 				<BitOffs>21184</BitOffs>
 			</SubItem>
 			<Hides>
-				<Hide GUID="{EE840EAB-E329-ADED-EEDD-2E30626376A3}"/>
-				<Hide GUID="{69495319-861A-D06B-D29F-67C09A655093}"/>
-				<Hide GUID="{364B523F-E3F2-490E-6612-7D467EF06C3D}"/>
-				<Hide GUID="{4F585C33-8572-428A-49D0-AE2205D4B7E4}"/>
-				<Hide GUID="{5B46DA35-FEE1-5E3E-9EDD-8E510C58DBA4}"/>
-				<Hide GUID="{3BD2FD23-1D27-1B60-2282-7A8A349BDED2}"/>
-				<Hide GUID="{74E70E22-63FA-A5A2-32C3-9D0164EF4001}"/>
-				<Hide GUID="{4D3CC453-73CF-0E86-D6EE-A302D81BE425}"/>
-				<Hide GUID="{332068D0-2FC6-11FB-4223-3F7B043CC479}"/>
-				<Hide GUID="{F62D7A96-3EA1-FA06-D7AF-85656376C7F2}"/>
-				<Hide GUID="{0549D3F4-6DD2-EE18-F9BC-2AE3CCF9EE21}"/>
-				<Hide GUID="{EC076145-78A9-7125-4A7D-9EDB4C935FD7}"/>
-				<Hide GUID="{02791C65-745A-5FDE-0EAB-5CFA6781DB7C}"/>
-				<Hide GUID="{B6CEACD2-0BDB-849F-21A3-E2BF36022013}"/>
+				<Hide GUID="{CEA3577A-37DF-F5DB-F283-DAE30416A643}"/>
+				<Hide GUID="{738154DD-C443-2EFE-5606-8C52E489A8D9}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -3478,9 +3466,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBaseBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{E89E8E87-021F-49A8-959F-57F983E6A1BF}">
+					<TmcDesc GUID="{5CD56B6C-40A0-4079-8B78-468F653F3545}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{E89E8E87-021F-49A8-959F-57F983E6A1BF}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{5CD56B6C-40A0-4079-8B78-468F653F3545}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -3602,7 +3590,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>22528</BitSize>
-								<BaseType GUID="{738154DD-C443-2EFE-5606-8C52E489A8D9}">P_model_base_bros_T</BaseType>
+								<BaseType GUID="{A35E71DF-8F85-1FEF-7112-EDC8F2D241A1}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -5615,7 +5603,7 @@
 									<BitOffs>25984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_l</Name>
+									<Name>LogicalOperator_o</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cb1</PTCID>
@@ -5657,7 +5645,7 @@
 									<BitOffs>26032</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_o</Name>
+									<Name>LogicalOperator_of</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cb7</PTCID>
@@ -5916,21 +5904,21 @@
 									<BitOffs>26680</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_checkEndpointPosition_p</Name>
+									<Name>sf_checkEndpointPosition_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
 									<PTCID>#x82000d08</PTCID>
 									<BitOffs>26688</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_Statemachine_b</Name>
+									<Name>sf_Statemachine_f</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{2FA4ED40-264A-E190-4AFB-D70DC4115131}">B_Statemachine_model_base_bro_T</BaseType>
 									<PTCID>#x82000d10</PTCID>
 									<BitOffs>26752</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_CheckVelThreshold_o</Name>
+									<Name>sf_CheckVelThreshold_f</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{E9307AD0-E65F-CEAF-7337-50E35E3C5BB2}">B_CheckVelThreshold_model_bas_T</BaseType>
 									<PTCID>#x82000d18</PTCID>
@@ -6783,7 +6771,7 @@
 									<BitOffs>5888</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>CompareToConstant_const_p</Name>
+									<Name>CompareToConstant_const_o</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x830002e8</PTCID>
@@ -7581,7 +7569,7 @@
 									<BitOffs>13120</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Constant2_Value_b</Name>
+									<Name>Constant2_Value_l</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x83000670</PTCID>
@@ -9028,7 +9016,7 @@
 									<BitOffs>504</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_Statemachine_b</Name>
+									<Name>sf_Statemachine_f</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{29756C1E-2E80-4A55-5AB2-56759B34F1AD}">DW_Statemachine_model_base_br_T</BaseType>
 									<PTCID>#x85000040</PTCID>
@@ -10026,7 +10014,7 @@
 								<Value>201</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.CompareToConstant_const_p</Name>
+								<Name>ModelParameters.CompareToConstant_const_o</Name>
 								<Value>0</Value>
 							</Value>
 							<Value>
@@ -10526,7 +10514,7 @@
 								<Value>4</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Constant2_Value_b</Name>
+								<Name>ModelParameters.Constant2_Value_l</Name>
 								<Value>0.05</Value>
 							</Value>
 							<Value>
@@ -10639,11 +10627,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant2_Value_m[1]</Name>
-								<Value>0</Value>
+								<Value>0.5</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant3_Value_hr[0]</Name>
-								<Value>0</Value>
+								<Value>0.25</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant3_Value_hr[1]</Name>
