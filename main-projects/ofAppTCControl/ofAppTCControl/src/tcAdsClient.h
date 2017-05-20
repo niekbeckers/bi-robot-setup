@@ -21,7 +21,7 @@ class tcAdsClient
 
 		// params for event-driven interactions with ADS
 		vector<ULONG> _hNotifications, _hVariables;
-		AdsNotificationAttrib  _adsNotificationAttrib;
+		
 
 	public:
 		tcAdsClient(USHORT port);
@@ -29,11 +29,10 @@ class tcAdsClient
 
 		ULONG getVariableHandle(char* szVarIn, int numBytes);
 		void releaseVariableHandle(ULONG hVar);
-		ULONG registerTCAdsDeviceNotification(ULONG lhUser, PAdsNotificationFuncEx callback);
+		ULONG registerTCAdsDeviceNotification(ULONG lhUser, ULONG vhUser,PAdsNotificationFuncEx callback, ULONG cbLength = 8);
 		void unregisterTCAdsDeviceNotification(ULONG hNotification);
 		void read(ULONG lHdlVar, void *pData, int numBytes);
 		void write(ULONG lHdlVar, void *pData, int numBytes);
 		void disconnect();
-		
 };
 

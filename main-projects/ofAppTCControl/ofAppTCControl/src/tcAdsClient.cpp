@@ -11,13 +11,6 @@ tcAdsClient::tcAdsClient(USHORT port)
 
 	// Select Port: TwinCAT 3 PLC
 	_pAddr->port = port;
-
-	// set the attributes of the notification
-	_adsNotificationAttrib.cbLength = 16;
-	_adsNotificationAttrib.nTransMode = ADSTRANS_SERVERONCHA;
-	//_adsNotificationAttrib.nTransMode = ADSTRANS_SERVERCYCLE;
-	_adsNotificationAttrib.nMaxDelay = 0;
-	_adsNotificationAttrib.nCycleTime = 10000000; // 0.5sec 
 }
 
 tcAdsClient::~tcAdsClient()
@@ -60,29 +53,34 @@ void tcAdsClient::releaseVariableHandle(ULONG hVar)
 				sizeof(hVar), 
 				&hVar);
 
-	if (_nErr) {
-		cerr << "Error: AdsSyncWriteReq: " << _nErr << '\n';
-	}
-	else {
-		_hVariables.erase(remove(_hVariables.begin(), _hVariables.end(), hVar), _hVariables.end()); // remove _hVariables from list
-	}
+	if (_nErr) cerr << "Error: AdsSyncWriteReq: " << _nErr << '\n';
+	_hVariables.erase(remove(_hVariables.begin(), _hVariables.end(), hVar), _hVariables.end()); // remove _hVariables from list
 }
 
-ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhUser, PAdsNotificationFuncEx callback)
+ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhVar, ULONG lhUser, PAdsNotificationFuncEx callback, ULONG cbLength)
 {
+
+	// set the attributes of the notification
+	AdsNotificationAttrib  _adsNotificationAttrib;
+	_adsNotificationAttrib.cbLength = cbLength;
+	_adsNotificationAttrib.nTransMode = ADSTRANS_SERVERONCHA;
+	//_adsNotificationAttrib.nTransMode = ADSTRANS_SERVERCYCLE;
+	_adsNotificationAttrib.nMaxDelay = 0;
+	_adsNotificationAttrib.nCycleTime = 10000000; // 0.5sec 
+
 	// initiate the transmission of the PLC-variable 
 	ULONG hNotification;
 	_nErr = AdsSyncAddDeviceNotificationReqEx(
 				_nPort,
 				_pAddr,
 				ADSIGRP_SYM_VALBYHND,
-				lhUser,
+				lhVar,
 				&_adsNotificationAttrib,
 				callback,
 				lhUser,
 				&hNotification);
 
-	if (_nErr) cerr << "Error: AdsSyncAddDeviceNotificationReq: " << _nErr << '\n';
+	if (_nErr) cerr << "Error: AdsSyncAddDeviceNotificationReq: " << hex <<_nErr << '\n';
 	cout << "Notification: " << hNotification << "\n\n";
 
 	_hNotifications.push_back(hNotification); // add hUser to list
@@ -94,7 +92,8 @@ void tcAdsClient::unregisterTCAdsDeviceNotification(ULONG hNotification)
 	// finish the transmission of the PLC-variable 
 	_nErr = AdsSyncDelDeviceNotificationReqEx(_nPort, _pAddr, hNotification);
 	if (_nErr) cerr << "Error: AdsSyncDelDeviceNotificationReq: " << _nErr << '\n';
-	else _hNotifications.erase(remove(_hNotifications.begin(), _hNotifications.end(), hNotification), _hNotifications.end()); // remove hNotification from list
+	
+	_hNotifications.erase(remove(_hNotifications.begin(), _hNotifications.end(), hNotification), _hNotifications.end()); // remove hNotification from list
 }
 
 void tcAdsClient::read(ULONG lHdlVar, void *pData, int numBytes)

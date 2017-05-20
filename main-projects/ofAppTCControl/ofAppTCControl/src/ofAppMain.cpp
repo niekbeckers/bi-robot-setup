@@ -8,7 +8,6 @@ void ofAppMain::setup(){
 	ofSetWindowTitle("Control");
 	ofSetFrameRate(240);
 
-
 	// set up GUI
 	setupGUI();
 
@@ -23,18 +22,8 @@ void ofAppMain::setup(){
 	_tcClientEvent = new tcAdsClient(adsPort);
 	//char szVar[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled" };
 	char szVar1[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates" };
-	_lHdlVar_Read_DriveEnabled = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
-	_lHdlNot_Read_DriveEnabled = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_DriveEnabled, onEventCallbackTCADS);
-	
-	
-	
-	//char szVar[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
-	//_lHdlVar_Read_SystemState = _tcClient->getVariableHande(szVar, sizeof(szVar));
-
-	//_tcClient->Read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
-	//for (int nIndex = 0; nIndex < 8; nIndex++)
-	//	cout << "Data[" << nIndex << "]: " << _AdsData[nIndex] << '\n';
-
+	_lHdlVar_Read_SystemState = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
+	_lHdlNot_Read_DriveEnabled = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemState, (unsigned long)(this), onEventCallbackTCADS, 16);
 }
 
 //--------------------------------------------------------------
@@ -60,10 +49,19 @@ void ofAppMain::setupGUI()
 {
 	gui->addHeader("System states");
 	gui->addFRM(0.5f); // add framerate monitor
+	
+	char buf[30];
+	sprintf(buf, "System states:  [%d,%d]", 0, 0);
+	guiLblSysState = gui->addLabel(buf);
+	sprintf(buf, "System errors:  [%d,%d]", 0, 0);
+	guiLblSysError = gui->addLabel(buf);
+	sprintf(buf, "Operation Enabled:  [%d,%d]", 0, 0);
+	guiLblOpsEnabled = gui->addLabel(buf);
+	gui->addBreak()->setHeight(10.0f);
 
 	// Folder Request State buttons
 	guiFldrReqSysState = gui->addFolder("Request System State", ofColor::aquamarine);
-	guiFldrReqSysState->addBreak()->setHeight(10.0f);
+	guiFldrReqSysState->addBreak()->setHeight(5.0f);
 	guiFldrReqSysState->addButton("Reset");
 	guiFldrReqSysState->addBreak()->setHeight(5.0f);
 	guiFldrReqSysState->addButton("Init");
@@ -180,10 +178,20 @@ void ofAppMain::exit() {
 
 void __stdcall onEventCallbackTCADS(AmsAddr* pAddr, AdsNotificationHeader* pNotification, ULONG hUser)
 {
+	// cast hUser to class pointer
+	ofAppMain* ptr = (ofAppMain*)(hUser);
 
-	double * d = (double *)pNotification->data;
+	// call HandleCallback for access to ofAppMain class
+	ptr->HandleCallback(pAddr, pNotification);
+}
+
+void ofAppMain::HandleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotification)
+{
+	double * data = (double *)pNotification->data;
+	char buf[30];
+	sprintf(buf, "System states:  [%d,%d]", (int)data[0], (int)data[1]);
+	
+
 	// print (to screen)) the value of the variable 
-	cout << "Value: " << d[1] << '\n';
-	cout << "Notification: " << pNotification->hNotification << '\n';
-	cout << "SampleSize: " << pNotification->cbSampleSize << '\n';
+	cout << "Notification: " << pNotification->hNotification << " SampleSize: " << pNotification->cbSampleSize << '\n';
 }

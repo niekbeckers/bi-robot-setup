@@ -10,16 +10,18 @@
 void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
 
 class ofAppMain : public ofBaseApp{
+	
+
 	private:
-		tcAdsClient* _tcClientCont;
-		tcAdsClient* _tcClientEvent;
+		tcAdsClient *_tcClientCont, *_tcClientEvent;
+
 		double _AdsData[8];
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_DriveEnabled, _lHdlVar_Read_Error,
 			_lHdlNot_Read_DriveEnabled;
 		const unsigned long adsPort = 350;
 
 	public:
-
+		void HandleCallback(AmsAddr*, AdsNotificationHeader*);
 		void setup();
 		void update();
 		void draw();
@@ -40,6 +42,8 @@ class ofAppMain : public ofBaseApp{
 		
 		ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
 		ofxDatGuiFolder* guiFldrReqSysState;
+		ofxDatGuiLabel *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
+
 
 		void setupGUI();
 		void onButtonEventReqState(ofxDatGuiButtonEvent e);
