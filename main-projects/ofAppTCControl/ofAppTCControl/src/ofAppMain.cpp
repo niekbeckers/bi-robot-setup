@@ -67,7 +67,7 @@ void ofAppMain::setupTCADS()
 
 void ofAppMain::setupGUI()
 {
-	gui->addHeader("System states");
+	gui->addHeader("System Control");
 	gui->addFRM(0.5f); // add framerate monitor
 
 	// Add system state, error, drive enabled labels
@@ -101,6 +101,17 @@ void ofAppMain::setupGUI()
 	guiFldrReqSysState->addButton("Run");
 	guiFldrReqSysState->expand();
 	guiFldrReqSysState->onButtonEvent(this, &ofAppMain::onButtonEventReqState); // connect custom event for req system state
+
+	gui->addBreak()->setHeight(10.0f);
+	guiFldrMotorControl = gui->addFolder("Motor Control", ofColor::forestGreen);
+	guiFldrMotorControl->addBreak()->setHeight(5.0f);
+	guiFldrMotorControl->addButton("Enable Drive");
+	guiFldrMotorControl->addBreak()->setHeight(5.0f);
+	guiFldrMotorControl->addButton("Disable Drive");
+	guiFldrMotorControl->expand();
+	guiFldrMotorControl->onButtonEvent(this, &ofAppMain::onButtonEventReqState);
+
+	gui->addFooter();
 }
 
 void ofAppMain::updateGUI()
@@ -123,8 +134,11 @@ void ofAppMain::onButtonEventReqState(ofxDatGuiButtonEvent e)
 {
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
+
+	// Request State
 	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value" };
 	long lHdlVar_Write_ReqState = tcClient->getVariableHandle(szVar, sizeof(szVar));
+
 	double reqState;
 
 	if (e.target->is("Reset")) {
@@ -152,6 +166,25 @@ void ofAppMain::onButtonEventReqState(ofxDatGuiButtonEvent e)
 		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
 	}
 
+	// Motor Control
+	double val;
+	if (e.target->is("Enable Drive")) {
+		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value" };
+		long lHdlVar_Write_EnableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+		val = 1.0;
+		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
+		val = 0.0;
+		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
+	}
+	else if (e.target->is("Disable Drive")) {
+		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value" };
+		long lHdlVar_Write_DisableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+		val = 1.0;
+		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
+		val = 0.0;
+		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
+	}
+	
 	// clean up
 	tcClient->disconnect();
 }

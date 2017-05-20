@@ -44,7 +44,7 @@ class ofAppMain : public ofBaseApp{
 
 		
 		ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
-		ofxDatGuiFolder* guiFldrReqSysState;
+		ofxDatGuiFolder *guiFldrReqSysState, *guiFldrMotorControl;
 		ofxDatGuiTextInput *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
 
 
