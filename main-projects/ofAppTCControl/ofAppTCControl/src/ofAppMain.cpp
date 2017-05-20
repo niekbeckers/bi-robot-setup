@@ -6,24 +6,14 @@ void ofAppMain::setup(){
 	// set up window
 	ofBackground(0.50, 0.50, 0.50);
 	ofSetWindowTitle("Control");
-	ofSetFrameRate(240);
+	ofSetFrameRate(200);
 
 	// set up GUI
 	setupGUI();
 
-	// set up tcAdsClient for data reading
-	_tcClientCont = new tcAdsClient(adsPort);
-
-	// get variable handles for ADS
-	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
-	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
-
-	// set up tcAdsClient for data reading
-	_tcClientEvent = new tcAdsClient(adsPort);
-	//char szVar[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled" };
-	char szVar1[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates" };
-	_lHdlVar_Read_SystemState = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
-	_lHdlNot_Read_DriveEnabled = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemState, (unsigned long)(this), onEventCallbackTCADS, 16);
+	// setup tcAdsClient
+	setupTCADS();
+	
 }
 
 //--------------------------------------------------------------
@@ -31,6 +21,10 @@ void ofAppMain::update(){
 
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
+
+	// update gui
+	updateGUI();
+	
 }
 
 //--------------------------------------------------------------
@@ -43,20 +37,52 @@ void ofAppMain::draw(){
 
 	ofSetColor(ofColor::yellow);
 	ofDrawCircle(x, y, 10);
+
+}
+
+void ofAppMain::setupTCADS()
+{
+	// set up tcAdsClient for data reading
+	_tcClientCont = new tcAdsClient(adsPort);
+
+	// get variable handles for ADS
+	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
+	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
+
+	// set up tcAdsClient for data reading
+	_tcClientEvent = new tcAdsClient(adsPort);
+
+	char szVar1[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates" };
+	_lHdlVar_Read_SystemState = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
+	_lHdlNot_Read_SystemState = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemState, (unsigned long)(this), onEventCallbackTCADS, 16);
+
+	char szVar2[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled" };
+	_lHdlVar_Read_OpsEnabled = _tcClientEvent->getVariableHandle(szVar2, sizeof(szVar2));
+	_lHdlNot_Read_OpsEnabled = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_OpsEnabled, (unsigned long)(this), onEventCallbackTCADS, 2);
+
+	char szVar3[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_Errors" };
+	_lHdlVar_Read_SystemError = _tcClientEvent->getVariableHandle(szVar3, sizeof(szVar3));
+	_lHdlNot_Read_SystemError = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemError, (unsigned long)(this), onEventCallbackTCADS, 16);
 }
 
 void ofAppMain::setupGUI()
 {
 	gui->addHeader("System states");
 	gui->addFRM(0.5f); // add framerate monitor
-	
-	char buf[30];
-	sprintf(buf, "System states:  [%d,%d]", 0, 0);
-	guiLblSysState = gui->addLabel(buf);
-	sprintf(buf, "System errors:  [%d,%d]", 0, 0);
-	guiLblSysError = gui->addLabel(buf);
-	sprintf(buf, "Operation Enabled:  [%d,%d]", 0, 0);
-	guiLblOpsEnabled = gui->addLabel(buf);
+
+	// Add system state, error, drive enabled labels
+	_sSystemState = "[,]"; _sSystemStateNew = _sSystemState;
+	guiLblSysState = gui->addTextInput("System State", _sSystemState);
+	guiLblSysState->setStripeColor(ofColor::red);
+
+	_sSystemError = "[,]"; _sSystemErrorNew = _sSystemError;
+	guiLblSysError = gui->addTextInput("System Error", _sSystemError);
+	guiLblSysError->setStripeColor(ofColor::red);
+
+	_sOpsEnabled = "[,]"; _sOpsEnabledNew = _sOpsEnabled;
+	guiLblOpsEnabled = gui->addTextInput("Drive Enabled", _sOpsEnabled); 
+	guiLblOpsEnabled->setStripeColor(ofColor::red);
+
 	gui->addBreak()->setHeight(10.0f);
 
 	// Folder Request State buttons
@@ -75,6 +101,22 @@ void ofAppMain::setupGUI()
 	guiFldrReqSysState->addButton("Run");
 	guiFldrReqSysState->expand();
 	guiFldrReqSysState->onButtonEvent(this, &ofAppMain::onButtonEventReqState); // connect custom event for req system state
+}
+
+void ofAppMain::updateGUI()
+{
+	if (_sSystemError.compare(_sSystemErrorNew) != 0) {
+		_sSystemError = _sSystemErrorNew;
+		guiLblSysError->setText(_sSystemError);
+	}
+	if (_sSystemState.compare(_sSystemStateNew) != 0) {
+		_sSystemState = _sSystemStateNew;
+		guiLblSysState->setText(_sSystemState);
+	}
+	if (_sOpsEnabled.compare(_sOpsEnabledNew) != 0) {
+		_sOpsEnabled = _sOpsEnabledNew;
+		guiLblOpsEnabled->setText(_sOpsEnabled);
+	}
 }
 
 void ofAppMain::onButtonEventReqState(ofxDatGuiButtonEvent e)
@@ -187,11 +229,27 @@ void __stdcall onEventCallbackTCADS(AmsAddr* pAddr, AdsNotificationHeader* pNoti
 
 void ofAppMain::HandleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotification)
 {
-	double * data = (double *)pNotification->data;
 	char buf[30];
-	sprintf(buf, "System states:  [%d,%d]", (int)data[0], (int)data[1]);
-	
 
+	if (pNotification->hNotification == _lHdlNot_Read_OpsEnabled) {
+		bool * data = (bool *)pNotification->data;
+		sprintf(buf, "[%s,%s]", data[0] ? "true" : "false", data[1] ? "true" : "false");
+		cout << "Operation Enabled: " << buf << '\n';
+		_sOpsEnabledNew = ofToString(buf);
+	} 
+	else if (pNotification->hNotification == _lHdlNot_Read_SystemError)  {
+		double * data = (double *)pNotification->data;
+		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
+		cout << "System Error: " << buf << '\n';
+		_sSystemErrorNew = ofToString(buf);
+	}
+	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
+		double * data = (double *)pNotification->data;
+		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
+		cout << "System State: " << buf << '\n';
+		_sSystemStateNew = ofToString(buf);
+	}
+	
 	// print (to screen)) the value of the variable 
 	cout << "Notification: " << pNotification->hNotification << " SampleSize: " << pNotification->cbSampleSize << '\n';
 }
