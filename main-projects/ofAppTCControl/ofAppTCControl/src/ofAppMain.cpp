@@ -6,14 +6,13 @@ void ofAppMain::setup(){
 	// set up window
 	ofBackground(0.50, 0.50, 0.50);
 	ofSetWindowTitle("Control");
-	ofSetFrameRate(200);
+	//ofSetFrameRate(150);
 
 	// set up GUI
-	setupGUI();
+	//setupGUI();
 
 	// setup tcAdsClient
 	setupTCADS();
-	
 }
 
 //--------------------------------------------------------------
@@ -23,20 +22,13 @@ void ofAppMain::update(){
 	_tcClientCont->read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
 
 	// update gui
-	updateGUI();
-	
+	//updateGUI();
 }
 
 //--------------------------------------------------------------
 void ofAppMain::draw(){
-
-
-	ofFill();
-	double x = -_AdsData[0] * 2400.0 + ofGetScreenWidth() / 2.0;
-	double y = (_AdsData[1] - 0.25) * 2400.0 + ofGetScreenHeight() / 2.0;
-
-	ofSetColor(ofColor::yellow);
-	ofDrawCircle(x, y, 10);
+	// draw GUI
+	//gui->draw();
 
 }
 
@@ -112,10 +104,15 @@ void ofAppMain::setupGUI()
 	guiFldrMotorControl->onButtonEvent(this, &ofAppMain::onButtonEventReqState);
 
 	gui->addFooter();
+
+	gui->setAutoDraw(false); // we update and draw ourselves
 }
 
 void ofAppMain::updateGUI()
 {
+	
+	gui->update();
+
 	if (_sSystemError.compare(_sSystemErrorNew) != 0) {
 		_sSystemError = _sSystemErrorNew;
 		guiLblSysError->setText(_sSystemError);

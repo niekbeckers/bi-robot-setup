@@ -214,6 +214,7 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(Ad
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofAppMain.cpp" />
+    <ClCompile Include="src\ofDisplayApp.cpp" />
     <ClCompile Include="src\tcAdsClient.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +251,7 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(Ad
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
     <ClInclude Include="src\ofAppMain.h" />
+    <ClInclude Include="src\ofDisplayApp.h" />
     <ClInclude Include="src\tcAdsClient.h" />
   </ItemGroup>
   <ItemGroup>

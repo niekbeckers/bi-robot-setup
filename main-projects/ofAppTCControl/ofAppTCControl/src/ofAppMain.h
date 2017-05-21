@@ -22,13 +22,18 @@ class ofAppMain : public ofBaseApp{
 		const unsigned long adsPort = 350;
 		string _sOpsEnabled, _sSystemState, _sSystemError, _sOpsEnabledNew, _sSystemStateNew, _sSystemErrorNew;
 
+		ofxDatGuiFolder *guiFldrReqSysState, *guiFldrMotorControl;
+		ofxDatGuiTextInput *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
+
+		
+
 	public:
-		void HandleCallback(AmsAddr*, AdsNotificationHeader*);
+		ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
+		
 		void setup();
 		void update();
 		void draw();
-		void setupTCADS();
-
+		
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
@@ -42,13 +47,10 @@ class ofAppMain : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		void exit();
 
-		
-		ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
-		ofxDatGuiFolder *guiFldrReqSysState, *guiFldrMotorControl;
-		ofxDatGuiTextInput *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
-
-
+		void setupTCADS();
 		void setupGUI();
 		void updateGUI();
+
 		void onButtonEventReqState(ofxDatGuiButtonEvent e);
+		void HandleCallback(AmsAddr*, AdsNotificationHeader*);
 };

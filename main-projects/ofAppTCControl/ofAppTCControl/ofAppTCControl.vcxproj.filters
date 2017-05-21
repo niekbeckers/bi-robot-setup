@@ -55,6 +55,7 @@
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.cpp">
       <Filter>addons\ofxDatGui\src\libs\ofxSmartFont</Filter>
     </ClCompile>
+    <ClCompile Include="src\ofDisplayApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -203,6 +204,7 @@
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes\ofxDatGuiThemes.h">
       <Filter>addons\ofxDatGui\src\themes</Filter>
     </ClInclude>
+    <ClInclude Include="src\ofDisplayApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
