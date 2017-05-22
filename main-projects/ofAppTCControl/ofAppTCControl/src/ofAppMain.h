@@ -23,9 +23,11 @@ class ofAppMain : public ofBaseApp{
 		const unsigned long adsPort = 350;
 		string _sOpsEnabled, _sSystemState, _sSystemError, _sOpsEnabledNew, _sSystemStateNew, _sSystemErrorNew;
 
-		ofxPanel gui;
+		ofxPanel guiSystem, guiExperiment;
 		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run, btnEnableDrive, btnDisableDrive;
+		ofxToggle btnToggleRecordData;
 		ofParameter<string> lblFRM, lblSysState, lblOpsEnabled, lblSysError;
+		
 
 	public:
 		void setup();
@@ -51,5 +53,6 @@ class ofAppMain : public ofBaseApp{
 		void setupGUI();
 
 		void ButtonPressed(const void * sender);
+		void RecordDataTogglePressed(bool & value);
 		void HandleCallback(AmsAddr*, AdsNotificationHeader*);
 };

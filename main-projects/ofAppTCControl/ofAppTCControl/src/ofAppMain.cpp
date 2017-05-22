@@ -4,7 +4,7 @@
 void ofAppMain::setup(){
 
 	// set up window
-	ofBackground(0.50, 0.50, 0.50);
+	ofBackground(ofColor::azure);
 	ofSetWindowTitle("Control");
 
 	// set up GUI
@@ -25,7 +25,9 @@ void ofAppMain::update(){
 
 //--------------------------------------------------------------
 void ofAppMain::draw() {
-	gui.draw(); // draw gui
+	// draw gui
+	guiSystem.draw(); 
+	guiExperiment.draw();
 }
 
 void ofAppMain::setupTCADS()
@@ -55,31 +57,50 @@ void ofAppMain::setupTCADS()
 
 void ofAppMain::setupGUI()
 {
-	gui.setup("System Control");
-	gui.add(lblFRM.set("Frame rate", ""));
-	gui.setDefaultHeight(35);
+
+	guiSystem.setup("System Control");
+	guiSystem.setPosition(10.0, 10.0);
+	guiExperiment.setup("Experiment");
+	guiExperiment.setPosition(250.0, 10.0);
+	guiSystem.setDefaultHeight(30);
+
+	//
+	// GUI System
+	//
+	guiSystem.add(lblFRM.set("Frame rate", ""));
+
 	ofParameterGroup ofGrpSys;
 	ofGrpSys.add(lblSysState.set("System State", "[,]"));
 	ofGrpSys.add(lblSysError.set("System Error", "[,]"));
 	ofGrpSys.add(lblOpsEnabled.set("Drives Enabled", "[,]"));
-	gui.add(ofGrpSys);
-
+	guiSystem.add(ofGrpSys);
+	
+	// request state
 	ofParameter<string> sep1;
-	gui.add(sep1.set("Request State"));
-	gui.add(btnReqState_Reset.setup("Reset"));
-	gui.add(btnReqState_Init.setup("Init"));
-	gui.add(btnReqState_Calibrate.setup("Calibrate"));
-	gui.add(btnReqState_HomingAuto.setup("Homing - Auto"));
-	gui.add(btnReqState_HomingManual.setup("Homing - Manual"));
-	gui.add(btnReqState_Run.setup("Run"));
+	guiSystem.add(sep1.set("Request State"));
+	guiSystem.add(btnReqState_Reset.setup("Reset"));
+	guiSystem.add(btnReqState_Init.setup("Init"));
+	guiSystem.add(btnReqState_Calibrate.setup("Calibrate"));
+	guiSystem.add(btnReqState_HomingAuto.setup("Homing - Auto"));
+	guiSystem.add(btnReqState_HomingManual.setup("Homing - Manual"));
+	guiSystem.add(btnReqState_Run.setup("Run"));
 
+	// drive controls
 	ofParameter<string> sep2;
-	gui.add(sep2.set("Drive Control"));
-	gui.add(btnEnableDrive.setup("Enable drives"));
-	gui.add(btnDisableDrive.setup("Disable drives"));
+	guiSystem.add(sep2.set("Drive Control"));
+	guiSystem.add(btnEnableDrive.setup("Enable drives"));
+	guiSystem.add(btnDisableDrive.setup("Disable drives"));
 
+	
+	//
+	// GUI EXPERIMENT
+	//
+	guiExperiment.setDefaultHeight(30);
+	guiExperiment.add(btnToggleRecordData.setup("Record data", false));
 
-	// add listeners to buttons
+	// add listeners
+
+	// buttons
 	btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_Init.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_Calibrate.addListener(this, &ofAppMain::ButtonPressed);
@@ -88,6 +109,9 @@ void ofAppMain::setupGUI()
 	btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
 	btnEnableDrive.addListener(this, &ofAppMain::ButtonPressed);
 	btnDisableDrive.addListener(this, &ofAppMain::ButtonPressed);
+
+	// toggle
+	btnToggleRecordData.addListener(this, &ofAppMain::RecordDataTogglePressed);
 }
 
 void ofAppMain::ButtonPressed(const void * sender)
@@ -100,11 +124,9 @@ void ofAppMain::ButtonPressed(const void * sender)
 	long lHdlVar_Write_ReqState = tcClient->getVariableHandle(szVar, sizeof(szVar));
 
 	double reqState, val;
-
+	
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
-
-	cout << clickedBtn << '\n';
 	
 	if (clickedBtn.compare(ofToString("Reset")) == 0) {
 		reqState = 0.0;
@@ -147,58 +169,33 @@ void ofAppMain::ButtonPressed(const void * sender)
 		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
 	}
 
+	// clean up
+	tcClient->disconnect();
+}
+
+//--------------------------------------------------------------
+void ofAppMain::RecordDataTogglePressed(bool & value)
+{
+	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
+	tcAdsClient* tcClient = new tcAdsClient(adsPort);
+
+	// Request State
+	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Recorddata1yes0no_Value" };
+	long lHdlVar_Write_RecData = tcClient->getVariableHandle(szVar, sizeof(szVar));
+
+	double val;
+
+	if (value) {
+		val = 1.0;
+		tcClient->write(lHdlVar_Write_RecData, &val, sizeof(val));
+	}
+	else {
+		val = 0.0;
+		tcClient->write(lHdlVar_Write_RecData, &val, sizeof(val));
+	}
 
 	// clean up
 	tcClient->disconnect();
-
-
-	/*
-	if (e.target->is("Reset")) {
-		reqState = 0.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
-	}
-	else if(e.target->is("Init")) {
-		reqState = 1.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
-	}
-	else if (e.target->is("Calibrate")) {
-		reqState = 2.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
-	}
-	else if (e.target->is("Homing - Auto")) {
-		reqState = 302.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
-	}
-	else if (e.target->is("Homing - Manual")) {
-		reqState = 301.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
-	}
-	else if (e.target->is("Run")) {
-		reqState = 4.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
-	}
-
-	// Motor Control
-	double val;
-	if (e.target->is("Enable Drive")) {
-		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value" };
-		long lHdlVar_Write_EnableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
-		val = 1.0;
-		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
-		val = 0.0;
-		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
-	}
-	else if (e.target->is("Disable Drive")) {
-		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value" };
-		long lHdlVar_Write_DisableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
-		val = 1.0;
-		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
-		val = 0.0;
-		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
-	}
-	*/
-	
-
 }
 
 
@@ -259,8 +256,23 @@ void ofAppMain::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void ofAppMain::exit() {
+
+	// disconnect ADS clients
 	_tcClientCont->disconnect();
 	_tcClientEvent->disconnect();
+
+	// remove listeners
+	btnReqState_Reset.removeListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_Init.removeListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_Calibrate.removeListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_HomingAuto.removeListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_HomingManual.removeListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_Run.removeListener(this, &ofAppMain::ButtonPressed);
+	btnEnableDrive.removeListener(this, &ofAppMain::ButtonPressed);
+	btnDisableDrive.removeListener(this, &ofAppMain::ButtonPressed);
+
+	btnToggleRecordData = false;
+	btnToggleRecordData.removeListener(this, &ofAppMain::RecordDataTogglePressed);
 }
 
 

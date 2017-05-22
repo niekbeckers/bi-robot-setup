@@ -9,8 +9,9 @@ int main( ){
 	settings.width = 600;
 	settings.height = 600;
 	settings.setPosition(ofVec2f(0, 50));
-	settings.resizable = false;
+	settings.resizable = true;
 	settings.title = "Controls";
+	settings.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
 
 	settings.width = 1024;
