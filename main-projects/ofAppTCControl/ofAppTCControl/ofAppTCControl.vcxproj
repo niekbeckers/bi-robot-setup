@@ -95,13 +95,15 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\components;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\core;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs\ofxSmartFont;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -121,15 +123,14 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(Ad
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\components;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\core;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs\ofxSmartFont;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -146,13 +147,15 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(Ad
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\components;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\core;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs\ofxSmartFont;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -175,13 +178,15 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(Ad
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\components;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\core;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs\ofxSmartFont;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -192,14 +197,38 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(Ad
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\TwinCAT\AdsApi\TcAdsDll\Lib\TcAdsDll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\ofxDatGui.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiContainer.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiGroup.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiPanel.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiSliderGroup.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiTabs.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiButton.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFpsPlotter.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFunctionPlotter.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiGraphics.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiInputField.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiLabel.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiSlider.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiToggle.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiValuePlotter.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiZoomableGraphics.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Document.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Element.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Events.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Exceptions.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Layout.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiElement.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiExtended.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\JsonConfigParser.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMBoxLayout.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMFlexBoxLayout.cpp" />
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMLayoutHelper.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp" />
@@ -218,27 +247,37 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes;%(Ad
     <ClCompile Include="src\tcAdsClient.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGui2dPad.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiButton.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiControls.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiFRM.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiGroups.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiLabel.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiMatrix.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiScrollView.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiSlider.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiTextInput.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\core\ofxDatGuiComponent.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\core\ofxDatGuiConstants.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\core\ofxDatGuiEvents.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\core\ofxDatGuiIntObject.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\libs\ofxSmartFont\ofxSmartFont.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\ofxDatGui.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes\ofxDatGuiTheme.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxDatGui\src\themes\ofxDatGuiThemes.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiContainer.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiGroup.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiPanel.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiSliderGroup.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiTabs.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiButton.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFpsPlotter.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFunctionPlotter.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiGraphics.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiInputField.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiLabel.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiSlider.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiToggle.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiValuePlotter.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiZoomableGraphics.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Document.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Element.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Events.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\EventTarget.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Exceptions.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Layout.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\ofxDOM.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Types.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiElement.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiExtended.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util\IDGenerator.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\JsonConfigParser.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMBoxLayout.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMFlexBoxLayout.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMLayoutHelper.h" />
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxGuiDefaultConfig.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h" />

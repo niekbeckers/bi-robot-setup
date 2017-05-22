@@ -6,6 +6,7 @@
 //#include "ofxDatGui.h"
 #include "ofxGui.h"
 
+
 // custom classes
 #include "tcAdsClient.h"
 
@@ -26,9 +27,12 @@ class ofAppMain : public ofBaseApp{
 		//ofxDatGuiFolder *guiFldrReqSysState, *guiFldrMotorControl;
 		//ofxDatGuiTextInput *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
 
+		//ofxGui gui;
 		ofxPanel gui;
+		//ofxGuiPanel *pnlSystemControl;
+		//ofxGuiGroup *lblsSysStates, *btnSysReqStates;
 		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run;
-		ofxLabel lblSysState, lblOpsEnabled, lblSysError;
+		ofParameter<string> lblSysState, lblOpsEnabled, lblSysError;
 
 	public:
 		//ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);

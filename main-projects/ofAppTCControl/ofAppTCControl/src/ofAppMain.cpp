@@ -25,7 +25,7 @@ void ofAppMain::update(){
 //--------------------------------------------------------------
 void ofAppMain::draw(){
 	
-	gui.draw(); // draw gui
+	//gui.draw(); // draw gui
 
 }
 
@@ -56,6 +56,8 @@ void ofAppMain::setupTCADS()
 
 void ofAppMain::setupGUI()
 {
+
+	
 	// add buttons
 	btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_Init.addListener(this, &ofAppMain::ButtonPressed);
@@ -63,25 +65,36 @@ void ofAppMain::setupGUI()
 	btnReqState_HomingAuto.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_HomingManual.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
+	
 
 	int height = 30;
 	int width = 150;
 
-	gui.setup("System Control");
-	ofxGuiGroup lblGrpSys;
+	//gui.setup("System Control");
+	
+	//pnlSystemControl = gui.addPanel();
+	//pnlSystemControl->setPosition(20,20);
+	//pnlSystemControl->setShowHeader(false);
 
-	lblGrpSys.add(lblSysState.setup("System state", "[,]"));
-	lblGrpSys.add(lblSysError.setup("System error", "[,]"));
-	lblGrpSys.add(lblOpsEnabled.setup("Drives enabled", "[,]"));
+	//pnlSystemControl->addFpsPlotter();
+	//pnlSystemControl->addSpacer(0, 20);
 
-	gui.add(lblGrpSys);
+	//btnSysReqStates = pnlSystemControl->addGroup("Request State");
+	//btnSysReqStates->add<ofxGuiButton>("Fullsize button", ofJson({ { "type", "fullsize" },{ "text-align", "center" } }));
+
+	
+	//lblGrpSys.add(lblSysState.setup("System state", "[,]"));
+	//lblGrpSys.add(lblSysError.setup("System error", "[,]"));
+	//lblGrpSys.add(lblOpsEnabled.setup("Drives enabled", "[,]"));
+
+	//gui.add(lblGrpSys);
 	gui.add(btnReqState_Reset.setup("Reset", width, height));
 	gui.add(btnReqState_Init.setup("Init", width, height));
 	gui.add(btnReqState_Calibrate.setup("Calibrate", width, height));
 	gui.add(btnReqState_HomingAuto.setup("Homing - Auto", width, height));
 	gui.add(btnReqState_HomingManual.setup("Homing - Manual", width, height));
 	gui.add(btnReqState_Run.setup("Run", width, height));
-
+	
 	
 
 	/*
