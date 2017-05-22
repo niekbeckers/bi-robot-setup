@@ -3505,7 +3505,7 @@
 							</Value>
 							<Value>
 								<Name>WorkingDirectory</Name>
-								<String>C:\Users\Labuser\Documents\repositories\fm_experiments\main-projects\data\base-2fm\</String>
+								<String>C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\data\bros\</String>
 							</Value>
 							<Value>
 								<Name>NumberOfFiles</Name>
@@ -3654,13 +3654,13 @@
 								<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 								<PTCID>#x00000009</PTCID>
 							</Parameter>
-							<Parameter>
+							<Parameter ShowSubItems="true">
 								<Name>Input</Name>
 								<BitSize>832</BitSize>
 								<BaseType GUID="{C2750EF5-908B-C12E-23F2-F5A09B799570}">ExtU_model_base_bros_T</BaseType>
 								<PTCID>#x80000000</PTCID>
 							</Parameter>
-							<Parameter>
+							<Parameter ShowSubItems="true">
 								<Name>ModelParameters</Name>
 								<BitSize>23232</BitSize>
 								<BaseType GUID="{A06769FB-1012-D55F-8BE6-B057953D19C7}">P_model_base_bros_T</BaseType>
@@ -3699,7 +3699,7 @@
 						</Parameters>
 						<DataAreas>
 							<DataArea>
-								<AreaNo AreaType="InputDst" CreateSymbols="true">0</AreaNo>
+								<AreaNo AreaType="InputDst" CreateSymbols="true" ShowSymbols="true">0</AreaNo>
 								<Name>Input</Name>
 								<ContextId>0</ContextId>
 								<ByteSize>104</ByteSize>
@@ -3901,7 +3901,7 @@
 								</Symbol>
 							</DataArea>
 							<DataArea>
-								<AreaNo AreaType="OutputSrc" CreateSymbols="true">1</AreaNo>
+								<AreaNo AreaType="OutputSrc" CreateSymbols="true" ShowSymbols="true">1</AreaNo>
 								<Name>Output</Name>
 								<ContextId>0</ContextId>
 								<ByteSize>96</ByteSize>
@@ -4019,7 +4019,7 @@
 								</Symbol>
 							</DataArea>
 							<DataArea>
-								<AreaNo AreaType="Internal" CreateSymbols="true">2</AreaNo>
+								<AreaNo AreaType="Internal" CreateSymbols="true" ShowSymbols="true">2</AreaNo>
 								<Name>BlockIO</Name>
 								<ContextId>0</ContextId>
 								<ByteSize>5176</ByteSize>
@@ -6853,7 +6853,7 @@
 								</Symbol>
 							</DataArea>
 							<DataArea>
-								<AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
+								<AreaNo AreaType="Internal" CreateSymbols="true" ShowSymbols="true">3</AreaNo>
 								<Name>ModelParameters</Name>
 								<ContextId>0</ContextId>
 								<ByteSize>2904</ByteSize>
