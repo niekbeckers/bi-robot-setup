@@ -6,7 +6,6 @@ void ofAppMain::setup(){
 	// set up window
 	ofBackground(0.50, 0.50, 0.50);
 	ofSetWindowTitle("Control");
-	//ofSetFrameRate(150);
 
 	// set up GUI
 	setupGUI();
@@ -18,9 +17,9 @@ void ofAppMain::setup(){
 //--------------------------------------------------------------
 void ofAppMain::update(){
 	// read continuous ADS data
-	_tcClientCont->read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
+	_tcClientCont->read(_lHdlVar_Read_Data, &AdsData, sizeof(AdsData));
 
-
+	// frame rate in GUI
 	lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
 }
 
@@ -57,32 +56,38 @@ void ofAppMain::setupTCADS()
 void ofAppMain::setupGUI()
 {
 	gui.setup("System Control");
-	
-	// add buttons
+	gui.add(lblFRM.set("Frame rate", ""));
+	gui.setDefaultHeight(35);
+	ofParameterGroup ofGrpSys;
+	ofGrpSys.add(lblSysState.set("System State", "[,]"));
+	ofGrpSys.add(lblSysError.set("System Error", "[,]"));
+	ofGrpSys.add(lblOpsEnabled.set("Drives Enabled", "[,]"));
+	gui.add(ofGrpSys);
+
+	ofParameter<string> sep1;
+	gui.add(sep1.set("Request State"));
+	gui.add(btnReqState_Reset.setup("Reset"));
+	gui.add(btnReqState_Init.setup("Init"));
+	gui.add(btnReqState_Calibrate.setup("Calibrate"));
+	gui.add(btnReqState_HomingAuto.setup("Homing - Auto"));
+	gui.add(btnReqState_HomingManual.setup("Homing - Manual"));
+	gui.add(btnReqState_Run.setup("Run"));
+
+	ofParameter<string> sep2;
+	gui.add(sep2.set("Drive Control"));
+	gui.add(btnEnableDrive.setup("Enable drives"));
+	gui.add(btnDisableDrive.setup("Disable drives"));
+
+
+	// add listeners to buttons
 	btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_Init.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_Calibrate.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_HomingAuto.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_HomingManual.addListener(this, &ofAppMain::ButtonPressed);
 	btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
-	
-
-	gui.add(lblFRM.set("Frame rate", ""));
-
-	ofParameterGroup ofGrpSys;
-	ofGrpSys.add(lblSysState.set("System State", "[,]"));
-	ofGrpSys.add(lblSysError.set("System Error", "[,]"));
-	ofGrpSys.add(lblSysState.set("Drives Enabled", "[,]"));
-	gui.add(ofGrpSys);
-	
-	int height = 30;
-	int width = 150;
-	gui.add(btnReqState_Reset.setup("Reset", width, height));
-	gui.add(btnReqState_Init.setup("Init", width, height));
-	gui.add(btnReqState_Calibrate.setup("Calibrate", width, height));
-	gui.add(btnReqState_HomingAuto.setup("Homing - Auto", width, height));
-	gui.add(btnReqState_HomingManual.setup("Homing - Manual", width, height));
-	gui.add(btnReqState_Run.setup("Run", width, height));
+	btnEnableDrive.addListener(this, &ofAppMain::ButtonPressed);
+	btnDisableDrive.addListener(this, &ofAppMain::ButtonPressed);
 }
 
 void ofAppMain::ButtonPressed(const void * sender)

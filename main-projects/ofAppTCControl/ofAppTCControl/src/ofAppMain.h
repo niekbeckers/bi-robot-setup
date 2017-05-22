@@ -17,14 +17,14 @@ class ofAppMain : public ofBaseApp{
 	private:
 		tcAdsClient *_tcClientCont, *_tcClientEvent;
 
-		double _AdsData[8];
+		
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError,
 			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError;
 		const unsigned long adsPort = 350;
 		string _sOpsEnabled, _sSystemState, _sSystemError, _sOpsEnabledNew, _sSystemStateNew, _sSystemErrorNew;
 
 		ofxPanel gui;
-		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run;
+		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run, btnEnableDrive, btnDisableDrive;
 		ofParameter<string> lblFRM, lblSysState, lblOpsEnabled, lblSysError;
 
 	public:
@@ -44,6 +44,8 @@ class ofAppMain : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		void exit();
+
+		double AdsData[8];
 
 		void setupTCADS();
 		void setupGUI();
