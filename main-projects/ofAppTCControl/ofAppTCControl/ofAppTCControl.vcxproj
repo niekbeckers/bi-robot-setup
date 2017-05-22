@@ -97,13 +97,7 @@
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;
 C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -125,12 +119,6 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%
       <WarningLevel>Level3</WarningLevel>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -149,13 +137,7 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;
 C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -180,13 +162,7 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGui\src;
 C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util;
-C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -203,32 +179,6 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiContainer.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiGroup.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiPanel.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiSliderGroup.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiTabs.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiButton.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFpsPlotter.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFunctionPlotter.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiGraphics.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiInputField.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiLabel.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiSlider.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiToggle.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiValuePlotter.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiZoomableGraphics.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Document.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Element.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Events.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Exceptions.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Layout.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiElement.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiExtended.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\JsonConfigParser.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMBoxLayout.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMFlexBoxLayout.cpp" />
-    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMLayoutHelper.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp" />
@@ -242,42 +192,11 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ofAppDisplay.cpp" />
     <ClCompile Include="src\ofAppMain.cpp" />
-    <ClCompile Include="src\ofDisplayApp.cpp" />
     <ClCompile Include="src\tcAdsClient.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiContainer.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiGroup.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiPanel.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiSliderGroup.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\containers\ofxGuiTabs.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiButton.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFpsPlotter.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiFunctionPlotter.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiGraphics.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiInputField.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiLabel.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiSlider.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiToggle.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiValuePlotter.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\controls\ofxGuiZoomableGraphics.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Document.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Element.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Events.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\EventTarget.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Exceptions.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Layout.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\ofxDOM.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\DOM\Types.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiElement.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\ofxGuiExtended.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\util\IDGenerator.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\JsonConfigParser.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMBoxLayout.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMFlexBoxLayout.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxDOMLayoutHelper.h" />
-    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view\ofxGuiDefaultConfig.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h" />
@@ -289,8 +208,8 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxGuiExtended\src\view;%
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="src\ofAppDisplay.h" />
     <ClInclude Include="src\ofAppMain.h" />
-    <ClInclude Include="src\ofDisplayApp.h" />
     <ClInclude Include="src\tcAdsClient.h" />
   </ItemGroup>
   <ItemGroup>

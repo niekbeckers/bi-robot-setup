@@ -1,20 +1,17 @@
-#include "ofDisplayApp.h"
+#include "ofAppDisplay.h"
 
-
-
-void ofDisplayApp::setup()
+void ofAppDisplay::setup()
 {
 	ofBackground(0.50, 0.50, 0.50);
 	ofSetWindowTitle("Display");
 }
 
-
-void ofDisplayApp::update()
+void ofAppDisplay::update()
 {
 
 }
 
-void ofDisplayApp::draw()
+void ofAppDisplay::draw()
 {
 	ofFill();
 	ofDrawCircle(0.0, 10.0, 5.0);

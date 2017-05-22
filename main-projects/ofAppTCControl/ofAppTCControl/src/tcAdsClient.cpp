@@ -1,7 +1,6 @@
 #include "tcAdsClient.h"
 
 
-
 tcAdsClient::tcAdsClient(USHORT port)
 {
 	// Open communication port on the ADS router
@@ -11,10 +10,6 @@ tcAdsClient::tcAdsClient(USHORT port)
 
 	// Select Port: TwinCAT 3 PLC
 	_pAddr->port = port;
-}
-
-tcAdsClient::~tcAdsClient()
-{
 }
 
 ULONG tcAdsClient::getVariableHandle(char* szVarIn, int numBytes)

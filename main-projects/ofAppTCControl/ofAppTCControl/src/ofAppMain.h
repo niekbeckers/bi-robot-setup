@@ -3,7 +3,6 @@
 // ofx classes, addons
 #include "ofMain.h"
 #include "ofUtils.h"
-//#include "ofxDatGui.h"
 #include "ofxGui.h"
 
 
@@ -24,19 +23,11 @@ class ofAppMain : public ofBaseApp{
 		const unsigned long adsPort = 350;
 		string _sOpsEnabled, _sSystemState, _sSystemError, _sOpsEnabledNew, _sSystemStateNew, _sSystemErrorNew;
 
-		//ofxDatGuiFolder *guiFldrReqSysState, *guiFldrMotorControl;
-		//ofxDatGuiTextInput *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
-
-		//ofxGui gui;
 		ofxPanel gui;
-		//ofxGuiPanel *pnlSystemControl;
-		//ofxGuiGroup *lblsSysStates, *btnSysReqStates;
 		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run;
-		ofParameter<string> lblSysState, lblOpsEnabled, lblSysError;
+		ofParameter<string> lblFRM, lblSysState, lblOpsEnabled, lblSysError;
 
 	public:
-		//ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
-		
 		void setup();
 		void update();
 		void draw();
@@ -56,7 +47,6 @@ class ofAppMain : public ofBaseApp{
 
 		void setupTCADS();
 		void setupGUI();
-		void updateGUI();
 
 		void ButtonPressed(const void * sender);
 		void HandleCallback(AmsAddr*, AdsNotificationHeader*);

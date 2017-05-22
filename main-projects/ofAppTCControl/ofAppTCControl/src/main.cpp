@@ -1,6 +1,6 @@
 #include "ofMain.h"
 #include "ofAppMain.h"
-#include "ofDisplayApp.h"
+#include "ofAppDisplay.h"
 
 //========================================================================
 int main( ){
@@ -20,7 +20,7 @@ int main( ){
 	shared_ptr<ofAppBaseWindow> displayWindow = ofCreateWindow(settings);
 
 	shared_ptr<ofAppMain> mainApp(new ofAppMain);
-	shared_ptr<ofDisplayApp> displayApp(new ofDisplayApp);
+	shared_ptr<ofAppDisplay> displayApp(new ofAppDisplay);
 	//mainApp->gui = guiApp;
 
 	

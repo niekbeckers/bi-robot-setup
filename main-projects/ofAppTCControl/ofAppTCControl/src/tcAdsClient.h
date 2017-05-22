@@ -25,7 +25,6 @@ class tcAdsClient
 
 	public:
 		tcAdsClient(USHORT port);
-		~tcAdsClient();
 
 		ULONG getVariableHandle(char* szVarIn, int numBytes);
 		void releaseVariableHandle(ULONG hVar);

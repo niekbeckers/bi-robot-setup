@@ -17,16 +17,16 @@ void ofAppMain::setup(){
 
 //--------------------------------------------------------------
 void ofAppMain::update(){
-
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
+
+
+	lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
 }
 
 //--------------------------------------------------------------
-void ofAppMain::draw(){
-	
-	//gui.draw(); // draw gui
-
+void ofAppMain::draw() {
+	gui.draw(); // draw gui
 }
 
 void ofAppMain::setupTCADS()
@@ -56,7 +56,7 @@ void ofAppMain::setupTCADS()
 
 void ofAppMain::setupGUI()
 {
-
+	gui.setup("System Control");
 	
 	// add buttons
 	btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
@@ -67,107 +67,23 @@ void ofAppMain::setupGUI()
 	btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
 	
 
+	gui.add(lblFRM.set("Frame rate", ""));
+
+	ofParameterGroup ofGrpSys;
+	ofGrpSys.add(lblSysState.set("System State", "[,]"));
+	ofGrpSys.add(lblSysError.set("System Error", "[,]"));
+	ofGrpSys.add(lblSysState.set("Drives Enabled", "[,]"));
+	gui.add(ofGrpSys);
+	
 	int height = 30;
 	int width = 150;
-
-	//gui.setup("System Control");
-	
-	//pnlSystemControl = gui.addPanel();
-	//pnlSystemControl->setPosition(20,20);
-	//pnlSystemControl->setShowHeader(false);
-
-	//pnlSystemControl->addFpsPlotter();
-	//pnlSystemControl->addSpacer(0, 20);
-
-	//btnSysReqStates = pnlSystemControl->addGroup("Request State");
-	//btnSysReqStates->add<ofxGuiButton>("Fullsize button", ofJson({ { "type", "fullsize" },{ "text-align", "center" } }));
-
-	
-	//lblGrpSys.add(lblSysState.setup("System state", "[,]"));
-	//lblGrpSys.add(lblSysError.setup("System error", "[,]"));
-	//lblGrpSys.add(lblOpsEnabled.setup("Drives enabled", "[,]"));
-
-	//gui.add(lblGrpSys);
 	gui.add(btnReqState_Reset.setup("Reset", width, height));
 	gui.add(btnReqState_Init.setup("Init", width, height));
 	gui.add(btnReqState_Calibrate.setup("Calibrate", width, height));
 	gui.add(btnReqState_HomingAuto.setup("Homing - Auto", width, height));
 	gui.add(btnReqState_HomingManual.setup("Homing - Manual", width, height));
 	gui.add(btnReqState_Run.setup("Run", width, height));
-	
-	
-
-	/*
-	gui->addHeader("System Control");
-	gui->addFRM(0.5f); // add framerate monitor
-
-	// Add system state, error, drive enabled labels
-	_sSystemState = "[,]"; _sSystemStateNew = _sSystemState;
-	guiLblSysState = gui->addTextInput("System State", _sSystemState);
-	guiLblSysState->setStripeColor(ofColor::red);
-
-	_sSystemError = "[,]"; _sSystemErrorNew = _sSystemError;
-	guiLblSysError = gui->addTextInput("System Error", _sSystemError);
-	guiLblSysError->setStripeColor(ofColor::red);
-
-	_sOpsEnabled = "[,]"; _sOpsEnabledNew = _sOpsEnabled;
-	guiLblOpsEnabled = gui->addTextInput("Drive Enabled", _sOpsEnabled); 
-	guiLblOpsEnabled->setStripeColor(ofColor::red);
-
-	gui->addBreak()->setHeight(10.0f);
-
-	// Folder Request State buttons
-	guiFldrReqSysState = gui->addFolder("Request System State", ofColor::aquamarine);
-	guiFldrReqSysState->addBreak()->setHeight(5.0f);
-	guiFldrReqSysState->addButton("Reset");
-	guiFldrReqSysState->addBreak()->setHeight(5.0f);
-	guiFldrReqSysState->addButton("Init");
-	guiFldrReqSysState->addBreak()->setHeight(5.0f);
-	guiFldrReqSysState->addButton("Calibrate");
-	guiFldrReqSysState->addBreak()->setHeight(5.0f);
-	guiFldrReqSysState->addButton("Homing - Auto");
-	guiFldrReqSysState->addBreak()->setHeight(5.0f);
-	guiFldrReqSysState->addButton("Homing - Manual");
-	guiFldrReqSysState->addBreak()->setHeight(5.0f);
-	guiFldrReqSysState->addButton("Run");
-	guiFldrReqSysState->expand();
-	guiFldrReqSysState->onButtonEvent(this, &ofAppMain::onButtonEventReqState); // connect custom event for req system state
-
-	gui->addBreak()->setHeight(10.0f);
-	guiFldrMotorControl = gui->addFolder("Motor Control", ofColor::forestGreen);
-	guiFldrMotorControl->addBreak()->setHeight(5.0f);
-	guiFldrMotorControl->addButton("Enable Drive");
-	guiFldrMotorControl->addBreak()->setHeight(5.0f);
-	guiFldrMotorControl->addButton("Disable Drive");
-	guiFldrMotorControl->expand();
-	guiFldrMotorControl->onButtonEvent(this, &ofAppMain::onButtonEventReqState);
-
-	gui->addFooter();
-
-	gui->setAutoDraw(false); // we update and draw ourselves
-	*/
 }
-
-void ofAppMain::updateGUI()
-{
-	/*
-	gui->update();
-
-	if (_sSystemError.compare(_sSystemErrorNew) != 0) {
-		_sSystemError = _sSystemErrorNew;
-		guiLblSysError->setText(_sSystemError);
-	}
-	if (_sSystemState.compare(_sSystemStateNew) != 0) {
-		_sSystemState = _sSystemStateNew;
-		guiLblSysState->setText(_sSystemState);
-	}
-	if (_sOpsEnabled.compare(_sOpsEnabledNew) != 0) {
-		_sOpsEnabled = _sOpsEnabledNew;
-		guiLblOpsEnabled->setText(_sOpsEnabled);
-	}
-	*/
-}
-
 
 void ofAppMain::ButtonPressed(const void * sender)
 {
