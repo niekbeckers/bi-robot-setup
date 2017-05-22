@@ -3,7 +3,8 @@
 // ofx classes, addons
 #include "ofMain.h"
 #include "ofUtils.h"
-#include "ofxDatGui.h"
+//#include "ofxDatGui.h"
+#include "ofxGui.h"
 
 // custom classes
 #include "tcAdsClient.h"
@@ -22,13 +23,15 @@ class ofAppMain : public ofBaseApp{
 		const unsigned long adsPort = 350;
 		string _sOpsEnabled, _sSystemState, _sSystemError, _sOpsEnabledNew, _sSystemStateNew, _sSystemErrorNew;
 
-		ofxDatGuiFolder *guiFldrReqSysState, *guiFldrMotorControl;
-		ofxDatGuiTextInput *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
+		//ofxDatGuiFolder *guiFldrReqSysState, *guiFldrMotorControl;
+		//ofxDatGuiTextInput *guiLblSysState, *guiLblOpsEnabled, *guiLblSysError;
 
-		
+		ofxPanel gui;
+		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run;
+		ofxLabel lblSysState, lblOpsEnabled, lblSysError;
 
 	public:
-		ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
+		//ofxDatGui* gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
 		
 		void setup();
 		void update();
@@ -51,6 +54,6 @@ class ofAppMain : public ofBaseApp{
 		void setupGUI();
 		void updateGUI();
 
-		void onButtonEventReqState(ofxDatGuiButtonEvent e);
+		void ButtonPressed(const void * sender);
 		void HandleCallback(AmsAddr*, AdsNotificationHeader*);
 };

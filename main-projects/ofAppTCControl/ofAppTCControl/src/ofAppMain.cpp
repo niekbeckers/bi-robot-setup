@@ -9,7 +9,7 @@ void ofAppMain::setup(){
 	//ofSetFrameRate(150);
 
 	// set up GUI
-	//setupGUI();
+	setupGUI();
 
 	// setup tcAdsClient
 	setupTCADS();
@@ -20,15 +20,12 @@ void ofAppMain::update(){
 
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &_AdsData, sizeof(_AdsData));
-
-	// update gui
-	//updateGUI();
 }
 
 //--------------------------------------------------------------
 void ofAppMain::draw(){
-	// draw GUI
-	//gui->draw();
+	
+	gui.draw(); // draw gui
 
 }
 
@@ -59,6 +56,35 @@ void ofAppMain::setupTCADS()
 
 void ofAppMain::setupGUI()
 {
+	// add buttons
+	btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_Init.addListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_Calibrate.addListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_HomingAuto.addListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_HomingManual.addListener(this, &ofAppMain::ButtonPressed);
+	btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
+
+	int height = 30;
+	int width = 150;
+
+	gui.setup("System Control");
+	ofxGuiGroup lblGrpSys;
+
+	lblGrpSys.add(lblSysState.setup("System state", "[,]"));
+	lblGrpSys.add(lblSysError.setup("System error", "[,]"));
+	lblGrpSys.add(lblOpsEnabled.setup("Drives enabled", "[,]"));
+
+	gui.add(lblGrpSys);
+	gui.add(btnReqState_Reset.setup("Reset", width, height));
+	gui.add(btnReqState_Init.setup("Init", width, height));
+	gui.add(btnReqState_Calibrate.setup("Calibrate", width, height));
+	gui.add(btnReqState_HomingAuto.setup("Homing - Auto", width, height));
+	gui.add(btnReqState_HomingManual.setup("Homing - Manual", width, height));
+	gui.add(btnReqState_Run.setup("Run", width, height));
+
+	
+
+	/*
 	gui->addHeader("System Control");
 	gui->addFRM(0.5f); // add framerate monitor
 
@@ -106,11 +132,12 @@ void ofAppMain::setupGUI()
 	gui->addFooter();
 
 	gui->setAutoDraw(false); // we update and draw ourselves
+	*/
 }
 
 void ofAppMain::updateGUI()
 {
-	
+	/*
 	gui->update();
 
 	if (_sSystemError.compare(_sSystemErrorNew) != 0) {
@@ -125,9 +152,11 @@ void ofAppMain::updateGUI()
 		_sOpsEnabled = _sOpsEnabledNew;
 		guiLblOpsEnabled->setText(_sOpsEnabled);
 	}
+	*/
 }
 
-void ofAppMain::onButtonEventReqState(ofxDatGuiButtonEvent e)
+
+void ofAppMain::ButtonPressed(const void * sender)
 {
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
@@ -136,8 +165,60 @@ void ofAppMain::onButtonEventReqState(ofxDatGuiButtonEvent e)
 	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value" };
 	long lHdlVar_Write_ReqState = tcClient->getVariableHandle(szVar, sizeof(szVar));
 
-	double reqState;
+	double reqState, val;
 
+	ofxButton * button = (ofxButton*)sender;
+	string clickedBtn = button->getName();
+
+	cout << clickedBtn << '\n';
+	
+	if (clickedBtn.compare(ofToString("Reset")) == 0) {
+		reqState = 0.0;
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+	} 
+	else if (clickedBtn.compare(ofToString("Init")) == 0) {
+		reqState = 1.0;
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+	}
+	else if (clickedBtn.compare(ofToString("Calibrate")) == 0) {
+		reqState = 2.0;
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+	}
+	else if (clickedBtn.compare(ofToString("Homing - Auto")) == 0) {
+		reqState = 302.0;
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+	}
+	else if (clickedBtn.compare(ofToString("Homing - Manual")) == 0) {
+		reqState = 301.0;
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+	}
+	else if (clickedBtn.compare(ofToString("Run")) == 0) {
+		reqState = 4.0;
+		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+	}
+	else if (clickedBtn.compare(ofToString("Enable Drives")) == 0) {
+		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value" };
+		long lHdlVar_Write_EnableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+		val = 1.0;
+		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
+		val = 0.0;
+		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
+	}
+	else if (clickedBtn.compare(ofToString("Disable Drives")) == 0) {
+		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value" };
+		long lHdlVar_Write_DisableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+		val = 1.0;
+		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
+		val = 0.0;
+		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
+	}
+
+
+	// clean up
+	tcClient->disconnect();
+
+
+	/*
 	if (e.target->is("Reset")) {
 		reqState = 0.0;
 		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
@@ -181,10 +262,11 @@ void ofAppMain::onButtonEventReqState(ofxDatGuiButtonEvent e)
 		val = 0.0;
 		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
 	}
+	*/
 	
-	// clean up
-	tcClient->disconnect();
+
 }
+
 
 //--------------------------------------------------------------
 void ofAppMain::keyPressed(int key){
@@ -265,19 +347,19 @@ void ofAppMain::HandleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 		bool * data = (bool *)pNotification->data;
 		sprintf(buf, "[%s,%s]", data[0] ? "true" : "false", data[1] ? "true" : "false");
 		cout << "Operation Enabled: " << buf << '\n';
-		_sOpsEnabledNew = ofToString(buf);
+		lblOpsEnabled = ofToString(buf);
 	} 
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemError)  {
 		double * data = (double *)pNotification->data;
 		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
 		cout << "System Error: " << buf << '\n';
-		_sSystemErrorNew = ofToString(buf);
+		lblSysError = ofToString(buf);
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
 		double * data = (double *)pNotification->data;
 		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
 		cout << "System State: " << buf << '\n';
-		_sSystemStateNew = ofToString(buf);
+		lblSysState = ofToString(buf);
 	}
 	
 	// print (to screen)) the value of the variable 
