@@ -7,6 +7,7 @@
 
 
 // custom classes
+#include "ofAppDisplay.h"
 #include "tcAdsClient.h"
 
 void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
@@ -52,6 +53,9 @@ class ofAppMain : public ofBaseApp{
 		//
 		const unsigned long adsPort = 350;
 		double AdsData[8];
+
+		shared_ptr<ofAppDisplay> display1 = 0;
+		shared_ptr<ofAppDisplay> display2 = 0;
 
 		//
 		// functions

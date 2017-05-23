@@ -20,7 +20,14 @@ void ofAppMain::update(){
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &AdsData, sizeof(AdsData));
 
-	
+	display1->posCursorX = AdsData[0];
+	display1->posCursorY = AdsData[1];
+	display1->posTargetX = AdsData[5];
+	display1->posTargetX = AdsData[6];
+
+
+
+	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
 		_timeCheck = ofGetElapsedTimef();
 
@@ -36,7 +43,6 @@ void ofAppMain::update(){
 
 		// frame rate in GUI
 		_lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
-		
 	}
 	
 }
@@ -55,16 +61,6 @@ void ofAppMain::setupTCADS()
 {
 	// set up tcAdsClient for data reading
 	_tcClientCont = new tcAdsClient(adsPort);
-
-	if (_tcClientCont->nErr) {
-		_lblEtherCAT = "OFF";
-		// error, probably no ADS running
-		_lblEtherCAT.setBackgroundColor(ofColor::red);
-	}
-	else {
-		_lblEtherCAT = "ON";
-		_lblEtherCAT.setBackgroundColor(ofColor::darkGreen);
-	}
 
 	// get variable handles for ADS
 	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };

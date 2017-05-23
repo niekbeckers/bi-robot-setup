@@ -29,20 +29,14 @@ void ofAppDisplay::draw()
 
 	// draw target
 	ofNoFill();
-	double xT = -mainApp->AdsData[5] * dots_per_m;
-	double yT = mainApp->AdsData[6] * dots_per_m;
-
 	ofSetColor(ofColor::darkSeaGreen);
-	ofDrawCircle(xT, yT, 15.0);
+	ofDrawCircle(-posTargetX*dots_per_m, posTargetY*dots_per_m, 15.0);
 
 
 	// draw cursor
 	ofFill();
-	double xC = -(mainApp->AdsData[0] - x0) * dots_per_m;
-	double yC =  (mainApp->AdsData[1] - y0) * dots_per_m;
-
 	ofSetColor(ofColor::darkCyan);
-	ofDrawCircle(xC, yC, 10.0);
+	ofDrawCircle(-(posCursorX-x0)*dots_per_m, (posCursorY-y0)*dots_per_m, 10.0);
 
 	ofPopMatrix();
 

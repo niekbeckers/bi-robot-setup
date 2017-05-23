@@ -22,16 +22,17 @@ int main( ){
 	//settings.multiMonitorFullScreen = true;
 	settings.title = "Display";
 	settings.windowMode = OF_FULLSCREEN;
-	shared_ptr<ofAppBaseWindow> displayWindow = ofCreateWindow(settings);
+	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings);
 
 	shared_ptr<ofAppMain> mainApp(new ofAppMain);
-	shared_ptr<ofAppDisplay> displayApp(new ofAppDisplay);
+	shared_ptr<ofAppDisplay> display1App(new ofAppDisplay);
 
-	displayApp->mainApp = mainApp;
+	mainApp->display1 = display1App;
+
 
 	
 	ofRunApp(mainWindow, mainApp);
-	ofRunApp(displayWindow, displayApp);
+	ofRunApp(display1Window, display1App);
 	ofRunMainLoop();
 
 }
