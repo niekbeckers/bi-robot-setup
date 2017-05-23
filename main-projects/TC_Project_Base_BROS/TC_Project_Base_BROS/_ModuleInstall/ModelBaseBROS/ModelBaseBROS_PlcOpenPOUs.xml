@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-19T19:00:57" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-23T09:19:13" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#02293324;
-clsId.Data2 := 16#2d78;
-clsId.Data3 := 16#42ec;
-clsId.Data4[0] := 16#95;
-clsId.Data4[1] := 16#d8;
-clsId.Data4[2] := 16#ac;
-clsId.Data4[3] := 16#ba;
-clsId.Data4[4] := 16#09;
-clsId.Data4[5] := 16#c1;
-clsId.Data4[6] := 16#e8;
-clsId.Data4[7] := 16#1a;
+clsId.Data1 := 16#45d1ba69;
+clsId.Data2 := 16#de3a;
+clsId.Data3 := 16#4e3a;
+clsId.Data4[0] := 16#b1;
+clsId.Data4[1] := 16#f5;
+clsId.Data4[2] := 16#fc;
+clsId.Data4[3] := 16#51;
+clsId.Data4[4] := 16#77;
+clsId.Data4[5] := 16#b8;
+clsId.Data4[6] := 16#66;
+clsId.Data4[7] := 16#39;
 
 AssignClassId(clsId);
                     
@@ -2227,7 +2227,7 @@ stInitData.ModelParametersHdr.indexOffset := 16#83000000;
 stInitData.ModelParametersHdr.cbData := SIZEOF(stInitData.ModelParameters);
 stInitData.ModelParameters.FM1.HomeLocationOpSpace[0] := 0;
 stInitData.ModelParameters.FM1.HomeLocationOpSpace[1] := 0.25;
-stInitData.ModelParameters.FM1.HomeLocationSize := 0.01;
+stInitData.ModelParameters.FM1.HomeLocationSize := 0.005;
 stInitData.ModelParameters.FM1.DynModParams[0] := 0.001597109;
 stInitData.ModelParameters.FM1.DynModParams[1] := 0.001580786;
 stInitData.ModelParameters.FM1.DynModParams[2] := 0.0702826;
@@ -2266,7 +2266,7 @@ stInitData.ModelParameters.FM1.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.4
 stInitData.ModelParameters.FM1.FTSensor.TransformationMatrixSide := 1;
 stInitData.ModelParameters.FM2.HomeLocationOpSpace[0] := 0;
 stInitData.ModelParameters.FM2.HomeLocationOpSpace[1] := 0.25;
-stInitData.ModelParameters.FM2.HomeLocationSize := 0.01;
+stInitData.ModelParameters.FM2.HomeLocationSize := 0.005;
 stInitData.ModelParameters.FM2.DynModParams[0] := 0.001597109;
 stInitData.ModelParameters.FM2.DynModParams[1] := 0.001580786;
 stInitData.ModelParameters.FM2.DynModParams[2] := 0.0702826;
@@ -2479,8 +2479,8 @@ stInitData.ModelParameters.TimePerState_ms_Value_m[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value_m[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value_c := 10;
 stInitData.ModelParameters.Constant2_Value_m[0] := 0;
-stInitData.ModelParameters.Constant2_Value_m[1] := 0.5;
-stInitData.ModelParameters.Constant3_Value_hr[0] := 0.25;
+stInitData.ModelParameters.Constant2_Value_m[1] := 0;
+stInitData.ModelParameters.Constant3_Value_hr[0] := 0;
 stInitData.ModelParameters.Constant3_Value_hr[1] := 0;
 stInitData.ModelParameters.TSamp_WtEt_n := 1000;
 stInitData.ModelParameters.FreqHz_Value_o := 150;
@@ -2539,6 +2539,7 @@ stInitData.ModelParameters.Memory1_7_X0_o := 0;
 stInitData.ModelParameters.Memory1_8_X0_o := 0;
 stInitData.ModelParameters.Memory1_9_X0_o := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
+stInitData.ModelParameters.Gain_Gain_h := 1;
 stInitData.ModelParameters.ManualSwitch_CurrentSetting := 0;
 stInitData.ModelParameters.ManualSwitch_CurrentSetting_f := 0;
 stInitData.ModelParameters.ManualSwitch_CurrentSetting_fv := 0;

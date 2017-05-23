@@ -961,8 +961,8 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{A06769FB-1012-D55F-8BE6-B057953D19C7}">P_model_base_bros_T</Name>
-			<BitSize>23232</BitSize>
+			<Name GUID="{C19800A4-92CE-5E5C-1DE3-2DC769DF9C7D}">P_model_base_bros_T</Name>
+			<BitSize>23296</BitSize>
 			<SubItem>
 				<Name>FM1</Name>
 				<Type GUID="{03287780-5CD2-B23D-2146-5D85C22482B1}">struct_9L1x4IYaj9lPHWRIcDFkWC</Type>
@@ -2218,270 +2218,277 @@
 				<BitOffs>18816</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Gain_Gain_h</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>18880</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>ManualSwitch_CurrentSetting</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18880</BitOffs>
+				<BitOffs>18944</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_f</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18888</BitOffs>
+				<BitOffs>18952</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_fv</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18896</BitOffs>
+				<BitOffs>18960</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_n</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18904</BitOffs>
+				<BitOffs>18968</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18912</BitOffs>
+				<BitOffs>18976</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_f</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18920</BitOffs>
+				<BitOffs>18984</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18928</BitOffs>
+				<BitOffs>18992</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0_a</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18936</BitOffs>
+				<BitOffs>19000</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_fn</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18944</BitOffs>
+				<BitOffs>19008</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18952</BitOffs>
+				<BitOffs>19016</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0_a</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18960</BitOffs>
+				<BitOffs>19024</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0_d</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18968</BitOffs>
+				<BitOffs>19032</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0_c</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18976</BitOffs>
+				<BitOffs>19040</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0_g</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18984</BitOffs>
+				<BitOffs>19048</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0_b</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>18992</BitOffs>
+				<BitOffs>19056</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_il</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19000</BitOffs>
+				<BitOffs>19064</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>19008</BitOffs>
+				<BitOffs>19072</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_m</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19136</BitOffs>
+				<BitOffs>19200</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_d</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19144</BitOffs>
+				<BitOffs>19208</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_ok</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19152</BitOffs>
+				<BitOffs>19216</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_oq</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19160</BitOffs>
+				<BitOffs>19224</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_a</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>19168</BitOffs>
+				<BitOffs>19232</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_c</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19296</BitOffs>
+				<BitOffs>19360</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_dd</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19304</BitOffs>
+				<BitOffs>19368</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_ny</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19312</BitOffs>
+				<BitOffs>19376</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_g</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19320</BitOffs>
+				<BitOffs>19384</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_b</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>19328</BitOffs>
+				<BitOffs>19392</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_h</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19456</BitOffs>
+				<BitOffs>19520</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_h</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19464</BitOffs>
+				<BitOffs>19528</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_a</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19472</BitOffs>
+				<BitOffs>19536</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_e</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19480</BitOffs>
+				<BitOffs>19544</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_i</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>19488</BitOffs>
+				<BitOffs>19552</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_hk</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19616</BitOffs>
+				<BitOffs>19680</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_l</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19624</BitOffs>
+				<BitOffs>19688</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_dj</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19632</BitOffs>
+				<BitOffs>19696</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_ca</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19640</BitOffs>
+				<BitOffs>19704</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_k</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19648</BitOffs>
+				<BitOffs>19712</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_e</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19656</BitOffs>
+				<BitOffs>19720</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_n</Name>
 				<Type GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</Type>
 				<BitSize>384</BitSize>
-				<BitOffs>19712</BitOffs>
+				<BitOffs>19776</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>homingactive_j</Name>
 				<Type GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</Type>
 				<BitSize>1344</BitSize>
-				<BitOffs>20096</BitOffs>
+				<BitOffs>20160</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_n</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>21440</BitOffs>
+				<BitOffs>21504</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_g</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>21448</BitOffs>
+				<BitOffs>21512</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run</Name>
 				<Type GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</Type>
 				<BitSize>384</BitSize>
-				<BitOffs>21504</BitOffs>
+				<BitOffs>21568</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>homingactive</Name>
 				<Type GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</Type>
 				<BitSize>1344</BitSize>
-				<BitOffs>21888</BitOffs>
+				<BitOffs>21952</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{A06769FB-1012-D55F-8BE6-B057953D19C7}"/>
 				<Hide GUID="{A35E71DF-8F85-1FEF-7112-EDC8F2D241A1}"/>
 				<Hide GUID="{CEA3577A-37DF-F5DB-F283-DAE30416A643}"/>
 				<Hide GUID="{738154DD-C443-2EFE-5606-8C52E489A8D9}"/>
@@ -3539,9 +3546,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBaseBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{02293324-2D78-42EC-95D8-ACBA09C1E81A}">
+					<TmcDesc GUID="{855CAF40-2B87-4543-BC07-7669AB150171}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{02293324-2D78-42EC-95D8-ACBA09C1E81A}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{855CAF40-2B87-4543-BC07-7669AB150171}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -3654,16 +3661,16 @@
 								<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 								<PTCID>#x00000009</PTCID>
 							</Parameter>
-							<Parameter ShowSubItems="true">
+							<Parameter>
 								<Name>Input</Name>
 								<BitSize>832</BitSize>
 								<BaseType GUID="{C2750EF5-908B-C12E-23F2-F5A09B799570}">ExtU_model_base_bros_T</BaseType>
 								<PTCID>#x80000000</PTCID>
 							</Parameter>
-							<Parameter ShowSubItems="true">
+							<Parameter>
 								<Name>ModelParameters</Name>
-								<BitSize>23232</BitSize>
-								<BaseType GUID="{A06769FB-1012-D55F-8BE6-B057953D19C7}">P_model_base_bros_T</BaseType>
+								<BitSize>23296</BitSize>
+								<BaseType GUID="{C19800A4-92CE-5E5C-1DE3-2DC769DF9C7D}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -3699,7 +3706,7 @@
 						</Parameters>
 						<DataAreas>
 							<DataArea>
-								<AreaNo AreaType="InputDst" CreateSymbols="true" ShowSymbols="true">0</AreaNo>
+								<AreaNo AreaType="InputDst" CreateSymbols="true">0</AreaNo>
 								<Name>Input</Name>
 								<ContextId>0</ContextId>
 								<ByteSize>104</ByteSize>
@@ -3901,7 +3908,7 @@
 								</Symbol>
 							</DataArea>
 							<DataArea>
-								<AreaNo AreaType="OutputSrc" CreateSymbols="true" ShowSymbols="true">1</AreaNo>
+								<AreaNo AreaType="OutputSrc" CreateSymbols="true">1</AreaNo>
 								<Name>Output</Name>
 								<ContextId>0</ContextId>
 								<ByteSize>96</ByteSize>
@@ -4019,7 +4026,7 @@
 								</Symbol>
 							</DataArea>
 							<DataArea>
-								<AreaNo AreaType="Internal" CreateSymbols="true" ShowSymbols="true">2</AreaNo>
+								<AreaNo AreaType="Internal" CreateSymbols="true">2</AreaNo>
 								<Name>BlockIO</Name>
 								<ContextId>0</ContextId>
 								<ByteSize>5176</ByteSize>
@@ -5249,7 +5256,7 @@
 									<BitOffs>24448</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>UnaryMinus</Name>
+									<Name>Gain_p</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x82000c00</PTCID>
@@ -6853,10 +6860,10 @@
 								</Symbol>
 							</DataArea>
 							<DataArea>
-								<AreaNo AreaType="Internal" CreateSymbols="true" ShowSymbols="true">3</AreaNo>
+								<AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
 								<Name>ModelParameters</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>2904</ByteSize>
+								<ByteSize>2912</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>FM1</Name>
 									<BitSize>2496</BitSize>
@@ -8321,312 +8328,319 @@
 									<BitOffs>18816</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain_Gain_h</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+									<PTCID>#x83000938</PTCID>
+									<BitOffs>18880</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x83000938</PTCID>
-									<BitOffs>18880</BitOffs>
+									<PTCID>#x83000940</PTCID>
+									<BitOffs>18944</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x83000939</PTCID>
-									<BitOffs>18888</BitOffs>
+									<PTCID>#x83000941</PTCID>
+									<BitOffs>18952</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_fv</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x8300093a</PTCID>
-									<BitOffs>18896</BitOffs>
+									<PTCID>#x83000942</PTCID>
+									<BitOffs>18960</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x8300093b</PTCID>
-									<BitOffs>18904</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory1_X0</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300093c</PTCID>
-									<BitOffs>18912</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory_X0_f</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300093d</PTCID>
-									<BitOffs>18920</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300093e</PTCID>
-									<BitOffs>18928</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0_a</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300093f</PTCID>
-									<BitOffs>18936</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_fn</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000940</PTCID>
-									<BitOffs>18944</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000941</PTCID>
-									<BitOffs>18952</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0_a</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000942</PTCID>
-									<BitOffs>18960</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0_d</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000943</PTCID>
 									<BitOffs>18968</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0_c</Name>
+									<Name>Memory1_X0</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000944</PTCID>
 									<BitOffs>18976</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0_g</Name>
+									<Name>Memory_X0_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000945</PTCID>
 									<BitOffs>18984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0_b</Name>
+									<Name>PreventAlgebraicLoop_X0</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000946</PTCID>
 									<BitOffs>18992</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_il</Name>
+									<Name>PreventAlgebraicLoop_X0_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000947</PTCID>
 									<BitOffs>19000</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Constant_Value_fn</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000948</PTCID>
+									<BitOffs>19008</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000949</PTCID>
+									<BitOffs>19016</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0_a</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300094a</PTCID>
+									<BitOffs>19024</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>PreventAlgebraicLoop_X0_d</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300094b</PTCID>
+									<BitOffs>19032</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>PreventAlgebraicLoop_X0_c</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300094c</PTCID>
+									<BitOffs>19040</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0_g</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300094d</PTCID>
+									<BitOffs>19048</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0_b</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300094e</PTCID>
+									<BitOffs>19056</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Constant_Value_il</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300094f</PTCID>
+									<BitOffs>19064</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>Logic_table</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x83000948</PTCID>
-									<BitOffs>19008</BitOffs>
+									<PTCID>#x83000950</PTCID>
+									<BitOffs>19072</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_m</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000958</PTCID>
-									<BitOffs>19136</BitOffs>
+									<PTCID>#x83000960</PTCID>
+									<BitOffs>19200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_d</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000959</PTCID>
-									<BitOffs>19144</BitOffs>
+									<PTCID>#x83000961</PTCID>
+									<BitOffs>19208</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_ok</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300095a</PTCID>
-									<BitOffs>19152</BitOffs>
+									<PTCID>#x83000962</PTCID>
+									<BitOffs>19216</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_oq</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300095b</PTCID>
-									<BitOffs>19160</BitOffs>
+									<PTCID>#x83000963</PTCID>
+									<BitOffs>19224</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_a</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x8300095c</PTCID>
-									<BitOffs>19168</BitOffs>
+									<PTCID>#x83000964</PTCID>
+									<BitOffs>19232</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_c</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300096c</PTCID>
-									<BitOffs>19296</BitOffs>
+									<PTCID>#x83000974</PTCID>
+									<BitOffs>19360</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_dd</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300096d</PTCID>
-									<BitOffs>19304</BitOffs>
+									<PTCID>#x83000975</PTCID>
+									<BitOffs>19368</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_ny</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300096e</PTCID>
-									<BitOffs>19312</BitOffs>
+									<PTCID>#x83000976</PTCID>
+									<BitOffs>19376</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300096f</PTCID>
-									<BitOffs>19320</BitOffs>
+									<PTCID>#x83000977</PTCID>
+									<BitOffs>19384</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_b</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x83000970</PTCID>
-									<BitOffs>19328</BitOffs>
+									<PTCID>#x83000978</PTCID>
+									<BitOffs>19392</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_h</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000980</PTCID>
-									<BitOffs>19456</BitOffs>
+									<PTCID>#x83000988</PTCID>
+									<BitOffs>19520</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_h</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000981</PTCID>
-									<BitOffs>19464</BitOffs>
+									<PTCID>#x83000989</PTCID>
+									<BitOffs>19528</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000982</PTCID>
-									<BitOffs>19472</BitOffs>
+									<PTCID>#x8300098a</PTCID>
+									<BitOffs>19536</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000983</PTCID>
-									<BitOffs>19480</BitOffs>
+									<PTCID>#x8300098b</PTCID>
+									<BitOffs>19544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_i</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x83000984</PTCID>
-									<BitOffs>19488</BitOffs>
+									<PTCID>#x8300098c</PTCID>
+									<BitOffs>19552</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_hk</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000994</PTCID>
-									<BitOffs>19616</BitOffs>
+									<PTCID>#x8300099c</PTCID>
+									<BitOffs>19680</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_l</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000995</PTCID>
-									<BitOffs>19624</BitOffs>
+									<PTCID>#x8300099d</PTCID>
+									<BitOffs>19688</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_dj</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000996</PTCID>
-									<BitOffs>19632</BitOffs>
+									<PTCID>#x8300099e</PTCID>
+									<BitOffs>19696</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_ca</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000997</PTCID>
-									<BitOffs>19640</BitOffs>
+									<PTCID>#x8300099f</PTCID>
+									<BitOffs>19704</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x83000998</PTCID>
-									<BitOffs>19648</BitOffs>
+									<PTCID>#x830009a0</PTCID>
+									<BitOffs>19712</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x83000999</PTCID>
-									<BitOffs>19656</BitOffs>
+									<PTCID>#x830009a1</PTCID>
+									<BitOffs>19720</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_n</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</BaseType>
-									<PTCID>#x830009a0</PTCID>
-									<BitOffs>19712</BitOffs>
+									<PTCID>#x830009a8</PTCID>
+									<BitOffs>19776</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive_j</Name>
 									<BitSize>1344</BitSize>
 									<BaseType GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</BaseType>
-									<PTCID>#x830009d0</PTCID>
-									<BitOffs>20096</BitOffs>
+									<PTCID>#x830009d8</PTCID>
+									<BitOffs>20160</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x83000a78</PTCID>
-									<BitOffs>21440</BitOffs>
+									<PTCID>#x83000a80</PTCID>
+									<BitOffs>21504</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x83000a79</PTCID>
-									<BitOffs>21448</BitOffs>
+									<PTCID>#x83000a81</PTCID>
+									<BitOffs>21512</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</BaseType>
-									<PTCID>#x83000a80</PTCID>
-									<BitOffs>21504</BitOffs>
+									<PTCID>#x83000a88</PTCID>
+									<BitOffs>21568</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive</Name>
 									<BitSize>1344</BitSize>
 									<BaseType GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</BaseType>
-									<PTCID>#x83000ab0</PTCID>
-									<BitOffs>21888</BitOffs>
+									<PTCID>#x83000ab8</PTCID>
+									<BitOffs>21952</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -10081,7 +10095,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.HomeLocationSize</Name>
-								<Value>0.01</Value>
+								<Value>0.005</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM1.DynModParams[0]</Name>
@@ -10237,7 +10251,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM2.HomeLocationSize</Name>
-								<Value>0.01</Value>
+								<Value>0.005</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FM2.DynModParams[0]</Name>
@@ -11089,11 +11103,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant2_Value_m[1]</Name>
-								<Value>0.5</Value>
+								<Value>0</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant3_Value_hr[0]</Name>
-								<Value>0.25</Value>
+								<Value>0</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant3_Value_hr[1]</Name>
@@ -11326,6 +11340,10 @@
 							<Value>
 								<Name>ModelParameters.Recorddata1yes0no_Value</Name>
 								<Value>0</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.Gain_Gain_h</Name>
+								<Value>1</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.ManualSwitch_CurrentSetting</Name>
