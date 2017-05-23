@@ -4,7 +4,7 @@
 void ofAppMain::setup(){
 
 	// set up window
-	ofBackground(ofColor::azure);
+	ofBackground(ofColor::blueSteel);
 	ofSetWindowTitle("Control");
 
 	// set up GUI
@@ -12,6 +12,7 @@ void ofAppMain::setup(){
 
 	// setup tcAdsClient
 	setupTCADS();
+	_timeCheck = ofGetElapsedTimef();
 }
 
 //--------------------------------------------------------------
@@ -19,21 +20,51 @@ void ofAppMain::update(){
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &AdsData, sizeof(AdsData));
 
-	// frame rate in GUI
-	lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
+	
+	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
+		_timeCheck = ofGetElapsedTimef();
+
+		if (_tcClientCont->nErr == 0) {\
+			_lblEtherCAT = "ON";
+			_lblEtherCAT.setBackgroundColor(ofColor::darkGreen);
+		}
+		else {
+			// error, probably no ADS running
+			_lblEtherCAT = "OFF";
+			_lblEtherCAT.setBackgroundColor(ofColor::red);
+		}
+
+		// frame rate in GUI
+		_lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
+		
+	}
+	
 }
+
+
 
 //--------------------------------------------------------------
 void ofAppMain::draw() {
 	// draw gui
-	guiSystem.draw(); 
-	guiExperiment.draw();
+	_guiSystem.draw(); 
+	_guiExperiment.draw();
 }
 
+//--------------------------------------------------------------
 void ofAppMain::setupTCADS()
 {
 	// set up tcAdsClient for data reading
 	_tcClientCont = new tcAdsClient(adsPort);
+
+	if (_tcClientCont->nErr) {
+		_lblEtherCAT = "OFF";
+		// error, probably no ADS running
+		_lblEtherCAT.setBackgroundColor(ofColor::red);
+	}
+	else {
+		_lblEtherCAT = "ON";
+		_lblEtherCAT.setBackgroundColor(ofColor::darkGreen);
+	}
 
 	// get variable handles for ADS
 	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
@@ -42,6 +73,7 @@ void ofAppMain::setupTCADS()
 	// set up tcAdsClient for data reading
 	_tcClientEvent = new tcAdsClient(adsPort);
 
+	// get variables
 	char szVar1[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates" };
 	_lHdlVar_Read_SystemState = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
 	_lHdlNot_Read_SystemState = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemState, (unsigned long)(this), onEventCallbackTCADS, 16);
@@ -57,124 +89,148 @@ void ofAppMain::setupTCADS()
 
 void ofAppMain::setupGUI()
 {
+	// setup GUIs
+	_guiSystem.setup("System Control");
+	_guiSystem.setPosition(10.0, 10.0);
+	_guiExperiment.setup("Experiment");
+	_guiExperiment.setPosition(250.0, 10.0);
 
-	guiSystem.setup("System Control");
-	guiSystem.setPosition(10.0, 10.0);
-	guiExperiment.setup("Experiment");
-	guiExperiment.setPosition(250.0, 10.0);
-	guiSystem.setDefaultHeight(30);
+	_guiSystem.setDefaultHeight(30);
 
 	//
 	// GUI System
 	//
-	guiSystem.add(lblFRM.set("Frame rate", ""));
+	
+	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
+	_guiSystem.add(_lblFRM.set("Frame rate", ""));
 
-	ofGrpSys.setName("System state");
-	ofGrpSys.add(lblSysState.set("System State", "[,]"));
-	ofGrpSys.add(lblSysError.set("System Error", "[,]"));
-	ofGrpSys.add(lblOpsEnabled.set("Drives Enabled", "[,]"));
-	guiSystem.add(ofGrpSys);
+	_ofGrpSys.setName("System state");
+	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
+	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
+	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
+	_guiSystem.add(_ofGrpSys);
 	
 	// request state
-	
-	grpReqState.setup("Requested state");
-	grpReqState.setName("Request state");
-	grpReqState.add(btnReqState_Reset.setup("Reset"));
-	grpReqState.add(btnReqState_Init.setup("Init"));
-	grpReqState.add(btnReqState_Calibrate.setup("Calibrate"));
-	grpReqState.add(btnReqState_HomingAuto.setup("Homing - Auto"));
-	grpReqState.add(btnReqState_HomingManual.setup("Homing - Manual"));
-	grpReqState.add(btnReqState_Run.setup("Run"));
-	guiSystem.add(&grpReqState);
+	_grpReqState.setup("Requested state");
+	_grpReqState.setName("Request state");
+	_grpReqState.add(_btnReqState_Reset.setup("Reset"));
+	_grpReqState.add(_btnReqState_Init.setup("Init"));
+	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate"));
+	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto"));
+	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual"));
+	_grpReqState.add(_btnReqState_Run.setup("Run"));
+	_guiSystem.add(&_grpReqState);
 
 	// drive controls
-	grpDriveControl.setup("Drive control");
-	grpDriveControl.setName("Drive control");
-	grpDriveControl.add(btnEnableDrive.setup("Enable drives"));
-	grpDriveControl.add(btnDisableDrive.setup("Disable drives"));
-	guiSystem.add(&grpDriveControl);
+	_grpDriveControl.setup("Drive control");
+	_grpDriveControl.setName("Drive control");
+	_grpDriveControl.add(_btnEnableDrive.setup("Enable drives"));
+	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
+	_guiSystem.add(&_grpDriveControl);
 	
 	//
 	// GUI EXPERIMENT
 	//
-	guiExperiment.setDefaultHeight(30);
-	guiExperiment.add(btnToggleRecordData.setup("Record data", false));
+	_guiExperiment.setDefaultHeight(30);
+	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 
 	//
 	// add listeners
 	//
 
 	// buttons
-	btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_Init.addListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_Calibrate.addListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_HomingAuto.addListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_HomingManual.addListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
-	btnEnableDrive.addListener(this, &ofAppMain::ButtonPressed);
-	btnDisableDrive.addListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Init.addListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Calibrate.addListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_HomingAuto.addListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_HomingManual.addListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
+	_btnEnableDrive.addListener(this, &ofAppMain::ButtonPressed);
+	_btnDisableDrive.addListener(this, &ofAppMain::ButtonPressed);
 
 	// toggle
-	btnToggleRecordData.addListener(this, &ofAppMain::RecordDataTogglePressed);
+	_btnToggleRecordData.addListener(this, &ofAppMain::RecordDataTogglePressed);
 }
 
-void ofAppMain::ButtonPressed(const void * sender)
+//--------------------------------------------------------------
+void ofAppMain::RequestStateChange(double reqState)
 {
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
 
 	// Request State
 	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value" };
-	long lHdlVar_Write_ReqState = tcClient->getVariableHandle(szVar, sizeof(szVar));
+	long lHdlVar = tcClient->getVariableHandle(szVar, sizeof(szVar));
 
-	double reqState, val;
+	// write state request to variable handle
+	tcClient->write(lHdlVar, &reqState, sizeof(reqState));
+
+	// clean up
+	tcClient->disconnect();
+}
+
+//--------------------------------------------------------------
+void ofAppMain::RequestDriveEnableDisable(bool enable)
+{
+	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
+	tcAdsClient* tcClient = new tcAdsClient(adsPort);
+
+	long lHdlVar; // variable handle
+
+	if (enable) { 
+		// enable drives
+		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value" };
+		lHdlVar = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+	}
+	else {
+		// disable drives
+		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value" };
+		lHdlVar = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+	}
 	
+	// write 1 and 0 to variable handle (pulse)
+	double val = 1.0;
+	tcClient->write(lHdlVar, &val, sizeof(val));
+	val = 0.0;
+	tcClient->write(lHdlVar, &val, sizeof(val));
+
+	// clean up
+	tcClient->disconnect();
+}
+
+
+//--------------------------------------------------------------
+void ofAppMain::ButtonPressed(const void * sender)
+{
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
 	
 	if (clickedBtn.compare(ofToString("Reset")) == 0) {
-		reqState = 0.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		RequestStateChange(0.0);
 	} 
 	else if (clickedBtn.compare(ofToString("Init")) == 0) {
-		reqState = 1.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		RequestStateChange(1.0);
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate")) == 0) {
-		reqState = 2.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		RequestStateChange(2.0);
 	}
 	else if (clickedBtn.compare(ofToString("Homing - Auto")) == 0) {
-		reqState = 302.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		RequestStateChange(302.0);
 	}
 	else if (clickedBtn.compare(ofToString("Homing - Manual")) == 0) {
-		reqState = 301.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		RequestStateChange(301.0);
 	}
 	else if (clickedBtn.compare(ofToString("Run")) == 0) {
-		reqState = 4.0;
-		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
+		RequestStateChange(4.0);
 	}
 	else if (clickedBtn.compare(ofToString("Enable drives")) == 0) {
-		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value" };
-		long lHdlVar_Write_EnableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
-		val = 1.0;
-		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
-		val = 0.0;
-		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
+		RequestDriveEnableDisable(true);
 	}
 	else if (clickedBtn.compare(ofToString("Disable drives")) == 0) {
-		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value" };
-		long lHdlVar_Write_DisableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
-		val = 1.0;
-		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
-		val = 0.0;
-		tcClient->write(lHdlVar_Write_DisableDrive, &val, sizeof(val));
+		RequestDriveEnableDisable(false);
 	}
 
-	// clean up
-	tcClient->disconnect();
+
 }
 
 //--------------------------------------------------------------
@@ -185,18 +241,13 @@ void ofAppMain::RecordDataTogglePressed(bool & value)
 
 	// Request State
 	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Recorddata1yes0no_Value" };
-	long lHdlVar_Write_RecData = tcClient->getVariableHandle(szVar, sizeof(szVar));
+	long lHdlVar = tcClient->getVariableHandle(szVar, sizeof(szVar));
 
-	double val;
+	// Write 1 to enable data recording, 0 to disable data recording
+	double val = value ? 1.0 : 0.0;
 
-	if (value) {
-		val = 1.0;
-		tcClient->write(lHdlVar_Write_RecData, &val, sizeof(val));
-	}
-	else {
-		val = 0.0;
-		tcClient->write(lHdlVar_Write_RecData, &val, sizeof(val));
-	}
+	// write
+	tcClient->write(lHdlVar, &val, sizeof(val));
 
 	// clean up
 	tcClient->disconnect();
@@ -261,25 +312,53 @@ void ofAppMain::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void ofAppMain::exit() {
 
+	// remove listeners
+	_btnReqState_Reset.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Init.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Calibrate.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_HomingAuto.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_HomingManual.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Run.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnEnableDrive.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnDisableDrive.removeListener(this, &ofAppMain::ButtonPressed);
+
+	_btnToggleRecordData = false;
+	_btnToggleRecordData.removeListener(this, &ofAppMain::RecordDataTogglePressed);
+
 	// disconnect ADS clients
 	_tcClientCont->disconnect();
 	_tcClientEvent->disconnect();
-
-	// remove listeners
-	btnReqState_Reset.removeListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_Init.removeListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_Calibrate.removeListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_HomingAuto.removeListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_HomingManual.removeListener(this, &ofAppMain::ButtonPressed);
-	btnReqState_Run.removeListener(this, &ofAppMain::ButtonPressed);
-	btnEnableDrive.removeListener(this, &ofAppMain::ButtonPressed);
-	btnDisableDrive.removeListener(this, &ofAppMain::ButtonPressed);
-
-	btnToggleRecordData = false;
-	btnToggleRecordData.removeListener(this, &ofAppMain::RecordDataTogglePressed);
 }
 
+//--------------------------------------------------------------
+void ofAppMain::HandleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotification)
+{
+	char buf[20];
 
+	if (pNotification->hNotification == _lHdlNot_Read_OpsEnabled) {
+		bool * data = (bool *)pNotification->data;
+		sprintf(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
+		cout << "Drive Enabled: " << buf << '\n';
+		_lblOpsEnabled = ofToString(buf);
+	} 
+	else if (pNotification->hNotification == _lHdlNot_Read_SystemError)  {
+		double * data = (double *)pNotification->data;
+		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
+		cout << "System Error: " << buf << '\n';
+		_lblSysError = ofToString(buf);
+	}
+	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
+		double * data = (double *)pNotification->data;
+		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
+		cout << "System State: " << buf << '\n';
+		_lblSysState = ofToString(buf);
+	}
+	
+	// print (to screen)) the value of the variable 
+	cout << "Notification: " << pNotification->hNotification << " SampleSize: " << pNotification->cbSampleSize << '\n';
+}
+
+//--------------------------------------------------------------
 void __stdcall onEventCallbackTCADS(AmsAddr* pAddr, AdsNotificationHeader* pNotification, ULONG hUser)
 {
 	// cast hUser to class pointer
@@ -287,31 +366,4 @@ void __stdcall onEventCallbackTCADS(AmsAddr* pAddr, AdsNotificationHeader* pNoti
 
 	// call HandleCallback for access to ofAppMain class
 	ptr->HandleCallback(pAddr, pNotification);
-}
-
-void ofAppMain::HandleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotification)
-{
-	char buf[30];
-
-	if (pNotification->hNotification == _lHdlNot_Read_OpsEnabled) {
-		bool * data = (bool *)pNotification->data;
-		sprintf(buf, "[%s,%s]", data[0] ? "true" : "false", data[1] ? "true" : "false");
-		cout << "Operation Enabled: " << buf << '\n';
-		lblOpsEnabled = ofToString(buf);
-	} 
-	else if (pNotification->hNotification == _lHdlNot_Read_SystemError)  {
-		double * data = (double *)pNotification->data;
-		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
-		cout << "System Error: " << buf << '\n';
-		lblSysError = ofToString(buf);
-	}
-	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
-		double * data = (double *)pNotification->data;
-		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
-		cout << "System State: " << buf << '\n';
-		lblSysState = ofToString(buf);
-	}
-	
-	// print (to screen)) the value of the variable 
-	cout << "Notification: " << pNotification->hNotification << " SampleSize: " << pNotification->cbSampleSize << '\n';
 }

@@ -16,7 +16,7 @@ class tcAdsClient
 	private:
 		AmsAddr _addr;
 		PAmsAddr _pAddr = &_addr;
-		long _nErr, _nPort;
+		long _nPort;
 		ULONG _pcbReturn;
 
 		// params for event-driven interactions with ADS
@@ -26,6 +26,7 @@ class tcAdsClient
 	public:
 		tcAdsClient(USHORT port);
 
+		long nErr;
 		ULONG getVariableHandle(char* szVarIn, int numBytes);
 		void releaseVariableHandle(ULONG hVar);
 		ULONG registerTCAdsDeviceNotification(ULONG lhUser, ULONG vhUser,PAdsNotificationFuncEx callback, ULONG cbLength = 8);

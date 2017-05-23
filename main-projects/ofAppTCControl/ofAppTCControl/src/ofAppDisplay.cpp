@@ -1,5 +1,6 @@
 #include "ofAppDisplay.h"
 
+//--------------------------------------------------------------
 void ofAppDisplay::setup()
 {
 	ofBackground(0.50, 0.50, 0.50);
@@ -11,30 +12,38 @@ void ofAppDisplay::setup()
 	dots_per_m = sqrt((double)(scrHeight * scrHeight) + (double)(scrWidth * scrWidth)) / scrDiagonal * 100.0 / 2.54; //dots per meter
 }
 
+//--------------------------------------------------------------
 void ofAppDisplay::update()
 {
 
 }
 
+//--------------------------------------------------------------
 void ofAppDisplay::draw()
 {
-	ofFill();
+	
+
+	ofPushMatrix();
+	
+	ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 
 	// draw target
-	double xT = -mainApp->AdsData[5] * dots_per_m + ofGetScreenWidth() / 2;
-	double yT = (double)ofGetScreenHeight() + mainApp->AdsData[6] * dots_per_m - (double)ofGetScreenHeight() / 2.0;
+	ofNoFill();
+	double xT = -mainApp->AdsData[5] * dots_per_m;
+	double yT = mainApp->AdsData[6] * dots_per_m;
 
 	ofSetColor(ofColor::darkSeaGreen);
 	ofDrawCircle(xT, yT, 15.0);
 
 
 	// draw cursor
-	double xC = -(mainApp->AdsData[0] - x0) * dots_per_m + ofGetScreenWidth()/2;
-	double yC = (double)ofGetScreenHeight() + (mainApp->AdsData[1]-y0) * dots_per_m - (double)ofGetScreenHeight() / 2.0;
+	ofFill();
+	double xC = -(mainApp->AdsData[0] - x0) * dots_per_m;
+	double yC =  (mainApp->AdsData[1] - y0) * dots_per_m;
 
 	ofSetColor(ofColor::darkCyan);
 	ofDrawCircle(xC, yC, 10.0);
 
-
+	ofPopMatrix();
 
 }

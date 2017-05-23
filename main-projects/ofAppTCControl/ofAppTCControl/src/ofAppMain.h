@@ -15,22 +15,49 @@ class ofAppMain : public ofBaseApp{
 	
 
 	private:
+
+		//
+		// variables
+		//
+
 		tcAdsClient *_tcClientCont, *_tcClientEvent;
 
-		
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError,
 			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError;
-		const unsigned long adsPort = 350;
-		string _sOpsEnabled, _sSystemState, _sSystemError, _sOpsEnabledNew, _sSystemStateNew, _sSystemErrorNew;
 
-		ofxPanel guiSystem, guiExperiment;
-		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run, btnEnableDrive, btnDisableDrive;
-		ofxToggle btnToggleRecordData;
-		ofParameter<string> lblFRM, lblSysState, lblOpsEnabled, lblSysError;
-		ofParameterGroup ofGrpSys;
-		ofxGuiGroup grpReqState, grpDriveControl;
+		ofxPanel _guiSystem, _guiExperiment;
+		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnReqState_Run, _btnEnableDrive, _btnDisableDrive;
+		ofxToggle _btnToggleRecordData;
+		ofxGuiGroup _grpReqState, _grpDriveControl;
+		ofxLabel _lblEtherCAT;
+		ofParameter<string>  _lblFRM, _lblSysState, _lblOpsEnabled, _lblSysError;
+		ofParameterGroup _ofGrpSys;
+
+		float _timeRefreshCheck = 1.0f; // 1 second refresh
+		float _timeCheck;
+		
+		//
+		// custom
+		//
+		void setupTCADS();
+		void setupGUI();
+
+		void ButtonPressed(const void * sender);
+		void RecordDataTogglePressed(bool & value);
+		
 
 	public:
+		//
+		// variables
+		//
+		const unsigned long adsPort = 350;
+		double AdsData[8];
+
+		//
+		// functions
+		//
+
+		// openFrameworks
 		void setup();
 		void update();
 		void draw();
@@ -48,12 +75,9 @@ class ofAppMain : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		void exit();
 
-		double AdsData[8];
+		// custom
 
-		void setupTCADS();
-		void setupGUI();
-
-		void ButtonPressed(const void * sender);
-		void RecordDataTogglePressed(bool & value);
+		void RequestStateChange(double reqState);
+		void RequestDriveEnableDisable(bool enable);
 		void HandleCallback(AmsAddr*, AdsNotificationHeader*);
 };

@@ -1,22 +1,23 @@
 #include "tcAdsClient.h"
 
-
+//--------------------------------------------------------------
 tcAdsClient::tcAdsClient(USHORT port)
 {
 	// Open communication port on the ADS router
 	_nPort = AdsPortOpenEx();
-	_nErr = AdsGetLocalAddressEx(_nPort, _pAddr);
-	if (_nErr) cerr << "Error: AdsGetLocalAddressEx: " << _nErr << '\n';
+	nErr = AdsGetLocalAddressEx(_nPort, _pAddr);
+	if (nErr) cerr << "Error: AdsGetLocalAddressEx: " << nErr << '\n';
 
 	// Select Port: TwinCAT 3 PLC
 	_pAddr->port = port;
 }
 
+//--------------------------------------------------------------
 ULONG tcAdsClient::getVariableHandle(char* szVarIn, int numBytes)
 {
 	unsigned long lHdlVar;
 	// Fetch handle for the PLC variable 
-	_nErr = AdsSyncReadWriteReqEx2(
+	nErr = AdsSyncReadWriteReqEx2(
 				_nPort, 
 				_pAddr, 
 				ADSIGRP_SYM_HNDBYNAME, 
@@ -27,8 +28,8 @@ ULONG tcAdsClient::getVariableHandle(char* szVarIn, int numBytes)
 				szVarIn, 
 				&_pcbReturn);
 
-	if (_nErr) {
-		cerr << "Error: AdsSyncReadWriteReqEx2: " << _nErr << " - variable " << szVarIn << " not found." << '\n';
+	if (nErr) {
+		cerr << "Error: AdsSyncReadWriteReqEx2: " << nErr << " - variable " << szVarIn << " not found." << '\n';
 		return 0;
 	} 
 	else {
@@ -37,10 +38,11 @@ ULONG tcAdsClient::getVariableHandle(char* szVarIn, int numBytes)
 	}
 }
 
+//--------------------------------------------------------------
 void tcAdsClient::releaseVariableHandle(ULONG hVar)
 {
 	// release handle
-	_nErr = AdsSyncWriteReqEx(
+	nErr = AdsSyncWriteReqEx(
 				_nPort, 
 				_pAddr, 
 				ADSIGRP_SYM_RELEASEHND, 
@@ -48,10 +50,11 @@ void tcAdsClient::releaseVariableHandle(ULONG hVar)
 				sizeof(hVar), 
 				&hVar);
 
-	if (_nErr) cerr << "Error: AdsSyncWriteReq: " << _nErr << '\n';
+	if (nErr) cerr << "Error: AdsSyncWriteReq: " << nErr << '\n';
 	_hVariables.erase(remove(_hVariables.begin(), _hVariables.end(), hVar), _hVariables.end()); // remove _hVariables from list
 }
 
+//--------------------------------------------------------------
 ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhVar, ULONG lhUser, PAdsNotificationFuncEx callback, ULONG cbLength)
 {
 
@@ -65,7 +68,7 @@ ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhVar, ULONG lhUser, PA
 
 	// initiate the transmission of the PLC-variable 
 	ULONG hNotification;
-	_nErr = AdsSyncAddDeviceNotificationReqEx(
+	nErr = AdsSyncAddDeviceNotificationReqEx(
 				_nPort,
 				_pAddr,
 				ADSIGRP_SYM_VALBYHND,
@@ -75,7 +78,7 @@ ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhVar, ULONG lhUser, PA
 				lhUser,
 				&hNotification);
 
-	if (_nErr) cerr << "Error: AdsSyncAddDeviceNotificationReq: " << hex <<_nErr << '\n';
+	if (nErr) cerr << "Error: AdsSyncAddDeviceNotificationReq: " << hex <<nErr << '\n';
 	cout << "Notification: " << hNotification << "\n\n";
 
 	_hNotifications.push_back(hNotification); // add hUser to list
@@ -85,16 +88,17 @@ ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhVar, ULONG lhUser, PA
 void tcAdsClient::unregisterTCAdsDeviceNotification(ULONG hNotification)
 {
 	// finish the transmission of the PLC-variable 
-	_nErr = AdsSyncDelDeviceNotificationReqEx(_nPort, _pAddr, hNotification);
-	if (_nErr) cerr << "Error: AdsSyncDelDeviceNotificationReq: " << _nErr << '\n';
+	nErr = AdsSyncDelDeviceNotificationReqEx(_nPort, _pAddr, hNotification);
+	if (nErr) cerr << "Error: AdsSyncDelDeviceNotificationReq: " << nErr << '\n';
 	
 	_hNotifications.erase(remove(_hNotifications.begin(), _hNotifications.end(), hNotification), _hNotifications.end()); // remove hNotification from list
 }
 
+//--------------------------------------------------------------
 void tcAdsClient::read(ULONG lHdlVar, void *pData, int numBytes)
 {
 	// Read values of the PLC variables (by handle)
-	_nErr = AdsSyncReadReqEx2(
+	nErr = AdsSyncReadReqEx2(
 				_nPort, 
 				_pAddr, 
 				ADSIGRP_SYM_VALBYHND, 
@@ -103,13 +107,14 @@ void tcAdsClient::read(ULONG lHdlVar, void *pData, int numBytes)
 				pData, 
 				&_pcbReturn);
 
-	//if (_nErr) cerr << "Error: AdsSyncReadReqEx2: " << _nErr << '\n';
+	//if (nErr) cerr << "Error: AdsSyncReadReqEx2: " << nErr << '\n';
 }
 
+//--------------------------------------------------------------
 void tcAdsClient::write(ULONG lHdlVar, void *pData, int numBytes)
 {
 	// Write to ADS (bytes).
-	_nErr = AdsSyncWriteReqEx(
+	nErr = AdsSyncWriteReqEx(
 				_nPort, // Port
 				_pAddr, // Address
 				ADSIGRP_SYM_VALBYHND, // IndexGroup 
@@ -117,9 +122,10 @@ void tcAdsClient::write(ULONG lHdlVar, void *pData, int numBytes)
 				numBytes, // Size of data
 				pData);
 
-	//if (_nErr) cerr << "Error: AdsSyncWriteReqEx: " << _nErr << '\n';
+	//if (nErr) cerr << "Error: AdsSyncWriteReqEx: " << nErr << '\n';
 }
 
+//--------------------------------------------------------------
 void tcAdsClient::disconnect()
 {
 	// unregister notifications
@@ -133,8 +139,8 @@ void tcAdsClient::disconnect()
 	}
 
 	// close port
-	_nErr = AdsPortCloseEx(_nPort);
-	if (_nErr) cerr << "Error: AdsPortCloseEx: " << _nErr << " on nPort: " << _nPort << '\n';
+	nErr = AdsPortCloseEx(_nPort);
+	if (nErr) cerr << "Error: AdsPortCloseEx: " << nErr << " on nPort: " << _nPort << '\n';
 }
 
 
