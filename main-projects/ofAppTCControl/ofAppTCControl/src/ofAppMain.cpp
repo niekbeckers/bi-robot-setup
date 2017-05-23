@@ -69,28 +69,30 @@ void ofAppMain::setupGUI()
 	//
 	guiSystem.add(lblFRM.set("Frame rate", ""));
 
-	ofParameterGroup ofGrpSys;
+	ofGrpSys.setName("System state");
 	ofGrpSys.add(lblSysState.set("System State", "[,]"));
 	ofGrpSys.add(lblSysError.set("System Error", "[,]"));
 	ofGrpSys.add(lblOpsEnabled.set("Drives Enabled", "[,]"));
 	guiSystem.add(ofGrpSys);
 	
 	// request state
-	ofParameter<string> sep1;
-	guiSystem.add(sep1.set("Request State"));
-	guiSystem.add(btnReqState_Reset.setup("Reset"));
-	guiSystem.add(btnReqState_Init.setup("Init"));
-	guiSystem.add(btnReqState_Calibrate.setup("Calibrate"));
-	guiSystem.add(btnReqState_HomingAuto.setup("Homing - Auto"));
-	guiSystem.add(btnReqState_HomingManual.setup("Homing - Manual"));
-	guiSystem.add(btnReqState_Run.setup("Run"));
+	
+	grpReqState.setup("Requested state");
+	grpReqState.setName("Request state");
+	grpReqState.add(btnReqState_Reset.setup("Reset"));
+	grpReqState.add(btnReqState_Init.setup("Init"));
+	grpReqState.add(btnReqState_Calibrate.setup("Calibrate"));
+	grpReqState.add(btnReqState_HomingAuto.setup("Homing - Auto"));
+	grpReqState.add(btnReqState_HomingManual.setup("Homing - Manual"));
+	grpReqState.add(btnReqState_Run.setup("Run"));
+	guiSystem.add(&grpReqState);
 
 	// drive controls
-	ofParameter<string> sep2;
-	guiSystem.add(sep2.set("Drive Control"));
-	guiSystem.add(btnEnableDrive.setup("Enable drives"));
-	guiSystem.add(btnDisableDrive.setup("Disable drives"));
-
+	grpDriveControl.setup("Drive control");
+	grpDriveControl.setName("Drive control");
+	grpDriveControl.add(btnEnableDrive.setup("Enable drives"));
+	grpDriveControl.add(btnDisableDrive.setup("Disable drives"));
+	guiSystem.add(&grpDriveControl);
 	
 	//
 	// GUI EXPERIMENT
@@ -98,7 +100,9 @@ void ofAppMain::setupGUI()
 	guiExperiment.setDefaultHeight(30);
 	guiExperiment.add(btnToggleRecordData.setup("Record data", false));
 
+	//
 	// add listeners
+	//
 
 	// buttons
 	btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
@@ -152,7 +156,7 @@ void ofAppMain::ButtonPressed(const void * sender)
 		reqState = 4.0;
 		tcClient->write(lHdlVar_Write_ReqState, &reqState, sizeof(reqState));
 	}
-	else if (clickedBtn.compare(ofToString("Enable Drives")) == 0) {
+	else if (clickedBtn.compare(ofToString("Enable drives")) == 0) {
 		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value" };
 		long lHdlVar_Write_EnableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 		val = 1.0;
@@ -160,7 +164,7 @@ void ofAppMain::ButtonPressed(const void * sender)
 		val = 0.0;
 		tcClient->write(lHdlVar_Write_EnableDrive, &val, sizeof(val));
 	}
-	else if (clickedBtn.compare(ofToString("Disable Drives")) == 0) {
+	else if (clickedBtn.compare(ofToString("Disable drives")) == 0) {
 		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value" };
 		long lHdlVar_Write_DisableDrive = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 		val = 1.0;

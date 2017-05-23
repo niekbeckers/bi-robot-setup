@@ -8,8 +8,13 @@
 class ofAppDisplay : public ofBaseApp
 {
 	private:
+		const double scrDiagonal = 27.0;
+
 		double dots_per_m;
-		double scrDiagonal = 27.0;
+		double x0 = 0.0;
+		double y0 = 0.25;
+		
+
 	public:
 
 		shared_ptr<ofAppMain> mainApp;

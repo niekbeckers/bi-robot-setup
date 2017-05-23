@@ -27,7 +27,8 @@ class ofAppMain : public ofBaseApp{
 		ofxButton btnReqState_Reset, btnReqState_Init, btnReqState_Calibrate, btnReqState_HomingAuto,btnReqState_HomingManual, btnReqState_Run, btnEnableDrive, btnDisableDrive;
 		ofxToggle btnToggleRecordData;
 		ofParameter<string> lblFRM, lblSysState, lblOpsEnabled, lblSysError;
-		
+		ofParameterGroup ofGrpSys;
+		ofxGuiGroup grpReqState, grpDriveControl;
 
 	public:
 		void setup();
