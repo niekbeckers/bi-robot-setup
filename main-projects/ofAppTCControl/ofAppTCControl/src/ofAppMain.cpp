@@ -109,12 +109,12 @@ void ofAppMain::setupGUI()
 	// request state
 	_grpReqState.setup("Requested state");
 	_grpReqState.setName("Request state");
-	_grpReqState.add(_btnReqState_Reset.setup("Reset"));
-	_grpReqState.add(_btnReqState_Init.setup("Init"));
-	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate"));
-	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto"));
-	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual"));
-	_grpReqState.add(_btnReqState_Run.setup("Run"));
+	_grpReqState.add(_btnReqState_Reset.setup("Reset [0]"));
+	_grpReqState.add(_btnReqState_Init.setup("Init [1]"));
+	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate [299]"));
+	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto [399]"));
+	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual [399]"));
+	_grpReqState.add(_btnReqState_Run.setup("Run [4]"));
 	_guiSystem.add(&_grpReqState);
 
 	// drive controls
@@ -130,6 +130,15 @@ void ofAppMain::setupGUI()
 	_guiExperiment.setDefaultHeight(30);
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 
+	_grpExpControl.setup("Experiment control");
+	_grpExpControl.setName("Experiment control");
+	_grpExpControl.add(_btnExpLoad.setup("Load"));
+	_grpExpControl.add(_lblExpLoaded.setup("Experiment:",""));
+	_grpExpControl.add(_btnExpStart.setup("Start"));
+	_grpExpControl.add(_btnExpPause.setup("Pause"));
+	_grpExpControl.add(_btnExpContinue.setup("Continue"));
+	_grpExpControl.add(_btnExpStop.setup("Stop"));
+	_guiExperiment.add(&_grpExpControl);
 	//
 	// add listeners
 	//
@@ -143,6 +152,13 @@ void ofAppMain::setupGUI()
 	_btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
 	_btnEnableDrive.addListener(this, &ofAppMain::ButtonPressed);
 	_btnDisableDrive.addListener(this, &ofAppMain::ButtonPressed);
+
+	_btnExpLoad.addListener(this, &ofAppMain::ButtonPressed);
+	_btnExpStart.addListener(this, &ofAppMain::ButtonPressed);
+	_btnExpPause.addListener(this, &ofAppMain::ButtonPressed);
+	_btnExpContinue.addListener(this, &ofAppMain::ButtonPressed);
+	_btnExpStop.addListener(this, &ofAppMain::ButtonPressed);
+
 
 	// toggle
 	_btnToggleRecordData.addListener(this, &ofAppMain::RecordDataTogglePressed);
@@ -201,22 +217,22 @@ void ofAppMain::ButtonPressed(const void * sender)
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
 	
-	if (clickedBtn.compare(ofToString("Reset")) == 0) {
+	if (clickedBtn.compare(ofToString("Reset [0]")) == 0) {
 		RequestStateChange(0.0);
 	} 
-	else if (clickedBtn.compare(ofToString("Init")) == 0) {
+	else if (clickedBtn.compare(ofToString("Init [1]")) == 0) {
 		RequestStateChange(1.0);
 	}
-	else if (clickedBtn.compare(ofToString("Calibrate")) == 0) {
+	else if (clickedBtn.compare(ofToString("Calibrate [299]")) == 0) {
 		RequestStateChange(2.0);
 	}
-	else if (clickedBtn.compare(ofToString("Homing - Auto")) == 0) {
+	else if (clickedBtn.compare(ofToString("Homing - Auto [399]")) == 0) {
 		RequestStateChange(302.0);
 	}
-	else if (clickedBtn.compare(ofToString("Homing - Manual")) == 0) {
+	else if (clickedBtn.compare(ofToString("Homing - Manual [399]")) == 0) {
 		RequestStateChange(301.0);
 	}
-	else if (clickedBtn.compare(ofToString("Run")) == 0) {
+	else if (clickedBtn.compare(ofToString("Run [4]")) == 0) {
 		RequestStateChange(4.0);
 	}
 	else if (clickedBtn.compare(ofToString("Enable drives")) == 0) {
@@ -225,8 +241,21 @@ void ofAppMain::ButtonPressed(const void * sender)
 	else if (clickedBtn.compare(ofToString("Disable drives")) == 0) {
 		RequestDriveEnableDisable(false);
 	}
-
-
+	else if (clickedBtn.compare(ofToString("Load")) == 0) {
+		//
+	}
+	else if (clickedBtn.compare(ofToString("Start")) == 0) {
+		//
+	}
+	else if (clickedBtn.compare(ofToString("Pause")) == 0) {
+		//
+	}
+	else if (clickedBtn.compare(ofToString("Continue")) == 0) {
+		//
+	}
+	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
+		//
+	}
 }
 
 //--------------------------------------------------------------
@@ -317,6 +346,12 @@ void ofAppMain::exit() {
 	_btnReqState_Run.removeListener(this, &ofAppMain::ButtonPressed);
 	_btnEnableDrive.removeListener(this, &ofAppMain::ButtonPressed);
 	_btnDisableDrive.removeListener(this, &ofAppMain::ButtonPressed);
+
+	_btnExpLoad.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnExpStart.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnExpPause.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnExpContinue.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnExpStop.removeListener(this, &ofAppMain::ButtonPressed);
 
 	_btnToggleRecordData = false;
 	_btnToggleRecordData.removeListener(this, &ofAppMain::RecordDataTogglePressed);
