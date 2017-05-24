@@ -191,6 +191,7 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(Add
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="src\experimentHandler.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofAppDisplay.cpp" />
     <ClCompile Include="src\ofAppMain.cpp" />
@@ -208,9 +209,11 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(Add
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="src\experimentHandler.h" />
     <ClInclude Include="src\ofAppDisplay.h" />
     <ClInclude Include="src\ofAppMain.h" />
     <ClInclude Include="src\tcAdsClient.h" />
+    <ClInclude Include="src\myUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

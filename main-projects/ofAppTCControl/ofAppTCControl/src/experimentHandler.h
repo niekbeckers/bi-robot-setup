@@ -2,13 +2,13 @@
 #include "ofBaseApp.h"
 using namespace std;
 
-class ExperimentHandler : public ofBaseApp
+class experimentHandler : public ofBaseApp
 {
 	private:
 		int trialCounter, blockCounter;
 
 	public:
-		ExperimentHandler();
+		experimentHandler();
 
 		void LoadExperimentXML(string &filename);
 

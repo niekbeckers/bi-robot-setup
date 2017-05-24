@@ -9,6 +9,8 @@
 // custom classes
 #include "ofAppDisplay.h"
 #include "tcAdsClient.h"
+#include "experimentHandler.h"
+#include "myUtils.h"
 
 void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
 
@@ -37,6 +39,8 @@ class ofAppMain : public ofBaseApp{
 
 		float _timeRefreshCheck = 1.0f; // 1 second refresh
 		float _timeCheck;
+
+		displayData display1Data, display2Data;
 		
 		//
 		// custom

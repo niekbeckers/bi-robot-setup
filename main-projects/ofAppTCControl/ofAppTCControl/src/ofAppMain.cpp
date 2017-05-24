@@ -13,6 +13,9 @@ void ofAppMain::setup(){
 	// setup tcAdsClient
 	setupTCADS();
 	_timeCheck = ofGetElapsedTimef();
+
+	// point struct pointers of displays to data structs
+	display1->pData = &display1Data;
 }
 
 //--------------------------------------------------------------
@@ -20,11 +23,11 @@ void ofAppMain::update(){
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &AdsData, sizeof(AdsData));
 
-	display1->posCursorX = AdsData[0];
-	display1->posCursorY = AdsData[1];
-	display1->posTargetX = AdsData[5];
-	display1->posTargetX = AdsData[6];
-
+	// set data in displayData structs
+	display1Data.posCursorX = AdsData[0];
+	display1Data.posCursorY = AdsData[1];
+	display1Data.posTargetX = AdsData[5];
+	display1Data.posTargetX = AdsData[6];
 
 
 	// periodic check
@@ -43,8 +46,7 @@ void ofAppMain::update(){
 
 		// frame rate in GUI
 		_lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
-	}
-	
+	}	
 }
 
 

@@ -21,22 +21,29 @@ void ofAppDisplay::update()
 //--------------------------------------------------------------
 void ofAppDisplay::draw()
 {
-	
-
 	ofPushMatrix();
 	
+	// translate origin to middle of the screen
 	ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 
-	// draw target
+	// draw workspace boundary
 	ofNoFill();
-	ofSetColor(ofColor::darkSeaGreen);
-	ofDrawCircle(-posTargetX*dots_per_m, posTargetY*dots_per_m, 15.0);
+	ofSetLineWidth(4);
+	ofSetColor(ofColor::lightGray);
+	ofSetCircleResolution(50);
+	//ofDrawCircle(0.0, 0.0, (*pData).wsSemiMajor*dots_per_m);
+	ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
+	// draw target
+	ofSetColor(ofColor::darkRed);
+	ofSetLineWidth(3);
+	ofSetCircleResolution(30);
+	ofDrawCircle(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m, 15.0);
 
 	// draw cursor
 	ofFill();
 	ofSetColor(ofColor::darkCyan);
-	ofDrawCircle(-(posCursorX-x0)*dots_per_m, (posCursorY-y0)*dots_per_m, 10.0);
+	ofDrawCircle(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m, 12.0);
 
 	ofPopMatrix();
 

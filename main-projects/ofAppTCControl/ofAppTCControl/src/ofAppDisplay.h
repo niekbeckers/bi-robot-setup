@@ -4,6 +4,8 @@
 
 #include "ofMain.h"
 #include "ofUtils.h"
+
+#include "myUtils.h"
 //#include "ofAppMain.h"
 
 class ofAppDisplay : public ofBaseApp
@@ -24,8 +26,7 @@ class ofAppDisplay : public ofBaseApp
 		// variables
 		//
 		//shared_ptr<ofAppMain> mainApp;
-		double posCursorX = 0.0, posCursorY = 0.0;
-		double posTargetX = 0.0, posTargetY = 0.0;
+		displayData *pData;
 
 		//
 		// openFrameworks

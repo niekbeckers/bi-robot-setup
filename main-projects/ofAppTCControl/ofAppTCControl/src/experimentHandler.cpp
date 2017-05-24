@@ -1,13 +1,13 @@
-#include "ExperimentHandler.h"
+#include "experimentHandler.h"
 
 
 
-ExperimentHandler::ExperimentHandler()
+experimentHandler::experimentHandler()
 {
 }
 
 
-void ExperimentHandler::LoadExperimentXML(string &filename) 
+void experimentHandler::LoadExperimentXML(string &filename) 
 {
 
 }
