@@ -34,5 +34,6 @@ class ofAppDisplay : public ofBaseApp
 		void setup();
 		void update();
 		void draw();
+		void windowResized(int w, int h);
 };
 

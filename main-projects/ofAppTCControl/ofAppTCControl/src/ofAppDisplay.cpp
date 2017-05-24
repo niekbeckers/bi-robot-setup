@@ -46,5 +46,12 @@ void ofAppDisplay::draw()
 	ofDrawCircle(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m, 12.0);
 
 	ofPopMatrix();
+}
 
+//--------------------------------------------------------------
+void ofAppDisplay::windowResized(int w, int h) {
+	int scrHeight = w;
+	int scrWidth = h;
+
+	dots_per_m = sqrt((double)(scrHeight * scrHeight) + (double)(scrWidth * scrWidth)) / scrDiagonal * 100.0 / 2.54; //dots per meter
 }

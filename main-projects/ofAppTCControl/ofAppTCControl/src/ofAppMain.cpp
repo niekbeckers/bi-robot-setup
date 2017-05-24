@@ -12,29 +12,46 @@ void ofAppMain::setup(){
 
 	// setup tcAdsClient
 	setupTCADS();
+
 	_timeCheck = ofGetElapsedTimef();
 
 	// point struct pointers of displays to data structs
 	display1->pData = &display1Data;
+	display2->pData = &display2Data;
 }
 
 //--------------------------------------------------------------
 void ofAppMain::update(){
+
+	bool prevTrialRunning = (bool)AdsData[8];
+
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &AdsData, sizeof(AdsData));
-
+	 
 	// set data in displayData structs
+	// display 1
 	display1Data.posCursorX = AdsData[0];
 	display1Data.posCursorY = AdsData[1];
+	display1Data.posTargetX = AdsData[4];
 	display1Data.posTargetX = AdsData[5];
-	display1Data.posTargetX = AdsData[6];
 
+	// display 2
+	display2Data.posCursorX = AdsData[2];
+	display2Data.posCursorY = AdsData[3];
+	display2Data.posTargetX = AdsData[6];
+	display2Data.posTargetX = AdsData[7];
+
+	// check if trial is done
+	if (prevTrialRunning  && !(bool)AdsData[8]) {
+		expHandler->eventTrialDone();
+	}
 
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
 		_timeCheck = ofGetElapsedTimef();
 
-		if (_tcClientCont->nErr == 0) {\
+		// Check TwinCAT/ADS
+		if (_tcClientCont->nErr == 0) {
 			_lblEtherCAT = "ON";
 			_lblEtherCAT.setBackgroundColor(ofColor::darkGreen);
 		}
@@ -44,12 +61,20 @@ void ofAppMain::update(){
 			_lblEtherCAT.setBackgroundColor(ofColor::red);
 		}
 
+		// Check trial running
+		if ((int)AdsData[8] == 1) {
+			_lblTrialRunning = "Trial running";
+			_lblTrialRunning.setBackgroundColor(ofColor::darkGreen);
+		}
+		else {
+			_lblTrialRunning = "No trial running";
+			_lblTrialRunning.setBackgroundColor(guiDefaultBackgroundColor);
+		}
+
 		// frame rate in GUI
 		_lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
 	}	
 }
-
-
 
 //--------------------------------------------------------------
 void ofAppMain::draw() {
@@ -68,6 +93,7 @@ void ofAppMain::setupTCADS()
 	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
 	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
 
+
 	// set up tcAdsClient for data reading
 	_tcClientEvent = new tcAdsClient(adsPort);
 
@@ -83,8 +109,10 @@ void ofAppMain::setupTCADS()
 	char szVar3[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_Errors" };
 	_lHdlVar_Read_SystemError = _tcClientEvent->getVariableHandle(szVar3, sizeof(szVar3));
 	_lHdlNot_Read_SystemError = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemError, (unsigned long)(this), onEventCallbackTCADS, 16);
-}
 
+}
+ 
+//--------------------------------------------------------------
 void ofAppMain::setupGUI()
 {
 	// setup GUIs
@@ -101,7 +129,7 @@ void ofAppMain::setupGUI()
 	
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
-
+	guiDefaultBackgroundColor = _lblEtherCAT.getBackgroundColor();
 	_ofGrpSys.setName("System state");
 	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
 	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
@@ -134,13 +162,16 @@ void ofAppMain::setupGUI()
 
 	_grpExpControl.setup("Experiment control");
 	_grpExpControl.setName("Experiment control");
+	_grpExpControl.add(_lblExpLoaded.setup("Experiment", ""));
+	_grpExpControl.add(_lblTrialRunning.setup("Trial", ""));
 	_grpExpControl.add(_btnExpLoad.setup("Load"));
-	_grpExpControl.add(_lblExpLoaded.setup("Experiment:",""));
 	_grpExpControl.add(_btnExpStart.setup("Start"));
 	_grpExpControl.add(_btnExpPause.setup("Pause"));
 	_grpExpControl.add(_btnExpContinue.setup("Continue"));
 	_grpExpControl.add(_btnExpStop.setup("Stop"));
 	_guiExperiment.add(&_grpExpControl);
+
+
 	//
 	// add listeners
 	//
@@ -211,7 +242,6 @@ void ofAppMain::RequestDriveEnableDisable(bool enable)
 	// clean up
 	tcClient->disconnect();
 }
-
 
 //--------------------------------------------------------------
 void ofAppMain::ButtonPressed(const void * sender)

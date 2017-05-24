@@ -5,13 +5,19 @@ using namespace std;
 class experimentHandler : public ofBaseApp
 {
 	private:
+
+		//
+		// variables
+		//
 		int trialCounter, blockCounter;
 
 	public:
 		experimentHandler();
 
-		void LoadExperimentXML(string &filename);
-
-
+		// 
+		// functions
+		//
+		void LoadExperimentXML(const string &filename);
+		void eventTrialDone();
 };
 

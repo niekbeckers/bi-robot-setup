@@ -6,7 +6,10 @@ tcAdsClient::tcAdsClient(USHORT port)
 	// Open communication port on the ADS router
 	_nPort = AdsPortOpenEx();
 	nErr = AdsGetLocalAddressEx(_nPort, _pAddr);
-	if (nErr) cerr << "Error: AdsGetLocalAddressEx: " << nErr << '\n';
+	if (nErr) {
+		cerr << "Error: AdsGetLocalAddressEx: " << nErr << '\n';
+		cerr << "TC ADS client not running, please start TwinCAT and restart this app" << '\n';
+	}
 
 	// Select Port: TwinCAT 3 PLC
 	_pAddr->port = port;
