@@ -94,6 +94,7 @@ void ofAppMain::setupTCADS()
 	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
 	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
 
+	
 
 	// set up tcAdsClient for data reading
 	_tcClientEvent = new tcAdsClient(adsPort);
@@ -111,6 +112,7 @@ void ofAppMain::setupTCADS()
 	_lHdlVar_Read_SystemError = _tcClientEvent->getVariableHandle(szVar3, sizeof(szVar3));
 	_lHdlNot_Read_SystemError = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemError, (unsigned long)(this), onEventCallbackTCADS, 16);
 
+	
 }
  
 //--------------------------------------------------------------
@@ -313,11 +315,11 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 	tcClient->disconnect();
 }
 
+//--------------------------------------------------------------
 bool ofAppMain::systemIsInState(int state)
 {
 	return (_systemState[0] == state && _systemState[1] == state);
 }
-
 
 //--------------------------------------------------------------
 void ofAppMain::keyPressed(int key){

@@ -67,7 +67,6 @@ class ofAppMain : public ofBaseApp{
 
 		shared_ptr<ofAppExperiment> experimentApp;
 
-		const unsigned long adsPort = 350;
 		double AdsData[9] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
 		shared_ptr<ofAppDisplay> display1 = 0;

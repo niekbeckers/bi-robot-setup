@@ -19,6 +19,10 @@ class ofAppDisplay : public ofBaseApp
 		double x0 = 0.0;
 		double y0 = 0.25;
 		
+		string _message = "";
+		bool _showMessage = false;
+
+		ofTrueTypeFont verdana30;
 
 	public:
 
@@ -36,7 +40,7 @@ class ofAppDisplay : public ofBaseApp
 		void draw();
 		void windowResized(int w, int h);
 
-		void showText(const string &text);
-		void showText(int x, int y, const string &text);
+		void showMessage(bool show);
+		void setMessage(const string &msg);
 };
 

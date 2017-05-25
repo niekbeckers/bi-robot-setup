@@ -12,6 +12,12 @@ void ofAppDisplay::setup()
 	dots_per_m = sqrt((double)(h * h) + (double)(w * w)) / scrDiagonal * 100.0 / 2.54; //dots per meter
 
 	ofEnableAntiAliasing(); // enable anti-aliasing
+
+	// font
+	ofTrueTypeFont::setGlobalDpi(72);
+	verdana30.load("verdana.ttf", 30, true, true);
+	verdana30.setLineHeight(34.0f);
+	verdana30.setLetterSpacing(1.035);
 }
 
 //--------------------------------------------------------------
@@ -48,7 +54,15 @@ void ofAppDisplay::draw()
 
 	ofPopMatrix();
 
-	// draw text
+	// draw message
+	if (_showMessage) {
+		ofPushMatrix();
+			ofRectangle bounds = verdana30.getStringBoundingBox(_message, 0, 0);
+
+			ofTranslate(-bounds.getCenter()[0], -( 0.35*ofGetScreenHeight() + bounds.getCenter()[1]));
+			verdana30.drawString(_message, 0.0, 0.0);
+		ofPopMatrix();
+	}
 
 }
 
@@ -58,13 +72,13 @@ void ofAppDisplay::windowResized(int w, int h) {
 }
 
 //--------------------------------------------------------------
-void showText(const string &text)
+void ofAppDisplay::showMessage(bool show)
 {
-	
+	_showMessage = show;
 }
 
 //--------------------------------------------------------------
-void showText(int x, int y, const string &text)
+void ofAppDisplay::setMessage(const string &msg)
 {
-
+	_message = msg;
 }

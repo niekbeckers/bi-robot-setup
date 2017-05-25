@@ -8,3 +8,5 @@ struct displayData {
 	double wsSemiMajor = 0.10;		// workspace semimajor axis [m]
 	double wsSemiMinor = 0.10;		// workspace semiminor axis [m]
 };
+
+const unsigned long adsPort = 350;

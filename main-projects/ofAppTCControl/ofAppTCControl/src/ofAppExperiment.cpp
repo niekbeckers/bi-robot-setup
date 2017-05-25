@@ -1,9 +1,64 @@
 #include "ofAppExperiment.h"
 
 //--------------------------------------------------------------
-ofAppExperiment::ofAppExperiment()
+void ofAppExperiment::setup()
 {
-	//
+	_tcClient = new tcAdsClient(adsPort);
+	
+	char szVar0[] = { "Object1 (ModelBaseBROS).Output.ExpStartTrial_Value" };
+	_lHdlVar_Write_StartTrial = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
+
+	char szVar1[] = { "Object1 (ModelBaseBROS).Output.ExpCondition_Value" };
+	_lHdlVar_Write_Condition = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+
+	char szVar2[] = { "Object1 (ModelBaseBROS).Output.ExpConnectionStiffness_Value" };
+	_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
+
+	char szVar3[] = { "Object1 (ModelBaseBROS).Output.ExpConnected_Value" };
+	_lHdlVar_Write_Connected = _tcClient->getVariableHandle(szVar3, sizeof(szVar3));
+
+	char szVar4[] = { "Object1 (ModelBaseBROS).Output.ExpTrialDuration_Value" };
+	_lHdlVar_Write_TrialDuration = _tcClient->getVariableHandle(szVar4, sizeof(szVar4));
+
+	char szVar5[] = { "Object1 (ModelBaseBROS).Output.ExpTrialNumber_Value" };
+	_lHdlVar_Write_TrialNumber = _tcClient->getVariableHandle(szVar5, sizeof(szVar5));
+
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::update()
+{
+	double time = ofGetElapsedTimef();
+
+	// countdown
+	if (_cdRunning) {
+		if ((time - _cdStartTime) <= _cdDuration) {
+			// countdown running
+			double cdTimeRemaining = _cdDuration - (time - _cdStartTime);
+			display1->setMessage(ofToString(cdTimeRemaining, 1) + " seconds");
+			display2->setMessage(ofToString(cdTimeRemaining, 1) + " seconds");
+		}
+		else {
+			countDownDone();
+		}
+	}
+
+	// break
+	if (_trialBreakRunning) {
+		if ((time - _trialBreakTime) <= _currentTrial.pauseDuration) {
+			// break is running
+		}
+		else {
+			// break is done
+			trialBreakDone();
+		}
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::exit()
+{
+	_tcClient->disconnect();
 }
 
 //--------------------------------------------------------------
@@ -14,6 +69,7 @@ void ofAppExperiment::start()
 	_currentTrialNumber = 0;
 
 	// start trial
+	newTrial();
 }
 
 //--------------------------------------------------------------
@@ -35,35 +91,128 @@ void ofAppExperiment::resume()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::startTrail()
+void ofAppExperiment::newTrial()
 {
 	// get (copy?) current block and current trial number
 	_currentBlock = _blocks.at(_currentBlockNumber);
 	_currentTrial = _currentBlock.trials.at(_currentTrialNumber);
 
+	// prepare trial (send data to model through ADS)
+	prepareTrial();
+
 	// request homing - once homing is done, the function 'eventAtHome()' is called by ofAppMain instance
-	if (!mainApp->systemIsInState(399)) mainApp->requestStateChange(302);
+	if (!mainApp->systemIsInState(399)) {
+		// _currentBlock.homingType
+		mainApp->requestStateChange(302);
+	}
+	else {
+		startCountDown();
+	}
+
 }
 
-//--------------------------------------------------------------
-void ofAppExperiment::eventTrialDone()
+void ofAppExperiment::prepareTrial()
 {
-	// called by ofAppMain (event from ADS)
-	cout << "Trial done" << '\n';
-	// start break counter
+	// write trial data to ADS/Simulink model
+
+	// trial number
+	int var0 = _currentTrial.trialNumber;
+	_tcClient->write(_lHdlVar_Write_TrialNumber, &var0, sizeof(var0));
+
+	// connected
+	bool var1 = _currentTrial.connected;
+	_tcClient->write(_lHdlVar_Write_Connected, &var1, sizeof(var1));
+
+	// connectionStiffness
+	double var2 = _currentTrial.connectionStiffness;
+	_tcClient->write(_lHdlVar_Write_ConnectionStiffness, &var2, sizeof(var2));
+
+	// condition
+	int var3 = _currentTrial.condition;
+	_tcClient->write(_lHdlVar_Write_Condition, &var3, sizeof(var3));
+	
+	// trialDuration
+	if (_currentTrial.trialDuration < 0.0) {
+		double var4 = _currentTrial.trialDuration;
+		_tcClient->write(_lHdlVar_Write_TrialDuration, &var4, sizeof(var4));
+	}
+	
+
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::eventCountDownDone()
+void ofAppExperiment::startCountDown()
+{
+	// if countdown is negative (i.e. no countdown needed), return
+	if (_cdDuration < 0.0) return;
+
+	_cdStartTime = ofGetElapsedTimef();
+	_cdRunning = true;
+
+	// set message
+	display1->showMessage(true);
+	display2->showMessage(true);
+	display1->setMessage(ofToString(_cdDuration,1) + " seconds");
+	display2->setMessage(ofToString(_cdDuration, 1) + " seconds");
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::startTrial()
+{
+	// signal start trial to simulink, then await for trial done, then start break
+	double var = 1.0;
+	_tcClient->write(_lHdlVar_Write_StartTrial, &var, sizeof(var));
+	var = 0.0;
+	_tcClient->write(_lHdlVar_Write_StartTrial, &var, sizeof(var));
+}
+
+
+
+//--------------------------------------------------------------
+void ofAppExperiment::countDownDone()
 {
 	// called by ofAppMain (event from ADS)
 	cout << "Countdown done" << '\n';
 
-	// start break counter
+	// countdown done
+	_cdRunning = false;
+
+	// switch message off
+	display1->showMessage(false);
+	display2->showMessage(false);
+
+	// start trial
+	startTrial();
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::eventPauseDone()
+void ofAppExperiment::trialBreakDone()
+{
+	// trial break is done
+	if (_currentTrialNumber < _currentBlock.trials.size() - 1) {
+		_currentTrialNumber++;
+		
+		newTrial();	// start new trial
+
+	}
+	else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
+		if (_currentBlockNumber < _blocks.size() - 1) {
+			// do pause, at end of pause, start new trial
+			_currentBlockNumber++;
+			_currentTrialNumber = 0;
+
+			blockDone();
+		}
+		else {
+			// all blocks done, experiment done
+			experimentDone();
+		}
+	}
+	// check if new trial, or block is done, 
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::blockDone()
 {
 	// called by ofAppMain (event from ADS)
 	cout << "Pause done" << '\n';
@@ -72,10 +221,27 @@ void ofAppExperiment::eventPauseDone()
 }
 
 //--------------------------------------------------------------
+void ofAppExperiment::experimentDone()
+{
+	// experiment done
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::eventTrialDone()
+{
+	// called by ofAppMain (event from ADS - ofAppMain)
+	cout << "Trial done" << '\n';
+
+	// start break
+	_trialBreakRunning = true;
+	_trialBreakTime = ofGetElapsedTimef();
+}
+
+//--------------------------------------------------------------
 void ofAppExperiment::eventAtHome()
 {
 	if (_experimentStarted) {
-		startTrail(); // go to startTrial state machine
+		startCountDown();
 	}
 }
 
@@ -117,11 +283,9 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 	// experiment settings (attributes)
 	if (XML.exists("experiment")) {
-		//XML.getAttribute();
+		if (XML.getValue<double>("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
 	}
-	else {
-		// default experiment settings
-	}
+
 
 	int trialNumber = 0;
 	int blockNumber = 0;
@@ -151,7 +315,6 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.getValue<int>("condition")) trial.condition = XML.getValue<int>("condition");
 					if (XML.getValue<bool>("connected")) trial.connected = XML.getValue<bool>("connected");
 					if (XML.getValue<double>("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
-					if (XML.getValue<double>("countDownDuration")) trial.countDownDuration = XML.getValue<double>("countDownDuration");
 					if (XML.getValue<double>("pauseDuration")) trial.pauseDuration = XML.getValue<double>("pauseDuration");
 					if (XML.getValue<double>("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
 
