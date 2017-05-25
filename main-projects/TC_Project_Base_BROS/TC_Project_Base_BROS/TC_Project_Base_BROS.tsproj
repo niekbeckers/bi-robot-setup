@@ -961,8 +961,8 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{96EF396C-5A08-E16E-C55D-BA5D387D80CE}">P_model_base_bros_T</Name>
-			<BitSize>23936</BitSize>
+			<Name GUID="{453307E2-1EA2-C24A-2B8E-F8F12D4B4F51}">P_model_base_bros_T</Name>
+			<BitSize>24000</BitSize>
 			<SubItem>
 				<Name>FM1</Name>
 				<Type GUID="{03287780-5CD2-B23D-2146-5D85C22482B1}">struct_9L1x4IYaj9lPHWRIcDFkWC</Type>
@@ -1924,7 +1924,7 @@
 				<BitOffs>15360</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>TrialDuration_Value</Name>
+				<Name>ExpTrialDuration_Value</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
 				<BitOffs>15424</BitOffs>
@@ -2278,312 +2278,319 @@
 				<BitOffs>19264</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>ExpConnectionType_Value</Name>
+				<Name>ExpConnected_Value</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
 				<BitOffs>19328</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>FixPtConstant_Value</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<BitSize>32</BitSize>
+				<Name>ExpConnectionStiffness_Value</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
 				<BitOffs>19392</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Output_InitialCondition</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>19424</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Constant_Value_d</Name>
+				<Name>FixPtConstant_Value</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
 				<BitSize>32</BitSize>
 				<BitOffs>19456</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Output_InitialCondition</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>19488</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Constant_Value_d</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>19520</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>ManualSwitch_CurrentSetting</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19488</BitOffs>
+				<BitOffs>19552</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_f</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19496</BitOffs>
+				<BitOffs>19560</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_fv</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19504</BitOffs>
+				<BitOffs>19568</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>ManualSwitch_CurrentSetting_n</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19512</BitOffs>
+				<BitOffs>19576</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19520</BitOffs>
+				<BitOffs>19584</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_f</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19528</BitOffs>
+				<BitOffs>19592</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19536</BitOffs>
+				<BitOffs>19600</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0_a</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19544</BitOffs>
+				<BitOffs>19608</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_fn</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19552</BitOffs>
+				<BitOffs>19616</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19560</BitOffs>
+				<BitOffs>19624</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0_a</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19568</BitOffs>
+				<BitOffs>19632</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0_d</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19576</BitOffs>
+				<BitOffs>19640</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>PreventAlgebraicLoop_X0_c</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19584</BitOffs>
+				<BitOffs>19648</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0_g</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19592</BitOffs>
+				<BitOffs>19656</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>AvoidAlgebraicLoop_X0_b</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19600</BitOffs>
+				<BitOffs>19664</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_il</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19608</BitOffs>
+				<BitOffs>19672</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>19616</BitOffs>
+				<BitOffs>19680</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_m</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19744</BitOffs>
+				<BitOffs>19808</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_d</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19752</BitOffs>
+				<BitOffs>19816</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_ok</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19760</BitOffs>
+				<BitOffs>19824</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_oq</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19768</BitOffs>
+				<BitOffs>19832</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_a</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>19776</BitOffs>
+				<BitOffs>19840</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_c</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19904</BitOffs>
+				<BitOffs>19968</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_dd</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19912</BitOffs>
+				<BitOffs>19976</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_ny</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19920</BitOffs>
+				<BitOffs>19984</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_g</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>19928</BitOffs>
+				<BitOffs>19992</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_b</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>19936</BitOffs>
+				<BitOffs>20000</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory1_X0_h</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20064</BitOffs>
+				<BitOffs>20128</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_h</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20072</BitOffs>
+				<BitOffs>20136</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_a</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20080</BitOffs>
+				<BitOffs>20144</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_e</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20088</BitOffs>
+				<BitOffs>20152</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_i</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>20096</BitOffs>
+				<BitOffs>20160</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_k</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20224</BitOffs>
+				<BitOffs>20288</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Constant_Value_k</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20232</BitOffs>
+				<BitOffs>20296</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Logic_table_h</Name>
 				<Type GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</Type>
 				<BitSize>128</BitSize>
-				<BitOffs>20240</BitOffs>
+				<BitOffs>20304</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_hk</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20368</BitOffs>
+				<BitOffs>20432</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_l</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20376</BitOffs>
+				<BitOffs>20440</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_dj</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20384</BitOffs>
+				<BitOffs>20448</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Memory_X0_ca</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20392</BitOffs>
+				<BitOffs>20456</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_k</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20400</BitOffs>
+				<BitOffs>20464</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_e</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>20408</BitOffs>
+				<BitOffs>20472</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_n</Name>
 				<Type GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</Type>
 				<BitSize>384</BitSize>
-				<BitOffs>20416</BitOffs>
+				<BitOffs>20480</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>homingactive_j</Name>
 				<Type GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</Type>
 				<BitSize>1344</BitSize>
-				<BitOffs>20800</BitOffs>
+				<BitOffs>20864</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_n</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>22144</BitOffs>
+				<BitOffs>22208</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_g</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>22152</BitOffs>
+				<BitOffs>22216</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run</Name>
 				<Type GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</Type>
 				<BitSize>384</BitSize>
-				<BitOffs>22208</BitOffs>
+				<BitOffs>22272</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>homingactive</Name>
 				<Type GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</Type>
 				<BitSize>1344</BitSize>
-				<BitOffs>22592</BitOffs>
+				<BitOffs>22656</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{96EF396C-5A08-E16E-C55D-BA5D387D80CE}"/>
 				<Hide GUID="{A58626BB-D470-5B06-FB55-92435C683AEA}"/>
 				<Hide GUID="{2081B73C-6D61-C7BA-5A40-C6513E7236FF}"/>
 				<Hide GUID="{E3ED5C47-6B04-FC7D-5712-FB47D662DFFD}"/>
@@ -3640,9 +3647,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBaseBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{A069E60A-3F7B-47CF-B5F6-7F29716A4E97}">
+					<TmcDesc GUID="{009C539D-A17C-4FB8-A85D-172ACFF2A1EE}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{A069E60A-3F7B-47CF-B5F6-7F29716A4E97}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{009C539D-A17C-4FB8-A85D-172ACFF2A1EE}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -3763,8 +3770,8 @@
 							</Parameter>
 							<Parameter>
 								<Name>ModelParameters</Name>
-								<BitSize>23936</BitSize>
-								<BaseType GUID="{96EF396C-5A08-E16E-C55D-BA5D387D80CE}">P_model_base_bros_T</BaseType>
+								<BitSize>24000</BitSize>
+								<BaseType GUID="{453307E2-1EA2-C24A-2B8E-F8F12D4B4F51}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -4123,7 +4130,7 @@
 								<AreaNo AreaType="Internal" CreateSymbols="true">2</AreaNo>
 								<Name>BlockIO</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>5256</ByteSize>
+								<ByteSize>5264</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>UnitDelay</Name>
 									<BitSize>64</BitSize>
@@ -5154,1894 +5161,1901 @@
 									<BitOffs>14464</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>ExpConnectionType</Name>
+									<Name>ExpConnected</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x82000718</PTCID>
 									<BitOffs>14528</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>angleError</Name>
+									<Name>ExpConnectionStiffness</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x82000720</PTCID>
 									<BitOffs>14592</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>angleError</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+									<PTCID>#x82000728</PTCID>
+									<BitOffs>14656</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>xddot</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000728</PTCID>
-									<BitOffs>14656</BitOffs>
+									<PTCID>#x82000730</PTCID>
+									<BitOffs>14720</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>xddot_e</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000738</PTCID>
-									<BitOffs>14784</BitOffs>
+									<PTCID>#x82000740</PTCID>
+									<BitOffs>14848</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant3</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000748</PTCID>
-									<BitOffs>14912</BitOffs>
+									<PTCID>#x82000750</PTCID>
+									<BitOffs>14976</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant3_n</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000758</PTCID>
-									<BitOffs>15040</BitOffs>
+									<PTCID>#x82000760</PTCID>
+									<BitOffs>15104</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>angleError_p</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x82000768</PTCID>
-									<BitOffs>15168</BitOffs>
+									<PTCID>#x82000770</PTCID>
+									<BitOffs>15232</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>xddot_a</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000770</PTCID>
-									<BitOffs>15232</BitOffs>
+									<PTCID>#x82000778</PTCID>
+									<BitOffs>15296</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>xddot_b</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000780</PTCID>
-									<BitOffs>15360</BitOffs>
+									<PTCID>#x82000788</PTCID>
+									<BitOffs>15424</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant3_g</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000790</PTCID>
-									<BitOffs>15488</BitOffs>
+									<PTCID>#x82000798</PTCID>
+									<BitOffs>15552</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant3_m</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x820007a0</PTCID>
-									<BitOffs>15616</BitOffs>
+									<PTCID>#x820007a8</PTCID>
+									<BitOffs>15680</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sampletime</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x820007b0</PTCID>
-									<BitOffs>15744</BitOffs>
+									<PTCID>#x820007b8</PTCID>
+									<BitOffs>15808</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion_b</Name>
 									<BitSize>576</BitSize>
 									<BaseType GUID="{7EE8C837-5422-822C-B31D-2AF1AD3DA250}">matrix_9_real_T</BaseType>
-									<PTCID>#x820007b8</PTCID>
-									<BitOffs>15808</BitOffs>
+									<PTCID>#x820007c0</PTCID>
+									<BitOffs>15872</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DriveError</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{8B5DF355-5EB4-B508-EC23-ADB8BAA6A633}">matrix_6_real_T</BaseType>
-									<PTCID>#x82000800</PTCID>
-									<BitOffs>16384</BitOffs>
+									<PTCID>#x82000808</PTCID>
+									<BitOffs>16448</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DriveError_e</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{8B5DF355-5EB4-B508-EC23-ADB8BAA6A633}">matrix_6_real_T</BaseType>
-									<PTCID>#x82000830</PTCID>
-									<BitOffs>16768</BitOffs>
+									<PTCID>#x82000838</PTCID>
+									<BitOffs>16832</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DriveError_i</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{8B5DF355-5EB4-B508-EC23-ADB8BAA6A633}">matrix_6_real_T</BaseType>
-									<PTCID>#x82000860</PTCID>
-									<BitOffs>17152</BitOffs>
+									<PTCID>#x82000868</PTCID>
+									<BitOffs>17216</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DriveError_a</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{8B5DF355-5EB4-B508-EC23-ADB8BAA6A633}">matrix_6_real_T</BaseType>
-									<PTCID>#x82000890</PTCID>
-									<BitOffs>17536</BitOffs>
+									<PTCID>#x82000898</PTCID>
+									<BitOffs>17600</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtToFileInpo</Name>
 									<BitSize>5376</BitSize>
 									<BaseType GUID="{A96D2318-EF24-E8D7-376E-61CF02310E12}">matrix_84_real_T</BaseType>
-									<PTCID>#x820008c0</PTCID>
-									<BitOffs>17920</BitOffs>
+									<PTCID>#x820008c8</PTCID>
+									<BitOffs>17984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctionI</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000b60</PTCID>
-									<BitOffs>23296</BitOffs>
+									<PTCID>#x82000b68</PTCID>
+									<BitOffs>23360</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctio_b</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000b70</PTCID>
-									<BitOffs>23424</BitOffs>
+									<PTCID>#x82000b78</PTCID>
+									<BitOffs>23488</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctio_o</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000b80</PTCID>
-									<BitOffs>23552</BitOffs>
+									<PTCID>#x82000b88</PTCID>
+									<BitOffs>23616</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctio_k</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000b90</PTCID>
-									<BitOffs>23680</BitOffs>
+									<PTCID>#x82000b98</PTCID>
+									<BitOffs>23744</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctio_m</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000ba0</PTCID>
-									<BitOffs>23808</BitOffs>
+									<PTCID>#x82000ba8</PTCID>
+									<BitOffs>23872</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctio_e</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000bb0</PTCID>
-									<BitOffs>23936</BitOffs>
+									<PTCID>#x82000bb8</PTCID>
+									<BitOffs>24000</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctio_g</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000bc0</PTCID>
-									<BitOffs>24064</BitOffs>
+									<PTCID>#x82000bc8</PTCID>
+									<BitOffs>24128</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtSFunctio_l</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000bd0</PTCID>
-									<BitOffs>24192</BitOffs>
+									<PTCID>#x82000bd8</PTCID>
+									<BitOffs>24256</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion_o</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x82000be0</PTCID>
-									<BitOffs>24320</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>MinMax</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x82000be8</PTCID>
 									<BitOffs>24384</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>MinMax</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+									<PTCID>#x82000bf0</PTCID>
+									<BitOffs>24448</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>Kd</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000bf0</PTCID>
-									<BitOffs>24448</BitOffs>
+									<PTCID>#x82000bf8</PTCID>
+									<BitOffs>24512</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>TmpSignalConversionAtProductInp</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000c00</PTCID>
-									<BitOffs>24576</BitOffs>
+									<PTCID>#x82000c08</PTCID>
+									<BitOffs>24640</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Kp1</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000c10</PTCID>
-									<BitOffs>24704</BitOffs>
+									<PTCID>#x82000c18</PTCID>
+									<BitOffs>24768</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Bias</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x82000c20</PTCID>
-									<BitOffs>24832</BitOffs>
+									<PTCID>#x82000c28</PTCID>
+									<BitOffs>24896</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Kd1</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000c28</PTCID>
-									<BitOffs>24896</BitOffs>
+									<PTCID>#x82000c30</PTCID>
+									<BitOffs>24960</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>MinMax_m</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x82000c38</PTCID>
-									<BitOffs>25024</BitOffs>
+									<PTCID>#x82000c40</PTCID>
+									<BitOffs>25088</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Gain_k</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x82000c40</PTCID>
-									<BitOffs>25088</BitOffs>
+									<PTCID>#x82000c48</PTCID>
+									<BitOffs>25152</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Gain_p</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x82000c50</PTCID>
-									<BitOffs>25216</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Output</Name>
-									<BitSize>32</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x82000c58</PTCID>
 									<BitOffs>25280</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtSum1</Name>
-									<BitSize>32</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
-									<PTCID>#x82000c5c</PTCID>
-									<BitOffs>25312</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>FixPtSwitch</Name>
+									<Name>Output</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x82000c60</PTCID>
 									<BitOffs>25344</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion_j</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000003}">SINT</BaseType>
+									<Name>FixPtSum1</Name>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x82000c64</PTCID>
 									<BitOffs>25376</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c65</PTCID>
-									<BitOffs>25384</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c66</PTCID>
-									<BitOffs>25392</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Compare_b</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c67</PTCID>
-									<BitOffs>25400</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator1</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<Name>FixPtSwitch</Name>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x82000c68</PTCID>
 									<BitOffs>25408</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_l</Name>
+									<Name>DataTypeConversion_j</Name>
 									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c69</PTCID>
-									<BitOffs>25416</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c6a</PTCID>
-									<BitOffs>25424</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_o</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c6b</PTCID>
-									<BitOffs>25432</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator1</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000003}">SINT</BaseType>
 									<PTCID>#x82000c6c</PTCID>
 									<BitOffs>25440</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator</Name>
+									<Name>Compare</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c6d</PTCID>
 									<BitOffs>25448</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator_h</Name>
+									<Name>FixPtRelationalOperator</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c6e</PTCID>
 									<BitOffs>25456</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Memory</Name>
+									<Name>Compare_b</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c6f</PTCID>
 									<BitOffs>25464</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_h</Name>
+									<Name>LogicalOperator1</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c70</PTCID>
 									<BitOffs>25472</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion3_k</Name>
+									<Name>Compare_l</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c71</PTCID>
 									<BitOffs>25480</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop</Name>
-									<BitSize>24</BitSize>
-									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
+									<Name>LogicalOperator</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c72</PTCID>
 									<BitOffs>25488</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_a</Name>
+									<Name>LogicalOperator_o</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000c73</PTCID>
+									<BitOffs>25496</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>RelationalOperator1</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000c74</PTCID>
+									<BitOffs>25504</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>RelationalOperator</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c75</PTCID>
 									<BitOffs>25512</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_g</Name>
-									<BitSize>24</BitSize>
-									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
+									<Name>RelationalOperator_h</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c76</PTCID>
 									<BitOffs>25520</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_f</Name>
+									<Name>Memory</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000c77</PTCID>
+									<BitOffs>25528</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>LogicalOperator_h</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000c78</PTCID>
+									<BitOffs>25536</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>DataTypeConversion3_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c79</PTCID>
 									<BitOffs>25544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion1_d</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<Name>AvoidAlgebraicLoop</Name>
+									<BitSize>24</BitSize>
+									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
 									<PTCID>#x82000c7a</PTCID>
 									<BitOffs>25552</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Logic</Name>
-									<BitSize>16</BitSize>
-									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
-									<PTCID>#x82000c7b</PTCID>
-									<BitOffs>25560</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Compare_n</Name>
+									<Name>AvoidAlgebraicLoop_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c7d</PTCID>
 									<BitOffs>25576</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_k</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<Name>AvoidAlgebraicLoop_g</Name>
+									<BitSize>24</BitSize>
+									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
 									<PTCID>#x82000c7e</PTCID>
 									<BitOffs>25584</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_f</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c7f</PTCID>
-									<BitOffs>25592</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator1_d</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c80</PTCID>
-									<BitOffs>25600</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_g</Name>
+									<Name>AvoidAlgebraicLoop_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c81</PTCID>
 									<BitOffs>25608</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_e</Name>
+									<Name>DataTypeConversion1_d</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c82</PTCID>
 									<BitOffs>25616</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator1_m</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<Name>Logic</Name>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
 									<PTCID>#x82000c83</PTCID>
 									<BitOffs>25624</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator_m</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c84</PTCID>
-									<BitOffs>25632</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator_j</Name>
+									<Name>Compare_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c85</PTCID>
 									<BitOffs>25640</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Memory_o</Name>
+									<Name>FixPtRelationalOperator_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c86</PTCID>
 									<BitOffs>25648</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_d</Name>
+									<Name>Compare_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c87</PTCID>
 									<BitOffs>25656</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion3_a</Name>
+									<Name>LogicalOperator1_d</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c88</PTCID>
 									<BitOffs>25664</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion1_o</Name>
+									<Name>LogicalOperator_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c89</PTCID>
 									<BitOffs>25672</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Logic_i</Name>
-									<BitSize>16</BitSize>
-									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
+									<Name>LogicalOperator_e</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c8a</PTCID>
 									<BitOffs>25680</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_l</Name>
+									<Name>RelationalOperator1_m</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000c8b</PTCID>
+									<BitOffs>25688</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>RelationalOperator_m</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c8c</PTCID>
 									<BitOffs>25696</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_a</Name>
+									<Name>RelationalOperator_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c8d</PTCID>
 									<BitOffs>25704</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_a</Name>
+									<Name>Memory_o</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c8e</PTCID>
 									<BitOffs>25712</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_gu</Name>
+									<Name>LogicalOperator_d</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c8f</PTCID>
 									<BitOffs>25720</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_b4</Name>
+									<Name>DataTypeConversion3_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c90</PTCID>
 									<BitOffs>25728</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_b</Name>
+									<Name>DataTypeConversion1_o</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c91</PTCID>
 									<BitOffs>25736</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_k</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<Name>Logic_i</Name>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
 									<PTCID>#x82000c92</PTCID>
 									<BitOffs>25744</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator1_m</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000c93</PTCID>
-									<BitOffs>25752</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_c</Name>
+									<Name>LogicalOperator_l</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c94</PTCID>
 									<BitOffs>25760</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator1_j</Name>
+									<Name>Compare_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c95</PTCID>
 									<BitOffs>25768</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator_jj</Name>
+									<Name>LogicalOperator_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c96</PTCID>
 									<BitOffs>25776</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator_l</Name>
+									<Name>LogicalOperator_gu</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c97</PTCID>
 									<BitOffs>25784</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Memory_ot</Name>
+									<Name>Compare_b4</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c98</PTCID>
 									<BitOffs>25792</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_au</Name>
+									<Name>FixPtRelationalOperator_b</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c99</PTCID>
 									<BitOffs>25800</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion3_b</Name>
+									<Name>Compare_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c9a</PTCID>
 									<BitOffs>25808</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion1_f</Name>
+									<Name>LogicalOperator1_m</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c9b</PTCID>
 									<BitOffs>25816</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Logic_p</Name>
-									<BitSize>16</BitSize>
-									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
+									<Name>LogicalOperator_c</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c9c</PTCID>
 									<BitOffs>25824</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_at</Name>
+									<Name>RelationalOperator1_j</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000c9d</PTCID>
+									<BitOffs>25832</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>RelationalOperator_jj</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c9e</PTCID>
 									<BitOffs>25840</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_b0</Name>
+									<Name>RelationalOperator_l</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000c9f</PTCID>
 									<BitOffs>25848</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_c</Name>
+									<Name>Memory_ot</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca0</PTCID>
 									<BitOffs>25856</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator1_j</Name>
+									<Name>LogicalOperator_au</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca1</PTCID>
 									<BitOffs>25864</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_lb</Name>
+									<Name>DataTypeConversion3_b</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca2</PTCID>
 									<BitOffs>25872</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator1_i</Name>
+									<Name>DataTypeConversion1_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca3</PTCID>
 									<BitOffs>25880</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator_g</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<Name>Logic_p</Name>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
 									<PTCID>#x82000ca4</PTCID>
 									<BitOffs>25888</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>RelationalOperator_lw</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000ca5</PTCID>
-									<BitOffs>25896</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory_c</Name>
+									<Name>Compare_at</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca6</PTCID>
 									<BitOffs>25904</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_ce</Name>
+									<Name>FixPtRelationalOperator_b0</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca7</PTCID>
 									<BitOffs>25912</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion3_n</Name>
+									<Name>Compare_c</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca8</PTCID>
 									<BitOffs>25920</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>DataTypeConversion1_p</Name>
+									<Name>LogicalOperator1_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000ca9</PTCID>
 									<BitOffs>25928</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Logic_e</Name>
-									<BitSize>16</BitSize>
-									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
+									<Name>LogicalOperator_lb</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000caa</PTCID>
 									<BitOffs>25936</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_d2</Name>
+									<Name>RelationalOperator1_i</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cab</PTCID>
+									<BitOffs>25944</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>RelationalOperator_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cac</PTCID>
 									<BitOffs>25952</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_i</Name>
+									<Name>RelationalOperator_lw</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cad</PTCID>
 									<BitOffs>25960</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Memory_m</Name>
+									<Name>Memory_c</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cae</PTCID>
 									<BitOffs>25968</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_na</Name>
+									<Name>LogicalOperator_ce</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000caf</PTCID>
 									<BitOffs>25976</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Logic_k</Name>
-									<BitSize>16</BitSize>
-									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
+									<Name>DataTypeConversion3_n</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cb0</PTCID>
 									<BitOffs>25984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator2</Name>
+									<Name>DataTypeConversion1_p</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cb1</PTCID>
+									<BitOffs>25992</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Logic_e</Name>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
 									<PTCID>#x82000cb2</PTCID>
 									<BitOffs>26000</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator2_f</Name>
+									<Name>LogicalOperator_d2</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cb3</PTCID>
-									<BitOffs>26008</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_f</Name>
-									<BitSize>24</BitSize>
-									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
 									<PTCID>#x82000cb4</PTCID>
 									<BitOffs>26016</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_e</Name>
+									<Name>Compare_i</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cb5</PTCID>
+									<BitOffs>26024</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Memory_m</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cb6</PTCID>
+									<BitOffs>26032</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Compare_na</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cb7</PTCID>
 									<BitOffs>26040</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator2_n</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<Name>Logic_k</Name>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
 									<PTCID>#x82000cb8</PTCID>
 									<BitOffs>26048</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator2_l</Name>
+									<Name>LogicalOperator2</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cb9</PTCID>
-									<BitOffs>26056</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_h</Name>
-									<BitSize>24</BitSize>
-									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
 									<PTCID>#x82000cba</PTCID>
 									<BitOffs>26064</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_kq</Name>
+									<Name>LogicalOperator2_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cbd</PTCID>
-									<BitOffs>26088</BitOffs>
+									<PTCID>#x82000cbb</PTCID>
+									<BitOffs>26072</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>VecCon_OpsEnabled</Name>
-									<BitSize>16</BitSize>
-									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
-									<PTCID>#x82000cbe</PTCID>
-									<BitOffs>26096</BitOffs>
+									<Name>FixPtRelationalOperator_f</Name>
+									<BitSize>24</BitSize>
+									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
+									<PTCID>#x82000cbc</PTCID>
+									<BitOffs>26080</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_p</Name>
+									<Name>FixPtRelationalOperator_e</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cbf</PTCID>
+									<BitOffs>26104</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>LogicalOperator2_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cc0</PTCID>
 									<BitOffs>26112</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_i</Name>
+									<Name>LogicalOperator2_l</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000cc1</PTCID>
 									<BitOffs>26120</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>FixPtRelationalOperator_h</Name>
+									<BitSize>24</BitSize>
+									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
+									<PTCID>#x82000cc2</PTCID>
+									<BitOffs>26128</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>FixPtRelationalOperator_kq</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cc5</PTCID>
+									<BitOffs>26152</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>VecCon_OpsEnabled</Name>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
+									<PTCID>#x82000cc6</PTCID>
+									<BitOffs>26160</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>FixPtRelationalOperator_p</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cc8</PTCID>
+									<BitOffs>26176</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>FixPtRelationalOperator_i</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000cc9</PTCID>
+									<BitOffs>26184</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>Compare_ik</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cc2</PTCID>
-									<BitOffs>26128</BitOffs>
+									<PTCID>#x82000cca</PTCID>
+									<BitOffs>26192</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion1_bb</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cc3</PTCID>
-									<BitOffs>26136</BitOffs>
+									<PTCID>#x82000ccb</PTCID>
+									<BitOffs>26200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
-									<PTCID>#x82000cc4</PTCID>
-									<BitOffs>26144</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>ManualSwitch_j</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000ccc</PTCID>
 									<BitOffs>26208</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>ManualSwitch_j</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
+									<PTCID>#x82000cd4</PTCID>
+									<BitOffs>26272</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>Compare_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cd4</PTCID>
-									<BitOffs>26272</BitOffs>
+									<PTCID>#x82000cdc</PTCID>
+									<BitOffs>26336</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion1_dl</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cd5</PTCID>
-									<BitOffs>26280</BitOffs>
+									<PTCID>#x82000cdd</PTCID>
+									<BitOffs>26344</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Compare_cu</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cd6</PTCID>
-									<BitOffs>26288</BitOffs>
+									<PTCID>#x82000cde</PTCID>
+									<BitOffs>26352</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion4_o</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cd7</PTCID>
-									<BitOffs>26296</BitOffs>
+									<PTCID>#x82000cdf</PTCID>
+									<BitOffs>26360</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Compare_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cd8</PTCID>
-									<BitOffs>26304</BitOffs>
+									<PTCID>#x82000ce0</PTCID>
+									<BitOffs>26368</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion1_ft</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cd9</PTCID>
-									<BitOffs>26312</BitOffs>
+									<PTCID>#x82000ce1</PTCID>
+									<BitOffs>26376</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_d</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
-									<PTCID>#x82000cda</PTCID>
-									<BitOffs>26320</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>ManualSwitch_g</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000ce2</PTCID>
 									<BitOffs>26384</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>ManualSwitch_g</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
+									<PTCID>#x82000cea</PTCID>
+									<BitOffs>26448</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>Compare_le</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cea</PTCID>
-									<BitOffs>26448</BitOffs>
+									<PTCID>#x82000cf2</PTCID>
+									<BitOffs>26512</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion1_d1</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000ceb</PTCID>
-									<BitOffs>26456</BitOffs>
+									<PTCID>#x82000cf3</PTCID>
+									<BitOffs>26520</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Compare_n4</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000cec</PTCID>
-									<BitOffs>26464</BitOffs>
+									<PTCID>#x82000cf4</PTCID>
+									<BitOffs>26528</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>DataTypeConversion4_d</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000ced</PTCID>
-									<BitOffs>26472</BitOffs>
+									<PTCID>#x82000cf5</PTCID>
+									<BitOffs>26536</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>CauseOfDisableMotors</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
-									<PTCID>#x82000cee</PTCID>
-									<BitOffs>26480</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>CurrentErrorState</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000cf6</PTCID>
 									<BitOffs>26544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>CauseOfDisableMotors_m</Name>
+									<Name>CurrentErrorState</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000cfe</PTCID>
 									<BitOffs>26608</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>CurrentErrorState_p</Name>
+									<Name>CauseOfDisableMotors_m</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000d06</PTCID>
 									<BitOffs>26672</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>CauseOfDisableMotors_j</Name>
+									<Name>CurrentErrorState_p</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000d0e</PTCID>
 									<BitOffs>26736</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>CurrentErrorState_a</Name>
+									<Name>CauseOfDisableMotors_j</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000d16</PTCID>
 									<BitOffs>26800</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>CauseOfDisableMotors_l</Name>
+									<Name>CurrentErrorState_a</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000d1e</PTCID>
 									<BitOffs>26864</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>CurrentErrorState_l</Name>
+									<Name>CauseOfDisableMotors_l</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
 									<PTCID>#x82000d26</PTCID>
 									<BitOffs>26928</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>CurrentErrorState_l</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{5668EB6D-BB17-90A7-0E6C-340A1375A6A5}">matrix_8_boolean_T</BaseType>
+									<PTCID>#x82000d2e</PTCID>
+									<BitOffs>26992</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>Memory1</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d2e</PTCID>
-									<BitOffs>26992</BitOffs>
+									<PTCID>#x82000d36</PTCID>
+									<BitOffs>27056</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>PreventAlgebraicLoop</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{FB2C1127-9262-0D23-A506-4D48F8B0A43E}">matrix_6_boolean_T</BaseType>
-									<PTCID>#x82000d2f</PTCID>
-									<BitOffs>27000</BitOffs>
+									<PTCID>#x82000d37</PTCID>
+									<BitOffs>27064</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>PreventAlgebraicLoop_e</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{FB2C1127-9262-0D23-A506-4D48F8B0A43E}">matrix_6_boolean_T</BaseType>
-									<PTCID>#x82000d35</PTCID>
-									<BitOffs>27048</BitOffs>
+									<PTCID>#x82000d3d</PTCID>
+									<BitOffs>27112</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>PreventAlgebraicLoop_g</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{FB2C1127-9262-0D23-A506-4D48F8B0A43E}">matrix_6_boolean_T</BaseType>
-									<PTCID>#x82000d3b</PTCID>
-									<BitOffs>27096</BitOffs>
+									<PTCID>#x82000d43</PTCID>
+									<BitOffs>27160</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>PreventAlgebraicLoop_p</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{FB2C1127-9262-0D23-A506-4D48F8B0A43E}">matrix_6_boolean_T</BaseType>
-									<PTCID>#x82000d41</PTCID>
-									<BitOffs>27144</BitOffs>
+									<PTCID>#x82000d49</PTCID>
+									<BitOffs>27208</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>UpperRelop</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
-									<PTCID>#x82000d47</PTCID>
-									<BitOffs>27192</BitOffs>
+									<PTCID>#x82000d4f</PTCID>
+									<BitOffs>27256</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LowerRelop1</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{B6B87EBB-C7C5-E591-80B5-89A92D042C40}">matrix_2_boolean_T</BaseType>
-									<PTCID>#x82000d49</PTCID>
-									<BitOffs>27208</BitOffs>
+									<PTCID>#x82000d51</PTCID>
+									<BitOffs>27272</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Uk1_c</Name>
 									<BitSize>24</BitSize>
 									<BaseType GUID="{59F4C6D9-4BD3-2DCB-5760-FD3043A3ECDA}">matrix_3_boolean_T</BaseType>
-									<PTCID>#x82000d4b</PTCID>
-									<BitOffs>27224</BitOffs>
+									<PTCID>#x82000d53</PTCID>
+									<BitOffs>27288</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_o</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d4e</PTCID>
-									<BitOffs>27248</BitOffs>
+									<PTCID>#x82000d56</PTCID>
+									<BitOffs>27312</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LogicalOperator_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d4f</PTCID>
-									<BitOffs>27256</BitOffs>
+									<PTCID>#x82000d57</PTCID>
+									<BitOffs>27320</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Compare_g</Name>
 									<BitSize>96</BitSize>
 									<BaseType GUID="{26AEF683-E7C3-29C1-A3DC-93AFBEC993C8}">matrix_12_boolean_T</BaseType>
-									<PTCID>#x82000d50</PTCID>
-									<BitOffs>27264</BitOffs>
+									<PTCID>#x82000d58</PTCID>
+									<BitOffs>27328</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Compare_p</Name>
 									<BitSize>40</BitSize>
 									<BaseType GUID="{2F989C06-81F0-127E-0CB6-CD4E98BDCB6C}">matrix_5_boolean_T</BaseType>
-									<PTCID>#x82000d5c</PTCID>
-									<BitOffs>27360</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory_b</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d61</PTCID>
-									<BitOffs>27400</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_oh</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d62</PTCID>
-									<BitOffs>27408</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory1_m</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d63</PTCID>
-									<BitOffs>27416</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>FixPtRelationalOperator_j</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000d64</PTCID>
 									<BitOffs>27424</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Compare_ky</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d65</PTCID>
-									<BitOffs>27432</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory1_c</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d66</PTCID>
-									<BitOffs>27440</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_i</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d67</PTCID>
-									<BitOffs>27448</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator_aa</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x82000d68</PTCID>
-									<BitOffs>27456</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator1_e</Name>
+									<Name>Memory_b</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000d69</PTCID>
 									<BitOffs>27464</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>LogicalOperator2_m</Name>
+									<Name>LogicalOperator_oh</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x82000d6a</PTCID>
 									<BitOffs>27472</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Memory1_m</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d6b</PTCID>
+									<BitOffs>27480</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>FixPtRelationalOperator_j</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d6c</PTCID>
+									<BitOffs>27488</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Compare_ky</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d6d</PTCID>
+									<BitOffs>27496</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Memory1_c</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d6e</PTCID>
+									<BitOffs>27504</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>LogicalOperator_i</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d6f</PTCID>
+									<BitOffs>27512</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>LogicalOperator_aa</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d70</PTCID>
+									<BitOffs>27520</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>LogicalOperator1_e</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d71</PTCID>
+									<BitOffs>27528</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>LogicalOperator2_m</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x82000d72</PTCID>
+									<BitOffs>27536</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_c</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x82000d6b</PTCID>
-									<BitOffs>27480</BitOffs>
+									<PTCID>#x82000d73</PTCID>
+									<BitOffs>27544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_h</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{2FA4ED40-264A-E190-4AFB-D70DC4115131}">B_Statemachine_model_base_bro_T</BaseType>
-									<PTCID>#x82000d70</PTCID>
-									<BitOffs>27520</BitOffs>
+									<PTCID>#x82000d78</PTCID>
+									<BitOffs>27584</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CheckVelThreshold_n</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{E9307AD0-E65F-CEAF-7337-50E35E3C5BB2}">B_CheckVelThreshold_model_bas_T</BaseType>
-									<PTCID>#x82000d78</PTCID>
-									<BitOffs>27584</BitOffs>
+									<PTCID>#x82000d80</PTCID>
+									<BitOffs>27648</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_k</Name>
 									<BitSize>24</BitSize>
 									<BaseType GUID="{E1C8E908-DCD2-C4C1-3BE5-32FFE71E4461}">B_LatchRising_model_base_b_go_T</BaseType>
-									<PTCID>#x82000d90</PTCID>
-									<BitOffs>27776</BitOffs>
+									<PTCID>#x82000d98</PTCID>
+									<BitOffs>27840</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_EndpointPositionGuard_d</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{7D94DBA5-197E-B283-1BF9-51805D62FD58}">B_EndpointPositionGuard_model_T</BaseType>
-									<PTCID>#x82000d98</PTCID>
-									<BitOffs>27840</BitOffs>
+									<PTCID>#x82000da0</PTCID>
+									<BitOffs>27904</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_EncodeDesiredTorque_h</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{22A0D47E-648E-1F73-6F1C-0407216BF2F0}">B_EncodeDesiredTorque_model_b_T</BaseType>
-									<PTCID>#x82000da0</PTCID>
-									<BitOffs>27904</BitOffs>
+									<PTCID>#x82000da8</PTCID>
+									<BitOffs>27968</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_h</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{0FA1D51C-7044-3280-A6FC-2F98251E5B71}">B_LatchRising_model_base_br_g_T</BaseType>
-									<PTCID>#x82000da2</PTCID>
-									<BitOffs>27920</BitOffs>
+									<PTCID>#x82000daa</PTCID>
+									<BitOffs>27984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_enableDriveCoE_l</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{0FC78804-661D-73C2-BFCE-F2A5D5FA0DFF}">B_enableDriveCoE_model_base_b_T</BaseType>
-									<PTCID>#x82000da8</PTCID>
-									<BitOffs>27968</BitOffs>
+									<PTCID>#x82000db0</PTCID>
+									<BitOffs>28032</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_e4</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x82000db0</PTCID>
-									<BitOffs>28032</BitOffs>
+									<PTCID>#x82000db8</PTCID>
+									<BitOffs>28096</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CountHowLongEnableWasTrue_i</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{00A8B0CB-21FC-C5C6-660D-B451C1DB6993}">B_CountHowLongEnableWasTrue_m_T</BaseType>
-									<PTCID>#x82000db8</PTCID>
-									<BitOffs>28096</BitOffs>
+									<PTCID>#x82000dc0</PTCID>
+									<BitOffs>28160</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_EncodeDesiredTorque_aq</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{22A0D47E-648E-1F73-6F1C-0407216BF2F0}">B_EncodeDesiredTorque_model_b_T</BaseType>
-									<PTCID>#x82000dc0</PTCID>
-									<BitOffs>28160</BitOffs>
+									<PTCID>#x82000dc8</PTCID>
+									<BitOffs>28224</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_c</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{0FA1D51C-7044-3280-A6FC-2F98251E5B71}">B_LatchRising_model_base_br_g_T</BaseType>
-									<PTCID>#x82000dc2</PTCID>
-									<BitOffs>28176</BitOffs>
+									<PTCID>#x82000dca</PTCID>
+									<BitOffs>28240</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_enableDriveCoE_g</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{0FC78804-661D-73C2-BFCE-F2A5D5FA0DFF}">B_enableDriveCoE_model_base_b_T</BaseType>
-									<PTCID>#x82000dc8</PTCID>
-									<BitOffs>28224</BitOffs>
+									<PTCID>#x82000dd0</PTCID>
+									<BitOffs>28288</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_b</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x82000dd0</PTCID>
-									<BitOffs>28288</BitOffs>
+									<PTCID>#x82000dd8</PTCID>
+									<BitOffs>28352</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CountHowLongEnableWasTrue_c</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{00A8B0CB-21FC-C5C6-660D-B451C1DB6993}">B_CountHowLongEnableWasTrue_m_T</BaseType>
-									<PTCID>#x82000dd8</PTCID>
-									<BitOffs>28352</BitOffs>
+									<PTCID>#x82000de0</PTCID>
+									<BitOffs>28416</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_pj</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{AC3269FA-2C42-1B13-7B1E-450986CB12E7}">B_MATLABFunction_model_base_o_T</BaseType>
-									<PTCID>#x82000de0</PTCID>
-									<BitOffs>28416</BitOffs>
+									<PTCID>#x82000de8</PTCID>
+									<BitOffs>28480</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{001F055D-5469-0B1F-0E00-719078AB708B}">B_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x82000de8</PTCID>
-									<BitOffs>28480</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>sf_ErrorToPower2</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{0E38FAB8-D475-2A32-715E-F95E72C6CAF4}">B_ErrorToPower2_model_base_br_T</BaseType>
 									<PTCID>#x82000df0</PTCID>
 									<BitOffs>28544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_ErrorToPower2_j</Name>
+									<Name>sf_ErrorToPower2</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{0E38FAB8-D475-2A32-715E-F95E72C6CAF4}">B_ErrorToPower2_model_base_br_T</BaseType>
 									<PTCID>#x82000df8</PTCID>
 									<BitOffs>28608</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>sf_ErrorToPower2_j</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{0E38FAB8-D475-2A32-715E-F95E72C6CAF4}">B_ErrorToPower2_model_base_br_T</BaseType>
+									<PTCID>#x82000e00</PTCID>
+									<BitOffs>28672</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_e</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10B1B6D7-E0A9-0C03-D867-ABCA4D6C45BC}">B_MATLABFunction_model_base_k_T</BaseType>
-									<PTCID>#x82000e00</PTCID>
-									<BitOffs>28672</BitOffs>
+									<PTCID>#x82000e08</PTCID>
+									<BitOffs>28736</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW_n</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{DD7B3C64-92B5-7DF4-6672-E10957ABD814}">B_FOAW_model_base_bros_i_T</BaseType>
-									<PTCID>#x82000e08</PTCID>
-									<BitOffs>28736</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_IncEnc_g</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x82000e10</PTCID>
 									<BitOffs>28800</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_AbsEnc_i</Name>
+									<Name>sf_DecodeEncoder_IncEnc_g</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x82000e18</PTCID>
 									<BitOffs>28864</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>sf_DecodeEncoder_AbsEnc_i</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
+									<PTCID>#x82000e20</PTCID>
+									<BitOffs>28928</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_DecodeActualTorque_h</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{4EBCC7D2-7910-54ED-98AD-790014CC09A5}">B_DecodeActualTorque_model_ba_T</BaseType>
-									<PTCID>#x82000e20</PTCID>
-									<BitOffs>28928</BitOffs>
+									<PTCID>#x82000e28</PTCID>
+									<BitOffs>28992</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CheckOperationEnabled_i</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{3AFF2A0B-D161-81CE-7ABA-ED17532E07C7}">B_CheckOperationEnabled_model_T</BaseType>
-									<PTCID>#x82000e28</PTCID>
-									<BitOffs>28992</BitOffs>
+									<PTCID>#x82000e30</PTCID>
+									<BitOffs>29056</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateIncEncoder_g</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{35DAA185-DE78-E4B4-438A-4BF662127B4D}">B_CalibrateIncEncoder_model_b_T</BaseType>
-									<PTCID>#x82000e30</PTCID>
-									<BitOffs>29056</BitOffs>
+									<PTCID>#x82000e38</PTCID>
+									<BitOffs>29120</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateAbsEncoder_nt</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{44E7381C-4556-2F86-2408-AAC9FB5535F0}">B_CalibrateAbsEncoder_model_b_T</BaseType>
-									<PTCID>#x82000e40</PTCID>
-									<BitOffs>29184</BitOffs>
+									<PTCID>#x82000e48</PTCID>
+									<BitOffs>29248</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW_ar</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10CEB543-59BB-A505-3B09-02C7900FE225}">B_FOAW_model_base_bros_T</BaseType>
-									<PTCID>#x82000e48</PTCID>
-									<BitOffs>29248</BitOffs>
+									<PTCID>#x82000e50</PTCID>
+									<BitOffs>29312</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_j</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x82000e50</PTCID>
-									<BitOffs>29312</BitOffs>
+									<PTCID>#x82000e58</PTCID>
+									<BitOffs>29376</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_a</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10B1B6D7-E0A9-0C03-D867-ABCA4D6C45BC}">B_MATLABFunction_model_base_k_T</BaseType>
-									<PTCID>#x82000e58</PTCID>
-									<BitOffs>29376</BitOffs>
+									<PTCID>#x82000e60</PTCID>
+									<BitOffs>29440</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW_i</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{DD7B3C64-92B5-7DF4-6672-E10957ABD814}">B_FOAW_model_base_bros_i_T</BaseType>
-									<PTCID>#x82000e60</PTCID>
-									<BitOffs>29440</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_IncEnc_h</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x82000e68</PTCID>
 									<BitOffs>29504</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_AbsEnc_k</Name>
+									<Name>sf_DecodeEncoder_IncEnc_h</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x82000e70</PTCID>
 									<BitOffs>29568</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>sf_DecodeEncoder_AbsEnc_k</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
+									<PTCID>#x82000e78</PTCID>
+									<BitOffs>29632</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_DecodeActualTorque_n</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{4EBCC7D2-7910-54ED-98AD-790014CC09A5}">B_DecodeActualTorque_model_ba_T</BaseType>
-									<PTCID>#x82000e78</PTCID>
-									<BitOffs>29632</BitOffs>
+									<PTCID>#x82000e80</PTCID>
+									<BitOffs>29696</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CheckOperationEnabled_e</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{3AFF2A0B-D161-81CE-7ABA-ED17532E07C7}">B_CheckOperationEnabled_model_T</BaseType>
-									<PTCID>#x82000e80</PTCID>
-									<BitOffs>29696</BitOffs>
+									<PTCID>#x82000e88</PTCID>
+									<BitOffs>29760</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateIncEncoder_j</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{35DAA185-DE78-E4B4-438A-4BF662127B4D}">B_CalibrateIncEncoder_model_b_T</BaseType>
-									<PTCID>#x82000e88</PTCID>
-									<BitOffs>29760</BitOffs>
+									<PTCID>#x82000e90</PTCID>
+									<BitOffs>29824</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateAbsEncoder_e</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{44E7381C-4556-2F86-2408-AAC9FB5535F0}">B_CalibrateAbsEncoder_model_b_T</BaseType>
-									<PTCID>#x82000e98</PTCID>
-									<BitOffs>29888</BitOffs>
+									<PTCID>#x82000ea0</PTCID>
+									<BitOffs>29952</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW_o</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10CEB543-59BB-A505-3B09-02C7900FE225}">B_FOAW_model_base_bros_T</BaseType>
-									<PTCID>#x82000ea0</PTCID>
-									<BitOffs>29952</BitOffs>
+									<PTCID>#x82000ea8</PTCID>
+									<BitOffs>30016</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_g</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x82000ea8</PTCID>
-									<BitOffs>30016</BitOffs>
+									<PTCID>#x82000eb0</PTCID>
+									<BitOffs>30080</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_SensorToOperationalSpace_f</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{152BA024-1CFA-0A47-610F-9E9A4CC646F2}">B_SensorToOperationalSpace_mo_T</BaseType>
-									<PTCID>#x82000eb0</PTCID>
-									<BitOffs>30080</BitOffs>
+									<PTCID>#x82000eb8</PTCID>
+									<BitOffs>30144</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CorrectOffset_l</Name>
 									<BitSize>832</BitSize>
 									<BaseType GUID="{4DA7651B-C89B-E9C1-FDC7-DEAD78879207}">B_CorrectOffset_model_base_br_T</BaseType>
-									<PTCID>#x82000ee0</PTCID>
-									<BitOffs>30464</BitOffs>
+									<PTCID>#x82000ee8</PTCID>
+									<BitOffs>30528</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_forwardkinematics_b</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{E67676B9-FB98-BE17-CA92-F4DFE53CA83A}">B_forwardkinematics_model_b_e_T</BaseType>
-									<PTCID>#x82000f48</PTCID>
-									<BitOffs>31296</BitOffs>
+									<PTCID>#x82000f50</PTCID>
+									<BitOffs>31360</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Jedot_i</Name>
 									<BitSize>512</BitSize>
 									<BaseType GUID="{6AFDE3DD-9E92-984B-E15D-5F1318265259}">B_Jedot_model_base_bros_T</BaseType>
-									<PTCID>#x82000f68</PTCID>
-									<BitOffs>31552</BitOffs>
+									<PTCID>#x82000f70</PTCID>
+									<BitOffs>31616</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Je_g</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{565E9C59-869F-F766-39A6-D4AC890BDF40}">B_Je_model_base_bros_T</BaseType>
-									<PTCID>#x82000fa8</PTCID>
-									<BitOffs>32064</BitOffs>
+									<PTCID>#x82000fb0</PTCID>
+									<BitOffs>32128</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_forwardkinematics_a</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{26D541D7-4E9D-C4FF-BA4F-08C84F2716C1}">B_forwardkinematics_model_bas_T</BaseType>
-									<PTCID>#x82000fd8</PTCID>
-									<BitOffs>32448</BitOffs>
+									<PTCID>#x82000fe0</PTCID>
+									<BitOffs>32512</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Jedot_d</Name>
 									<BitSize>512</BitSize>
 									<BaseType GUID="{6AFDE3DD-9E92-984B-E15D-5F1318265259}">B_Jedot_model_base_bros_T</BaseType>
-									<PTCID>#x82000ff8</PTCID>
-									<BitOffs>32704</BitOffs>
+									<PTCID>#x82001000</PTCID>
+									<BitOffs>32768</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Je</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{565E9C59-869F-F766-39A6-D4AC890BDF40}">B_Je_model_base_bros_T</BaseType>
-									<PTCID>#x82001038</PTCID>
-									<BitOffs>33216</BitOffs>
+									<PTCID>#x82001040</PTCID>
+									<BitOffs>33280</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_IKalljoints_f</Name>
 									<BitSize>320</BitSize>
 									<BaseType GUID="{F2AF61EE-0C70-927E-FD2D-D5DF3269451E}">B_IKalljoints_model_base_bros_T</BaseType>
-									<PTCID>#x82001068</PTCID>
-									<BitOffs>33600</BitOffs>
+									<PTCID>#x82001070</PTCID>
+									<BitOffs>33664</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Conditionnumber_m</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{CE6F71F7-B144-F3C6-76A0-F0908D589732}">B_Conditionnumber_model_base_T</BaseType>
-									<PTCID>#x82001090</PTCID>
-									<BitOffs>33920</BitOffs>
+									<PTCID>#x82001098</PTCID>
+									<BitOffs>33984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive_j</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{E3700DD7-1DE7-9E19-A533-6D5D9D80D58C}">B_homingactive_model_base_bro_T</BaseType>
-									<PTCID>#x82001098</PTCID>
-									<BitOffs>33984</BitOffs>
+									<PTCID>#x820010a0</PTCID>
+									<BitOffs>34048</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_nonlinearcompensation_m</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{BD6A655C-C1FF-8715-4E3B-1AD88B03BDBE}">B_nonlinearcompensation_model_T</BaseType>
-									<PTCID>#x820010c8</PTCID>
-									<BitOffs>34368</BitOffs>
+									<PTCID>#x820010d0</PTCID>
+									<BitOffs>34432</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_invJ1_h</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{E5267A4F-9B42-AC8E-1B51-FB2D1DCED24C}">B_invJ1_model_base_bros_T</BaseType>
-									<PTCID>#x820010e8</PTCID>
-									<BitOffs>34624</BitOffs>
+									<PTCID>#x820010f0</PTCID>
+									<BitOffs>34688</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x820010f8</PTCID>
-									<BitOffs>34752</BitOffs>
+									<PTCID>#x82001100</PTCID>
+									<BitOffs>34816</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{2FA4ED40-264A-E190-4AFB-D70DC4115131}">B_Statemachine_model_base_bro_T</BaseType>
-									<PTCID>#x82001100</PTCID>
-									<BitOffs>34816</BitOffs>
+									<PTCID>#x82001108</PTCID>
+									<BitOffs>34880</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CheckVelThreshold</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{E9307AD0-E65F-CEAF-7337-50E35E3C5BB2}">B_CheckVelThreshold_model_bas_T</BaseType>
-									<PTCID>#x82001108</PTCID>
-									<BitOffs>34880</BitOffs>
+									<PTCID>#x82001110</PTCID>
+									<BitOffs>34944</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_n</Name>
 									<BitSize>24</BitSize>
 									<BaseType GUID="{E1C8E908-DCD2-C4C1-3BE5-32FFE71E4461}">B_LatchRising_model_base_b_go_T</BaseType>
-									<PTCID>#x82001120</PTCID>
-									<BitOffs>35072</BitOffs>
+									<PTCID>#x82001128</PTCID>
+									<BitOffs>35136</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_EndpointPositionGuard</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{7D94DBA5-197E-B283-1BF9-51805D62FD58}">B_EndpointPositionGuard_model_T</BaseType>
-									<PTCID>#x82001128</PTCID>
-									<BitOffs>35136</BitOffs>
+									<PTCID>#x82001130</PTCID>
+									<BitOffs>35200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_EncodeDesiredTorque_a</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{22A0D47E-648E-1F73-6F1C-0407216BF2F0}">B_EncodeDesiredTorque_model_b_T</BaseType>
-									<PTCID>#x82001130</PTCID>
-									<BitOffs>35200</BitOffs>
+									<PTCID>#x82001138</PTCID>
+									<BitOffs>35264</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_l</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{0FA1D51C-7044-3280-A6FC-2F98251E5B71}">B_LatchRising_model_base_br_g_T</BaseType>
-									<PTCID>#x82001132</PTCID>
-									<BitOffs>35216</BitOffs>
+									<PTCID>#x8200113a</PTCID>
+									<BitOffs>35280</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_enableDriveCoE_i</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{0FC78804-661D-73C2-BFCE-F2A5D5FA0DFF}">B_enableDriveCoE_model_base_b_T</BaseType>
-									<PTCID>#x82001138</PTCID>
-									<BitOffs>35264</BitOffs>
+									<PTCID>#x82001140</PTCID>
+									<BitOffs>35328</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_l</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x82001140</PTCID>
-									<BitOffs>35328</BitOffs>
+									<PTCID>#x82001148</PTCID>
+									<BitOffs>35392</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CountHowLongEnableWasTrue_j</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{00A8B0CB-21FC-C5C6-660D-B451C1DB6993}">B_CountHowLongEnableWasTrue_m_T</BaseType>
-									<PTCID>#x82001148</PTCID>
-									<BitOffs>35392</BitOffs>
+									<PTCID>#x82001150</PTCID>
+									<BitOffs>35456</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_EncodeDesiredTorque</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{22A0D47E-648E-1F73-6F1C-0407216BF2F0}">B_EncodeDesiredTorque_model_b_T</BaseType>
-									<PTCID>#x82001150</PTCID>
-									<BitOffs>35456</BitOffs>
+									<PTCID>#x82001158</PTCID>
+									<BitOffs>35520</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising</Name>
 									<BitSize>48</BitSize>
 									<BaseType GUID="{0FA1D51C-7044-3280-A6FC-2F98251E5B71}">B_LatchRising_model_base_br_g_T</BaseType>
-									<PTCID>#x82001152</PTCID>
-									<BitOffs>35472</BitOffs>
+									<PTCID>#x8200115a</PTCID>
+									<BitOffs>35536</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_enableDriveCoE</Name>
 									<BitSize>16</BitSize>
 									<BaseType GUID="{0FC78804-661D-73C2-BFCE-F2A5D5FA0DFF}">B_enableDriveCoE_model_base_b_T</BaseType>
-									<PTCID>#x82001158</PTCID>
-									<BitOffs>35520</BitOffs>
+									<PTCID>#x82001160</PTCID>
+									<BitOffs>35584</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_n</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x82001160</PTCID>
-									<BitOffs>35584</BitOffs>
+									<PTCID>#x82001168</PTCID>
+									<BitOffs>35648</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CountHowLongEnableWasTrue</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{00A8B0CB-21FC-C5C6-660D-B451C1DB6993}">B_CountHowLongEnableWasTrue_m_T</BaseType>
-									<PTCID>#x82001168</PTCID>
-									<BitOffs>35648</BitOffs>
+									<PTCID>#x82001170</PTCID>
+									<BitOffs>35712</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_fr</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{AC3269FA-2C42-1B13-7B1E-450986CB12E7}">B_MATLABFunction_model_base_o_T</BaseType>
-									<PTCID>#x82001170</PTCID>
-									<BitOffs>35712</BitOffs>
+									<PTCID>#x82001178</PTCID>
+									<BitOffs>35776</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{001F055D-5469-0B1F-0E00-719078AB708B}">B_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x82001178</PTCID>
-									<BitOffs>35776</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>sf_ErrorToPower2_m</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{0E38FAB8-D475-2A32-715E-F95E72C6CAF4}">B_ErrorToPower2_model_base_br_T</BaseType>
 									<PTCID>#x82001180</PTCID>
 									<BitOffs>35840</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_ErrorToPower2_d</Name>
+									<Name>sf_ErrorToPower2_m</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{0E38FAB8-D475-2A32-715E-F95E72C6CAF4}">B_ErrorToPower2_model_base_br_T</BaseType>
 									<PTCID>#x82001188</PTCID>
 									<BitOffs>35904</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>sf_ErrorToPower2_d</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{0E38FAB8-D475-2A32-715E-F95E72C6CAF4}">B_ErrorToPower2_model_base_br_T</BaseType>
+									<PTCID>#x82001190</PTCID>
+									<BitOffs>35968</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_p</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10B1B6D7-E0A9-0C03-D867-ABCA4D6C45BC}">B_MATLABFunction_model_base_k_T</BaseType>
-									<PTCID>#x82001190</PTCID>
-									<BitOffs>35968</BitOffs>
+									<PTCID>#x82001198</PTCID>
+									<BitOffs>36032</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW_d</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{DD7B3C64-92B5-7DF4-6672-E10957ABD814}">B_FOAW_model_base_bros_i_T</BaseType>
-									<PTCID>#x82001198</PTCID>
-									<BitOffs>36032</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_IncEnc_e</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x820011a0</PTCID>
 									<BitOffs>36096</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_AbsEnc_b</Name>
+									<Name>sf_DecodeEncoder_IncEnc_e</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x820011a8</PTCID>
 									<BitOffs>36160</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>sf_DecodeEncoder_AbsEnc_b</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
+									<PTCID>#x820011b0</PTCID>
+									<BitOffs>36224</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_DecodeActualTorque_j</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{4EBCC7D2-7910-54ED-98AD-790014CC09A5}">B_DecodeActualTorque_model_ba_T</BaseType>
-									<PTCID>#x820011b0</PTCID>
-									<BitOffs>36224</BitOffs>
+									<PTCID>#x820011b8</PTCID>
+									<BitOffs>36288</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CheckOperationEnabled_o</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{3AFF2A0B-D161-81CE-7ABA-ED17532E07C7}">B_CheckOperationEnabled_model_T</BaseType>
-									<PTCID>#x820011b8</PTCID>
-									<BitOffs>36288</BitOffs>
+									<PTCID>#x820011c0</PTCID>
+									<BitOffs>36352</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateIncEncoder_h</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{35DAA185-DE78-E4B4-438A-4BF662127B4D}">B_CalibrateIncEncoder_model_b_T</BaseType>
-									<PTCID>#x820011c0</PTCID>
-									<BitOffs>36352</BitOffs>
+									<PTCID>#x820011c8</PTCID>
+									<BitOffs>36416</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateAbsEncoder_n</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{44E7381C-4556-2F86-2408-AAC9FB5535F0}">B_CalibrateAbsEncoder_model_b_T</BaseType>
-									<PTCID>#x820011d0</PTCID>
-									<BitOffs>36480</BitOffs>
+									<PTCID>#x820011d8</PTCID>
+									<BitOffs>36544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW_a</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10CEB543-59BB-A505-3B09-02C7900FE225}">B_FOAW_model_base_bros_T</BaseType>
-									<PTCID>#x820011d8</PTCID>
-									<BitOffs>36544</BitOffs>
+									<PTCID>#x820011e0</PTCID>
+									<BitOffs>36608</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_k</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x820011e0</PTCID>
-									<BitOffs>36608</BitOffs>
+									<PTCID>#x820011e8</PTCID>
+									<BitOffs>36672</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10B1B6D7-E0A9-0C03-D867-ABCA4D6C45BC}">B_MATLABFunction_model_base_k_T</BaseType>
-									<PTCID>#x820011e8</PTCID>
-									<BitOffs>36672</BitOffs>
+									<PTCID>#x820011f0</PTCID>
+									<BitOffs>36736</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW_l</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{DD7B3C64-92B5-7DF4-6672-E10957ABD814}">B_FOAW_model_base_bros_i_T</BaseType>
-									<PTCID>#x820011f0</PTCID>
-									<BitOffs>36736</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_IncEnc</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x820011f8</PTCID>
 									<BitOffs>36800</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>sf_DecodeEncoder_AbsEnc</Name>
+									<Name>sf_DecodeEncoder_IncEnc</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
 									<PTCID>#x82001200</PTCID>
 									<BitOffs>36864</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>sf_DecodeEncoder_AbsEnc</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{94EF1578-7CA7-30A7-47C8-BA84659A6120}">B_DecodeEncoder_AbsEnc_model_T</BaseType>
+									<PTCID>#x82001208</PTCID>
+									<BitOffs>36928</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_DecodeActualTorque</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{4EBCC7D2-7910-54ED-98AD-790014CC09A5}">B_DecodeActualTorque_model_ba_T</BaseType>
-									<PTCID>#x82001208</PTCID>
-									<BitOffs>36928</BitOffs>
+									<PTCID>#x82001210</PTCID>
+									<BitOffs>36992</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CheckOperationEnabled</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{3AFF2A0B-D161-81CE-7ABA-ED17532E07C7}">B_CheckOperationEnabled_model_T</BaseType>
-									<PTCID>#x82001210</PTCID>
-									<BitOffs>36992</BitOffs>
+									<PTCID>#x82001218</PTCID>
+									<BitOffs>37056</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateIncEncoder</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{35DAA185-DE78-E4B4-438A-4BF662127B4D}">B_CalibrateIncEncoder_model_b_T</BaseType>
-									<PTCID>#x82001218</PTCID>
-									<BitOffs>37056</BitOffs>
+									<PTCID>#x82001220</PTCID>
+									<BitOffs>37120</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CalibrateAbsEncoder</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{44E7381C-4556-2F86-2408-AAC9FB5535F0}">B_CalibrateAbsEncoder_model_b_T</BaseType>
-									<PTCID>#x82001228</PTCID>
-									<BitOffs>37184</BitOffs>
+									<PTCID>#x82001230</PTCID>
+									<BitOffs>37248</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_FOAW</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{10CEB543-59BB-A505-3B09-02C7900FE225}">B_FOAW_model_base_bros_T</BaseType>
-									<PTCID>#x82001230</PTCID>
-									<BitOffs>37248</BitOffs>
+									<PTCID>#x82001238</PTCID>
+									<BitOffs>37312</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_MATLABFunction_f</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}">B_MATLABFunction_model_base_b_T</BaseType>
-									<PTCID>#x82001238</PTCID>
-									<BitOffs>37312</BitOffs>
+									<PTCID>#x82001240</PTCID>
+									<BitOffs>37376</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_SensorToOperationalSpace</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{152BA024-1CFA-0A47-610F-9E9A4CC646F2}">B_SensorToOperationalSpace_mo_T</BaseType>
-									<PTCID>#x82001240</PTCID>
-									<BitOffs>37376</BitOffs>
+									<PTCID>#x82001248</PTCID>
+									<BitOffs>37440</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CorrectOffset</Name>
 									<BitSize>832</BitSize>
 									<BaseType GUID="{4DA7651B-C89B-E9C1-FDC7-DEAD78879207}">B_CorrectOffset_model_base_br_T</BaseType>
-									<PTCID>#x82001270</PTCID>
-									<BitOffs>37760</BitOffs>
+									<PTCID>#x82001278</PTCID>
+									<BitOffs>37824</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_forwardkinematics_p</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{E67676B9-FB98-BE17-CA92-F4DFE53CA83A}">B_forwardkinematics_model_b_e_T</BaseType>
-									<PTCID>#x820012d8</PTCID>
-									<BitOffs>38592</BitOffs>
+									<PTCID>#x820012e0</PTCID>
+									<BitOffs>38656</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Jedot_f</Name>
 									<BitSize>512</BitSize>
 									<BaseType GUID="{6AFDE3DD-9E92-984B-E15D-5F1318265259}">B_Jedot_model_base_bros_T</BaseType>
-									<PTCID>#x820012f8</PTCID>
-									<BitOffs>38848</BitOffs>
+									<PTCID>#x82001300</PTCID>
+									<BitOffs>38912</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Je_j</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{565E9C59-869F-F766-39A6-D4AC890BDF40}">B_Je_model_base_bros_T</BaseType>
-									<PTCID>#x82001338</PTCID>
-									<BitOffs>39360</BitOffs>
+									<PTCID>#x82001340</PTCID>
+									<BitOffs>39424</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_forwardkinematics</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{26D541D7-4E9D-C4FF-BA4F-08C84F2716C1}">B_forwardkinematics_model_bas_T</BaseType>
-									<PTCID>#x82001368</PTCID>
-									<BitOffs>39744</BitOffs>
+									<PTCID>#x82001370</PTCID>
+									<BitOffs>39808</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Jedot</Name>
 									<BitSize>512</BitSize>
 									<BaseType GUID="{6AFDE3DD-9E92-984B-E15D-5F1318265259}">B_Jedot_model_base_bros_T</BaseType>
-									<PTCID>#x82001388</PTCID>
-									<BitOffs>40000</BitOffs>
+									<PTCID>#x82001390</PTCID>
+									<BitOffs>40064</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Je_n</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{565E9C59-869F-F766-39A6-D4AC890BDF40}">B_Je_model_base_bros_T</BaseType>
-									<PTCID>#x820013c8</PTCID>
-									<BitOffs>40512</BitOffs>
+									<PTCID>#x820013d0</PTCID>
+									<BitOffs>40576</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_IKalljoints</Name>
 									<BitSize>320</BitSize>
 									<BaseType GUID="{F2AF61EE-0C70-927E-FD2D-D5DF3269451E}">B_IKalljoints_model_base_bros_T</BaseType>
-									<PTCID>#x820013f8</PTCID>
-									<BitOffs>40896</BitOffs>
+									<PTCID>#x82001400</PTCID>
+									<BitOffs>40960</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Conditionnumber</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{CE6F71F7-B144-F3C6-76A0-F0908D589732}">B_Conditionnumber_model_base_T</BaseType>
-									<PTCID>#x82001420</PTCID>
-									<BitOffs>41216</BitOffs>
+									<PTCID>#x82001428</PTCID>
+									<BitOffs>41280</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{E3700DD7-1DE7-9E19-A533-6D5D9D80D58C}">B_homingactive_model_base_bro_T</BaseType>
-									<PTCID>#x82001428</PTCID>
-									<BitOffs>41280</BitOffs>
+									<PTCID>#x82001430</PTCID>
+									<BitOffs>41344</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_nonlinearcompensation</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{BD6A655C-C1FF-8715-4E3B-1AD88B03BDBE}">B_nonlinearcompensation_model_T</BaseType>
-									<PTCID>#x82001458</PTCID>
-									<BitOffs>41664</BitOffs>
+									<PTCID>#x82001460</PTCID>
+									<BitOffs>41728</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_invJ1</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{E5267A4F-9B42-AC8E-1B51-FB2D1DCED24C}">B_invJ1_model_base_bros_T</BaseType>
-									<PTCID>#x82001478</PTCID>
-									<BitOffs>41920</BitOffs>
+									<PTCID>#x82001480</PTCID>
+									<BitOffs>41984</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
 								<AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
 								<Name>ModelParameters</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>2992</ByteSize>
+								<ByteSize>3000</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>FM1</Name>
 									<BitSize>2496</BitSize>
@@ -8163,7 +8177,7 @@
 									<BitOffs>15360</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>TrialDuration_Value</Name>
+									<Name>ExpTrialDuration_Value</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x83000788</PTCID>
@@ -8576,361 +8590,368 @@
 									<BitOffs>19264</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>ExpConnectionType_Value</Name>
+									<Name>ExpConnected_Value</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x83000970</PTCID>
 									<BitOffs>19328</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>FixPtConstant_Value</Name>
-									<BitSize>32</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<Name>ExpConnectionStiffness_Value</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x83000978</PTCID>
 									<BitOffs>19392</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Output_InitialCondition</Name>
-									<BitSize>32</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
-									<PTCID>#x8300097c</PTCID>
-									<BitOffs>19424</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_d</Name>
+									<Name>FixPtConstant_Value</Name>
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
 									<PTCID>#x83000980</PTCID>
 									<BitOffs>19456</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Output_InitialCondition</Name>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x83000984</PTCID>
+									<BitOffs>19488</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Constant_Value_d</Name>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x83000988</PTCID>
+									<BitOffs>19520</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x83000984</PTCID>
-									<BitOffs>19488</BitOffs>
+									<PTCID>#x8300098c</PTCID>
+									<BitOffs>19552</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x83000985</PTCID>
-									<BitOffs>19496</BitOffs>
+									<PTCID>#x8300098d</PTCID>
+									<BitOffs>19560</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_fv</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x83000986</PTCID>
-									<BitOffs>19504</BitOffs>
+									<PTCID>#x8300098e</PTCID>
+									<BitOffs>19568</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>ManualSwitch_CurrentSetting_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x83000987</PTCID>
-									<BitOffs>19512</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory1_X0</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000988</PTCID>
-									<BitOffs>19520</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Memory_X0_f</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x83000989</PTCID>
-									<BitOffs>19528</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300098a</PTCID>
-									<BitOffs>19536</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0_a</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300098b</PTCID>
-									<BitOffs>19544</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_fn</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300098c</PTCID>
-									<BitOffs>19552</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300098d</PTCID>
-									<BitOffs>19560</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0_a</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x8300098e</PTCID>
-									<BitOffs>19568</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0_d</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x8300098f</PTCID>
 									<BitOffs>19576</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>PreventAlgebraicLoop_X0_c</Name>
+									<Name>Memory1_X0</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000990</PTCID>
 									<BitOffs>19584</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0_g</Name>
+									<Name>Memory_X0_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000991</PTCID>
 									<BitOffs>19592</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>AvoidAlgebraicLoop_X0_b</Name>
+									<Name>PreventAlgebraicLoop_X0</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000992</PTCID>
 									<BitOffs>19600</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Constant_Value_il</Name>
+									<Name>PreventAlgebraicLoop_X0_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<PTCID>#x83000993</PTCID>
 									<BitOffs>19608</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Constant_Value_fn</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000994</PTCID>
+									<BitOffs>19616</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000995</PTCID>
+									<BitOffs>19624</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0_a</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000996</PTCID>
+									<BitOffs>19632</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>PreventAlgebraicLoop_X0_d</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000997</PTCID>
+									<BitOffs>19640</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>PreventAlgebraicLoop_X0_c</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000998</PTCID>
+									<BitOffs>19648</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0_g</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x83000999</PTCID>
+									<BitOffs>19656</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>AvoidAlgebraicLoop_X0_b</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300099a</PTCID>
+									<BitOffs>19664</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>Constant_Value_il</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x8300099b</PTCID>
+									<BitOffs>19672</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>Logic_table</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x83000994</PTCID>
-									<BitOffs>19616</BitOffs>
+									<PTCID>#x8300099c</PTCID>
+									<BitOffs>19680</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_m</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009a4</PTCID>
-									<BitOffs>19744</BitOffs>
+									<PTCID>#x830009ac</PTCID>
+									<BitOffs>19808</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_d</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009a5</PTCID>
-									<BitOffs>19752</BitOffs>
+									<PTCID>#x830009ad</PTCID>
+									<BitOffs>19816</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_ok</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009a6</PTCID>
-									<BitOffs>19760</BitOffs>
+									<PTCID>#x830009ae</PTCID>
+									<BitOffs>19824</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_oq</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009a7</PTCID>
-									<BitOffs>19768</BitOffs>
+									<PTCID>#x830009af</PTCID>
+									<BitOffs>19832</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_a</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x830009a8</PTCID>
-									<BitOffs>19776</BitOffs>
+									<PTCID>#x830009b0</PTCID>
+									<BitOffs>19840</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_c</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009b8</PTCID>
-									<BitOffs>19904</BitOffs>
+									<PTCID>#x830009c0</PTCID>
+									<BitOffs>19968</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_dd</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009b9</PTCID>
-									<BitOffs>19912</BitOffs>
+									<PTCID>#x830009c1</PTCID>
+									<BitOffs>19976</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_ny</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009ba</PTCID>
-									<BitOffs>19920</BitOffs>
+									<PTCID>#x830009c2</PTCID>
+									<BitOffs>19984</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009bb</PTCID>
-									<BitOffs>19928</BitOffs>
+									<PTCID>#x830009c3</PTCID>
+									<BitOffs>19992</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_b</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x830009bc</PTCID>
-									<BitOffs>19936</BitOffs>
+									<PTCID>#x830009c4</PTCID>
+									<BitOffs>20000</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory1_X0_h</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009cc</PTCID>
-									<BitOffs>20064</BitOffs>
+									<PTCID>#x830009d4</PTCID>
+									<BitOffs>20128</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_h</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009cd</PTCID>
-									<BitOffs>20072</BitOffs>
+									<PTCID>#x830009d5</PTCID>
+									<BitOffs>20136</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_a</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009ce</PTCID>
-									<BitOffs>20080</BitOffs>
+									<PTCID>#x830009d6</PTCID>
+									<BitOffs>20144</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009cf</PTCID>
-									<BitOffs>20088</BitOffs>
+									<PTCID>#x830009d7</PTCID>
+									<BitOffs>20152</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_i</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x830009d0</PTCID>
-									<BitOffs>20096</BitOffs>
+									<PTCID>#x830009d8</PTCID>
+									<BitOffs>20160</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009e0</PTCID>
-									<BitOffs>20224</BitOffs>
+									<PTCID>#x830009e8</PTCID>
+									<BitOffs>20288</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Constant_Value_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009e1</PTCID>
-									<BitOffs>20232</BitOffs>
+									<PTCID>#x830009e9</PTCID>
+									<BitOffs>20296</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Logic_table_h</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{EC56D565-2EDE-741A-0185-AA84E2C27F96}">matrix_16_boolean_T</BaseType>
-									<PTCID>#x830009e2</PTCID>
-									<BitOffs>20240</BitOffs>
+									<PTCID>#x830009ea</PTCID>
+									<BitOffs>20304</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_hk</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009f2</PTCID>
-									<BitOffs>20368</BitOffs>
+									<PTCID>#x830009fa</PTCID>
+									<BitOffs>20432</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_l</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009f3</PTCID>
-									<BitOffs>20376</BitOffs>
+									<PTCID>#x830009fb</PTCID>
+									<BitOffs>20440</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_dj</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009f4</PTCID>
-									<BitOffs>20384</BitOffs>
+									<PTCID>#x830009fc</PTCID>
+									<BitOffs>20448</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Memory_X0_ca</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<PTCID>#x830009f5</PTCID>
-									<BitOffs>20392</BitOffs>
+									<PTCID>#x830009fd</PTCID>
+									<BitOffs>20456</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x830009f6</PTCID>
-									<BitOffs>20400</BitOffs>
+									<PTCID>#x830009fe</PTCID>
+									<BitOffs>20464</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x830009f7</PTCID>
-									<BitOffs>20408</BitOffs>
+									<PTCID>#x830009ff</PTCID>
+									<BitOffs>20472</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_n</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</BaseType>
-									<PTCID>#x830009f8</PTCID>
-									<BitOffs>20416</BitOffs>
+									<PTCID>#x83000a00</PTCID>
+									<BitOffs>20480</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive_j</Name>
 									<BitSize>1344</BitSize>
 									<BaseType GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</BaseType>
-									<PTCID>#x83000a28</PTCID>
-									<BitOffs>20800</BitOffs>
+									<PTCID>#x83000a30</PTCID>
+									<BitOffs>20864</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x83000ad0</PTCID>
-									<BitOffs>22144</BitOffs>
+									<PTCID>#x83000ad8</PTCID>
+									<BitOffs>22208</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x83000ad1</PTCID>
-									<BitOffs>22152</BitOffs>
+									<PTCID>#x83000ad9</PTCID>
+									<BitOffs>22216</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{DF8A5F27-0575-10DD-2F08-E8CF456A834B}">P_run_model_base_bros_T</BaseType>
-									<PTCID>#x83000ad8</PTCID>
-									<BitOffs>22208</BitOffs>
+									<PTCID>#x83000ae0</PTCID>
+									<BitOffs>22272</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive</Name>
 									<BitSize>1344</BitSize>
 									<BaseType GUID="{3BEAEE78-886D-9DCA-F1BD-F03171069713}">P_homingactive_model_base_bro_T</BaseType>
-									<PTCID>#x83000b08</PTCID>
-									<BitOffs>22592</BitOffs>
+									<PTCID>#x83000b10</PTCID>
+									<BitOffs>22656</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -11477,7 +11498,7 @@
 								<Value>0</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.TrialDuration_Value</Name>
+								<Name>ModelParameters.ExpTrialDuration_Value</Name>
 								<Value>15</Value>
 							</Value>
 							<Value>
@@ -11721,7 +11742,11 @@
 								<Value>1</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.ExpConnectionType_Value</Name>
+								<Name>ModelParameters.ExpConnected_Value</Name>
+								<Value>1</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.ExpConnectionStiffness_Value</Name>
 								<Value>1</Value>
 							</Value>
 							<Value>
