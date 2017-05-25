@@ -22,7 +22,6 @@ class tcAdsClient
 		// params for event-driven interactions with ADS
 		vector<ULONG> _hNotifications, _hVariables;
 		
-
 	public:
 		tcAdsClient(USHORT port);
 

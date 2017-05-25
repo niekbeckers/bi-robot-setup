@@ -35,5 +35,8 @@ class ofAppDisplay : public ofBaseApp
 		void update();
 		void draw();
 		void windowResized(int w, int h);
+
+		void showText(const string &text);
+		void showText(int x, int y, const string &text);
 };
 

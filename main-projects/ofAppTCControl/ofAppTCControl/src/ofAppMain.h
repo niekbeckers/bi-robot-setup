@@ -9,10 +9,12 @@
 // custom classes
 #include "ofAppDisplay.h"
 #include "tcAdsClient.h"
-#include "experimentHandler.h"
+#include "ofAppExperiment.h"
 #include "myUtils.h"
 
+
 void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
+class ofAppExperiment;
 
 class ofAppMain : public ofBaseApp{
 	
@@ -32,22 +34,21 @@ class ofAppMain : public ofBaseApp{
 		float _timeRefreshCheck = 1.0f; // 1 second refresh
 		float _timeCheck;
 
-		displayData display1Data, display2Data;
+		displayData _display1Data, _display2Data;
+
+		int _systemState[2] = { -1, -1 };
 
 		// gui variables
-		ofColor guiDefaultBackgroundColor;
+		ofColor _guiDefaultBackgroundColor;
 		ofxPanel _guiSystem, _guiExperiment;
 		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnReqState_Run, 
-			_btnEnableDrive, _btnDisableDrive, _btnExpLoad, _btnExpStart, _btnExpPause, _btnExpContinue, _btnExpStop;
+			_btnEnableDrive, _btnDisableDrive, _btnExpLoad, _btnExpStart, _btnExpPause, _btnExpResume, _btnExpStop;
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl, _grpExpControl;
 		ofxLabel _lblEtherCAT, _lblExpLoaded, _lblTrialRunning;
 
 		ofParameter<string>  _lblFRM, _lblSysState, _lblOpsEnabled, _lblSysError;
 		ofParameterGroup _ofGrpSys;
-		
-		// experiment handler
-		experimentHandler *expHandler = new experimentHandler();
 
 		//
 		// custom
@@ -55,14 +56,17 @@ class ofAppMain : public ofBaseApp{
 		void setupTCADS();
 		void setupGUI();
 
-		void ButtonPressed(const void * sender);
-		void RecordDataTogglePressed(bool & value);
+		void buttonPressed(const void * sender);
+		void recordDataTogglePressed(bool & value);
 		
 
 	public:
 		//
 		// variables
 		//
+
+		shared_ptr<ofAppExperiment> experimentApp;
+
 		const unsigned long adsPort = 350;
 		double AdsData[9] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
@@ -93,7 +97,8 @@ class ofAppMain : public ofBaseApp{
 
 		// custom
 
-		void RequestStateChange(double reqState);
-		void RequestDriveEnableDisable(bool enable);
-		void HandleCallback(AmsAddr*, AdsNotificationHeader*);
+		void requestStateChange(int reqState);
+		void requestDriveEnableDisable(bool enable);
+		bool systemIsInState(int state);
+		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 };

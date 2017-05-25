@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void ofAppMain::setup(){
+	ofSetLogLevel(OF_LOG_VERBOSE);
 
 	// set up window
 	ofBackground(ofColor::blueSteel);
@@ -16,8 +17,8 @@ void ofAppMain::setup(){
 	_timeCheck = ofGetElapsedTimef();
 
 	// point struct pointers of displays to data structs
-	display1->pData = &display1Data;
-	display2->pData = &display2Data;
+	display1->pData = &_display1Data;
+	display2->pData = &_display2Data;
 }
 
 //--------------------------------------------------------------
@@ -30,20 +31,20 @@ void ofAppMain::update(){
 	 
 	// set data in displayData structs
 	// display 1
-	display1Data.posCursorX = AdsData[0];
-	display1Data.posCursorY = AdsData[1];
-	display1Data.posTargetX = AdsData[4];
-	display1Data.posTargetX = AdsData[5];
+	_display1Data.posCursorX = AdsData[0];
+	_display1Data.posCursorY = AdsData[1];
+	_display1Data.posTargetX = AdsData[4];
+	_display1Data.posTargetY = AdsData[5];
 
 	// display 2
-	display2Data.posCursorX = AdsData[2];
-	display2Data.posCursorY = AdsData[3];
-	display2Data.posTargetX = AdsData[6];
-	display2Data.posTargetX = AdsData[7];
+	_display2Data.posCursorX = AdsData[2];
+	_display2Data.posCursorY = AdsData[3];
+	_display2Data.posTargetX = AdsData[6];
+	_display2Data.posTargetY = AdsData[7];
 
 	// check if trial is done
 	if (prevTrialRunning  && !(bool)AdsData[8]) {
-		expHandler->eventTrialDone();
+		experimentApp->eventTrialDone();
 	}
 
 	// periodic check
@@ -68,7 +69,7 @@ void ofAppMain::update(){
 		}
 		else {
 			_lblTrialRunning = "No trial running";
-			_lblTrialRunning.setBackgroundColor(guiDefaultBackgroundColor);
+			_lblTrialRunning.setBackgroundColor(_guiDefaultBackgroundColor);
 		}
 
 		// frame rate in GUI
@@ -129,8 +130,8 @@ void ofAppMain::setupGUI()
 	
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
-	guiDefaultBackgroundColor = _lblEtherCAT.getBackgroundColor();
-	_ofGrpSys.setName("System state");
+	_guiDefaultBackgroundColor = _lblEtherCAT.getBackgroundColor();
+	_ofGrpSys.setName("System");
 	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
 	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
 	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
@@ -138,7 +139,7 @@ void ofAppMain::setupGUI()
 	
 	// request state
 	_grpReqState.setup("Requested state");
-	_grpReqState.setName("Request state");
+	//_grpReqState.setName("Request state");
 	_grpReqState.add(_btnReqState_Reset.setup("Reset [0]"));
 	_grpReqState.add(_btnReqState_Init.setup("Init [1]"));
 	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate [299]"));
@@ -149,7 +150,7 @@ void ofAppMain::setupGUI()
 
 	// drive controls
 	_grpDriveControl.setup("Drive control");
-	_grpDriveControl.setName("Drive control");
+	//_grpDriveControl.setName("Drive control");
 	_grpDriveControl.add(_btnEnableDrive.setup("Enable drives"));
 	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
 	_guiSystem.add(&_grpDriveControl);
@@ -166,39 +167,38 @@ void ofAppMain::setupGUI()
 	_grpExpControl.add(_lblTrialRunning.setup("Trial", ""));
 	_grpExpControl.add(_btnExpLoad.setup("Load"));
 	_grpExpControl.add(_btnExpStart.setup("Start"));
-	_grpExpControl.add(_btnExpPause.setup("Pause"));
-	_grpExpControl.add(_btnExpContinue.setup("Continue"));
 	_grpExpControl.add(_btnExpStop.setup("Stop"));
+	_grpExpControl.add(_btnExpPause.setup("Pause"));
+	_grpExpControl.add(_btnExpResume.setup("Resume"));
 	_guiExperiment.add(&_grpExpControl);
-
 
 	//
 	// add listeners
 	//
 
 	// buttons
-	_btnReqState_Reset.addListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_Init.addListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_Calibrate.addListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_HomingAuto.addListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_HomingManual.addListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_Run.addListener(this, &ofAppMain::ButtonPressed);
-	_btnEnableDrive.addListener(this, &ofAppMain::ButtonPressed);
-	_btnDisableDrive.addListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_Calibrate.addListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_HomingAuto.addListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_HomingManual.addListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_Run.addListener(this, &ofAppMain::buttonPressed);
+	_btnEnableDrive.addListener(this, &ofAppMain::buttonPressed);
+	_btnDisableDrive.addListener(this, &ofAppMain::buttonPressed);
 
-	_btnExpLoad.addListener(this, &ofAppMain::ButtonPressed);
-	_btnExpStart.addListener(this, &ofAppMain::ButtonPressed);
-	_btnExpPause.addListener(this, &ofAppMain::ButtonPressed);
-	_btnExpContinue.addListener(this, &ofAppMain::ButtonPressed);
-	_btnExpStop.addListener(this, &ofAppMain::ButtonPressed);
+	_btnExpLoad.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpStart.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpPause.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpResume.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
 
 
 	// toggle
-	_btnToggleRecordData.addListener(this, &ofAppMain::RecordDataTogglePressed);
+	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 }
 
 //--------------------------------------------------------------
-void ofAppMain::RequestStateChange(double reqState)
+void ofAppMain::requestStateChange(int reqState)
 {
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
@@ -207,15 +207,17 @@ void ofAppMain::RequestStateChange(double reqState)
 	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value" };
 	long lHdlVar = tcClient->getVariableHandle(szVar, sizeof(szVar));
 
+	double state = (double)reqState; // cast to double because the simulink model/TMC object expects a double
+	
 	// write state request to variable handle
-	tcClient->write(lHdlVar, &reqState, sizeof(reqState));
+	tcClient->write(lHdlVar, &state, sizeof(state));
 
 	// clean up
 	tcClient->disconnect();
 }
 
 //--------------------------------------------------------------
-void ofAppMain::RequestDriveEnableDisable(bool enable)
+void ofAppMain::requestDriveEnableDisable(bool enable)
 {
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
@@ -244,54 +246,55 @@ void ofAppMain::RequestDriveEnableDisable(bool enable)
 }
 
 //--------------------------------------------------------------
-void ofAppMain::ButtonPressed(const void * sender)
+void ofAppMain::buttonPressed(const void * sender)
 {
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
 	
 	if (clickedBtn.compare(ofToString("Reset [0]")) == 0) {
-		RequestStateChange(0.0);
+		requestStateChange(0);
 	} 
 	else if (clickedBtn.compare(ofToString("Init [1]")) == 0) {
-		RequestStateChange(1.0);
+		requestStateChange(1);
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate [299]")) == 0) {
-		RequestStateChange(2.0);
+		requestStateChange(2);
 	}
 	else if (clickedBtn.compare(ofToString("Homing - Auto [399]")) == 0) {
-		RequestStateChange(302.0);
+		requestStateChange(302);
 	}
 	else if (clickedBtn.compare(ofToString("Homing - Manual [399]")) == 0) {
-		RequestStateChange(301.0);
+		requestStateChange(301);
 	}
 	else if (clickedBtn.compare(ofToString("Run [4]")) == 0) {
-		RequestStateChange(4.0);
+		requestStateChange(4);
 	}
 	else if (clickedBtn.compare(ofToString("Enable drives")) == 0) {
-		RequestDriveEnableDisable(true);
+		requestDriveEnableDisable(true);
 	}
 	else if (clickedBtn.compare(ofToString("Disable drives")) == 0) {
-		RequestDriveEnableDisable(false);
+		requestDriveEnableDisable(false);
 	}
 	else if (clickedBtn.compare(ofToString("Load")) == 0) {
-		//
+		experimentApp->loadExperimentXML(); // load experiment XML
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
-		//
-	}
-	else if (clickedBtn.compare(ofToString("Pause")) == 0) {
-		//
-	}
-	else if (clickedBtn.compare(ofToString("Continue")) == 0) {
-		//
+		experimentApp->start();
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
-		//
+		experimentApp->stop();
 	}
+	else if (clickedBtn.compare(ofToString("Pause")) == 0) {
+		experimentApp->pause();
+	}
+	else if (clickedBtn.compare(ofToString("Resume")) == 0) {
+		experimentApp->resume();
+	}
+	
 }
 
 //--------------------------------------------------------------
-void ofAppMain::RecordDataTogglePressed(bool & value)
+void ofAppMain::recordDataTogglePressed(bool & value)
 {
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
@@ -308,6 +311,11 @@ void ofAppMain::RecordDataTogglePressed(bool & value)
 
 	// clean up
 	tcClient->disconnect();
+}
+
+bool ofAppMain::systemIsInState(int state)
+{
+	return (_systemState[0] == state && _systemState[1] == state);
 }
 
 
@@ -370,23 +378,23 @@ void ofAppMain::dragEvent(ofDragInfo dragInfo){
 void ofAppMain::exit() {
 
 	// remove listeners
-	_btnReqState_Reset.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_Init.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_Calibrate.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_HomingAuto.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_HomingManual.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnReqState_Run.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnEnableDrive.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnDisableDrive.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnReqState_Reset.removeListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_Init.removeListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_Calibrate.removeListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_HomingAuto.removeListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_HomingManual.removeListener(this, &ofAppMain::buttonPressed);
+	_btnReqState_Run.removeListener(this, &ofAppMain::buttonPressed);
+	_btnEnableDrive.removeListener(this, &ofAppMain::buttonPressed);
+	_btnDisableDrive.removeListener(this, &ofAppMain::buttonPressed);
 
-	_btnExpLoad.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnExpStart.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnExpPause.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnExpContinue.removeListener(this, &ofAppMain::ButtonPressed);
-	_btnExpStop.removeListener(this, &ofAppMain::ButtonPressed);
+	_btnExpLoad.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpStart.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpPause.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpResume.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
 
 	_btnToggleRecordData = false;
-	_btnToggleRecordData.removeListener(this, &ofAppMain::RecordDataTogglePressed);
+	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();
@@ -394,31 +402,37 @@ void ofAppMain::exit() {
 }
 
 //--------------------------------------------------------------
-void ofAppMain::HandleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotification)
+void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotification)
 {
 	char buf[20];
 
 	if (pNotification->hNotification == _lHdlNot_Read_OpsEnabled) {
 		bool * data = (bool *)pNotification->data;
 		sprintf(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
-		cout << "Drive Enabled: " << buf << '\n';
+		ofLogVerbose("Drive Enabled: " + ofToString(buf));
 		_lblOpsEnabled = ofToString(buf);
 	} 
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemError)  {
 		double * data = (double *)pNotification->data;
 		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
-		cout << "System Error: " << buf << '\n';
+		ofLogVerbose("System Error: " + ofToString(buf));
 		_lblSysError = ofToString(buf);
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
 		double * data = (double *)pNotification->data;
-		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
-		cout << "System State: " << buf << '\n';
+		_systemState[0] = (int)data[0];
+		_systemState[1] = (int)data[1];
+
+		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
+		ofLogVerbose("System State: " + ofToString(buf));
 		_lblSysState = ofToString(buf);
+
+		// in case the robots are "at home", signal this to the experiment app
+		if (systemIsInState(399)) experimentApp->eventAtHome();
 	}
 	
 	// print (to screen)) the value of the variable 
-	cout << "Notification: " << pNotification->hNotification << " SampleSize: " << pNotification->cbSampleSize << '\n';
+	ofLogVerbose("Notification: " + ofToString(pNotification->hNotification) + " SampleSize: " + ofToString(pNotification->cbSampleSize));
 }
 
 //--------------------------------------------------------------
@@ -427,6 +441,6 @@ void __stdcall onEventCallbackTCADS(AmsAddr* pAddr, AdsNotificationHeader* pNoti
 	// cast hUser to class pointer
 	ofAppMain* ptr = (ofAppMain*)(hUser);
 
-	// call HandleCallback for access to ofAppMain class
-	ptr->HandleCallback(pAddr, pNotification);
+	// call handleCallback for access to ofAppMain class
+	ptr->handleCallback(pAddr, pNotification);
 }

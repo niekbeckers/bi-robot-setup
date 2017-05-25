@@ -49,7 +49,7 @@
     <ClCompile Include="src\ofAppDisplay.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\experimentHandler.cpp">
+    <ClCompile Include="src\ofAppExperiment.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,10 +119,10 @@
     <ClInclude Include="src\ofAppDisplay.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\experimentHandler.h">
+    <ClInclude Include="src\myUtils.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\myUtils.h">
+    <ClInclude Include="src\ofAppExperiment.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
