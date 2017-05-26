@@ -1,7 +1,7 @@
 #include "ofMain.h"
 #include "ofAppMain.h"
 #include "ofAppDisplay.h"
-//#include "ofAppExperiment.h"
+#include "ofAppExperiment.h"
 
 //========================================================================
 int main( ){
@@ -17,6 +17,8 @@ int main( ){
 	settings.title = "Controls";
 	settings.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
+
+	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings);
 
 	//
 	// display1Window
@@ -35,25 +37,27 @@ int main( ){
 	settings2.windowMode = OF_FULLSCREEN;
 	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings2);
 
-	shared_ptr<ofAppMain> mainApp(new ofAppMain);
 	shared_ptr<ofAppDisplay> display1App(new ofAppDisplay);
 	shared_ptr<ofAppDisplay> display2App(new ofAppDisplay);
-	shared_ptr<ofAppExperiment> experiment(new ofAppExperiment);
+	shared_ptr<ofAppExperiment> experimentApp(new ofAppExperiment);
+	shared_ptr<ofAppMain> mainApp(new ofAppMain);
+	cout << "mainApp created" << '\n';
+	
 
 	// give pointers to classes
 	mainApp->display1 = display1App;
 	mainApp->display2 = display2App;
-	mainApp->experimentApp = experiment;
+	mainApp->experimentApp = experimentApp;
 
-	experiment->mainApp = mainApp;
-	experiment->display1 = display1App;
-	experiment->display2 = display2App;
+	experimentApp->mainApp = mainApp;
+	experimentApp->display1 = display1App;
+	experimentApp->display2 = display2App;
 
 	// run of apps
 	ofRunApp(mainWindow, mainApp);
 	ofRunApp(display1Window, display1App);
 	ofRunApp(display2Window, display2App);
-	ofRunApp(experiment);
+	ofRunApp(experimentWindow, experimentApp);
 
 	ofRunMainLoop();
 

@@ -6,7 +6,6 @@
 #include "ofUtils.h"
 
 #include "myUtils.h"
-//#include "ofAppMain.h"
 
 class ofAppDisplay : public ofBaseApp
 {
@@ -29,7 +28,6 @@ class ofAppDisplay : public ofBaseApp
 		//
 		// variables
 		//
-		//shared_ptr<ofAppMain> mainApp;
 		displayData *pData;
 
 		//

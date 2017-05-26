@@ -5,6 +5,7 @@
 
 #include "ofMain.h"
 #include "ofAppMain.h"
+#include "ofAppDisplay.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"
 
@@ -26,8 +27,8 @@ class ofAppExperiment : public ofBaseApp
 	struct blockData {
 		int blockNumber;
 		int numTrials;
-		double breakDuration;
-		int homingType;
+		double breakDuration = 5.0*60.0;	// default: 5 minute break
+		int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
 		vector<trialData> trials;
 	};
 

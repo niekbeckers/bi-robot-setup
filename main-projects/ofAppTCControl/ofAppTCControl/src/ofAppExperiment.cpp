@@ -3,8 +3,10 @@
 //--------------------------------------------------------------
 void ofAppExperiment::setup()
 {
+	ofLogVerbose("ofAppExperiment::setup()");
 	_tcClient = new tcAdsClient(adsPort);
 	
+	/*
 	char szVar0[] = { "Object1 (ModelBaseBROS).Output.ExpStartTrial_Value" };
 	_lHdlVar_Write_StartTrial = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
 
@@ -22,6 +24,7 @@ void ofAppExperiment::setup()
 
 	char szVar5[] = { "Object1 (ModelBaseBROS).Output.ExpTrialNumber_Value" };
 	_lHdlVar_Write_TrialNumber = _tcClient->getVariableHandle(szVar5, sizeof(szVar5));
+	*/
 
 }
 
@@ -35,8 +38,8 @@ void ofAppExperiment::update()
 		if ((time - _cdStartTime) <= _cdDuration) {
 			// countdown running
 			double cdTimeRemaining = _cdDuration - (time - _cdStartTime);
-			display1->setMessage(ofToString(cdTimeRemaining, 1) + " seconds");
-			display2->setMessage(ofToString(cdTimeRemaining, 1) + " seconds");
+			//display1->setMessage(ofToString(cdTimeRemaining, 1) + " seconds");
+			//display2->setMessage(ofToString(cdTimeRemaining, 1) + " seconds");
 		}
 		else {
 			countDownDone();
@@ -100,14 +103,14 @@ void ofAppExperiment::newTrial()
 	// prepare trial (send data to model through ADS)
 	prepareTrial();
 
-	// request homing - once homing is done, the function 'eventAtHome()' is called by ofAppMain instance
-	if (!mainApp->systemIsInState(399)) {
-		// _currentBlock.homingType
-		mainApp->requestStateChange(302);
+	// make sure we are at home 
+	// if not, request homing - once homing is done, the function 'eventAtHome()' is called by ofAppMain instance
+	/*if (!mainApp->systemIsInState(399)) {
+		mainApp->requestStateChange(_currentBlock.homingType);
 	}
 	else {
 		startCountDown();
-	}
+	}*/
 
 }
 
@@ -150,10 +153,10 @@ void ofAppExperiment::startCountDown()
 	_cdRunning = true;
 
 	// set message
-	display1->showMessage(true);
-	display2->showMessage(true);
-	display1->setMessage(ofToString(_cdDuration,1) + " seconds");
-	display2->setMessage(ofToString(_cdDuration, 1) + " seconds");
+	//display1->showMessage(true);
+	//display2->showMessage(true);
+	//display1->setMessage(ofToString(_cdDuration,1) + " seconds");
+	//display2->setMessage(ofToString(_cdDuration, 1) + " seconds");
 }
 
 //--------------------------------------------------------------
@@ -178,8 +181,8 @@ void ofAppExperiment::countDownDone()
 	_cdRunning = false;
 
 	// switch message off
-	display1->showMessage(false);
-	display2->showMessage(false);
+	//display1->showMessage(false);
+	//display2->showMessage(false);
 
 	// start trial
 	startTrial();

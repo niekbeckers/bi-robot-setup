@@ -8,12 +8,13 @@
 
 // custom classes
 #include "ofAppDisplay.h"
-#include "tcAdsClient.h"
 #include "ofAppExperiment.h"
+#include "tcAdsClient.h"
 #include "myUtils.h"
 
 
 void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
+
 class ofAppExperiment;
 
 class ofAppMain : public ofBaseApp{
@@ -49,6 +50,8 @@ class ofAppMain : public ofBaseApp{
 
 		ofParameter<string>  _lblFRM, _lblSysState, _lblOpsEnabled, _lblSysError;
 		ofParameterGroup _ofGrpSys;
+
+		bool _guiLoaded = false;
 
 		//
 		// custom
