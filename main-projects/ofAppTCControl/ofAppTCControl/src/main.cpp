@@ -9,41 +9,47 @@ int main( ){
 	//
 	// mainWindow
 	//
-	ofGLFWWindowSettings settings;
-	settings.width = 600;
-	settings.height = 600;
-	settings.setPosition(ofVec2f(0, 50));
-	settings.resizable = true;
-	settings.title = "Controls";
-	settings.windowMode = OF_WINDOW;
-	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
+	ofGLFWWindowSettings settings0;
+	settings0.width = 600;
+	settings0.height = 600;
+	settings0.setPosition(ofVec2f(50, 50));
+	settings0.title = "Controls";
+	settings0.windowMode = OF_WINDOW;
+	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings0);
 
-	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings);
+	ofGLFWWindowSettings settings1;
+	settings1.width = 10;
+	settings1.height = 10;
+	settings1.setPosition(ofVec2f(50, 50));
+	settings1.visible = false;
+	settings1.title = "Experiment";
+	settings1.windowMode = OF_WINDOW;
+	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings1);
 
 	//
 	// display1Window
 	//
-	ofGLFWWindowSettings settings1;
+	ofGLFWWindowSettings settings2;
 	//settings1.monitor = 0;
-	settings1.windowMode = OF_FULLSCREEN;
-	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings1);
+	settings2.windowMode = OF_FULLSCREEN;
+	settings2.windowMode = OF_WINDOW;
+	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
 
 	//
 	// display2Window
 	//
-	ofGLFWWindowSettings settings2;
+	ofGLFWWindowSettings settings3;
 	//settings2.monitor = 0;
-	settings2.setPosition(ofVec2f(-2560, 0));
-	settings2.windowMode = OF_FULLSCREEN;
-	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings2);
+	settings3.setPosition(ofVec2f(-2560, 0));
+	//settings2.windowMode = OF_FULLSCREEN;
+	settings3.windowMode = OF_WINDOW;
+	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings3);
 
 	shared_ptr<ofAppDisplay> display1App(new ofAppDisplay);
 	shared_ptr<ofAppDisplay> display2App(new ofAppDisplay);
 	shared_ptr<ofAppExperiment> experimentApp(new ofAppExperiment);
 	shared_ptr<ofAppMain> mainApp(new ofAppMain);
-	cout << "mainApp created" << '\n';
 	
-
 	// give pointers to classes
 	mainApp->display1 = display1App;
 	mainApp->display2 = display2App;

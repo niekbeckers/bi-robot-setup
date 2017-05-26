@@ -39,19 +39,24 @@ class ofAppMain : public ofBaseApp{
 
 		int _systemState[2] = { -1, -1 };
 
-		// gui variables
-		ofColor _guiDefaultBackgroundColor;
-		ofxPanel _guiSystem, _guiExperiment;
+		// GUI system
+		ofxPanel _guiSystem;
 		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnReqState_Run, 
-			_btnEnableDrive, _btnDisableDrive, _btnExpLoad, _btnExpStart, _btnExpPause, _btnExpResume, _btnExpStop;
+			_btnEnableDrive, _btnDisableDrive;
 		ofxToggle _btnToggleRecordData;
-		ofxGuiGroup _grpReqState, _grpDriveControl, _grpExpControl;
-		ofxLabel _lblEtherCAT, _lblExpLoaded, _lblTrialRunning;
-
+		ofxGuiGroup _grpReqState, _grpDriveControl;
+		ofxLabel _lblEtherCAT;
 		ofParameter<string>  _lblFRM, _lblSysState, _lblOpsEnabled, _lblSysError;
 		ofParameterGroup _ofGrpSys;
 
-		bool _guiLoaded = false;
+		// GUI experiment
+		ofxPanel _guiExperiment;
+		ofxButton _btnExpLoad, _btnExpStart, _btnExpPause, _btnExpResume, _btnExpStop;
+		ofxGuiGroup _grpExpControl;
+		ofxLabel _lblExpLoaded, _lblTrialRunning;
+		ofColor _guiDefaultBackgroundColor;
+
+		
 
 		//
 		// custom
@@ -83,18 +88,9 @@ class ofAppMain : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-		
 		void keyPressed(int key);
 		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
 		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
 		void exit();
 
 		// custom

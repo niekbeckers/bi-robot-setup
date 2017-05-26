@@ -83,7 +83,6 @@ void ofAppMain::update(){
 
 //--------------------------------------------------------------
 void ofAppMain::draw() {
-	// draw gui
 	_guiSystem.draw(); 
 	_guiExperiment.draw();
 }
@@ -98,9 +97,8 @@ void ofAppMain::setupTCADS()
 	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
 	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
 
-	
 
-	// set up tcAdsClient for data reading
+	// set up tcAdsClient for events
 	_tcClientEvent = new tcAdsClient(adsPort);
 
 	// get variables
@@ -122,12 +120,7 @@ void ofAppMain::setupTCADS()
 //--------------------------------------------------------------
 void ofAppMain::setupGUI()
 {
-	//
 	// add listeners
-	//
-	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
-	/*
-	// buttons
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Calibrate.addListener(this, &ofAppMain::buttonPressed);
@@ -137,67 +130,60 @@ void ofAppMain::setupGUI()
 	_btnEnableDrive.addListener(this, &ofAppMain::buttonPressed);
 	_btnDisableDrive.addListener(this, &ofAppMain::buttonPressed);
 
+	// toggle
+	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
+
 	_btnExpLoad.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpPause.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpResume.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
-	*/
-
-	// toggle
-	//_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 
 
 	// setup GUIs
-	//_guiSystem.clear();
 	_guiSystem.setup("System Control");
 	_guiSystem.setPosition(10.0, 10.0);
-	//_guiExperiment.setup("Experiment");
-	//_guiExperiment.setPosition(250.0, 10.0);
-	//_guiSystem.setDefaultHeight(30);
+	
+	_guiExperiment.setup("Experiment");
+	_guiExperiment.setPosition(300.0, 10.0);
 
-	//
-	// GUI System
-	//
-	//_guiSystem.clear();
+	_guiSystem.setDefaultHeight(30.0);
+	_guiExperiment.setDefaultHeight(30);
+
+	// GUI system
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
 	_guiDefaultBackgroundColor = _lblEtherCAT.getBackgroundColor();
-	
-	//_ofGrpSys.clear();
-	//_ofGrpSys.setName("System");
-	//_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
-	//_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
-	//_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
-	//_guiSystem.add(_ofGrpSys);
+
+	_ofGrpSys.setName("System");
+	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
+	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
+	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
+	_guiSystem.add(_ofGrpSys);
 	
 	// request state
-	_grpReqState.setup("Requested state");
+	_grpReqState.setup("Request state");
 	//_grpReqState.setName("Request state");
 	_grpReqState.add(_btnReqState_Reset.setup("Reset [0]"));
-	ofLogError("_btnReqState_Reset...");
-	_guiSystem.add(_btnReqState_Init.setup("Init [1]"));
-	ofLogError("_btnReqState_Init...");
-	//_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate [299]"));
-	//_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto [399]"));
-	//_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual [399]"));
-	//_grpReqState.add(_btnReqState_Run.setup("Run [4]"));
+	_grpReqState.add(_btnReqState_Init.setup("Init [1]"));
+	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate [299]"));
+	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto [399]"));
+	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual [399]"));
+	_grpReqState.add(_btnReqState_Run.setup("Run [4]"));
 	_guiSystem.add(&_grpReqState);
 
-	/*
+
 	// drive controls
 	_grpDriveControl.setup("Drive control");
 	//_grpDriveControl.setName("Drive control");
 	_grpDriveControl.add(_btnEnableDrive.setup("Enable drives"));
 	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
 	_guiSystem.add(&_grpDriveControl);
-	
-	//
-	// GUI EXPERIMENT
-	//
-	_guiExperiment.setDefaultHeight(30);
-	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 
+	_guiSystem.add(_btnToggleRecordData.setup("Record data", false));
+
+
+	// GUI experiment
 	_grpExpControl.setup("Experiment control");
 	_grpExpControl.setName("Experiment control");
 	_grpExpControl.add(_lblExpLoaded.setup("Experiment", ""));
@@ -208,8 +194,6 @@ void ofAppMain::setupGUI()
 	_grpExpControl.add(_btnExpPause.setup("Pause"));
 	_grpExpControl.add(_btnExpResume.setup("Resume"));
 	_guiExperiment.add(&_grpExpControl);
-	*/
-	_guiLoaded = true;	
 }
 
 //--------------------------------------------------------------
@@ -263,13 +247,9 @@ void ofAppMain::requestDriveEnableDisable(bool enable)
 //--------------------------------------------------------------
 void ofAppMain::buttonPressed(const void * sender)
 {
-	if (!_guiLoaded) return; // if gui not loaded yet, return
-
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
 
-	ofLogError("buttonPressed...");
-	
 	if (clickedBtn.compare(ofToString("Reset [0]")) == 0) {
 		requestStateChange(0);
 	} 
@@ -293,11 +273,9 @@ void ofAppMain::buttonPressed(const void * sender)
 	}
 	else if (clickedBtn.compare(ofToString("Disable drives")) == 0) {
 		requestDriveEnableDisable(false);
-		ofLogError("called");
 	}
 	else if (clickedBtn.compare(ofToString("Load")) == 0) {
 		//experimentApp->loadExperimentXML(); // load experiment XML
-		ofLogError("called2");
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
 		//experimentApp->start();
@@ -311,7 +289,6 @@ void ofAppMain::buttonPressed(const void * sender)
 	else if (clickedBtn.compare(ofToString("Resume")) == 0) {
 		//experimentApp->resume();
 	}
-	
 }
 
 //--------------------------------------------------------------
@@ -349,56 +326,14 @@ void ofAppMain::keyPressed(int key){
 void ofAppMain::keyReleased(int key){
 
 }
-
-//--------------------------------------------------------------
-void ofAppMain::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofAppMain::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofAppMain::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofAppMain::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofAppMain::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofAppMain::mouseExited(int x, int y){
-
-}
-
 //--------------------------------------------------------------
 void ofAppMain::windowResized(int w, int h){
 
 }
 
 //--------------------------------------------------------------
-void ofAppMain::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofAppMain::dragEvent(ofDragInfo dragInfo){
-
-}
-
-//--------------------------------------------------------------
 void ofAppMain::exit() {
 
-	/*
 	// remove listeners
 	_btnReqState_Reset.removeListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.removeListener(this, &ofAppMain::buttonPressed);
@@ -409,15 +344,16 @@ void ofAppMain::exit() {
 	_btnEnableDrive.removeListener(this, &ofAppMain::buttonPressed);
 	_btnDisableDrive.removeListener(this, &ofAppMain::buttonPressed);
 
+	// remove listeners
 	_btnExpLoad.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpPause.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpResume.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
-	*/
 
-	//_btnToggleRecordData = false;
-	//_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
+
+	_btnToggleRecordData = false;
+	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();

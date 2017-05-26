@@ -37,10 +37,13 @@ class ofAppExperiment : public ofBaseApp
 		//
 		// variables
 		//
+
+		// tcAdsClient
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_ConnectionStiffness, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration, 
 			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial;
 
+		// experiment state
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numBlocks = 0, _numTrials = 0;
 		bool _correctExpLoaded = false, _experimentStarted = false;
 		
@@ -89,7 +92,10 @@ class ofAppExperiment : public ofBaseApp
 		void exit();
 
 		// custom
+		void setupTCADS();
 		void loadExperimentXML();
+		void processOpenFileSelection(ofFileDialogResult openFileResult);
+
 		void start();
 		void stop();
 		void pause();
@@ -100,6 +106,6 @@ class ofAppExperiment : public ofBaseApp
 		void eventAtHome();
 		
 
-		void processOpenFileSelection(ofFileDialogResult openFileResult);
+		
 };
 

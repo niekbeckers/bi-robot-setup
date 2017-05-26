@@ -3,30 +3,10 @@
 //--------------------------------------------------------------
 void ofAppExperiment::setup()
 {
-	ofLogVerbose("ofAppExperiment::setup()");
-	_tcClient = new tcAdsClient(adsPort);
-	
-	/*
-	char szVar0[] = { "Object1 (ModelBaseBROS).Output.ExpStartTrial_Value" };
-	_lHdlVar_Write_StartTrial = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
-
-	char szVar1[] = { "Object1 (ModelBaseBROS).Output.ExpCondition_Value" };
-	_lHdlVar_Write_Condition = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
-
-	char szVar2[] = { "Object1 (ModelBaseBROS).Output.ExpConnectionStiffness_Value" };
-	_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
-
-	char szVar3[] = { "Object1 (ModelBaseBROS).Output.ExpConnected_Value" };
-	_lHdlVar_Write_Connected = _tcClient->getVariableHandle(szVar3, sizeof(szVar3));
-
-	char szVar4[] = { "Object1 (ModelBaseBROS).Output.ExpTrialDuration_Value" };
-	_lHdlVar_Write_TrialDuration = _tcClient->getVariableHandle(szVar4, sizeof(szVar4));
-
-	char szVar5[] = { "Object1 (ModelBaseBROS).Output.ExpTrialNumber_Value" };
-	_lHdlVar_Write_TrialNumber = _tcClient->getVariableHandle(szVar5, sizeof(szVar5));
-	*/
-
+	setupTCADS();	// setup TwinCAT ADS
 }
+
+
 
 //--------------------------------------------------------------
 void ofAppExperiment::update()
@@ -61,7 +41,31 @@ void ofAppExperiment::update()
 //--------------------------------------------------------------
 void ofAppExperiment::exit()
 {
-	_tcClient->disconnect();
+	_tcClient->disconnect();	// clean up TC ADS client
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::setupTCADS()
+{
+	_tcClient = new tcAdsClient(adsPort);
+
+	char szVar0[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpStartTrial_Value" };
+	_lHdlVar_Write_StartTrial = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
+
+	char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpCondition_Value" };
+	_lHdlVar_Write_Condition = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+
+	char szVar2[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpConnectionStiffness_Value" };
+	_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
+
+	char szVar3[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpConnected_Value" };
+	_lHdlVar_Write_Connected = _tcClient->getVariableHandle(szVar3, sizeof(szVar3));
+
+	char szVar4[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialDuration_Value" };
+	_lHdlVar_Write_TrialDuration = _tcClient->getVariableHandle(szVar4, sizeof(szVar4));
+
+	char szVar5[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialNumber_Value" };
+	_lHdlVar_Write_TrialNumber = _tcClient->getVariableHandle(szVar5, sizeof(szVar5));
 }
 
 //--------------------------------------------------------------
