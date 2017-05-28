@@ -358,10 +358,10 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
-	
+	mainApp->lblExpLoaded = openFileResult.fileName;
 
-	if (XML.load(openFileResult.getPath() + openFileResult.getName())) {
-		ofLogVerbose("Loaded: " + openFileResult.getPath() + openFileResult.getName());
+	if (XML.load(openFileResult.getPath())) {
+		ofLogVerbose("Loaded: " + openFileResult.getPath());
 	}
 
 	// experiment settings (attributes)

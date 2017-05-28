@@ -168,7 +168,7 @@ void ofAppMain::setupGUI()
 	
 	// GUI experiment
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
-	_guiExperiment.add(_lblExpLoaded.setup("Experiment", ""));
+	_guiExperiment.add(lblExpLoaded.set("", ""));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
 
 	_grpExpControl.setup("Experiment control");

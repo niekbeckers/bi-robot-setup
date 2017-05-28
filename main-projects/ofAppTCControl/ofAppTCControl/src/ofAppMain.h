@@ -54,7 +54,7 @@ class ofAppMain : public ofBaseApp{
 		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop;
 		ofxToggle _btnExpPauseResume;
 		ofxGuiGroup _grpExpControl;
-		ofxLabel _lblExpLoaded;
+		
 		ofParameterGroup _grpExpState;
 		
 		//
@@ -80,7 +80,7 @@ class ofAppMain : public ofBaseApp{
 		shared_ptr<ofAppDisplay> display1 = 0;
 		shared_ptr<ofAppDisplay> display2 = 0;
 
-		ofParameter<string> lblExpState;
+		ofParameter<string> lblExpState, lblExpLoaded;
 		
 		ofParameter<int> lblTrialNumber, lblBlockNumber;
 
