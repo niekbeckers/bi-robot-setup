@@ -18,7 +18,7 @@ struct trialData {
 	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
 	int condition;						// condition type
 	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
-	double breakDuration;				// pause after each trial
+	double breakDuration = 5.0;			// pause after each trial
 	int trialRandomization;				// select whcih phase set we are selecting
 };
 
@@ -107,7 +107,7 @@ class ofAppExperiment : public ofBaseApp
 		
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
 
-		bool _experimentRunning = false, _experimentLoaded = false;
+		bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
 		bool prevTrialRunning = false;
 		
 		// block and trial data for current trial/block

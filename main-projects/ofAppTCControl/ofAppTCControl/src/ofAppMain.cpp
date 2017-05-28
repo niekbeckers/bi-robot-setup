@@ -115,11 +115,10 @@ void ofAppMain::setupGUI()
 
 	// toggle
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
+	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 
 	_btnExpLoad.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.addListener(this, &ofAppMain::buttonPressed);
-	_btnExpPause.addListener(this, &ofAppMain::buttonPressed);
-	_btnExpResume.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
 
 
@@ -176,8 +175,7 @@ void ofAppMain::setupGUI()
 	_grpExpControl.setName("Experiment control");
 	_grpExpControl.add(_btnExpStart.setup("Start"));
 	_grpExpControl.add(_btnExpStop.setup("Stop"));
-	_grpExpControl.add(_btnExpPause.setup("Pause"));
-	_grpExpControl.add(_btnExpResume.setup("Resume"));
+	_grpExpControl.add(_btnExpPauseResume.setup("Pause", false));
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
@@ -276,12 +274,6 @@ void ofAppMain::buttonPressed(const void * sender)
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
 		experimentApp->stopExperiment();
 	}
-	else if (clickedBtn.compare(ofToString("Pause")) == 0) {
-		experimentApp->pauseExperiment();
-	}
-	else if (clickedBtn.compare(ofToString("Resume")) == 0) {
-		experimentApp->resumeExperiment();
-	}
 }
 
 //--------------------------------------------------------------
@@ -302,6 +294,18 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 
 	// clean up
 	tcClient->disconnect();
+}
+
+void ofAppMain::pauseExperimentTogglePressed(bool & value) 
+{
+	if (value) {
+		_btnExpPauseResume.setName("Resume");
+		experimentApp->pauseExperiment();
+	}
+	else {
+		_btnExpPauseResume.setName("Pause");
+		experimentApp->resumeExperiment();
+	}
 }
 
 //--------------------------------------------------------------
@@ -340,13 +344,13 @@ void ofAppMain::exit() {
 	// remove listeners
 	_btnExpLoad.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.removeListener(this, &ofAppMain::buttonPressed);
-	_btnExpPause.removeListener(this, &ofAppMain::buttonPressed);
-	_btnExpResume.removeListener(this, &ofAppMain::buttonPressed);
+	
 	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
 
 
 	_btnToggleRecordData = false;
 	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
+	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();

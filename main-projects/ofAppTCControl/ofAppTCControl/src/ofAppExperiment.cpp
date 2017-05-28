@@ -55,6 +55,9 @@ void ofAppExperiment::update()
 		break;
 
 	case ExperimentState::NEWTRIAL:
+
+		if (_experimentPaused) { break; }
+
 		_currentTrial = _currentBlock.trials[_currentTrialNumber];
 		mainApp->lblTrialNumber = _currentTrialNumber + 1;
 
@@ -268,13 +271,13 @@ void ofAppExperiment::stopExperiment()
 //--------------------------------------------------------------
 void ofAppExperiment::pauseExperiment()
 {
-	//_expState = ExperimentState::EXPERIMENTSTOP;
+	_experimentPaused = true;
 }
 
 //--------------------------------------------------------------
 void ofAppExperiment::resumeExperiment()
 {
-	//
+	_experimentPaused = false;
 }
 
 void ofAppExperiment::setTrialDataADS()
