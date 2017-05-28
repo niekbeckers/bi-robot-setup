@@ -6,32 +6,58 @@
 #include "ofMain.h"
 #include "ofAppMain.h"
 #include "ofAppDisplay.h"
+#include "ofUtils.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"
 
-using namespace std;
+// structs
+struct trialData {
+	int trialNumber;
+	bool connected = false;				// default: not connected
+	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
+	int condition;						// condition type
+	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
+	double pauseDuration;				// pause after each trial
+};
+
+struct blockData {
+	int blockNumber;
+	int numTrials;
+	double breakDuration = 5.0*60.0;	// default: 5 minute break
+	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
+	vector<trialData> trials;
+};
+
+enum ExperimentState { 
+	IDLE=0,
+	EXPERIMENTSTART,
+	EXPERIMENTSTOP,
+	EXPERIMENTPAUSE,
+	EXPERIMENTCONTINUE,
+	EXPERIMENTDONE,
+	NEWBLOCK,
+	NEWTRIAL,
+	HOMINGBEFORE,
+	HOMINGBEFOREDONE,
+	COUNTDOWN,
+	COUNTDOWNDONE,
+	TRIALRUNNING,
+	TRIALDONE,
+	HOMINGAFTER,
+	HOMINGAFTERDONE,
+	CHECKNEXTSTEP,
+	TRIALBREAK,
+	TRIALBREAKDONE,
+	BLOCKBREAK,
+	BLOCKBREAKDONE,
+	BLOCKDONE
+};
+
 
 class ofAppMain;
 
 class ofAppExperiment : public ofBaseApp
 {
-	struct trialData {
-		int trialNumber;
-		bool connected = false;				// default: not connected
-		double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
-		int condition;						// condition type
-		double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
-		double pauseDuration;				// pause after each trial
-	};
-
-	struct blockData {
-		int blockNumber;
-		int numTrials;
-		double breakDuration = 5.0*60.0;	// default: 5 minute break
-		int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
-		vector<trialData> trials;
-	};
-
 	private:
 		
 		//
@@ -44,32 +70,28 @@ class ofAppExperiment : public ofBaseApp
 			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial;
 
 		// experiment state
+		int _expState = ExperimentState::IDLE;
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numBlocks = 0, _numTrials = 0;
-		bool _correctExpLoaded = false, _experimentStarted = false;
+		bool _experimentStarted = false;
+
+		bool prevTrialRunning = false;
 		
+		// block and trial data for current trial/block
 		blockData _currentBlock;
 		trialData _currentTrial;
+		vector<blockData> _blocks; // vector of vector<trials> to store all trials per block
 
+		// countdown and break parameters
 		double _cdDuration = 3.0; // -1.0 countdown means no countdown
 		double _cdStartTime;
-		bool _cdRunning = false;
 
-		bool _trialBreakRunning = false;
-		double _trialBreakTime;
-
-		vector<blockData> _blocks; // vector of vector<trials> to store all trials per block
+		double _breakStartTime;
 
 		//
 		// functions
 		//
-		void newTrial();
-		void prepareTrial();
-		void startCountDown();
-		void countDownDone();
-		void startTrial();
-		void trialBreakDone();
-		void experimentDone();
-		void blockDone();
+		void setTrialDataADS();
+		void requestStartTrialADS();
 
 	public:
 
@@ -100,12 +122,5 @@ class ofAppExperiment : public ofBaseApp
 		void stop();
 		void pause();
 		void resume();
-
-		// events called by ofAppMain
-		void eventTrialDone();
-		void eventAtHome();
-		
-
-		
 };
 

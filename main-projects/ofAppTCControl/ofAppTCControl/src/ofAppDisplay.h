@@ -30,6 +30,8 @@ class ofAppDisplay : public ofBaseApp
 		//
 		displayData *pData;
 
+		bool drawTask = true;
+
 		//
 		// openFrameworks
 		//

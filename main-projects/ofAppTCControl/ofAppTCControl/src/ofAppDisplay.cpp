@@ -32,8 +32,9 @@ void ofAppDisplay::draw()
 	// translate origin to middle of the screen
 	ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 
-	ofPushMatrix();
-	
+	if (drawTask) {
+		ofPushMatrix();
+
 		// draw workspace boundary
 		ofNoFill();
 		ofSetLineWidth(4);
@@ -52,15 +53,15 @@ void ofAppDisplay::draw()
 		ofSetColor(ofColor::darkCyan);
 		ofDrawCircle(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m, 12.0);
 
-	ofPopMatrix();
+		ofPopMatrix();
+	}
 
 	// draw message
 	if (_showMessage) {
 		ofPushMatrix();
-			ofRectangle bounds = verdana30.getStringBoundingBox(_message, 0, 0);
-
-			ofTranslate(-bounds.getCenter()[0], -( 0.35*ofGetScreenHeight() + bounds.getCenter()[1]));
-			verdana30.drawString(_message, 0.0, 0.0);
+		ofRectangle bounds = verdana30.getStringBoundingBox(_message, 0, 0);
+		ofTranslate(-bounds.getCenter()[0], -( 0.35*ofGetScreenHeight() + bounds.getCenter()[1]));
+		verdana30.drawString(_message, 0.0, 0.0);
 		ofPopMatrix();
 	}
 

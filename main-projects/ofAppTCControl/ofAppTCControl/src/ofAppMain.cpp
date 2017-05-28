@@ -1,12 +1,10 @@
 #include "ofAppMain.h"
 
+using namespace std;
+
 //--------------------------------------------------------------
 void ofAppMain::setup(){
-
-
 	ofSetLogLevel(OF_LOG_VERBOSE);
-
-	ofLogError("ofAppMain::setup()");
 
 	// set up window
 	ofBackground(ofColor::blueSteel);
@@ -28,8 +26,6 @@ void ofAppMain::setup(){
 //--------------------------------------------------------------
 void ofAppMain::update(){
 
-	bool prevTrialRunning = (bool)AdsData[8];
-
 	// read continuous ADS data
 	_tcClientCont->read(_lHdlVar_Read_Data, &AdsData, sizeof(AdsData));
 	 
@@ -45,11 +41,6 @@ void ofAppMain::update(){
 	_display2Data.posCursorY = AdsData[3];
 	_display2Data.posTargetX = AdsData[6];
 	_display2Data.posTargetY = AdsData[7];
-
-	// check if trial is done
-	if (prevTrialRunning  && !(bool)AdsData[8]) {
-//		experimentApp->eventTrialDone();
-	}
 
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
@@ -121,6 +112,7 @@ void ofAppMain::setupTCADS()
 void ofAppMain::setupGUI()
 {
 	// add listeners
+	_btnExit.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Calibrate.addListener(this, &ofAppMain::buttonPressed);
@@ -151,11 +143,13 @@ void ofAppMain::setupGUI()
 	_guiExperiment.setDefaultHeight(30);
 
 	// GUI system
+	_guiSystem.add(_btnExit.setup("Quit"));
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
+	_guiSystem.add(_btnToggleRecordData.setup("Record data", false));
 	_guiDefaultBackgroundColor = _lblEtherCAT.getBackgroundColor();
 
-	_ofGrpSys.setName("System");
+	_ofGrpSys.setName("System states");
 	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
 	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
 	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
@@ -163,7 +157,7 @@ void ofAppMain::setupGUI()
 	
 	// request state
 	_grpReqState.setup("Request state");
-	//_grpReqState.setName("Request state");
+	_grpReqState.setName("State request");
 	_grpReqState.add(_btnReqState_Reset.setup("Reset [0]"));
 	_grpReqState.add(_btnReqState_Init.setup("Init [1]"));
 	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate [299]"));
@@ -175,12 +169,12 @@ void ofAppMain::setupGUI()
 
 	// drive controls
 	_grpDriveControl.setup("Drive control");
-	//_grpDriveControl.setName("Drive control");
+	_grpDriveControl.setName("Drive control");
 	_grpDriveControl.add(_btnEnableDrive.setup("Enable drives"));
 	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
 	_guiSystem.add(&_grpDriveControl);
 
-	_guiSystem.add(_btnToggleRecordData.setup("Record data", false));
+	
 
 
 	// GUI experiment
@@ -250,7 +244,10 @@ void ofAppMain::buttonPressed(const void * sender)
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
 
-	if (clickedBtn.compare(ofToString("Reset [0]")) == 0) {
+	if (clickedBtn.compare(ofToString("Quit")) == 0) {
+		ofExit();
+	}
+	else if (clickedBtn.compare(ofToString("Reset [0]")) == 0) {
 		requestStateChange(0);
 	} 
 	else if (clickedBtn.compare(ofToString("Init [1]")) == 0) {
@@ -275,19 +272,19 @@ void ofAppMain::buttonPressed(const void * sender)
 		requestDriveEnableDisable(false);
 	}
 	else if (clickedBtn.compare(ofToString("Load")) == 0) {
-		//experimentApp->loadExperimentXML(); // load experiment XML
+		experimentApp->loadExperimentXML(); // load experiment XML
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
-		//experimentApp->start();
+		experimentApp->start();
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
-		//experimentApp->stop();
+		experimentApp->stop();
 	}
 	else if (clickedBtn.compare(ofToString("Pause")) == 0) {
-		//experimentApp->pause();
+		experimentApp->pause();
 	}
 	else if (clickedBtn.compare(ofToString("Resume")) == 0) {
-		//experimentApp->resume();
+		experimentApp->resume();
 	}
 }
 
@@ -385,9 +382,6 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
 		ofLogVerbose("System State: " + ofToString(buf));
 		_lblSysState = ofToString(buf);
-
-		// in case the robots are "at home", signal this to the experiment app
-//		if (systemIsInState(399)) experimentApp->eventAtHome();
 	}
 	
 	// print (to screen)) the value of the variable 
