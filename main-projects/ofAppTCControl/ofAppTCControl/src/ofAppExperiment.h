@@ -102,11 +102,11 @@ class ofAppExperiment : public ofBaseApp
 			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial;
 
 		// experiment state
-		ExperimentState _expState;
+		ExperimentState _expState = ExperimentState::IDLE;
 		
-		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numBlocks = 0, _numTrials = 0;
-		bool _experimentStarted = false, _experimentLoaded = false;
+		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
 
+		bool _experimentRunning = false, _experimentLoaded = false;
 		bool prevTrialRunning = false;
 		
 		// block and trial data for current trial/block
@@ -116,9 +116,7 @@ class ofAppExperiment : public ofBaseApp
 
 		// countdown and break parameters
 		double _cdDuration = 3.0; // -1.0 countdown means no countdown
-		double _cdStartTime;
-
-		double _breakStartTime;
+		double _cdStartTime, _breakStartTime;
 
 		//
 		// functions
@@ -126,6 +124,7 @@ class ofAppExperiment : public ofBaseApp
 		void setTrialDataADS();
 		void requestStartTrialADS();
 		void setExperimentState(ExperimentState newState);
+
 	public:
 
 		//

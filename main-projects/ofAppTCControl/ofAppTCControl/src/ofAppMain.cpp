@@ -179,6 +179,11 @@ void ofAppMain::setupGUI()
 	_grpExpControl.add(_btnExpPause.setup("Pause"));
 	_grpExpControl.add(_btnExpResume.setup("Resume"));
 	_guiExperiment.add(&_grpExpControl);
+
+	_grpExpState.setName("Experiment state");
+	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));
+	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10));
+	_guiExperiment.add(_grpExpState);
 }
 
 //--------------------------------------------------------------

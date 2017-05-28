@@ -25,12 +25,17 @@ void ofAppExperiment::update()
 	case ExperimentState::EXPERIMENTSTART:
 		_currentBlockNumber = 0;
 		_currentTrialNumber = 0;
+		_experimentRunning = true;
+
 		setExperimentState(ExperimentState::NEWBLOCK);
 		break;
 
 	case ExperimentState::EXPERIMENTSTOP:
+		_experimentRunning = false;
 		display1->drawTask = true;
 		display2->drawTask = true;
+
+		setExperimentState(ExperimentState::EXPERIMENTDONE);
 		break;
 
 	case ExperimentState::EXPERIMENTPAUSE:
@@ -42,6 +47,8 @@ void ofAppExperiment::update()
 	case ExperimentState::NEWBLOCK:
 		_currentBlock = _blocks[_currentBlockNumber];
 		_currentTrialNumber = 0;
+		mainApp->lblBlockNumber = _currentBlockNumber + 1;
+		mainApp->lblTrialNumber.setMax(_currentBlock.trials.size());
 
 		// start first trial
 		setExperimentState(ExperimentState::NEWTRIAL);
@@ -49,6 +56,7 @@ void ofAppExperiment::update()
 
 	case ExperimentState::NEWTRIAL:
 		_currentTrial = _currentBlock.trials[_currentTrialNumber];
+		mainApp->lblTrialNumber = _currentTrialNumber + 1;
 
 		// send trial data to ADS
 		setTrialDataADS();
@@ -127,6 +135,7 @@ void ofAppExperiment::update()
 		break;
 
 	case ExperimentState::HOMINGAFTER:
+		// check whether system is 'at home' (399)
 		if (mainApp->systemIsInState(399)) setExperimentState(ExperimentState::HOMINGAFTERDONE);
 		break;
 
@@ -150,7 +159,7 @@ void ofAppExperiment::update()
 			}
 			else {
 				// all blocks are done, experiment is done
-				setExperimentState(ExperimentState::EXPERIMENTDONE);
+				setExperimentState(ExperimentState::EXPERIMENTSTOP);
 			}
 		}
 		break;
@@ -242,13 +251,15 @@ void ofAppExperiment::setupTCADS()
 //--------------------------------------------------------------
 void ofAppExperiment::startExperiment()
 {
-	if (_experimentLoaded) setExperimentState(ExperimentState::EXPERIMENTSTART);
+	if (_experimentLoaded && !_experimentRunning) {
+		setExperimentState(ExperimentState::EXPERIMENTSTART);
+	}
 }
 
 //--------------------------------------------------------------
 void ofAppExperiment::stopExperiment()
 {
-	setExperimentState(ExperimentState::EXPERIMENTSTOP);
+	if (_experimentRunning) setExperimentState(ExperimentState::EXPERIMENTSTOP);
 }
 
 //--------------------------------------------------------------
@@ -333,8 +344,11 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 {
 	_currentBlockNumber = 0;
 	_currentTrialNumber = 0;
-	_numBlocks = 0;
 	_numTrials = 0;
+
+	mainApp->lblTrialNumber = _currentTrialNumber + 1;
+	mainApp->lblBlockNumber = _currentBlockNumber + 1;
+	
 
 	if (XML.load(openFileResult.getPath() + openFileResult.getName())) {
 		ofLogVerbose("Loaded: " + openFileResult.getPath() + openFileResult.getName());
@@ -398,9 +412,10 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 		std::reverse(_blocks.begin(), _blocks.end()); // again, reverse block vector (now in correct order)
 
-		_numBlocks = _blocks.size();
-
 		_experimentLoaded = true;
+
+		mainApp->lblTrialNumber.setMax(_blocks[0].trials.size());
+		mainApp->lblBlockNumber.setMax(_blocks.size());
 	}
 
 }
