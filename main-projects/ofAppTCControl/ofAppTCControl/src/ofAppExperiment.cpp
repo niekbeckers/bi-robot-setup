@@ -165,9 +165,9 @@ void ofAppExperiment::update()
 		break;
 
 	case ExperimentState::TRIALBREAK:
-		if ((time - _breakStartTime) <= _currentTrial.pauseDuration) {
+		if ((time - _breakStartTime) <= _currentTrial.breakDuration) {
 			// trial break is running, show feedback on display
-			double timeRemaining = _currentTrial.pauseDuration - (time - _breakStartTime);
+			double timeRemaining = _currentTrial.breakDuration - (time - _breakStartTime);
 			string msg = "BREAK  -  " + ofToString(timeRemaining, 0) + " seconds remaining";
 			display1->showMessage(true);
 			display2->showMessage(true);
@@ -246,6 +246,9 @@ void ofAppExperiment::setupTCADS()
 
 	char szVar5[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialNumber_Value" };
 	_lHdlVar_Write_TrialNumber = _tcClient->getVariableHandle(szVar5, sizeof(szVar5));
+
+	char szVar6[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialRandom_Value" };
+	_lHdlVar_Write_TrialRandom = _tcClient->getVariableHandle(szVar6, sizeof(szVar6));
 }
 
 //--------------------------------------------------------------
@@ -299,6 +302,10 @@ void ofAppExperiment::setTrialDataADS()
 		double var4 = _currentTrial.trialDuration;
 		_tcClient->write(_lHdlVar_Write_TrialDuration, &var4, sizeof(var4));
 	}
+
+	// trial randomization (phase set)
+	int var5 = _currentTrial.trialRandomization;
+	_tcClient->write(_lHdlVar_Write_TrialRandom, &var5, sizeof(var5));
 }
 
 void ofAppExperiment::setExperimentState(ExperimentState newState)
@@ -388,8 +395,9 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.getValue<int>("condition")) trial.condition = XML.getValue<int>("condition");
 					if (XML.getValue<bool>("connected")) trial.connected = XML.getValue<bool>("connected");
 					if (XML.getValue<double>("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
-					if (XML.getValue<double>("pauseDuration")) trial.pauseDuration = XML.getValue<double>("pauseDuration");
+					if (XML.getValue<double>("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
 					if (XML.getValue<double>("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
+					if (XML.getValue<int>("trialRandomization")) trial.trialRandomization = XML.getValue<int>("trialRandomization");
 
 					trials.push_back(trial); // add trial to (temporary) trials list
 				} 

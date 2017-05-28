@@ -18,7 +18,8 @@ struct trialData {
 	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
 	int condition;						// condition type
 	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
-	double pauseDuration;				// pause after each trial
+	double breakDuration;				// pause after each trial
+	int trialRandomization;				// select whcih phase set we are selecting
 };
 
 struct blockData {
@@ -99,7 +100,7 @@ class ofAppExperiment : public ofBaseApp
 		// tcAdsClient
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_ConnectionStiffness, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration, 
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial;
+			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom=0;
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
