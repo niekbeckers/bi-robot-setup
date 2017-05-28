@@ -42,7 +42,7 @@ class ofAppMain : public ofBaseApp{
 		// GUI system
 		ofxPanel _guiSystem;
 		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnReqState_Run, 
-			_btnEnableDrive, _btnDisableDrive, _btnExit;
+			_btnEnableDrive, _btnDisableDrive, _btnQuit;
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
 		ofxLabel _lblEtherCAT;
@@ -53,11 +53,8 @@ class ofAppMain : public ofBaseApp{
 		ofxPanel _guiExperiment;
 		ofxButton _btnExpLoad, _btnExpStart, _btnExpPause, _btnExpResume, _btnExpStop;
 		ofxGuiGroup _grpExpControl;
-		ofxLabel _lblExpLoaded, _lblTrialRunning;
-		ofColor _guiDefaultBackgroundColor;
-
+		ofxLabel _lblExpLoaded;
 		
-
 		//
 		// custom
 		//
@@ -79,6 +76,8 @@ class ofAppMain : public ofBaseApp{
 
 		shared_ptr<ofAppDisplay> display1 = 0;
 		shared_ptr<ofAppDisplay> display2 = 0;
+
+		ofParameter<string> lblExpState;
 
 		//
 		// functions

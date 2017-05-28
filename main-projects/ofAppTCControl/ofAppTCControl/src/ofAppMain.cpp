@@ -21,6 +21,7 @@ void ofAppMain::setup(){
 	// point struct pointers of displays to data structs
 	display1->pData = &_display1Data;
 	display2->pData = &_display2Data;
+
 }
 
 //--------------------------------------------------------------
@@ -55,16 +56,6 @@ void ofAppMain::update(){
 			// error, probably no ADS running
 			_lblEtherCAT = "OFF";
 			_lblEtherCAT.setBackgroundColor(ofColor::red);
-		}
-
-		// Check trial running
-		if ((int)AdsData[8] == 1) {
-			_lblTrialRunning = "Trial running";
-			_lblTrialRunning.setBackgroundColor(ofColor::darkGreen);
-		}
-		else {
-			_lblTrialRunning = "No trial running";
-			_lblTrialRunning.setBackgroundColor(_guiDefaultBackgroundColor);
 		}
 
 		// frame rate in GUI
@@ -112,7 +103,7 @@ void ofAppMain::setupTCADS()
 void ofAppMain::setupGUI()
 {
 	// add listeners
-	_btnExit.addListener(this, &ofAppMain::buttonPressed);
+	_btnQuit.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Calibrate.addListener(this, &ofAppMain::buttonPressed);
@@ -143,11 +134,10 @@ void ofAppMain::setupGUI()
 	_guiExperiment.setDefaultHeight(30);
 
 	// GUI system
-	_guiSystem.add(_btnExit.setup("Quit"));
+	//_guiSystem.add(_btnQuit.setup("Quit"));
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
 	_guiSystem.add(_btnToggleRecordData.setup("Record data", false));
-	_guiDefaultBackgroundColor = _lblEtherCAT.getBackgroundColor();
 
 	_ofGrpSys.setName("System states");
 	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
@@ -176,13 +166,14 @@ void ofAppMain::setupGUI()
 
 	
 
-
+	
 	// GUI experiment
+	_guiExperiment.add(_btnExpLoad.setup("Load"));
+	_guiExperiment.add(_lblExpLoaded.setup("Experiment", ""));
+	_guiExperiment.add(lblExpState.set("ExpState", ""));
+
 	_grpExpControl.setup("Experiment control");
 	_grpExpControl.setName("Experiment control");
-	_grpExpControl.add(_lblExpLoaded.setup("Experiment", ""));
-	_grpExpControl.add(_lblTrialRunning.setup("Trial", ""));
-	_grpExpControl.add(_btnExpLoad.setup("Load"));
 	_grpExpControl.add(_btnExpStart.setup("Start"));
 	_grpExpControl.add(_btnExpStop.setup("Stop"));
 	_grpExpControl.add(_btnExpPause.setup("Pause"));
@@ -275,16 +266,16 @@ void ofAppMain::buttonPressed(const void * sender)
 		experimentApp->loadExperimentXML(); // load experiment XML
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
-		experimentApp->start();
+		experimentApp->startExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
-		experimentApp->stop();
+		experimentApp->stopExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Pause")) == 0) {
-		experimentApp->pause();
+		experimentApp->pauseExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Resume")) == 0) {
-		experimentApp->resume();
+		experimentApp->resumeExperiment();
 	}
 }
 

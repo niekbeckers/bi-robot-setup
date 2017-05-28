@@ -6,6 +6,7 @@ using namespace std;
 void ofAppExperiment::setup()
 {
 	setupTCADS();	// setup TwinCAT ADS
+	setExperimentState(ExperimentState::IDLE);
 }
 
 //--------------------------------------------------------------
@@ -24,10 +25,12 @@ void ofAppExperiment::update()
 	case ExperimentState::EXPERIMENTSTART:
 		_currentBlockNumber = 0;
 		_currentTrialNumber = 0;
-		_expState = ExperimentState::NEWBLOCK;
+		setExperimentState(ExperimentState::NEWBLOCK);
 		break;
 
 	case ExperimentState::EXPERIMENTSTOP:
+		display1->drawTask = true;
+		display2->drawTask = true;
 		break;
 
 	case ExperimentState::EXPERIMENTPAUSE:
@@ -41,7 +44,7 @@ void ofAppExperiment::update()
 		_currentTrialNumber = 0;
 
 		// start first trial
-		_expState = ExperimentState::NEWTRIAL;
+		setExperimentState(ExperimentState::NEWTRIAL);
 		break;
 
 	case ExperimentState::NEWTRIAL:
@@ -50,29 +53,33 @@ void ofAppExperiment::update()
 		// send trial data to ADS
 		setTrialDataADS();
 
+		// check if the robot is at home position
 		if (!mainApp->systemIsInState(399)) {
 			mainApp->requestStateChange(_currentBlock.homingType);
-			_expState = ExperimentState::HOMINGBEFORE;
+			setExperimentState(ExperimentState::HOMINGBEFORE);
 		}
-		
+		else {
+			setExperimentState(ExperimentState::HOMINGBEFOREDONE);
+		}
 		break;
 
 	case ExperimentState::HOMINGBEFORE:
 		// when robot is in state 399 (at home), start countdown
-		if (mainApp->systemIsInState(399)) _expState = ExperimentState::HOMINGBEFOREDONE;
+		if (mainApp->systemIsInState(399)) setExperimentState(ExperimentState::HOMINGBEFOREDONE);
+
 		break;
 		
 	case ExperimentState::HOMINGBEFOREDONE:
 		if (_cdDuration < 0.0) {
 			// if countdown is negative (i.e. no countdown needed), return
-			_expState = ExperimentState::COUNTDOWNDONE;
+			setExperimentState(ExperimentState::COUNTDOWNDONE);
 		}
 		else {
 			// start countdown
 			_cdStartTime = ofGetElapsedTimef();
 			display1->drawTask = true;
 			display2->drawTask = true;
-			_expState = ExperimentState::COUNTDOWN;
+			setExperimentState(ExperimentState::COUNTDOWN);
 		}
 		break;
 
@@ -86,7 +93,7 @@ void ofAppExperiment::update()
 			display2->setMessage(msg);
 		}
 		else {
-			_expState = ExperimentState::COUNTDOWNDONE;
+			setExperimentState(ExperimentState::COUNTDOWNDONE);
 		}
 		break;
 
@@ -97,13 +104,13 @@ void ofAppExperiment::update()
 
 		requestStartTrialADS();
 
-		_expState = ExperimentState::TRIALRUNNING;
+		setExperimentState(ExperimentState::TRIALRUNNING);
 		break;
 
 	case ExperimentState::TRIALRUNNING:
 		// check if trial is running (data from simulink)
 		if (prevTrialRunning && !nowTrialRunning) {
-			_expState = ExperimentState::TRIALDONE;
+			setExperimentState(ExperimentState::TRIALDONE);
 		}
 		break;
 
@@ -115,16 +122,16 @@ void ofAppExperiment::update()
 		// call for trial after homing
 		if (!mainApp->systemIsInState(399)) {
 			mainApp->requestStateChange(_currentBlock.homingType);
-			_expState = ExperimentState::HOMINGAFTER;
+			setExperimentState(ExperimentState::HOMINGAFTER);
 		}
 		break;
 
 	case ExperimentState::HOMINGAFTER:
-		if (mainApp->systemIsInState(399)) _expState = ExperimentState::HOMINGAFTERDONE;
+		if (mainApp->systemIsInState(399)) setExperimentState(ExperimentState::HOMINGAFTERDONE);
 		break;
 
 	case ExperimentState::HOMINGAFTERDONE:
-		_expState = ExperimentState::CHECKNEXTSTEP;
+		setExperimentState(ExperimentState::CHECKNEXTSTEP);
 		break;
 
 	case ExperimentState::CHECKNEXTSTEP:
@@ -132,18 +139,18 @@ void ofAppExperiment::update()
 		if (_currentTrialNumber < _currentBlock.trials.size() - 1) {
 			// new trial in block, go to trial break
 			_breakStartTime = ofGetElapsedTimef();
-			_expState = ExperimentState::TRIALBREAK;
+			setExperimentState(ExperimentState::TRIALBREAK);
 		}
 		else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
 			// end of block, determine if we proceed to the next block, or experiment is done
 			if (_currentBlockNumber < _blocks.size() - 1) {
 				// new block! First, block break
 				_breakStartTime = ofGetElapsedTimef();
-				_expState = ExperimentState::BLOCKBREAK;
+				setExperimentState(ExperimentState::BLOCKBREAK);
 			}
 			else {
 				// all blocks are done, experiment is done
-				_expState = ExperimentState::EXPERIMENTDONE;
+				setExperimentState(ExperimentState::EXPERIMENTDONE);
 			}
 		}
 		break;
@@ -161,14 +168,14 @@ void ofAppExperiment::update()
 		else {
 			display1->showMessage(false);
 			display2->showMessage(false);
-			_expState = ExperimentState::TRIALBREAKDONE;
+			setExperimentState(ExperimentState::TRIALBREAKDONE);
 		}
 		break;
 
 	case ExperimentState::TRIALBREAKDONE:
 		// trial break done, on to the next trial!
 		_currentTrialNumber++;
-		_expState = ExperimentState::NEWTRIAL;
+		setExperimentState(ExperimentState::NEWTRIAL);
 		break;
 
 	case ExperimentState::BLOCKBREAK:
@@ -184,14 +191,14 @@ void ofAppExperiment::update()
 		else {
 			display1->showMessage(false);
 			display2->showMessage(false);
-			_expState = ExperimentState::BLOCKBREAKDONE;
+			setExperimentState(ExperimentState::BLOCKBREAKDONE);
 		}
 		break;
 
 	case ExperimentState::BLOCKBREAKDONE:
 		// block break done, on to the next block!
 		_currentBlockNumber++;
-		_expState = ExperimentState::NEWBLOCK;
+		setExperimentState(ExperimentState::NEWBLOCK);
 		break;
 
 	case ExperimentState::EXPERIMENTDONE:
@@ -233,27 +240,27 @@ void ofAppExperiment::setupTCADS()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::start()
+void ofAppExperiment::startExperiment()
 {
-	_expState = ExperimentState::EXPERIMENTSTART;
+	if (_experimentLoaded) setExperimentState(ExperimentState::EXPERIMENTSTART);
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::stop()
+void ofAppExperiment::stopExperiment()
 {
-
+	setExperimentState(ExperimentState::EXPERIMENTSTOP);
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::pause()
+void ofAppExperiment::pauseExperiment()
 {
-
+	//_expState = ExperimentState::EXPERIMENTSTOP;
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::resume()
+void ofAppExperiment::resumeExperiment()
 {
-
+	//
 }
 
 void ofAppExperiment::setTrialDataADS()
@@ -281,9 +288,15 @@ void ofAppExperiment::setTrialDataADS()
 		double var4 = _currentTrial.trialDuration;
 		_tcClient->write(_lHdlVar_Write_TrialDuration, &var4, sizeof(var4));
 	}
-	
-
 }
+
+void ofAppExperiment::setExperimentState(ExperimentState newState)
+{ 
+	_expState = newState; 
+	experimentStateLabel = StringExperimentStateLabel(newState); 
+	mainApp->lblExpState = experimentStateLabel;
+};
+
 
 //--------------------------------------------------------------
 void ofAppExperiment::requestStartTrialADS()
@@ -298,7 +311,7 @@ void ofAppExperiment::requestStartTrialADS()
 //--------------------------------------------------------------
 void ofAppExperiment::loadExperimentXML()
 {
-	int _expState = ExperimentState::IDLE;
+	setExperimentState(ExperimentState::IDLE);
 	//Open the Open File Dialog
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)",false, ofFilePath().getCurrentExeDir());
 	ofLogVerbose(ofFilePath().getCurrentExePath());
@@ -386,6 +399,8 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 		std::reverse(_blocks.begin(), _blocks.end()); // again, reverse block vector (now in correct order)
 
 		_numBlocks = _blocks.size();
+
+		_experimentLoaded = true;
 	}
 
 }

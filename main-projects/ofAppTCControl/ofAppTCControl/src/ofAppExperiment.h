@@ -2,6 +2,7 @@
 
 #include <algorithm>    // std::reverse
 #include <vector>       // std::vector
+#include <map>
 
 #include "ofMain.h"
 #include "ofAppMain.h"
@@ -28,8 +29,8 @@ struct blockData {
 	vector<trialData> trials;
 };
 
-enum ExperimentState { 
-	IDLE=0,
+enum ExperimentState {
+	IDLE = 0,
 	EXPERIMENTSTART,
 	EXPERIMENTSTOP,
 	EXPERIMENTPAUSE,
@@ -53,6 +54,37 @@ enum ExperimentState {
 	BLOCKDONE
 };
 
+static std::string StringExperimentStateLabel(const ExperimentState value) {
+	static std::map<ExperimentState, std::string> strings;
+	if (strings.size() == 0) {
+#define INSERT_ELEMENT(p) strings[p] = #p
+		INSERT_ELEMENT(IDLE);
+		INSERT_ELEMENT(EXPERIMENTSTART);
+		INSERT_ELEMENT(EXPERIMENTSTOP);
+		INSERT_ELEMENT(EXPERIMENTPAUSE);
+		INSERT_ELEMENT(EXPERIMENTCONTINUE);
+		INSERT_ELEMENT(EXPERIMENTDONE);
+		INSERT_ELEMENT(NEWBLOCK);
+		INSERT_ELEMENT(NEWTRIAL);
+		INSERT_ELEMENT(HOMINGBEFORE);
+		INSERT_ELEMENT(HOMINGBEFOREDONE);
+		INSERT_ELEMENT(COUNTDOWN);
+		INSERT_ELEMENT(COUNTDOWNDONE);
+		INSERT_ELEMENT(TRIALRUNNING);
+		INSERT_ELEMENT(TRIALDONE);
+		INSERT_ELEMENT(HOMINGAFTER);
+		INSERT_ELEMENT(HOMINGAFTERDONE);
+		INSERT_ELEMENT(CHECKNEXTSTEP);
+		INSERT_ELEMENT(TRIALBREAK);
+		INSERT_ELEMENT(TRIALBREAKDONE);
+		INSERT_ELEMENT(BLOCKBREAK);
+		INSERT_ELEMENT(BLOCKBREAKDONE);
+		INSERT_ELEMENT(BLOCKDONE);
+#undef INSERT_ELEMENT
+	}
+
+	return strings[value];
+};
 
 class ofAppMain;
 
@@ -70,9 +102,10 @@ class ofAppExperiment : public ofBaseApp
 			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial;
 
 		// experiment state
-		int _expState = ExperimentState::IDLE;
+		ExperimentState _expState;
+		
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numBlocks = 0, _numTrials = 0;
-		bool _experimentStarted = false;
+		bool _experimentStarted = false, _experimentLoaded = false;
 
 		bool prevTrialRunning = false;
 		
@@ -92,7 +125,7 @@ class ofAppExperiment : public ofBaseApp
 		//
 		void setTrialDataADS();
 		void requestStartTrialADS();
-
+		void setExperimentState(ExperimentState newState);
 	public:
 
 		//
@@ -103,6 +136,8 @@ class ofAppExperiment : public ofBaseApp
 		shared_ptr<ofAppMain> mainApp;
 		shared_ptr<ofAppDisplay> display1;
 		shared_ptr<ofAppDisplay> display2;
+
+		string experimentStateLabel = StringExperimentStateLabel(_expState);
 
 		// 
 		// functions
@@ -118,9 +153,9 @@ class ofAppExperiment : public ofBaseApp
 		void loadExperimentXML();
 		void processOpenFileSelection(ofFileDialogResult openFileResult);
 
-		void start();
-		void stop();
-		void pause();
-		void resume();
+		void startExperiment();
+		void stopExperiment();
+		void pauseExperiment();
+		void resumeExperiment();
 };
 
