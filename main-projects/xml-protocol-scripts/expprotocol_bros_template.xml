@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <experiment>
    <block>
-      <breakDuration>300</breakDuration>
+      <breakDuration>240</breakDuration>
       <homingType>302</homingType>
       <trial>
          <connected>1</connected>
@@ -9,7 +9,7 @@
          <condition>1</condition>
          <trialDuration>40</trialDuration>
          <breakDuration>6</breakDuration>
-         <trialRandomization>1</trialRandomization>
+         <trialRandomization>2</trialRandomization>
       </trial>
       <trial>
          <connected>0</connected>
@@ -17,7 +17,7 @@
          <condition>1</condition>
          <trialDuration>40</trialDuration>
          <breakDuration>6</breakDuration>
-         <trialRandomization>2</trialRandomization>
+         <trialRandomization>3</trialRandomization>
       </trial>
       <trial>
          <connected>1</connected>
@@ -37,7 +37,7 @@
       </trial>
    </block>
    <block>
-      <breakDuration>300</breakDuration>
+      <breakDuration>240</breakDuration>
       <homingType>302</homingType>
       <trial>
          <connected>1</connected>
@@ -53,7 +53,7 @@
          <condition>1</condition>
          <trialDuration>40</trialDuration>
          <breakDuration>6</breakDuration>
-         <trialRandomization>2</trialRandomization>
+         <trialRandomization>1</trialRandomization>
       </trial>
       <trial>
          <connected>1</connected>
@@ -61,7 +61,7 @@
          <condition>1</condition>
          <trialDuration>40</trialDuration>
          <breakDuration>6</breakDuration>
-         <trialRandomization>3</trialRandomization>
+         <trialRandomization>2</trialRandomization>
       </trial>
       <trial>
          <connected>0</connected>

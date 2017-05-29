@@ -16,6 +16,7 @@ struct trialData {
 	int trialNumber;
 	bool connected = false;				// default: not connected
 	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
+	double connectionDamping = 0.0;		// default: 0.0
 	int condition;						// condition type
 	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
 	double breakDuration = 5.0;			// pause after each trial
@@ -105,7 +106,7 @@ class ofAppExperiment : public ofBaseApp
 		// tcAdsClient
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_ConnectionStiffness, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration, 
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom=0;
+			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Write_ConnectionDamping;
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
@@ -123,7 +124,7 @@ class ofAppExperiment : public ofBaseApp
 		// countdown and break parameters
 		double _cdDuration = 3.0; // -1.0 countdown means no countdown
 		double _cdStartTime, _breakStartTime, _getReadyStartTime;
-		double _getReadyDuration = 4.0;
+		double _getReadyDuration = 3.0;
 
 		//
 		// functions

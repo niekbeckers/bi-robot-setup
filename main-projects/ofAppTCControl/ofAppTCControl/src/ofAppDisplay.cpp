@@ -71,6 +71,7 @@ void ofAppDisplay::draw()
 
 	// draw countdown
 	if (_showCountDown) {
+		// countdown bar
 		ofPushMatrix();
 		ofNoFill();
 		ofDrawRectangle(_cdBarPosition, _cdBarWidth, _cdBarHeight);
@@ -79,6 +80,7 @@ void ofAppDisplay::draw()
 		double w = _cdBarWidth*(_cdTimeRemaining / _cdDuration);
 		ofDrawRectangle(p, -w, -_cdBarHeight);
 		
+		// text remaining time
 		string msg = ofToString(ceil(_cdTimeRemaining)) + " s";
 		ofRectangle bounds2 = verdana30.getStringBoundingBox(msg, 0, 0);
 		verdana30.drawString(msg, p[0]+20.0, p[1] + bounds2.getCenter()[1]);

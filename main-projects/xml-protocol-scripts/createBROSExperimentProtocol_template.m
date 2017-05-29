@@ -1,5 +1,9 @@
 %% createBROSExperimentProtocol_template
 %
+% TEMPLATE! DO NOT CHANGE (EXCEPT FOR BUG FIXES). COPY AND MAKE YOUR OWN
+% SCRIPT FOR YOUR EXPERIMENT%
+% - Niek
+%
 %
 % For this to work, you need to download struct2xml (https://nl.mathworks.com/matlabcentral/fileexchange/28639-struct2xml)
 % The BROS GUI and experiment handler software reads a XML file with the
@@ -31,27 +35,50 @@
 %    </block>
 % </experiment>
 %
+% Most/some of the parameters per trial are sent to the simulink model
+% through the TwinCAT ADS server.
+% The names of the parameters have to match the following:
+%
+% - Parameters
+%   - Trial:
+%       connected:              physical connection between BROS1 and BROS2 (bool)
+%       connectionStiffness:    connection stiffness [N/m] (double)
+%       connectionDamping:      connection damping [Ns/m] (double)
+%       condition:              condition number, general use (int)
+%       trialDuration:          optional (double)
+%       breakDuration:          break duration (in between trial) [s] (double)
+%       trialRandomization:     integer to select the phase sets e.g. (int)
+%   - Block:
+%       breakDuration:          optional break duration between blocks [s] (double)
+%       homingType:             301: manual homing (go to home position), 302: automatic
+%
 % Niek Beckers
 % May 2017
 
 clear all; close all; clc;
 
 % filename
-filename = 'experimentprotocol_bros_template';
+filename = 'expprotocol_bros_template';
 
 % create (main) struct
 s = struct;
 
 %% trial data
+% example
+
 connected = [1;0;1;0;1;0;1;0];
 connectionStiffness = [60;0;60;0;60;0;60;0];
 condition = ones(size(connected));
 trialDuration = 40*ones(size(connected));
 breakDuration = 6*ones(size(connected));
-trialRandomization = [1;2;3;4;1;2;3;4];
-numtrials = length(connected);
 
-for ii = 1:numtrials
+% sort elements of trialRandomization in random order
+phaseSets = [1;2;3;4;1;2;3;4];
+trialRandomization = phaseSets(randperm(length(phaseSets)));
+
+numTrials = length(connected);
+
+for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
     trial{ii}.connectionStiffness = connectionStiffness(ii);
     trial{ii}.condition = condition(ii);
@@ -62,14 +89,18 @@ end
 
 
 %% block data
-seltrials = {1:4; 5:8};
-numblocks = length(seltrials);
+% indicate how the trials are divided over the blocks
+% NOTE: you always need at least 1 block
 
-for ii = 1:numblocks
-    s.experiment.block{ii}.breakDuration = 300.0;
+% indices of trials per block
+divTrials = {1:4; 5:8}; 
+numBlocks = length(divTrials);
+
+for ii = 1:numBlocks
+    s.experiment.block{ii}.breakDuration = 240.0;
     s.experiment.block{ii}.homingType = 302;
-    for jj = 1:length(seltrials{ii})
-        s.experiment.block{ii}.trial{jj} = trial{seltrials{ii}(jj)};
+    for jj = 1:length(divTrials{ii})
+        s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
     end
 end
 

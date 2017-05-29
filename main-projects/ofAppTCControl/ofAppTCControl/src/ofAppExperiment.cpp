@@ -72,8 +72,9 @@ void ofAppExperiment::update()
 		setTrialDataADS();
 
 		// check if the robot is at home position
-		//if (!mainApp->systemIsInState(399)) {
-		if (false) {
+		if (!mainApp->systemIsInState(399)) {
+		//if (false) {
+			ofLogVerbose(ofToString(_currentBlock.homingType));
 			mainApp->requestStateChange(_currentBlock.homingType);
 			setExperimentState(ExperimentState::HOMINGBEFORE);
 		}
@@ -110,7 +111,7 @@ void ofAppExperiment::update()
 	case ExperimentState::GETREADYDONE:
 
 		// homing is done, so make sure the robot is in run mode!
-		//mainApp->requestStateChange(4);
+		mainApp->requestStateChange(4);
 
 		if (_cdDuration < 0.0) {
 			// if countdown is negative (i.e. no countdown needed), return
@@ -166,8 +167,8 @@ void ofAppExperiment::update()
 		display2->drawTask = false;
 
 		// call for trial after homing
-		//if (!mainApp->systemIsInState(399)) {
-		if (false) {
+		if (!mainApp->systemIsInState(399)) {
+		//if (false) {
 			mainApp->requestStateChange(_currentBlock.homingType);
 			setExperimentState(ExperimentState::HOMINGAFTER);
 		}
@@ -286,6 +287,10 @@ void ofAppExperiment::setupTCADS()
 
 	char szVar6[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialRandom_Value" };
 	_lHdlVar_Write_TrialRandom = _tcClient->getVariableHandle(szVar6, sizeof(szVar6));
+
+	char szVar7[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpConnectionDamping_Value" };
+	_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
+	
 }
 
 //--------------------------------------------------------------
@@ -331,30 +336,27 @@ void ofAppExperiment::setTrialDataADS()
 	// write trial data to ADS/Simulink model
 
 	// trial number
-	int var0 = _currentTrial.trialNumber;
-	_tcClient->write(_lHdlVar_Write_TrialNumber, &var0, sizeof(var0));
+	_tcClient->write(_lHdlVar_Write_TrialNumber, &_currentTrial.trialNumber, sizeof(_currentTrial.trialNumber));
 
 	// connected
-	bool var1 = _currentTrial.connected;
-	_tcClient->write(_lHdlVar_Write_Connected, &var1, sizeof(var1));
+	_tcClient->write(_lHdlVar_Write_Connected, &_currentTrial.connected, sizeof(_currentTrial.connected));
 
 	// connectionStiffness
-	double var2 = _currentTrial.connectionStiffness;
-	_tcClient->write(_lHdlVar_Write_ConnectionStiffness, &var2, sizeof(var2));
+	_tcClient->write(_lHdlVar_Write_ConnectionStiffness, &_currentTrial.connectionStiffness, sizeof(_currentTrial.connectionStiffness));
+
+	// connection damping
+	_tcClient->write(_lHdlVar_Write_ConnectionDamping, &_currentTrial.connectionDamping, sizeof(_currentTrial.connectionDamping));
 
 	// condition
-	int var3 = _currentTrial.condition;
-	_tcClient->write(_lHdlVar_Write_Condition, &var3, sizeof(var3));
+	_tcClient->write(_lHdlVar_Write_Condition, &_currentTrial.condition, sizeof(_currentTrial.condition));
 	
 	// trialDuration
 	if (_currentTrial.trialDuration < 0.0) {
-		double var4 = _currentTrial.trialDuration;
-		_tcClient->write(_lHdlVar_Write_TrialDuration, &var4, sizeof(var4));
+		_tcClient->write(_lHdlVar_Write_TrialDuration, &_currentTrial.trialDuration, sizeof(_currentTrial.trialDuration));
 	}
 
 	// trial randomization (phase set)
-	int var5 = _currentTrial.trialRandomization;
-	_tcClient->write(_lHdlVar_Write_TrialRandom, &var5, sizeof(var5));
+	_tcClient->write(_lHdlVar_Write_TrialRandom, &_currentTrial.trialRandomization, sizeof(_currentTrial.trialRandomization));
 }
 
 //--------------------------------------------------------------
@@ -402,6 +404,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	_currentTrialNumber = 0;
 	_numTrials = 0;
 
+	// set labels in the GUI
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	mainApp->lblExpLoaded = openFileResult.fileName;
@@ -443,6 +446,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.getValue<int>("condition")) trial.condition = XML.getValue<int>("condition");
 					if (XML.getValue<bool>("connected")) trial.connected = XML.getValue<bool>("connected");
 					if (XML.getValue<double>("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
+					if (XML.getValue<double>("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
 					if (XML.getValue<double>("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
 					if (XML.getValue<double>("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
 					if (XML.getValue<int>("trialRandomization")) trial.trialRandomization = XML.getValue<int>("trialRandomization");
@@ -470,6 +474,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 		_experimentLoaded = true;
 
+		// set labels in the GUI
 		mainApp->lblTrialNumber.setMax(_blocks[0].trials.size());
 		mainApp->lblBlockNumber.setMax(_blocks.size());
 	}
