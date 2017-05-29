@@ -22,6 +22,9 @@ void ofAppMain::setup(){
 	display1->pData = &_display1Data;
 	display2->pData = &_display2Data;
 
+	_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
+	_lblSysState[1] = StringSystemStateLabel(_systemState[1]);
+
 }
 
 //--------------------------------------------------------------
@@ -126,15 +129,20 @@ void ofAppMain::setupGUI()
 
 
 	// setup GUIs
+
+	int width = 300;
+	_guiSystem.setDefaultWidth(width);
+	_guiExperiment.setDefaultWidth(width);
+
 	_guiSystem.setup("System Control");
 	_guiSystem.setPosition(10.0, 10.0);
 	
 	_guiExperiment.setup("Experiment");
-	_guiExperiment.setPosition(300.0, 10.0);
+	_guiExperiment.setPosition(width+40, 10.0);
 
 	_guiSystem.setDefaultHeight(30.0);
 	_guiExperiment.setDefaultHeight(30);
-
+	
 	// GUI system
 	//_guiSystem.add(_btnQuit.setup("Quit"));
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
@@ -142,7 +150,8 @@ void ofAppMain::setupGUI()
 	_guiSystem.add(_btnCalibrateForceSensor.setup("Calibrate force sensors"));
 
 	_ofGrpSys.setName("System states");
-	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
+	_ofGrpSys.add(_lblSysState[0].set("State 1", ""));
+	_ofGrpSys.add(_lblSysState[1].set("State 2", ""));
 	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
 	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
 	_guiSystem.add(_ofGrpSys);
@@ -150,12 +159,12 @@ void ofAppMain::setupGUI()
 	// request state
 	_grpReqState.setup("Request state");
 	_grpReqState.setName("State request");
-	_grpReqState.add(_btnReqState_Reset.setup("Reset [0]"));
-	_grpReqState.add(_btnReqState_Init.setup("Init [1]"));
-	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate [299]"));
-	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto [399]"));
-	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual [399]"));
-	_grpReqState.add(_btnReqState_Run.setup("Run [4]"));
+	_grpReqState.add(_btnReqState_Reset.setup("Reset"));
+	_grpReqState.add(_btnReqState_Init.setup("Init"));
+	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate"));
+	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto"));
+	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual"));
+	_grpReqState.add(_btnReqState_Run.setup("Run"));
 	_guiSystem.add(&_grpReqState);
 
 	// drive controls
@@ -168,7 +177,7 @@ void ofAppMain::setupGUI()
 	// GUI experiment
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
-	_guiExperiment.add(lblExpLoaded.set("", ""));
+	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
 
 	_grpExpControl.setup("Experiment control");
@@ -182,6 +191,11 @@ void ofAppMain::setupGUI()
 	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));
 	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10));
 	_guiExperiment.add(_grpExpState);
+
+	_guiSystem.setWidthElements(width);
+	_guiExperiment.setWidthElements(width);
+
+	ofLogVerbose(ofToString(_guiExperiment.getWidth()) + "  " + ofToString(_btnReqState_Run.getWidth()));
 }
 
 //--------------------------------------------------------------
@@ -241,22 +255,22 @@ void ofAppMain::buttonPressed(const void * sender)
 	if (clickedBtn.compare(ofToString("Quit")) == 0) {
 		ofExit();
 	}
-	else if (clickedBtn.compare(ofToString("Reset [0]")) == 0) {
+	else if (clickedBtn.compare(ofToString("Reset")) == 0) {
 		requestStateChange(0);
 	} 
-	else if (clickedBtn.compare(ofToString("Init [1]")) == 0) {
+	else if (clickedBtn.compare(ofToString("Init")) == 0) {
 		requestStateChange(1);
 	}
-	else if (clickedBtn.compare(ofToString("Calibrate [299]")) == 0) {
+	else if (clickedBtn.compare(ofToString("Calibrate")) == 0) {
 		requestStateChange(2);
 	}
-	else if (clickedBtn.compare(ofToString("Homing - Auto [399]")) == 0) {
+	else if (clickedBtn.compare(ofToString("Homing - Auto")) == 0) {
 		requestStateChange(302);
 	}
-	else if (clickedBtn.compare(ofToString("Homing - Manual [399]")) == 0) {
+	else if (clickedBtn.compare(ofToString("Homing - Manual")) == 0) {
 		requestStateChange(301);
 	}
-	else if (clickedBtn.compare(ofToString("Run [4]")) == 0) {
+	else if (clickedBtn.compare(ofToString("Run")) == 0) {
 		requestStateChange(4);
 	}
 	else if (clickedBtn.compare(ofToString("Enable drives")) == 0) {
@@ -337,6 +351,12 @@ bool ofAppMain::systemIsInState(int state)
 }
 
 //--------------------------------------------------------------
+bool ofAppMain::systemIsInState(SystemState state)
+{
+	return (_systemState[0] == state && _systemState[1] == state);
+}
+
+//--------------------------------------------------------------
 void ofAppMain::keyPressed(int key){
 
 }
@@ -399,7 +419,8 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 
 		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
 		ofLogVerbose("System State: " + ofToString(buf));
-		_lblSysState = ofToString(buf);
+		_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
+		_lblSysState[1] = StringSystemStateLabel(_systemState[1]);
 	}
 	
 	// print (to screen)) the value of the variable 

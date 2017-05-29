@@ -10,8 +10,8 @@ int main( ){
 	// mainWindow
 	//
 	ofGLFWWindowSettings settings0;
-	settings0.width = 600;
-	settings0.height = 600;
+	settings0.width = 660;
+	settings0.height = 650;
 	settings0.setPosition(ofVec2f(50, 50));
 	settings0.title = "Controls";
 	settings0.windowMode = OF_WINDOW;

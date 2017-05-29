@@ -25,6 +25,26 @@ enum SystemState {
 	RUN = 4
 };
 
+static std::string StringSystemStateLabel(const SystemState value) {
+	static std::map<SystemState, std::string> strings;
+	if (strings.size() == 0) {
+#define INSERT_ELEMENT(p) strings[p] = #p
+		INSERT_ELEMENT(FAULT);
+		INSERT_ELEMENT(RESET);
+		INSERT_ELEMENT(INIT);
+		INSERT_ELEMENT(REQCALIBRATION);
+		INSERT_ELEMENT(DOCALIBRATION);
+		INSERT_ELEMENT(CALIBRATIONDONE);
+		INSERT_ELEMENT(REQHOMINGMANUAL);
+		INSERT_ELEMENT(REQHOMINGAUTO);
+		INSERT_ELEMENT(ATHOME);
+		INSERT_ELEMENT(RUN);
+#undef INSERT_ELEMENT
+	}
+
+	return strings[value];
+};
+
 
 void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
 
@@ -59,7 +79,7 @@ class ofAppMain : public ofBaseApp{
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
 		ofxLabel _lblEtherCAT;
-		ofParameter<string>  _lblFRM, _lblSysState, _lblOpsEnabled, _lblSysError;
+		ofParameter<string>  _lblFRM, _lblOpsEnabled, _lblSysError, _lblSysState[2];
 		ofParameterGroup _ofGrpSys;
 
 		// GUI experiment
@@ -111,6 +131,7 @@ class ofAppMain : public ofBaseApp{
 		void requestStateChange(int reqState);
 		void requestDriveEnableDisable(bool enable);
 		bool systemIsInState(int state);
-		bool systemIsInError() { return _systemState[0] == -1 || _systemState[1] == -1; };
+		bool systemIsInState(SystemState state);
+		bool systemIsInError() { return _systemState[0] == SystemState::FAULT || _systemState[1] == SystemState::FAULT; };
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 };
