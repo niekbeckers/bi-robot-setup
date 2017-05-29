@@ -5,7 +5,31 @@
 % The BROS GUI and experiment handler software reads a XML file with the
 % following structure:
 %
-% 
+% <?xml version="1.0" encoding="utf-8"?>
+% <experiment>
+%    <block>
+%       <breakDuration>300</breakDuration>
+%       <homingType>302</homingType>
+%       <trial>
+%          <connected>1</connected>
+%          <connectionStiffness>60</connectionStiffness>
+%          <condition>1</condition>
+%          <trialDuration>40</trialDuration>
+%          <breakDuration>6</breakDuration>
+%          <trialRandomization>1</trialRandomization>
+%       </trial>
+%       <trial>
+%          ...
+%       </trial>
+%    </block>
+%    <block>
+%       <breakDuration>300</breakDuration>
+%       <homingType>302</homingType>
+%       <trial>
+%          ...
+%       </trial>
+%    </block>
+% </experiment>
 %
 % Niek Beckers
 % May 2017
