@@ -93,7 +93,7 @@ void ofAppExperiment::update()
 		break;
 	}
 
-	_prevTrialRunning = nowTrialRunning;
+	_prevTrialRunning = _nowTrialRunning;
 }
 
 //--------------------------------------------------------------
@@ -343,7 +343,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 
 //
-// experiment state machine functions
+// Experiment State Machine functions
 //
 
 //--------------------------------------------------------------
@@ -367,7 +367,7 @@ void ofAppExperiment::esmExperimentStop()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::esmNewBlock(int trialNumber = 0)
+void ofAppExperiment::esmNewBlock(int trialNumber)
 {
 	_currentBlock = _blocks[_currentBlockNumber];
 	_currentTrialNumber = trialNumber;
