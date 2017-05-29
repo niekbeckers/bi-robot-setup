@@ -11,6 +11,8 @@
 #include "tcAdsClient.h"
 #include "myUtils.h"
 
+class ofAppMain;
+
 // structs
 struct trialData {
 	int trialNumber;
@@ -27,7 +29,7 @@ struct blockData {
 	int blockNumber;
 	int numTrials;
 	double breakDuration = 5.0*60.0;	// default: 5 minute break
-	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
+	int homingType = 302;// homing type. 301: manual homing, 302: auto homing (default)
 	vector<trialData> trials;
 };
 
@@ -93,7 +95,7 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 	return strings[value];
 };
 
-class ofAppMain;
+
 
 class ofAppExperiment : public ofBaseApp
 {

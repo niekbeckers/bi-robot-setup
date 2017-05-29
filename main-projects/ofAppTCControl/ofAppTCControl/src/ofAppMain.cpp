@@ -394,8 +394,8 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
 		double * data = (double *)pNotification->data;
-		_systemState[0] = (int)data[0];
-		_systemState[1] = (int)data[1];
+		_systemState[0] = static_cast<SystemState>((int)data[0]);
+		_systemState[1] = static_cast<SystemState>((int)data[1]);
 
 		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
 		ofLogVerbose("System State: " + ofToString(buf));

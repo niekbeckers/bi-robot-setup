@@ -12,6 +12,19 @@
 #include "tcAdsClient.h"
 #include "myUtils.h"
 
+enum SystemState {
+	FAULT = -1,
+	RESET = 0,
+	INIT = 1,
+	REQCALIBRATION = 2,
+	DOCALIBRATION = 201,
+	CALIBRATIONDONE = 299,
+	REQHOMINGMANUAL = 301,
+	REQHOMINGAUTO = 302,
+	ATHOME = 399,
+	RUN = 4
+};
+
 
 void __stdcall onEventCallbackTCADS(AmsAddr*, AdsNotificationHeader*, ULONG);
 
@@ -37,7 +50,7 @@ class ofAppMain : public ofBaseApp{
 
 		displayData _display1Data, _display2Data;
 
-		int _systemState[2] = { -1, -1 };
+		SystemState _systemState[2] = { SystemState::FAULT, SystemState::FAULT };
 
 		// GUI system
 		ofxPanel _guiSystem;

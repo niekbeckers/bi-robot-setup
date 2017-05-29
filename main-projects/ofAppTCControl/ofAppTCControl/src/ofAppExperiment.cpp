@@ -72,10 +72,8 @@ void ofAppExperiment::update()
 		setTrialDataADS();
 
 		// check if the robot is at home position
-		if (!mainApp->systemIsInState(399)) {
-		//if (false) {
-			ofLogVerbose(ofToString(_currentBlock.homingType));
-			mainApp->requestStateChange(_currentBlock.homingType);
+		if (!mainApp->systemIsInState(SystemState::ATHOME)) {
+			mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
 			setExperimentState(ExperimentState::HOMINGBEFORE);
 		}
 		else {
@@ -85,7 +83,7 @@ void ofAppExperiment::update()
 
 	case ExperimentState::HOMINGBEFORE:
 		// when robot is in state 399 (at home), start countdown
-		if (mainApp->systemIsInState(399)) {
+		if (mainApp->systemIsInState(SystemState::ATHOME)) {
 			setExperimentState(ExperimentState::HOMINGBEFOREDONE);
 		}
 
@@ -111,7 +109,7 @@ void ofAppExperiment::update()
 	case ExperimentState::GETREADYDONE:
 
 		// homing is done, so make sure the robot is in run mode!
-		mainApp->requestStateChange(4);
+		mainApp->requestStateChange(SystemState::RUN);
 
 		if (_cdDuration < 0.0) {
 			// if countdown is negative (i.e. no countdown needed), return
@@ -167,9 +165,9 @@ void ofAppExperiment::update()
 		display2->drawTask = false;
 
 		// call for trial after homing
-		if (!mainApp->systemIsInState(399)) {
+		if (!mainApp->systemIsInState(SystemState::ATHOME)) {
 		//if (false) {
-			mainApp->requestStateChange(_currentBlock.homingType);
+			mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
 			setExperimentState(ExperimentState::HOMINGAFTER);
 		}
 		else {
@@ -179,7 +177,7 @@ void ofAppExperiment::update()
 
 	case ExperimentState::HOMINGAFTER:
 		// check whether system is 'at home' (399)
-		if (mainApp->systemIsInState(399)) setExperimentState(ExperimentState::HOMINGAFTERDONE);
+		if (mainApp->systemIsInState(SystemState::ATHOME)) setExperimentState(ExperimentState::HOMINGAFTERDONE);
 		break;
 
 	case ExperimentState::HOMINGAFTERDONE:
