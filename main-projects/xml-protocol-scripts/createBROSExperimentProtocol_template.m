@@ -66,7 +66,7 @@ s = struct;
 %% trial data
 % example
 
-connected = [1;0;1;0;1;0;1;0];
+connected = true*[1;0;1;0;1;0;1;0];
 connectionStiffness = [60;0;60;0;60;0;60;0];
 condition = ones(size(connected));
 trialDuration = 40*ones(size(connected));

@@ -351,7 +351,7 @@ void ofAppExperiment::setTrialDataADS()
 	_tcClient->write(_lHdlVar_Write_Condition, &_currentTrial.condition, sizeof(_currentTrial.condition));
 	
 	// trialDuration
-	if (_currentTrial.trialDuration < 0.0) {
+	if (_currentTrial.trialDuration > 0.0) {
 		_tcClient->write(_lHdlVar_Write_TrialDuration, &_currentTrial.trialDuration, sizeof(_currentTrial.trialDuration));
 	}
 
@@ -415,7 +415,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 	// experiment settings (attributes)
 	if (XML.exists("experiment")) {
-		if (XML.getValue<double>("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
+		if (XML.getValue<double>("countDownDuration")) { _cdDuration = XML.getValue<double>("countDownDuration"); }
 	}
 
 	int trialNumber = 0;
@@ -430,8 +430,8 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 			// read block data
 			block.blockNumber = ++blockNumber;
-			if (XML.getValue<double>("breakDuration")) block.breakDuration = XML.getValue<double>("breakDuration");
-			if (XML.getValue<int>("homingType")) block.homingType = XML.getValue<int>("homingType");
+			if (XML.getValue<double>("breakDuration")) { block.breakDuration = XML.getValue<double>("breakDuration"); }
+			if (XML.getValue<int>("homingType")) { block.homingType = XML.getValue<int>("homingType"); }
 
 			// set our "current" trial to the first one
 			if (XML.getName() == "block" && XML.setTo("trial[0]"))
@@ -443,20 +443,19 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					trialData trial;
 
 					trial.trialNumber = ++trialNumber;
-					if (XML.getValue<int>("condition")) trial.condition = XML.getValue<int>("condition");
-					if (XML.getValue<bool>("connected")) trial.connected = XML.getValue<bool>("connected");
-					if (XML.getValue<double>("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
-					if (XML.getValue<double>("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
-					if (XML.getValue<double>("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
-					if (XML.getValue<double>("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
-					if (XML.getValue<int>("trialRandomization")) trial.trialRandomization = XML.getValue<int>("trialRandomization");
+					if (XML.getValue<int>("condition")) { trial.condition = XML.getValue<int>("condition"); }
+					if (XML.getValue<bool>("connected")) { trial.connected = XML.getValue<bool>("connected"); }
+					if (XML.getValue<double>("connectionStiffness")) { trial.connectionStiffness = XML.getValue<double>("connectionStiffness"); }
+					if (XML.getValue<double>("connectionDamping")) { trial.connectionDamping = XML.getValue<double>("connectionDamping"); }
+					if (XML.getValue<double>("breakDuration")) { trial.breakDuration = XML.getValue<double>("breakDuration"); }
+					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration");  }
+					if (XML.getValue<int>("trialRandomization")) { trial.trialRandomization = XML.getValue<int>("trialRandomization"); }
 
 					trials.push_back(trial); // add trial to (temporary) trials list
 				} 
 				while (XML.setToSibling()); // go the next trial		
 
 				std::reverse(trials.begin(), trials.end()); // since we pushed all trials back, call reverse
-
 				block.trials = trials;	// add trials to block struct
 
 				block.numTrials = trials.size();

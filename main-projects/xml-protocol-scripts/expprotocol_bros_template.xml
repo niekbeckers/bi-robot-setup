@@ -9,7 +9,7 @@
          <condition>1</condition>
          <trialDuration>40</trialDuration>
          <breakDuration>6</breakDuration>
-         <trialRandomization>2</trialRandomization>
+         <trialRandomization>4</trialRandomization>
       </trial>
       <trial>
          <connected>0</connected>
@@ -25,7 +25,7 @@
          <condition>1</condition>
          <trialDuration>40</trialDuration>
          <breakDuration>6</breakDuration>
-         <trialRandomization>3</trialRandomization>
+         <trialRandomization>2</trialRandomization>
       </trial>
       <trial>
          <connected>0</connected>
@@ -33,7 +33,7 @@
          <condition>1</condition>
          <trialDuration>40</trialDuration>
          <breakDuration>6</breakDuration>
-         <trialRandomization>4</trialRandomization>
+         <trialRandomization>3</trialRandomization>
       </trial>
    </block>
    <block>
