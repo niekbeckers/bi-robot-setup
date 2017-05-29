@@ -118,18 +118,17 @@ void ofAppMain::setupGUI()
 	_btnReqState_Run.addListener(this, &ofAppMain::buttonPressed);
 	_btnEnableDrive.addListener(this, &ofAppMain::buttonPressed);
 	_btnDisableDrive.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpRestart.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpLoad.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpStart.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
 
 	// toggle
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 
-	_btnExpLoad.addListener(this, &ofAppMain::buttonPressed);
-	_btnExpStart.addListener(this, &ofAppMain::buttonPressed);
-	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
-
-
+	
 	// setup GUIs
-
 	int width = 300;
 	_guiSystem.setDefaultWidth(width);
 	_guiExperiment.setDefaultWidth(width);
@@ -191,6 +190,7 @@ void ofAppMain::setupGUI()
 	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));
 	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10));
 	_guiExperiment.add(_grpExpState);
+	_guiExperiment.add(_btnExpRestart.setup("Restart experiment"));
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
@@ -287,6 +287,9 @@ void ofAppMain::buttonPressed(const void * sender)
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
 		experimentApp->stopExperiment();
+	}
+	else if (clickedBtn.compare(ofToString("Restart experiment")) == 0) {
+		experimentApp->restartExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
 		// only allow force sensor calibration when in the following experiment states
@@ -386,6 +389,7 @@ void ofAppMain::exit() {
 	_btnExpLoad.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpRestart.removeListener(this, &ofAppMain::buttonPressed);
 	_btnToggleRecordData = false;
 	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);

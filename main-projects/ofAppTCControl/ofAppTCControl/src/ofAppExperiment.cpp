@@ -14,12 +14,10 @@ void ofAppExperiment::update()
 {
 	double time = ofGetElapsedTimef();
 
-	bool nowTrialRunning = (bool)mainApp->AdsData[8];
+	_nowTrialRunning = (bool)mainApp->AdsData[8];
 
 	// check whether the system is in error
-	if (mainApp->systemIsInError()) {
-		setExperimentState(ExperimentState::IDLE);
-	}
+	if (mainApp->systemIsInError()) { setExperimentState(ExperimentState::SYSTEMFAULT); }
 
 	//
 	// experiment state machine
@@ -28,230 +26,74 @@ void ofAppExperiment::update()
 	case ExperimentState::IDLE:
 		// do nothing
 		break;
-
+	case ExperimentState::SYSTEMFAULT:
+		break;
 	case ExperimentState::EXPERIMENTSTART:
-		_currentBlockNumber = 0;
-		_currentTrialNumber = 0;
-		_experimentRunning = true;
-
-		setExperimentState(ExperimentState::NEWBLOCK);
+		esmExperimentStart();
 		break;
-
 	case ExperimentState::EXPERIMENTSTOP:
-		_experimentRunning = false;
-		display1->drawTask = true;
-		display2->drawTask = true;
-
-		setExperimentState(ExperimentState::EXPERIMENTDONE);
+		esmExperimentStop();
 		break;
-
 	case ExperimentState::EXPERIMENTPAUSE:
 		break;
-
 	case ExperimentState::EXPERIMENTCONTINUE:
 		break;
-
 	case ExperimentState::NEWBLOCK:
-		_currentBlock = _blocks[_currentBlockNumber];
-		_currentTrialNumber = 0;
-		mainApp->lblBlockNumber = _currentBlockNumber + 1;
-		mainApp->lblTrialNumber.setMax(_currentBlock.trials.size());
-
-		// start first trial
-		setExperimentState(ExperimentState::NEWTRIAL);
+		esmNewBlock();
 		break;
-
 	case ExperimentState::NEWTRIAL:
-
-		if (_experimentPaused) { break; }
-
-		_currentTrial = _currentBlock.trials[_currentTrialNumber];
-		mainApp->lblTrialNumber = _currentTrialNumber + 1;
-
-		// send trial data to ADS
-		setTrialDataADS();
-
-		// check if the robot is at home position
-		if (!mainApp->systemIsInState(SystemState::ATHOME)) {
-			mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
-			setExperimentState(ExperimentState::HOMINGBEFORE);
-		}
-		else {
-			setExperimentState(ExperimentState::HOMINGBEFOREDONE);
-		}
+		esmNewTrial();
 		break;
-
 	case ExperimentState::HOMINGBEFORE:
-		// when robot is in state 399 (at home), start countdown
-		if (mainApp->systemIsInState(SystemState::ATHOME)) {
-			setExperimentState(ExperimentState::HOMINGBEFOREDONE);
-		}
-
+		esmHomingBefore();
 		break;
 	case ExperimentState::HOMINGBEFOREDONE:
-		_getReadyStartTime = time;
-		display1->showMessage(true, "GET READY");
-		display2->showMessage(true, "GET READY");
-		setExperimentState(ExperimentState::GETREADY);
+		esmHomingBeforeDone();
 		break;
-		
 	case ExperimentState::GETREADY:
-		if ((time - _getReadyStartTime) <= _getReadyDuration) {
-			//
-		}
-		else {
-			display1->showMessage(false, "");
-			display2->showMessage(false, "");
-			setExperimentState(ExperimentState::GETREADYDONE);
-		}
+		esmGetReady();
 		break;
-
 	case ExperimentState::GETREADYDONE:
-
-		// homing is done, so make sure the robot is in run mode!
-		mainApp->requestStateChange(SystemState::RUN);
-
-		if (_cdDuration < 0.0) {
-			// if countdown is negative (i.e. no countdown needed), return
-			setExperimentState(ExperimentState::COUNTDOWNDONE);
-		}
-		else {
-			// start countdown
-			_cdStartTime = ofGetElapsedTimef();
-			display1->drawTask = true;
-			display2->drawTask = true;
-			setExperimentState(ExperimentState::COUNTDOWN);
-		}
+		esmGetReadyDone();
 		break;
-
 	case ExperimentState::COUNTDOWN:
-		if ((time - _cdStartTime) <= _cdDuration) {
-			double cdTimeRemaining = _cdDuration - (time - _cdStartTime);
-			display1->showMessage(true, "COUNTDOWN");
-			display2->showMessage(true, "COUNTDOWN");
-			display1->showCountDown(true, cdTimeRemaining, _cdDuration);
-			display2->showCountDown(true, cdTimeRemaining, _cdDuration);
-		}
-		else {
-			setExperimentState(ExperimentState::COUNTDOWNDONE);
-		}
+		esmCountdown();
 		break;
-
 	case ExperimentState::COUNTDOWNDONE:
-		// countdown done, start trial
-		display1->showMessage(false);
-		display2->showMessage(false);
-		display1->showCountDown(false);
-		display2->showCountDown(false);
-		display1->drawTask = true;
-		display2->drawTask = true;
-
-		requestStartTrialADS();
-
-		display1->drawTask = true;
-		setExperimentState(ExperimentState::TRIALRUNNING);
+		esmCountdownDone();
 		break;
-
 	case ExperimentState::TRIALRUNNING:
-		// check if trial is running (data from simulink)
-		if (prevTrialRunning && !nowTrialRunning) {
-			setExperimentState(ExperimentState::TRIALDONE);
-		}
+		esmTrialRunning();
 		break;
-
 	case ExperimentState::TRIALDONE:
-		// set display to black
-		display1->drawTask = false;
-		display2->drawTask = false;
-
-		// call for trial after homing
-		if (!mainApp->systemIsInState(SystemState::ATHOME)) {
-		//if (false) {
-			mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
-			setExperimentState(ExperimentState::HOMINGAFTER);
-		}
-		else {
-			setExperimentState(ExperimentState::HOMINGAFTERDONE);
-		}
+		esmTrialDone();
 		break;
-
 	case ExperimentState::HOMINGAFTER:
-		// check whether system is 'at home' (399)
-		if (mainApp->systemIsInState(SystemState::ATHOME)) setExperimentState(ExperimentState::HOMINGAFTERDONE);
+		esmHomingAfter();
 		break;
-
 	case ExperimentState::HOMINGAFTERDONE:
-		setExperimentState(ExperimentState::CHECKNEXTSTEP);
+		esmHomingAfterDone();
 		break;
-
 	case ExperimentState::CHECKNEXTSTEP:
-
-		if (_currentTrialNumber < _currentBlock.trials.size() - 1) {
-			// new trial in block, go to trial break
-			_breakStartTime = ofGetElapsedTimef();
-			setExperimentState(ExperimentState::TRIALBREAK);
-		}
-		else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
-			// end of block, determine if we proceed to the next block, or experiment is done
-			if (_currentBlockNumber < _blocks.size() - 1) {
-				// new block! First, block break
-				_breakStartTime = ofGetElapsedTimef();
-				setExperimentState(ExperimentState::BLOCKBREAK);
-			}
-			else {
-				// all blocks are done, experiment is done
-				setExperimentState(ExperimentState::EXPERIMENTSTOP);
-			}
-		}
+		esmCheckNextStep();
 		break;
-
 	case ExperimentState::TRIALBREAK:
-		if ((time - _breakStartTime) <= _currentTrial.breakDuration) {
-			// trial break is running, show feedback on display
-			double timeRemaining = _currentTrial.breakDuration - (time - _breakStartTime);
-			string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
-			display1->showMessage(true, msg);
-			display2->showMessage(true, msg);
-		}
-		else {
-			display1->showMessage(false);
-			display2->showMessage(false);
-			setExperimentState(ExperimentState::TRIALBREAKDONE);
-		}
+		esmTrialBreak();
 		break;
-
 	case ExperimentState::TRIALBREAKDONE:
-		// trial break done, on to the next trial!
-		_currentTrialNumber++;
-		setExperimentState(ExperimentState::NEWTRIAL);
+		esmTrialBreakDone();
 		break;
-
 	case ExperimentState::BLOCKBREAK:
-		if ((time - _breakStartTime) <= _currentBlock.breakDuration) {
-			// block break is running, show feedback on display
-			double timeRemaining = _currentBlock.breakDuration - (time - _breakStartTime);
-			string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
-			display1->showMessage(true, msg);
-			display2->showMessage(true, msg);
-		}
-		else {
-			display1->showMessage(false);
-			display2->showMessage(false);
-			setExperimentState(ExperimentState::BLOCKBREAKDONE);
-		}
+		esmBlockBreak();
 		break;
-
 	case ExperimentState::BLOCKBREAKDONE:
-		// block break done, on to the next block!
-		_currentBlockNumber++;
-		setExperimentState(ExperimentState::NEWBLOCK);
+		esmBlockBreakDone();
 		break;
-
 	case ExperimentState::EXPERIMENTDONE:
 		break;
 	}
 
-	prevTrialRunning = nowTrialRunning;
+	_prevTrialRunning = nowTrialRunning;
 }
 
 //--------------------------------------------------------------
@@ -326,6 +168,30 @@ void ofAppExperiment::pauseExperiment()
 void ofAppExperiment::resumeExperiment()
 {
 	_experimentPaused = false;
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::restartExperiment()
+{
+	// restart trial. This only works when the computer hasn't crashed.
+	if (_expState == ExperimentState::SYSTEMFAULT && _experimentRunning) {
+		// SystemState fault
+		// do nothing - if everything is correct, then the program hasn't crashed and 
+		// _currentTrialNumber and _currentBlockNumber are still at the point where the system has went to fault state. 
+		// So you can redo the trial during which the system fault
+	}
+	else if (_expState == ExperimentState::IDLE) {
+		// Program crash. 
+		// By selecting the correct trial and block number in the ofParameter, then use this value to set the _currentTrialNumber, _currentBlockNumber
+		// get the current trial and block number from the ofParameters. i.e. this means you can set the trial and block yourself
+		_currentTrialNumber = mainApp->lblTrialNumber - 1;
+		_currentBlockNumber = mainApp->lblBlockNumber - 1;
+	}
+
+	// set new block
+	esmNewBlock(_currentTrialNumber);
+
+	setExperimentState(ExperimentState::NEWTRIAL);
 }
 
 //--------------------------------------------------------------
@@ -446,12 +312,11 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.getValue<double>("connectionStiffness")) { trial.connectionStiffness = XML.getValue<double>("connectionStiffness"); }
 					if (XML.getValue<double>("connectionDamping")) { trial.connectionDamping = XML.getValue<double>("connectionDamping"); }
 					if (XML.getValue<double>("breakDuration")) { trial.breakDuration = XML.getValue<double>("breakDuration"); }
-					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration");  }
+					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration"); }
 					if (XML.getValue<int>("trialRandomization")) { trial.trialRandomization = XML.getValue<int>("trialRandomization"); }
 
 					trials.push_back(trial); // add trial to (temporary) trials list
-				} 
-				while (XML.setToSibling()); // go the next trial		
+				} while (XML.setToSibling()); // go the next trial		
 
 				std::reverse(trials.begin(), trials.end()); // since we pushed all trials back, call reverse
 				block.trials = trials;	// add trials to block struct
@@ -464,8 +329,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 				XML.setToParent(); // go back up to the block level
 			}
 
-		} 
-		while (XML.setToSibling()); // go to the next block
+		} while (XML.setToSibling()); // go to the next block
 
 		std::reverse(_blocks.begin(), _blocks.end()); // again, reverse block vector (now in correct order)
 
@@ -475,6 +339,259 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 		mainApp->lblTrialNumber.setMax(_blocks[0].trials.size());
 		mainApp->lblBlockNumber.setMax(_blocks.size());
 	}
-
 }
 
+
+//
+// experiment state machine functions
+//
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmExperimentStart()
+{
+	_currentBlockNumber = 0;
+	_currentTrialNumber = 0;
+	_experimentRunning = true;
+
+	setExperimentState(ExperimentState::NEWBLOCK);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmExperimentStop()
+{
+	_experimentRunning = false;
+	display1->drawTask = true;
+	display2->drawTask = true;
+
+	setExperimentState(ExperimentState::EXPERIMENTDONE);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmNewBlock(int trialNumber = 0)
+{
+	_currentBlock = _blocks[_currentBlockNumber];
+	_currentTrialNumber = trialNumber;
+	mainApp->lblBlockNumber = _currentBlockNumber + 1;
+	mainApp->lblTrialNumber.setMax(_currentBlock.trials.size());
+
+	// start first trial
+	setExperimentState(ExperimentState::NEWTRIAL);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmNewTrial()
+{
+	if (_experimentPaused) { return; }
+
+	_currentTrial = _currentBlock.trials[_currentTrialNumber];
+	mainApp->lblTrialNumber = _currentTrialNumber + 1;
+
+	// send trial data to ADS
+	setTrialDataADS();
+
+	// check if the robot is at home position
+	if (!mainApp->systemIsInState(SystemState::ATHOME)) {
+		mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
+		setExperimentState(ExperimentState::HOMINGBEFORE);
+	}
+	else {
+		setExperimentState(ExperimentState::HOMINGBEFOREDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmHomingBefore()
+{
+	// when robot is in state 399 (at home), start countdown
+	if (mainApp->systemIsInState(SystemState::ATHOME)) {
+		setExperimentState(ExperimentState::HOMINGBEFOREDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmHomingBeforeDone()
+{
+	_getReadyStartTime = ofGetElapsedTimef();
+	display1->showMessage(true, "GET READY");
+	display2->showMessage(true, "GET READY");
+	setExperimentState(ExperimentState::GETREADY);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmGetReady()
+{
+	if ((ofGetElapsedTimef() - _getReadyStartTime) <= _getReadyDuration) {
+		//
+	}
+	else {
+		display1->showMessage(false, "");
+		display2->showMessage(false, "");
+		setExperimentState(ExperimentState::GETREADYDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmGetReadyDone()
+{
+	// homing is done, so make sure the robot is in run mode!
+	mainApp->requestStateChange(SystemState::RUN);
+
+	if (_cdDuration < 0.0) {
+		// if countdown is negative (i.e. no countdown needed), return
+		setExperimentState(ExperimentState::COUNTDOWNDONE);
+	}
+	else {
+		// start countdown
+		_cdStartTime = ofGetElapsedTimef();
+		display1->drawTask = true;
+		display2->drawTask = true;
+		setExperimentState(ExperimentState::COUNTDOWN);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmCountdown()
+{
+	double time = ofGetElapsedTimef();
+	if ((time - _cdStartTime) <= _cdDuration) {
+		double cdTimeRemaining = _cdDuration - (time - _cdStartTime);
+		display1->showMessage(true, "COUNTDOWN");
+		display2->showMessage(true, "COUNTDOWN");
+		display1->showCountDown(true, cdTimeRemaining, _cdDuration);
+		display2->showCountDown(true, cdTimeRemaining, _cdDuration);
+	}
+	else {
+		setExperimentState(ExperimentState::COUNTDOWNDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmCountdownDone()
+{
+	// countdown done, start trial
+	display1->showMessage(false);
+	display2->showMessage(false);
+	display1->showCountDown(false);
+	display2->showCountDown(false);
+	display1->drawTask = true;
+	display2->drawTask = true;
+
+	requestStartTrialADS();
+
+	display1->drawTask = true;
+	setExperimentState(ExperimentState::TRIALRUNNING);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmTrialRunning()
+{
+	// check if trial is running (data from simulink)
+	if (_prevTrialRunning && !_nowTrialRunning) {
+		setExperimentState(ExperimentState::TRIALDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmTrialDone()
+{
+	// set display to black
+	display1->drawTask = false;
+	display2->drawTask = false;
+
+	// call for trial after homing
+	if (!mainApp->systemIsInState(SystemState::ATHOME)) {
+		//if (false) {
+		mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
+		setExperimentState(ExperimentState::HOMINGAFTER);
+	}
+	else {
+		setExperimentState(ExperimentState::HOMINGAFTERDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmHomingAfter()
+{
+	// check whether system is 'at home' (399)
+	if (mainApp->systemIsInState(SystemState::ATHOME)) setExperimentState(ExperimentState::HOMINGAFTERDONE);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmHomingAfterDone()
+{
+	setExperimentState(ExperimentState::CHECKNEXTSTEP);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmCheckNextStep()
+{
+	if (_currentTrialNumber < _currentBlock.trials.size() - 1) {
+		// new trial in block, go to trial break
+		_breakStartTime = ofGetElapsedTimef();
+		setExperimentState(ExperimentState::TRIALBREAK);
+	}
+	else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
+		// end of block, determine if we proceed to the next block, or experiment is done
+		if (_currentBlockNumber < _blocks.size() - 1) {
+			// new block! First, block break
+			_breakStartTime = ofGetElapsedTimef();
+			setExperimentState(ExperimentState::BLOCKBREAK);
+		}
+		else {
+			// all blocks are done, experiment is done
+			setExperimentState(ExperimentState::EXPERIMENTSTOP);
+		}
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmTrialBreak()
+{
+	double time = ofGetElapsedTimef();
+	if ((time - _breakStartTime) <= _currentTrial.breakDuration) {
+		// trial break is running, show feedback on display
+		double timeRemaining = _currentTrial.breakDuration - (time - _breakStartTime);
+		string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
+		display1->showMessage(true, msg);
+		display2->showMessage(true, msg);
+	}
+	else {
+		display1->showMessage(false);
+		display2->showMessage(false);
+		setExperimentState(ExperimentState::TRIALBREAKDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmTrialBreakDone()
+{
+	// trial break done, on to the next trial!
+	_currentTrialNumber++;
+	setExperimentState(ExperimentState::NEWTRIAL);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmBlockBreak()
+{
+	double time = ofGetElapsedTimef();
+	if ((time - _breakStartTime) <= _currentBlock.breakDuration) {
+		// block break is running, show feedback on display
+		double timeRemaining = _currentBlock.breakDuration - (time - _breakStartTime);
+		string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
+		display1->showMessage(true, msg);
+		display2->showMessage(true, msg);
+	}
+	else {
+		display1->showMessage(false);
+		display2->showMessage(false);
+		setExperimentState(ExperimentState::BLOCKBREAKDONE);
+	}
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmBlockBreakDone()
+{
+	// block break done, on to the next block!
+	_currentBlockNumber++;
+	setExperimentState(ExperimentState::NEWBLOCK);
+}

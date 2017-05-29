@@ -75,7 +75,7 @@ class ofAppMain : public ofBaseApp{
 		// GUI system
 		ofxPanel _guiSystem;
 		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnCalibrateForceSensor,
-			_btnReqState_Run, _btnEnableDrive, _btnDisableDrive, _btnQuit;
+			_btnReqState_Run, _btnEnableDrive, _btnDisableDrive, _btnQuit, _btnExpRestart;
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
 		ofxLabel _lblEtherCAT;
