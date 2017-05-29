@@ -16,6 +16,11 @@ void ofAppExperiment::update()
 
 	bool nowTrialRunning = (bool)mainApp->AdsData[8];
 
+	// check whether the system is in error
+	if (mainApp->systemIsInError()) {
+		setExperimentState(ExperimentState::IDLE);
+	}
+
 	//
 	// experiment state machine
 	//
@@ -67,7 +72,8 @@ void ofAppExperiment::update()
 		setTrialDataADS();
 
 		// check if the robot is at home position
-		if (!mainApp->systemIsInState(399)) {
+		//if (!mainApp->systemIsInState(399)) {
+		if (false) {
 			mainApp->requestStateChange(_currentBlock.homingType);
 			setExperimentState(ExperimentState::HOMINGBEFORE);
 		}
@@ -78,11 +84,34 @@ void ofAppExperiment::update()
 
 	case ExperimentState::HOMINGBEFORE:
 		// when robot is in state 399 (at home), start countdown
-		if (mainApp->systemIsInState(399)) setExperimentState(ExperimentState::HOMINGBEFOREDONE);
+		if (mainApp->systemIsInState(399)) {
+			setExperimentState(ExperimentState::HOMINGBEFOREDONE);
+		}
 
 		break;
-		
 	case ExperimentState::HOMINGBEFOREDONE:
+		_getReadyStartTime = time;
+		display1->showMessage(true, "GET READY");
+		display2->showMessage(true, "GET READY");
+		setExperimentState(ExperimentState::GETREADY);
+		break;
+		
+	case ExperimentState::GETREADY:
+		if ((time - _getReadyStartTime) <= _getReadyDuration) {
+			//
+		}
+		else {
+			display1->showMessage(false, "");
+			display2->showMessage(false, "");
+			setExperimentState(ExperimentState::GETREADYDONE);
+		}
+		break;
+
+	case ExperimentState::GETREADYDONE:
+
+		// homing is done, so make sure the robot is in run mode!
+		//mainApp->requestStateChange(4);
+
 		if (_cdDuration < 0.0) {
 			// if countdown is negative (i.e. no countdown needed), return
 			setExperimentState(ExperimentState::COUNTDOWNDONE);
@@ -99,9 +128,10 @@ void ofAppExperiment::update()
 	case ExperimentState::COUNTDOWN:
 		if ((time - _cdStartTime) <= _cdDuration) {
 			double cdTimeRemaining = _cdDuration - (time - _cdStartTime);
-			string msg = ofToString(cdTimeRemaining, 1) + " seconds";
-			display1->showMessage(true, msg);
-			display2->showMessage(true, msg);
+			display1->showMessage(true, "COUNTDOWN");
+			display2->showMessage(true, "COUNTDOWN");
+			display1->showCountDown(true, cdTimeRemaining, _cdDuration);
+			display2->showCountDown(true, cdTimeRemaining, _cdDuration);
 		}
 		else {
 			setExperimentState(ExperimentState::COUNTDOWNDONE);
@@ -112,6 +142,8 @@ void ofAppExperiment::update()
 		// countdown done, start trial
 		display1->showMessage(false);
 		display2->showMessage(false);
+		display1->showCountDown(false);
+		display2->showCountDown(false);
 		display1->drawTask = true;
 		display2->drawTask = true;
 
@@ -134,9 +166,13 @@ void ofAppExperiment::update()
 		display2->drawTask = false;
 
 		// call for trial after homing
-		if (!mainApp->systemIsInState(399)) {
+		//if (!mainApp->systemIsInState(399)) {
+		if (false) {
 			mainApp->requestStateChange(_currentBlock.homingType);
 			setExperimentState(ExperimentState::HOMINGAFTER);
+		}
+		else {
+			setExperimentState(ExperimentState::HOMINGAFTERDONE);
 		}
 		break;
 
@@ -174,7 +210,7 @@ void ofAppExperiment::update()
 		if ((time - _breakStartTime) <= _currentTrial.breakDuration) {
 			// trial break is running, show feedback on display
 			double timeRemaining = _currentTrial.breakDuration - (time - _breakStartTime);
-			string msg = "BREAK  -  " + ofToString(timeRemaining, 0) + " seconds remaining";
+			string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
 			display1->showMessage(true, msg);
 			display2->showMessage(true, msg);
 		}
@@ -195,7 +231,7 @@ void ofAppExperiment::update()
 		if ((time - _breakStartTime) <= _currentBlock.breakDuration) {
 			// block break is running, show feedback on display
 			double timeRemaining = _currentBlock.breakDuration - (time - _breakStartTime);
-			string msg = "BREAK  -  " + ofToString(timeRemaining, 0) + " seconds remaining";
+			string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
 			display1->showMessage(true, msg);
 			display2->showMessage(true, msg);
 		}
@@ -250,6 +286,15 @@ void ofAppExperiment::setupTCADS()
 
 	char szVar6[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialRandom_Value" };
 	_lHdlVar_Write_TrialRandom = _tcClient->getVariableHandle(szVar6, sizeof(szVar6));
+}
+
+//--------------------------------------------------------------
+string ofAppExperiment::secToMin(double seconds)
+{
+	int minutes = seconds / 60;
+	int remseconds = (int)seconds % 60;
+
+	return ofToString(minutes) + ":" + ofToString(remseconds, 2, '0');
 }
 
 //--------------------------------------------------------------

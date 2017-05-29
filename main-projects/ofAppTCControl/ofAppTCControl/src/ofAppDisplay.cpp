@@ -15,8 +15,12 @@ void ofAppDisplay::setup()
 
 	// font
 	ofTrueTypeFont::setGlobalDpi(72);
+	verdana50.load("verdana.ttf", 50, true, true);
+	verdana50.setLineHeight(50.0f);
+	verdana50.setLetterSpacing(1.035);
+
 	verdana30.load("verdana.ttf", 30, true, true);
-	verdana30.setLineHeight(34.0f);
+	verdana30.setLineHeight(30.0f);
 	verdana30.setLetterSpacing(1.035);
 }
 
@@ -59,9 +63,25 @@ void ofAppDisplay::draw()
 	// draw message
 	if (_showMessage) {
 		ofPushMatrix();
-		ofRectangle bounds = verdana30.getStringBoundingBox(_message, 0, 0);
-		ofTranslate(-bounds.getCenter()[0], -( 0.35*ofGetScreenHeight() + bounds.getCenter()[1]));
-		verdana30.drawString(_message, 0.0, 0.0);
+		ofRectangle bounds = verdana50.getStringBoundingBox(_message, 0, 0);
+		ofTranslate(-bounds.getCenter()[0], -( 0.4*ofGetScreenHeight() + bounds.getCenter()[1]));
+		verdana50.drawString(_message, 0.0, 0.0);
+		ofPopMatrix();
+	}
+
+	// draw countdown
+	if (_showCountDown) {
+		ofPushMatrix();
+		ofNoFill();
+		ofDrawRectangle(_cdBarPosition, _cdBarWidth, _cdBarHeight);
+		ofFill();
+		ofPoint p = _cdBarPosition + ofPoint(_cdBarWidth, _cdBarHeight);
+		double w = _cdBarWidth*(_cdTimeRemaining / _cdDuration);
+		ofDrawRectangle(p, -w, -_cdBarHeight);
+		
+		string msg = ofToString(ceil(_cdTimeRemaining)) + " s";
+		ofRectangle bounds2 = verdana30.getStringBoundingBox(msg, 0, 0);
+		verdana30.drawString(msg, p[0]+20.0, p[1] + bounds2.getCenter()[1]);
 		ofPopMatrix();
 	}
 
@@ -90,4 +110,11 @@ void ofAppDisplay::showMessage(bool show, const string &msg)
 void ofAppDisplay::setMessage(const string &msg)
 {
 	_message = msg;
+}
+
+void ofAppDisplay::showCountDown(bool show, double timeRemaining, double duration)
+{
+	_showCountDown = show;
+	_cdTimeRemaining = timeRemaining;
+	_cdDuration = duration;
 }

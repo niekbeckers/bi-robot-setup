@@ -41,6 +41,8 @@ enum ExperimentState {
 	NEWTRIAL,
 	HOMINGBEFORE,
 	HOMINGBEFOREDONE,
+	GETREADY,
+	GETREADYDONE,
 	COUNTDOWN,
 	COUNTDOWNDONE,
 	TRIALRUNNING,
@@ -55,6 +57,7 @@ enum ExperimentState {
 	BLOCKDONE
 };
 
+// ExperimentStateLabel: in order to print a string of the currect experimentstate
 static std::string StringExperimentStateLabel(const ExperimentState value) {
 	static std::map<ExperimentState, std::string> strings;
 	if (strings.size() == 0) {
@@ -69,6 +72,8 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 		INSERT_ELEMENT(NEWTRIAL);
 		INSERT_ELEMENT(HOMINGBEFORE);
 		INSERT_ELEMENT(HOMINGBEFOREDONE);
+		INSERT_ELEMENT(GETREADY);
+		INSERT_ELEMENT(GETREADYDONE);
 		INSERT_ELEMENT(COUNTDOWN);
 		INSERT_ELEMENT(COUNTDOWNDONE);
 		INSERT_ELEMENT(TRIALRUNNING);
@@ -117,7 +122,8 @@ class ofAppExperiment : public ofBaseApp
 
 		// countdown and break parameters
 		double _cdDuration = 3.0; // -1.0 countdown means no countdown
-		double _cdStartTime, _breakStartTime;
+		double _cdStartTime, _breakStartTime, _getReadyStartTime;
+		double _getReadyDuration = 4.0;
 
 		//
 		// functions
@@ -125,6 +131,7 @@ class ofAppExperiment : public ofBaseApp
 		void setTrialDataADS();
 		void requestStartTrialADS();
 		void setExperimentState(ExperimentState newState);
+		string secToMin(double seconds);
 
 	public:
 
@@ -138,6 +145,8 @@ class ofAppExperiment : public ofBaseApp
 		shared_ptr<ofAppDisplay> display2;
 
 		string experimentStateLabel = StringExperimentStateLabel(_expState);
+		ExperimentState experimentState() { return _expState; };
+
 
 		// 
 		// functions

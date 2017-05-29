@@ -21,7 +21,16 @@ class ofAppDisplay : public ofBaseApp
 		// message & font
 		string _message = "";
 		bool _showMessage = false;
+		ofTrueTypeFont verdana50;
 		ofTrueTypeFont verdana30;
+
+		// countdown
+		bool _showCountDown = false;
+		double _cdDuration = 3.0;
+		double _cdTimeRemaining = 1.0;
+		double _cdBarWidth = 200.0;
+		double _cdBarHeight = 40.0;
+		ofPoint _cdBarPosition = { 0.0 - _cdBarWidth / 2.0, -(0.35*ofGetScreenHeight() + _cdBarHeight / 2.0) };
 
 	public:
 
@@ -42,5 +51,7 @@ class ofAppDisplay : public ofBaseApp
 		void showMessage(bool show);
 		void showMessage(bool show, const string &msg);
 		void setMessage(const string &msg);
+
+		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
 };
 

@@ -96,6 +96,8 @@ void ofAppMain::setupTCADS()
 	_lHdlVar_Read_SystemError = _tcClientEvent->getVariableHandle(szVar3, sizeof(szVar3));
 	_lHdlNot_Read_SystemError = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemError, (unsigned long)(this), onEventCallbackTCADS, 16);
 
+	char szVar4[] = { "Object1 (ModelBaseBROS).ModelParameters.CalibrateForceSensors_Value" };
+	_lHdlVar_Write_CalibrateForceSensor = _tcClientEvent->getVariableHandle(szVar4, sizeof(szVar4));
 	
 }
  
@@ -103,6 +105,7 @@ void ofAppMain::setupTCADS()
 void ofAppMain::setupGUI()
 {
 	// add listeners
+	_btnCalibrateForceSensor.addListener(this, &ofAppMain::buttonPressed);
 	_btnQuit.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
@@ -136,7 +139,7 @@ void ofAppMain::setupGUI()
 	//_guiSystem.add(_btnQuit.setup("Quit"));
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
-	_guiSystem.add(_btnToggleRecordData.setup("Record data", false));
+	_guiSystem.add(_btnCalibrateForceSensor.setup("Calibrate force sensors"));
 
 	_ofGrpSys.setName("System states");
 	_ofGrpSys.add(_lblSysState.set("System State", "[,]"));
@@ -155,7 +158,6 @@ void ofAppMain::setupGUI()
 	_grpReqState.add(_btnReqState_Run.setup("Run [4]"));
 	_guiSystem.add(&_grpReqState);
 
-
 	// drive controls
 	_grpDriveControl.setup("Drive control");
 	_grpDriveControl.setName("Drive control");
@@ -164,6 +166,7 @@ void ofAppMain::setupGUI()
 	_guiSystem.add(&_grpDriveControl);
 
 	// GUI experiment
+	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", ""));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
@@ -271,6 +274,27 @@ void ofAppMain::buttonPressed(const void * sender)
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
 		experimentApp->stopExperiment();
 	}
+	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
+		// only allow force sensor calibration when in the following experiment states
+		if (experimentApp->experimentState() == ExperimentState::BLOCKBREAK || 
+			experimentApp->experimentState() == ExperimentState::IDLE || 
+			experimentApp->experimentState() == ExperimentState::EXPERIMENTDONE) {
+	
+			double var = 1.0;
+			_tcClientEvent->write(_lHdlVar_Write_CalibrateForceSensor, &var, sizeof(var));
+			var = 0.0;
+			_tcClientEvent->write(_lHdlVar_Write_CalibrateForceSensor, &var, sizeof(var));
+
+			ofLogVerbose("Calibrate force sensor requested");
+		}
+		else {
+			ofLogError("Incorrect experiment state, force sensor calibration not allowed (only during IDLE, BLOCKBREAK, EXPERIMENTDONE)");
+		}
+		
+	}
+	else {
+		ofLogError("Button " + clickedBtn + " unknown");
+	}
 }
 
 //--------------------------------------------------------------
@@ -330,6 +354,7 @@ void ofAppMain::windowResized(int w, int h){
 void ofAppMain::exit() {
 
 	// remove listeners
+	_btnCalibrateForceSensor.removeListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.removeListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.removeListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Calibrate.removeListener(this, &ofAppMain::buttonPressed);
@@ -338,14 +363,9 @@ void ofAppMain::exit() {
 	_btnReqState_Run.removeListener(this, &ofAppMain::buttonPressed);
 	_btnEnableDrive.removeListener(this, &ofAppMain::buttonPressed);
 	_btnDisableDrive.removeListener(this, &ofAppMain::buttonPressed);
-
-	// remove listeners
 	_btnExpLoad.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.removeListener(this, &ofAppMain::buttonPressed);
-	
 	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
-
-
 	_btnToggleRecordData = false;
 	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);

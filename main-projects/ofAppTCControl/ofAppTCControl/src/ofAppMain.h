@@ -28,7 +28,7 @@ class ofAppMain : public ofBaseApp{
 
 		tcAdsClient *_tcClientCont, *_tcClientEvent;
 
-		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError,
+		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError, _lHdlVar_Write_CalibrateForceSensor,
 			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError;
 
 
@@ -41,7 +41,7 @@ class ofAppMain : public ofBaseApp{
 
 		// GUI system
 		ofxPanel _guiSystem;
-		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, 
+		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnCalibrateForceSensor,
 			_btnReqState_Run, _btnEnableDrive, _btnDisableDrive, _btnQuit;
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
@@ -98,5 +98,6 @@ class ofAppMain : public ofBaseApp{
 		void requestStateChange(int reqState);
 		void requestDriveEnableDisable(bool enable);
 		bool systemIsInState(int state);
+		bool systemIsInError() { return _systemState[0] == -1 || _systemState[1] == -1; };
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 };
