@@ -68,7 +68,8 @@ void ofAppDisplay::draw()
 }
 
 //--------------------------------------------------------------
-void ofAppDisplay::windowResized(int w, int h) {
+void ofAppDisplay::windowResized(int w, int h) 
+{
 	dots_per_m = sqrt((double)(h * h) + (double)(w * w)) / scrDiagonal * 100.0 / 2.54; //dots per meter
 }
 
@@ -76,6 +77,13 @@ void ofAppDisplay::windowResized(int w, int h) {
 void ofAppDisplay::showMessage(bool show)
 {
 	_showMessage = show;
+}
+
+//--------------------------------------------------------------
+void ofAppDisplay::showMessage(bool show, const string &msg)
+{
+	setMessage(msg);
+	showMessage(show);
 }
 
 //--------------------------------------------------------------

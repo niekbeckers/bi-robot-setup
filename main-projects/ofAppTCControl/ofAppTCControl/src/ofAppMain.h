@@ -41,8 +41,8 @@ class ofAppMain : public ofBaseApp{
 
 		// GUI system
 		ofxPanel _guiSystem;
-		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnReqState_Run, 
-			_btnEnableDrive, _btnDisableDrive, _btnQuit;
+		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, 
+			_btnReqState_Run, _btnEnableDrive, _btnDisableDrive, _btnQuit;
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
 		ofxLabel _lblEtherCAT;
@@ -54,7 +54,6 @@ class ofAppMain : public ofBaseApp{
 		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop;
 		ofxToggle _btnExpPauseResume;
 		ofxGuiGroup _grpExpControl;
-		
 		ofParameterGroup _grpExpState;
 		
 		//
@@ -62,7 +61,6 @@ class ofAppMain : public ofBaseApp{
 		//
 		void setupTCADS();
 		void setupGUI();
-
 		void buttonPressed(const void * sender);
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);
@@ -72,16 +70,15 @@ class ofAppMain : public ofBaseApp{
 		//
 		// variables
 		//
-
-		shared_ptr<ofAppExperiment> experimentApp;
-
 		double AdsData[9] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
+		// pointers to other classes
+		shared_ptr<ofAppExperiment> experimentApp = 0;
 		shared_ptr<ofAppDisplay> display1 = 0;
 		shared_ptr<ofAppDisplay> display2 = 0;
 
+		// gui
 		ofParameter<string> lblExpState, lblExpLoaded;
-		
 		ofParameter<int> lblTrialNumber, lblBlockNumber;
 
 		//
@@ -98,7 +95,6 @@ class ofAppMain : public ofBaseApp{
 		void exit();
 
 		// custom
-
 		void requestStateChange(int reqState);
 		void requestDriveEnableDisable(bool enable);
 		bool systemIsInState(int state);

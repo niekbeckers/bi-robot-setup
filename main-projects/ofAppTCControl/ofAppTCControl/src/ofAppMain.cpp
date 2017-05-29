@@ -163,9 +163,6 @@ void ofAppMain::setupGUI()
 	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
 	_guiSystem.add(&_grpDriveControl);
 
-	
-
-	
 	// GUI experiment
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", ""));
@@ -296,6 +293,7 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 	tcClient->disconnect();
 }
 
+//--------------------------------------------------------------
 void ofAppMain::pauseExperimentTogglePressed(bool & value) 
 {
 	if (value) {

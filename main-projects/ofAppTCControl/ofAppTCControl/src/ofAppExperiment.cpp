@@ -16,7 +16,9 @@ void ofAppExperiment::update()
 
 	bool nowTrialRunning = (bool)mainApp->AdsData[8];
 
+	//
 	// experiment state machine
+	//
 	switch(_expState) {
 	case ExperimentState::IDLE:
 		// do nothing
@@ -98,10 +100,8 @@ void ofAppExperiment::update()
 		if ((time - _cdStartTime) <= _cdDuration) {
 			double cdTimeRemaining = _cdDuration - (time - _cdStartTime);
 			string msg = ofToString(cdTimeRemaining, 1) + " seconds";
-			display1->showMessage(true);
-			display2->showMessage(true);
-			display1->setMessage(msg);
-			display2->setMessage(msg);
+			display1->showMessage(true, msg);
+			display2->showMessage(true, msg);
 		}
 		else {
 			setExperimentState(ExperimentState::COUNTDOWNDONE);
@@ -112,9 +112,12 @@ void ofAppExperiment::update()
 		// countdown done, start trial
 		display1->showMessage(false);
 		display2->showMessage(false);
+		display1->drawTask = true;
+		display2->drawTask = true;
 
 		requestStartTrialADS();
 
+		display1->drawTask = true;
 		setExperimentState(ExperimentState::TRIALRUNNING);
 		break;
 
@@ -172,10 +175,8 @@ void ofAppExperiment::update()
 			// trial break is running, show feedback on display
 			double timeRemaining = _currentTrial.breakDuration - (time - _breakStartTime);
 			string msg = "BREAK  -  " + ofToString(timeRemaining, 0) + " seconds remaining";
-			display1->showMessage(true);
-			display2->showMessage(true);
-			display1->setMessage(msg);
-			display2->setMessage(msg);
+			display1->showMessage(true, msg);
+			display2->showMessage(true, msg);
 		}
 		else {
 			display1->showMessage(false);
@@ -195,10 +196,8 @@ void ofAppExperiment::update()
 			// block break is running, show feedback on display
 			double timeRemaining = _currentBlock.breakDuration - (time - _breakStartTime);
 			string msg = "BREAK  -  " + ofToString(timeRemaining, 0) + " seconds remaining";
-			display1->showMessage(true);
-			display2->showMessage(true);
-			display1->setMessage(msg);
-			display2->setMessage(msg);
+			display1->showMessage(true, msg);
+			display2->showMessage(true, msg);
 		}
 		else {
 			display1->showMessage(false);
@@ -217,7 +216,6 @@ void ofAppExperiment::update()
 		break;
 	}
 
-	
 	prevTrialRunning = nowTrialRunning;
 }
 
@@ -258,6 +256,8 @@ void ofAppExperiment::setupTCADS()
 void ofAppExperiment::startExperiment()
 {
 	if (_experimentLoaded && !_experimentRunning) {
+		display1->drawTask = false;
+		display2->drawTask = false;
 		setExperimentState(ExperimentState::EXPERIMENTSTART);
 	}
 }
@@ -280,6 +280,7 @@ void ofAppExperiment::resumeExperiment()
 	_experimentPaused = false;
 }
 
+//--------------------------------------------------------------
 void ofAppExperiment::setTrialDataADS()
 {
 	// write trial data to ADS/Simulink model
@@ -311,13 +312,13 @@ void ofAppExperiment::setTrialDataADS()
 	_tcClient->write(_lHdlVar_Write_TrialRandom, &var5, sizeof(var5));
 }
 
+//--------------------------------------------------------------
 void ofAppExperiment::setExperimentState(ExperimentState newState)
 { 
 	_expState = newState; 
 	experimentStateLabel = StringExperimentStateLabel(newState); 
 	mainApp->lblExpState = experimentStateLabel;
-};
-
+}
 
 //--------------------------------------------------------------
 void ofAppExperiment::requestStartTrialADS()
@@ -368,7 +369,6 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	if (XML.exists("experiment")) {
 		if (XML.getValue<double>("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
 	}
-
 
 	int trialNumber = 0;
 	int blockNumber = 0;
