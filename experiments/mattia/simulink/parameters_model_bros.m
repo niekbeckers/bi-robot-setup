@@ -15,6 +15,8 @@ ny_target = ny;
 phasesx_target = phasesx;
 phasesy_target = phasesy;
 A_target = A;
+maxofx_target = maxofx;
+maxofy_target = maxofy;
 
 
 %% RobotStruct_FM1
