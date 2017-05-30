@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-30T10:39:34" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-30T13:48:23" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBROSMattia_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#a97eaa40;
-clsId.Data2 := 16#3e83;
-clsId.Data3 := 16#4072;
-clsId.Data4[0] := 16#ab;
-clsId.Data4[1] := 16#ef;
-clsId.Data4[2] := 16#a1;
-clsId.Data4[3] := 16#0a;
-clsId.Data4[4] := 16#8e;
-clsId.Data4[5] := 16#eb;
-clsId.Data4[6] := 16#3b;
-clsId.Data4[7] := 16#34;
+clsId.Data1 := 16#fa0d13bd;
+clsId.Data2 := 16#e5c9;
+clsId.Data3 := 16#4939;
+clsId.Data4[0] := 16#85;
+clsId.Data4[1] := 16#c3;
+clsId.Data4[2] := 16#20;
+clsId.Data4[3] := 16#c4;
+clsId.Data4[4] := 16#da;
+clsId.Data4[5] := 16#7a;
+clsId.Data4[6] := 16#ae;
+clsId.Data4[7] := 16#30;
 
 AssignClassId(clsId);
                     
@@ -2303,15 +2303,49 @@ stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[3] := 1.4
 stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[4] := 1.4;
 stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.4;
 stInitData.ModelParameters.FM2.FTSensor.TransformationMatrixSide := 2;
-stInitData.ModelParameters.A_target[0] := 0.9399999999999999;
-stInitData.ModelParameters.A_target[1] := 0.85;
-stInitData.ModelParameters.A_target[2] := 0.68;
-stInitData.ModelParameters.A_target[3] := 0.5;
-stInitData.ModelParameters.A_target[4] := 0.3;
-stInitData.ModelParameters.A_target[5] := 0.25;
 stInitData.ModelParameters.Lb := 0.07000000000000001;
 stInitData.ModelParameters.Lf := 0.238;
 stInitData.ModelParameters.Lu := 0.153;
+stInitData.ModelParameters.maxofx_target[0] := 2.409441822619611;
+stInitData.ModelParameters.maxofx_target[1] := 2.574801997925769;
+stInitData.ModelParameters.maxofx_target[2] := 2.580897423749565;
+stInitData.ModelParameters.maxofx_target[3] := 2.518587552037582;
+stInitData.ModelParameters.maxofx_target[4] := 2.558178876261481;
+stInitData.ModelParameters.maxofx_target[5] := 2.663272777327255;
+stInitData.ModelParameters.maxofx_target[6] := 2.568063386719901;
+stInitData.ModelParameters.maxofx_target[7] := 2.587642218062226;
+stInitData.ModelParameters.maxofx_target[8] := 2.788788178664853;
+stInitData.ModelParameters.maxofx_target[9] := 2.553549180017694;
+stInitData.ModelParameters.maxofx_target[10] := 2.621860667060999;
+stInitData.ModelParameters.maxofx_target[11] := 2.540913229561793;
+stInitData.ModelParameters.maxofx_target[12] := 2.543342873242911;
+stInitData.ModelParameters.maxofx_target[13] := 2.640738044118116;
+stInitData.ModelParameters.maxofx_target[14] := 2.568590696359397;
+stInitData.ModelParameters.maxofx_target[15] := 2.52290280305596;
+stInitData.ModelParameters.maxofx_target[16] := 2.64550262202501;
+stInitData.ModelParameters.maxofx_target[17] := 2.473650715490175;
+stInitData.ModelParameters.maxofx_target[18] := 2.601697394064559;
+stInitData.ModelParameters.maxofx_target[19] := 2.525118643713488;
+stInitData.ModelParameters.maxofy_target[0] := 2.661695272618542;
+stInitData.ModelParameters.maxofy_target[1] := 2.526579071208167;
+stInitData.ModelParameters.maxofy_target[2] := 2.519368342360281;
+stInitData.ModelParameters.maxofy_target[3] := 2.629830717461114;
+stInitData.ModelParameters.maxofy_target[4] := 2.513340964421639;
+stInitData.ModelParameters.maxofy_target[5] := 2.689586859788053;
+stInitData.ModelParameters.maxofy_target[6] := 2.436323725618224;
+stInitData.ModelParameters.maxofy_target[7] := 2.671784338723246;
+stInitData.ModelParameters.maxofy_target[8] := 2.62531890571715;
+stInitData.ModelParameters.maxofy_target[9] := 2.836299514849143;
+stInitData.ModelParameters.maxofy_target[10] := 2.494355836631355;
+stInitData.ModelParameters.maxofy_target[11] := 2.321544263564701;
+stInitData.ModelParameters.maxofy_target[12] := 2.757638146507841;
+stInitData.ModelParameters.maxofy_target[13] := 2.556241411113122;
+stInitData.ModelParameters.maxofy_target[14] := 2.6504169385777;
+stInitData.ModelParameters.maxofy_target[15] := 2.641560481323242;
+stInitData.ModelParameters.maxofy_target[16] := 2.339947476942871;
+stInitData.ModelParameters.maxofy_target[17] := 2.709307571106704;
+stInitData.ModelParameters.maxofy_target[18] := 2.779789559880014;
+stInitData.ModelParameters.maxofy_target[19] := 2.552135712190731;
 stInitData.ModelParameters.nx_target[0] := 4;
 stInitData.ModelParameters.nx_target[1] := 7;
 stInitData.ModelParameters.nx_target[2] := 11;
@@ -2609,7 +2643,7 @@ stInitData.ModelParameters.DetectChange_vinit_j := 0;
 stInitData.ModelParameters.DetectChange_vinit_n := 0;
 stInitData.ModelParameters.DetectRiseNonnegative_vinit := 0;
 stInitData.ModelParameters.DetectIncrease_vinit := 0;
-stInitData.ModelParameters.DetectIncrease_vinit_h := 0;
+stInitData.ModelParameters.DetectIncrease_vinit_j := 0;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0[0] := 0;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0[1] := 0;
 stInitData.ModelParameters.Constant3_Value[0] := 0;
@@ -2745,7 +2779,7 @@ stInitData.ModelParameters.One_Value := 1;
 stInitData.ModelParameters.ExpStartTrial_Value := 0;
 stInitData.ModelParameters.Constant_Value_bg := 0;
 stInitData.ModelParameters.ExpTrialDuration_Value := 30;
-stInitData.ModelParameters.RateLimiter_RisingLim := 0.00025;
+stInitData.ModelParameters.RateLimiter_RisingLim := 0.0003333333333333333;
 stInitData.ModelParameters.RateLimiter_FallingLim := -0.00025;
 stInitData.ModelParameters.RateLimiter_IC := 0;
 stInitData.ModelParameters.Saturation_UpperSat := 1;
