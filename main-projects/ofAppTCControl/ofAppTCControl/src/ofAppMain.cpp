@@ -79,7 +79,7 @@ void ofAppMain::setupTCADS()
 	_tcClientCont = new tcAdsClient(adsPort);
 
 	// get variable handles for ADS
-	char szVar0[] = { "Object1 (ModelBaseBROS).Output.DataToADS" };
+	char szVar0[] = { "Object1 (ModelBROS).Output.DataToADS" };
 	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
 
 
@@ -87,19 +87,19 @@ void ofAppMain::setupTCADS()
 	_tcClientEvent = new tcAdsClient(adsPort);
 
 	// get variables
-	char szVar1[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_SystemStates" };
+	char szVar1[] = { "Object1 (ModelBROS).BlockIO.VecCon_SystemStates" };
 	_lHdlVar_Read_SystemState = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
 	_lHdlNot_Read_SystemState = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemState, (unsigned long)(this), onEventCallbackTCADS, 16);
 
-	char szVar2[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_OpsEnabled" };
+	char szVar2[] = { "Object1 (ModelBROS).BlockIO.VecCon_OpsEnabled" };
 	_lHdlVar_Read_OpsEnabled = _tcClientEvent->getVariableHandle(szVar2, sizeof(szVar2));
 	_lHdlNot_Read_OpsEnabled = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_OpsEnabled, (unsigned long)(this), onEventCallbackTCADS, 2);
 
-	char szVar3[] = { "Object1 (ModelBaseBROS).BlockIO.VecCon_Errors" };
+	char szVar3[] = { "Object1 (ModelBROS).BlockIO.VecCon_Errors" };
 	_lHdlVar_Read_SystemError = _tcClientEvent->getVariableHandle(szVar3, sizeof(szVar3));
 	_lHdlNot_Read_SystemError = _tcClientEvent->registerTCAdsDeviceNotification(_lHdlVar_Read_SystemError, (unsigned long)(this), onEventCallbackTCADS, 16);
 
-	char szVar4[] = { "Object1 (ModelBaseBROS).ModelParameters.CalibrateForceSensors_Value" };
+	char szVar4[] = { "Object1 (ModelBROS).ModelParameters.CalibrateForceSensors_Value" };
 	_lHdlVar_Write_CalibrateForceSensor = _tcClientEvent->getVariableHandle(szVar4, sizeof(szVar4));
 	
 }
@@ -205,7 +205,7 @@ void ofAppMain::requestStateChange(int reqState)
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
 
 	// Request State
-	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Requestedstate_Value" };
+	char szVar[] = { "Object1 (ModelBROS).ModelParameters.Requestedstate_Value" };
 	long lHdlVar = tcClient->getVariableHandle(szVar, sizeof(szVar));
 
 	double state = (double)reqState; // cast to double because the simulink model/TMC object expects a double
@@ -227,12 +227,12 @@ void ofAppMain::requestDriveEnableDisable(bool enable)
 
 	if (enable) { 
 		// enable drives
-		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.EnableDrives_Value" };
+		char szVar1[] = { "Object1 (ModelBROS).ModelParameters.EnableDrives_Value" };
 		lHdlVar = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 	}
 	else {
 		// disable drives
-		char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.DisableDrives_Value" };
+		char szVar1[] = { "Object1 (ModelBROS).ModelParameters.DisableDrives_Value" };
 		lHdlVar = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 	}
 	
@@ -321,7 +321,7 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 	tcAdsClient* tcClient = new tcAdsClient(adsPort);
 
 	// Request State
-	char szVar[] = { "Object1 (ModelBaseBROS).ModelParameters.Recorddata1yes0no_Value" };
+	char szVar[] = { "Object1 (ModelBROS).ModelParameters.Recorddata1yes0no_Value" };
 	long lHdlVar = tcClient->getVariableHandle(szVar, sizeof(szVar));
 
 	// Write 1 to enable data recording, 0 to disable data recording
@@ -361,7 +361,9 @@ bool ofAppMain::systemIsInState(SystemState state)
 
 //--------------------------------------------------------------
 void ofAppMain::keyPressed(int key){
-
+	//if (key == 'n') {
+	//	ofLogVerbose(ofSystemTextBoxDialog("Input URL", ""));
+	//}
 }
 
 //--------------------------------------------------------------

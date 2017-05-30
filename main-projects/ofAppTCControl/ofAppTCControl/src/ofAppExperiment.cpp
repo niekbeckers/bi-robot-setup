@@ -107,28 +107,28 @@ void ofAppExperiment::setupTCADS()
 {
 	_tcClient = new tcAdsClient(adsPort);
 
-	char szVar0[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpStartTrial_Value" };
+	char szVar0[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
 	_lHdlVar_Write_StartTrial = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
 
-	char szVar1[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpCondition_Value" };
+	char szVar1[] = { "Object1 (ModelBROS).ModelParameters.ExpCondition_Value" };
 	_lHdlVar_Write_Condition = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 
-	char szVar2[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpConnectionStiffness_Value" };
+	char szVar2[] = { "Object1 (ModelBROS).ModelParameters.ExpConnectionStiffness_Value" };
 	_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
 
-	char szVar3[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpConnected_Value" };
+	char szVar3[] = { "Object1 (ModelBROS).ModelParameters.ExpConnected_Value" };
 	_lHdlVar_Write_Connected = _tcClient->getVariableHandle(szVar3, sizeof(szVar3));
 
-	char szVar4[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialDuration_Value" };
+	char szVar4[] = { "Object1 (ModelBROS).ModelParameters.ExpTrialDuration_Value" };
 	_lHdlVar_Write_TrialDuration = _tcClient->getVariableHandle(szVar4, sizeof(szVar4));
 
-	char szVar5[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialNumber_Value" };
+	char szVar5[] = { "Object1 (ModelBROS).ModelParameters.ExpTrialNumber_Value" };
 	_lHdlVar_Write_TrialNumber = _tcClient->getVariableHandle(szVar5, sizeof(szVar5));
 
-	char szVar6[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpTrialRandom_Value" };
+	char szVar6[] = { "Object1 (ModelBROS).ModelParameters.ExpTrialRandom_Value" };
 	_lHdlVar_Write_TrialRandom = _tcClient->getVariableHandle(szVar6, sizeof(szVar6));
 
-	char szVar7[] = { "Object1 (ModelBaseBROS).ModelParameters.ExpConnectionDamping_Value" };
+	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.ExpConnectionDamping_Value" };
 	_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
 	
 }
