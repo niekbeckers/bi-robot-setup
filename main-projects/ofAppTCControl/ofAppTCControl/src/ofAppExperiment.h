@@ -170,8 +170,7 @@ class ofAppExperiment : public ofBaseApp
 		shared_ptr<ofAppDisplay> display2;
 
 		string experimentStateLabel = StringExperimentStateLabel(_expState);
-		ExperimentState experimentState() { return _expState; };
-
+		
 
 		// 
 		// functions
@@ -192,5 +191,9 @@ class ofAppExperiment : public ofBaseApp
 		void pauseExperiment();
 		void resumeExperiment();
 		void restartExperiment();
+
+		ExperimentState experimentState() { return _expState; };
+		void setCurrentBlockNumber(int blockNr) { _currentBlockNumber = blockNr - 1; };
+		void setCurrentTrialNumber(int trialNr) { _currentTrialNumber = trialNr - 1; };
 };
 

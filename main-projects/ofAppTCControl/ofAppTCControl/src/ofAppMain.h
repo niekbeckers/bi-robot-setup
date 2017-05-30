@@ -75,7 +75,7 @@ class ofAppMain : public ofBaseApp{
 		// GUI system
 		ofxPanel _guiSystem;
 		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnCalibrateForceSensor,
-			_btnReqState_Run, _btnEnableDrive, _btnDisableDrive, _btnQuit, _btnExpRestart;
+			_btnReqState_Run, _btnEnableDrive, _btnDisableDrive;
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
 		ofxLabel _lblEtherCAT;
@@ -84,7 +84,7 @@ class ofAppMain : public ofBaseApp{
 
 		// GUI experiment
 		ofxPanel _guiExperiment;
-		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop;
+		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop, _btnExpEnterTrial, _btnExpEnterBlock, _btnExpRestart;
 		ofxToggle _btnExpPauseResume;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
@@ -97,7 +97,7 @@ class ofAppMain : public ofBaseApp{
 		void buttonPressed(const void * sender);
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);
-		
+		void calibrateForceSensors();
 
 	public:
 		//
@@ -123,15 +123,13 @@ class ofAppMain : public ofBaseApp{
 		void update();
 		void draw();
 		void keyPressed(int key);
-		void keyReleased(int key);
-		void windowResized(int w, int h);
 		void exit();
 
 		// custom
 		void requestStateChange(int reqState);
 		void requestDriveEnableDisable(bool enable);
-		bool systemIsInState(int state);
-		bool systemIsInState(SystemState state);
+		bool systemIsInState(int state) { return (_systemState[0] == state && _systemState[1] == state); }
+		bool systemIsInState(SystemState state) { return systemIsInState((int)state); }
 		bool systemIsInError() { return _systemState[0] == SystemState::FAULT || _systemState[1] == SystemState::FAULT; };
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 };

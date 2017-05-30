@@ -109,7 +109,6 @@ void ofAppMain::setupGUI()
 {
 	// add listeners
 	_btnCalibrateForceSensor.addListener(this, &ofAppMain::buttonPressed);
-	_btnQuit.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Calibrate.addListener(this, &ofAppMain::buttonPressed);
@@ -122,6 +121,8 @@ void ofAppMain::setupGUI()
 	_btnExpLoad.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpEnterBlock.addListener(this, &ofAppMain::buttonPressed);
+	_btnExpEnterTrial.addListener(this, &ofAppMain::buttonPressed);
 
 	// toggle
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
@@ -184,13 +185,19 @@ void ofAppMain::setupGUI()
 	_grpExpControl.add(_btnExpStart.setup("Start"));
 	_grpExpControl.add(_btnExpStop.setup("Stop"));
 	_grpExpControl.add(_btnExpPauseResume.setup("Pause", false));
+	_grpExpControl.add(_btnExpEnterBlock.setup("Enter block #"));
+	_grpExpControl.add(_btnExpEnterTrial.setup("Enter trial #"));
+	_grpExpControl.add(_btnExpRestart.setup("Restart experiment"));
+
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
 	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));
 	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10));
 	_guiExperiment.add(_grpExpState);
-	_guiExperiment.add(_btnExpRestart.setup("Restart experiment"));
+
+
+	
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
@@ -252,10 +259,7 @@ void ofAppMain::buttonPressed(const void * sender)
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
 
-	if (clickedBtn.compare(ofToString("Quit")) == 0) {
-		ofExit();
-	}
-	else if (clickedBtn.compare(ofToString("Reset")) == 0) {
+	if (clickedBtn.compare(ofToString("Reset")) == 0) {
 		requestStateChange(0);
 	} 
 	else if (clickedBtn.compare(ofToString("Init")) == 0) {
@@ -292,22 +296,15 @@ void ofAppMain::buttonPressed(const void * sender)
 		experimentApp->restartExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
-		// only allow force sensor calibration when in the following experiment states
-		if (experimentApp->experimentState() == ExperimentState::BLOCKBREAK || 
-			experimentApp->experimentState() == ExperimentState::IDLE || 
-			experimentApp->experimentState() == ExperimentState::EXPERIMENTDONE) {
-	
-			double var = 1.0;
-			_tcClientEvent->write(_lHdlVar_Write_CalibrateForceSensor, &var, sizeof(var));
-			var = 0.0;
-			_tcClientEvent->write(_lHdlVar_Write_CalibrateForceSensor, &var, sizeof(var));
-
-			ofLogVerbose("Calibrate force sensor requested");
-		}
-		else {
-			ofLogError("Incorrect experiment state, force sensor calibration not allowed (only during IDLE, BLOCKBREAK, EXPERIMENTDONE)");
-		}
-		
+		calibrateForceSensors();
+	}
+	else if (clickedBtn.compare(ofToString("Enter block #")) == 0) {
+		string s = ofSystemTextBoxDialog("Enter desired block number", "");
+		experimentApp->setCurrentBlockNumber(atoi(s.c_str()));
+	}
+	else if (clickedBtn.compare(ofToString("Enter trial #")) == 0) {
+		string s = ofSystemTextBoxDialog("Enter desired trial number", "");
+		experimentApp->setCurrentBlockNumber(atoi(s.c_str()));
 	}
 	else {
 		ofLogError("Button " + clickedBtn + " unknown");
@@ -347,32 +344,13 @@ void ofAppMain::pauseExperimentTogglePressed(bool & value)
 	}
 }
 
-//--------------------------------------------------------------
-bool ofAppMain::systemIsInState(int state)
-{
-	return (_systemState[0] == state && _systemState[1] == state);
-}
 
-//--------------------------------------------------------------
-bool ofAppMain::systemIsInState(SystemState state)
-{
-	return (_systemState[0] == state && _systemState[1] == state);
-}
 
 //--------------------------------------------------------------
 void ofAppMain::keyPressed(int key){
 	//if (key == 'n') {
 	//	ofLogVerbose(ofSystemTextBoxDialog("Input URL", ""));
 	//}
-}
-
-//--------------------------------------------------------------
-void ofAppMain::keyReleased(int key){
-
-}
-//--------------------------------------------------------------
-void ofAppMain::windowResized(int w, int h){
-
 }
 
 //--------------------------------------------------------------
@@ -395,10 +373,32 @@ void ofAppMain::exit() {
 	_btnToggleRecordData = false;
 	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);
+	_btnExpEnterBlock.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpEnterTrial.removeListener(this, &ofAppMain::buttonPressed);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();
 	_tcClientEvent->disconnect();
+}
+
+//--------------------------------------------------------------
+void ofAppMain::calibrateForceSensors()
+{
+	// only allow force sensor calibration when in the following experiment states
+	if (experimentApp->experimentState() == ExperimentState::BLOCKBREAK ||
+		experimentApp->experimentState() == ExperimentState::IDLE ||
+		experimentApp->experimentState() == ExperimentState::EXPERIMENTDONE) {
+
+		double var = 1.0;
+		_tcClientEvent->write(_lHdlVar_Write_CalibrateForceSensor, &var, sizeof(var));
+		var = 0.0;
+		_tcClientEvent->write(_lHdlVar_Write_CalibrateForceSensor, &var, sizeof(var));
+
+		ofLogVerbose("Calibrate force sensor requested");
+	}
+	else {
+		ofLogError("Incorrect experiment state, force sensor calibration not allowed (only during IDLE, BLOCKBREAK, EXPERIMENTDONE)");
+	}
 }
 
 //--------------------------------------------------------------
