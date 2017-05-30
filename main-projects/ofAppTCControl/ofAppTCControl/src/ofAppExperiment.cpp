@@ -18,7 +18,6 @@ void ofAppExperiment::update()
 
 	// check whether the system is in error
 	if (mainApp->systemIsInError()) {
-		//ofLogError("ofAppExperiment::update()","System error detected, experiment state machine halted. Press Restart.");
 		_experimentRunning = false;
 		setExperimentState(ExperimentState::SYSTEMFAULT); 
 	}

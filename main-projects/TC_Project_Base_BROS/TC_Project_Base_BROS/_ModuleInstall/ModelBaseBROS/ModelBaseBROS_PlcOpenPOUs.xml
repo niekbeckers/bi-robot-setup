@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-30T07:13:36" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-30T12:09:15" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#ac344ad1;
-clsId.Data2 := 16#b879;
-clsId.Data3 := 16#4d94;
-clsId.Data4[0] := 16#b7;
-clsId.Data4[1] := 16#c3;
-clsId.Data4[2] := 16#3c;
-clsId.Data4[3] := 16#b0;
-clsId.Data4[4] := 16#b1;
-clsId.Data4[5] := 16#ba;
-clsId.Data4[6] := 16#22;
-clsId.Data4[7] := 16#0a;
+clsId.Data1 := 16#195ac336;
+clsId.Data2 := 16#d2f3;
+clsId.Data3 := 16#411d;
+clsId.Data4[0] := 16#9b;
+clsId.Data4[1] := 16#90;
+clsId.Data4[2] := 16#ff;
+clsId.Data4[3] := 16#d8;
+clsId.Data4[4] := 16#86;
+clsId.Data4[5] := 16#6b;
+clsId.Data4[6] := 16#d7;
+clsId.Data4[7] := 16#d4;
 
 AssignClassId(clsId);
                     
@@ -2429,7 +2429,6 @@ stInitData.ModelParameters.Gain_Gain_e := 1;
 stInitData.ModelParameters.Constant2_Value := 0.05;
 stInitData.ModelParameters.CalibrateForceSensors_Value := 0;
 stInitData.ModelParameters.Constant_Value_k := 0;
-stInitData.ModelParameters.Gain_Gain_g := 1;
 stInitData.ModelParameters.Merge1_InitialOutput[0] := 0;
 stInitData.ModelParameters.Merge1_InitialOutput[1] := 0;
 stInitData.ModelParameters.Kp_Gain := 0;
@@ -2482,7 +2481,7 @@ stInitData.ModelParameters.TimePerState_ms_Value_j[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value_j[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value_e := 10;
 stInitData.ModelParameters.TorqueLimit_Value_c := 4;
-stInitData.ModelParameters.Gain_Gain_g4 := 1;
+stInitData.ModelParameters.Gain_Gain_g := 1;
 stInitData.ModelParameters.Gain_Gain_eq := 1;
 stInitData.ModelParameters.Constant2_Value_d := 0.05;
 stInitData.ModelParameters.virtualdamping3_Value[0] := 0;
