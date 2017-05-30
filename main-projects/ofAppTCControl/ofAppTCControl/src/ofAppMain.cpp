@@ -196,13 +196,8 @@ void ofAppMain::setupGUI()
 	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10));
 	_guiExperiment.add(_grpExpState);
 
-
-	
-
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
-
-	ofLogVerbose(ofToString(_guiExperiment.getWidth()) + "  " + ofToString(_btnReqState_Run.getWidth()));
 }
 
 //--------------------------------------------------------------
@@ -300,11 +295,12 @@ void ofAppMain::buttonPressed(const void * sender)
 	}
 	else if (clickedBtn.compare(ofToString("Enter block #")) == 0) {
 		string s = ofSystemTextBoxDialog("Enter desired block number", "");
-		experimentApp->setCurrentBlockNumber(atoi(s.c_str()));
+		if (s != "") experimentApp->setCurrentBlockNumber(atoi(s.c_str()));
 	}
 	else if (clickedBtn.compare(ofToString("Enter trial #")) == 0) {
 		string s = ofSystemTextBoxDialog("Enter desired trial number", "");
-		experimentApp->setCurrentBlockNumber(atoi(s.c_str()));
+		if (s != "") experimentApp->setCurrentTrialNumber(atoi(s.c_str()));
+		
 	}
 	else {
 		ofLogError("Button " + clickedBtn + " unknown");

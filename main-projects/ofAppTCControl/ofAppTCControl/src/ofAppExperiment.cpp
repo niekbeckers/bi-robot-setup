@@ -17,7 +17,11 @@ void ofAppExperiment::update()
 	_nowTrialRunning = (bool)mainApp->AdsData[8];
 
 	// check whether the system is in error
-	if (mainApp->systemIsInError()) { setExperimentState(ExperimentState::SYSTEMFAULT); }
+	if (mainApp->systemIsInError()) {
+		//ofLogError("ofAppExperiment::update()","System error detected, experiment state machine halted. Press Restart.");
+		_experimentRunning = false;
+		setExperimentState(ExperimentState::SYSTEMFAULT); 
+	}
 
 	//
 	// experiment state machine
@@ -173,25 +177,22 @@ void ofAppExperiment::resumeExperiment()
 //--------------------------------------------------------------
 void ofAppExperiment::restartExperiment()
 {
-	// restart trial. This only works when the computer hasn't crashed.
-	if (_expState == ExperimentState::SYSTEMFAULT && _experimentRunning) {
-		// SystemState fault
-		// do nothing - if everything is correct, then the program hasn't crashed and 
-		// _currentTrialNumber and _currentBlockNumber are still at the point where the system has went to fault state. 
-		// So you can redo the trial during which the system fault
-	}
-	else if (_expState == ExperimentState::IDLE) {
-		// Program crash. 
-		// By selecting the correct trial and block number in the ofParameter, then use this value to set the _currentTrialNumber, _currentBlockNumber
-		// get the current trial and block number from the ofParameters. i.e. this means you can set the trial and block yourself
-		_currentTrialNumber = mainApp->lblTrialNumber - 1;
-		_currentBlockNumber = mainApp->lblBlockNumber - 1;
+
+	// restart trial. Only possible when in error mode / idle mode
+	if ((_expState == ExperimentState::SYSTEMFAULT && _experimentRunning) || _expState == ExperimentState::IDLE) {
+
+		display1->drawTask = false;
+		display2->drawTask = false;
+
+		_experimentRunning = true;
+
+		// set new block
+		esmNewBlock(_currentTrialNumber);
+
+		setExperimentState(ExperimentState::NEWTRIAL);
 	}
 
-	// set new block
-	esmNewBlock(_currentTrialNumber);
-
-	setExperimentState(ExperimentState::NEWTRIAL);
+	
 }
 
 //--------------------------------------------------------------
@@ -341,6 +342,28 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	}
 }
 
+//--------------------------------------------------------------
+void ofAppExperiment::setCurrentBlockNumber(int blockNr)
+{
+	_currentBlockNumber = blockNr - 1; 
+	mainApp->lblBlockNumber = blockNr;
+
+	try {
+		mainApp->lblTrialNumber.setMax(_blocks[_currentBlockNumber].trials.size());
+		mainApp->lblBlockNumber.setMax(_blocks.size());
+	}
+	catch (int e) {
+		ofLogError("ofAppExperiment::setCurrentBlockNumber(int blockNr)","Cannot set block number. No experiment protocol loaded? Error: " + e);
+	}
+	 
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::setCurrentTrialNumber(int trialNr)
+{
+	_currentTrialNumber = trialNr - 1;
+	mainApp->lblTrialNumber = trialNr;
+}
 
 //
 // Experiment State Machine functions
@@ -369,6 +392,8 @@ void ofAppExperiment::esmExperimentStop()
 //--------------------------------------------------------------
 void ofAppExperiment::esmNewBlock(int trialNumber)
 {
+	if (!_experimentRunning) { return; }
+
 	_currentBlock = _blocks[_currentBlockNumber];
 	_currentTrialNumber = trialNumber;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
@@ -381,7 +406,7 @@ void ofAppExperiment::esmNewBlock(int trialNumber)
 //--------------------------------------------------------------
 void ofAppExperiment::esmNewTrial()
 {
-	if (_experimentPaused) { return; }
+	if (_experimentPaused || !_experimentRunning) { return; }
 
 	_currentTrial = _currentBlock.trials[_currentTrialNumber];
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
@@ -497,6 +522,8 @@ void ofAppExperiment::esmTrialDone()
 	// set display to black
 	display1->drawTask = false;
 	display2->drawTask = false;
+	display1->showMessage(true, "Trial done");
+	display2->showMessage(true, "Trial done");
 
 	// call for trial after homing
 	if (!mainApp->systemIsInState(SystemState::ATHOME)) {

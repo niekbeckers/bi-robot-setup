@@ -193,7 +193,7 @@ class ofAppExperiment : public ofBaseApp
 		void restartExperiment();
 
 		ExperimentState experimentState() { return _expState; };
-		void setCurrentBlockNumber(int blockNr) { _currentBlockNumber = blockNr - 1; };
-		void setCurrentTrialNumber(int trialNr) { _currentTrialNumber = trialNr - 1; };
+		void setCurrentBlockNumber(int blockNr);
+		void setCurrentTrialNumber(int trialNr);
 };
 
