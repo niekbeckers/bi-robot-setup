@@ -35,6 +35,7 @@ struct blockData {
 
 enum ExperimentState {
 	IDLE = 0,
+	SYSTEMFAULT,
 	EXPERIMENTSTART,
 	EXPERIMENTSTOP,
 	EXPERIMENTPAUSE,
@@ -66,6 +67,7 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 	if (strings.size() == 0) {
 #define INSERT_ELEMENT(p) strings[p] = #p
 		INSERT_ELEMENT(IDLE);
+		INSERT_ELEMENT(SYSTEMFAULT);
 		INSERT_ELEMENT(EXPERIMENTSTART);
 		INSERT_ELEMENT(EXPERIMENTSTOP);
 		INSERT_ELEMENT(EXPERIMENTPAUSE);
@@ -116,7 +118,7 @@ class ofAppExperiment : public ofBaseApp
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
 
 		bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
-		bool prevTrialRunning = false;
+		bool _prevTrialRunning = false, _nowTrialRunning = false;
 		
 		// block and trial data for current trial/block
 		blockData _currentBlock;
@@ -135,6 +137,26 @@ class ofAppExperiment : public ofBaseApp
 		void requestStartTrialADS();
 		void setExperimentState(ExperimentState newState);
 		string secToMin(double seconds);
+
+		void esmExperimentStart();
+		void esmExperimentStop();
+		void esmNewBlock(int trialNumber = 0);
+		void esmNewTrial();
+		void esmHomingBefore();
+		void esmHomingBeforeDone();
+		void esmGetReady();
+		void esmGetReadyDone();
+		void esmCountdown();
+		void esmCountdownDone();
+		void esmTrialRunning();
+		void esmTrialDone();
+		void esmHomingAfter();
+		void esmHomingAfterDone();
+		void esmCheckNextStep();
+		void esmTrialBreak();
+		void esmTrialBreakDone();
+		void esmBlockBreak();
+		void esmBlockBreakDone();
 
 	public:
 
@@ -169,5 +191,6 @@ class ofAppExperiment : public ofBaseApp
 		void stopExperiment();
 		void pauseExperiment();
 		void resumeExperiment();
+		void restartExperiment();
 };
 
