@@ -6,6 +6,17 @@ Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
+%% target position parameter
+
+load('final_phases_and_functiondata.mat') %load file with nx, ny, phases sets and precomputed A
+
+nx_target = nx;
+ny_target = ny;
+phasesx_target = phasesx;
+phasesy_target = phasesy;
+A_target = A;
+
+
 %% RobotStruct_FM1
 clear FM1
 
