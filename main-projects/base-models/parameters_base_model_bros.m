@@ -12,8 +12,8 @@ clear FM1
 FM1.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
 FM1.HomeLocationSize = 0.005;
 
-FM1.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
-
+% FM1.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
+FM1.DynModParams = [9.446018e-04  5.536255e-04  1.102026e-01  1.175426e-01 -6.234047e-03  1.037213e-01  3.853734e-03]';
 % actuator 1 data
 FM1.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
 FM1.Actuator1.AbsEncoderOffset = 54769/FM1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
@@ -50,7 +50,8 @@ clear FM2
 FM2.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
 FM2.HomeLocationSize = 0.005;
 
-FM2.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
+% FM2.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
+FM2.DynModParams = [1.117256e-03 1.224600e-03 8.800769e-02 1.073326e-01 1.462254e-03 1.416925e-01 6.135432e-03]';
 
 % actuator 1 data
 FM2.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]

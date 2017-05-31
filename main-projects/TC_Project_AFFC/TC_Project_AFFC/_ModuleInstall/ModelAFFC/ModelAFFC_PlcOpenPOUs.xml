@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-03-16T12:32:01" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-05-31T09:53:38" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelAFFC_FB">
     <coordinateInfo>
       <fbd>
@@ -215,72 +215,72 @@
  			<dataType name = "ST_ModelAFFC_Input">
 				<baseType>
 					<struct>
-						<variable name="StatusWord_joint1">
+						<variable name="StatusWord_joint3">
 							<type>
 								<derived name="UINT" />
 							</type>
 						</variable>
-						<variable name="MotorEncoder_joint1">
+						<variable name="MotorEncoder_joint3">
 							<type>
 								<derived name="DINT" />
 							</type>
 						</variable>
-						<variable name="JointAbsEnc_joint1">
+						<variable name="JointAbsEnc_joint3">
 							<type>
 								<derived name="DINT" />
 							</type>
 						</variable>
-						<variable name="MotorCurrentAct_joint1">
+						<variable name="MotorCurrentAct_joint3">
 							<type>
 								<derived name="INT" />
 							</type>
 						</variable>
-						<variable name="StatusWord_joint2">
+						<variable name="StatusWord_joint4">
 							<type>
 								<derived name="UINT" />
 							</type>
 						</variable>
-						<variable name="MotorEncoder_joint2">
+						<variable name="MotorEncoder_joint4">
 							<type>
 								<derived name="DINT" />
 							</type>
 						</variable>
-						<variable name="JointAbsEnc_joint2">
+						<variable name="JointAbsEnc_joint4">
 							<type>
 								<derived name="DINT" />
 							</type>
 						</variable>
-						<variable name="MotorCurrentAct_joint2">
+						<variable name="MotorCurrentAct_joint4">
 							<type>
 								<derived name="INT" />
 							</type>
 						</variable>
-						<variable name="FTch1">
+						<variable name="FTch7">
 							<type>
 								<derived name="REAL" />
 							</type>
 						</variable>
-						<variable name="FTch2">
+						<variable name="FTch8">
 							<type>
 								<derived name="REAL" />
 							</type>
 						</variable>
-						<variable name="FTch3">
+						<variable name="FTch9">
 							<type>
 								<derived name="REAL" />
 							</type>
 						</variable>
-						<variable name="FTch4">
+						<variable name="FTch10">
 							<type>
 								<derived name="REAL" />
 							</type>
 						</variable>
-						<variable name="FTch5">
+						<variable name="FTch11">
 							<type>
 								<derived name="REAL" />
 							</type>
 						</variable>
-						<variable name="FTch6">
+						<variable name="FTch12">
 							<type>
 								<derived name="REAL" />
 							</type>
@@ -291,42 +291,42 @@
 			<dataType name = "ST_ModelAFFC_Output">
 				<baseType>
 					<struct>
-						<variable name="EnableCircuit">
+						<variable name="EnableCircuit1">
 							<type>
 								<derived name="BOOL" />
 							</type>
 						</variable>
-						<variable name="ControlWord_joint1">
+						<variable name="ControlWord_joint3">
 							<type>
 								<derived name="UINT" />
 							</type>
 						</variable>
-						<variable name="ModesOfOperation_joint1">
+						<variable name="ModesOfOperation_joint3">
 							<type>
 								<derived name="SINT" />
 							</type>
 						</variable>
-						<variable name="TargetCurrent_joint1">
+						<variable name="TargetCurrent_joint3">
 							<type>
 								<derived name="INT" />
 							</type>
 						</variable>
-						<variable name="ControlWord_joint2">
+						<variable name="ControlWord_joint4">
 							<type>
 								<derived name="UINT" />
 							</type>
 						</variable>
-						<variable name="ModesOfOperation_joint2">
+						<variable name="ModesOfOperation_joint4">
 							<type>
 								<derived name="SINT" />
 							</type>
 						</variable>
-						<variable name="TargetCurrent_joint2">
+						<variable name="TargetCurrent_joint4">
 							<type>
 								<derived name="INT" />
 							</type>
 						</variable>
-						<variable name="pause_logger">
+						<variable name="pause_logger1">
 							<type>
 								<derived name="BOOL" />
 							</type>
@@ -2067,17 +2067,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#26d6c040;
-clsId.Data2 := 16#2749;
-clsId.Data3 := 16#413b;
-clsId.Data4[0] := 16#b6;
-clsId.Data4[1] := 16#99;
-clsId.Data4[2] := 16#8e;
-clsId.Data4[3] := 16#43;
-clsId.Data4[4] := 16#5d;
-clsId.Data4[5] := 16#f5;
-clsId.Data4[6] := 16#e2;
-clsId.Data4[7] := 16#14;
+clsId.Data1 := 16#2e6ea173;
+clsId.Data2 := 16#11af;
+clsId.Data3 := 16#44fb;
+clsId.Data4[0] := 16#b3;
+clsId.Data4[1] := 16#de;
+clsId.Data4[2] := 16#1b;
+clsId.Data4[3] := 16#81;
+clsId.Data4[4] := 16#0a;
+clsId.Data4[5] := 16#8d;
+clsId.Data4[6] := 16#c5;
+clsId.Data4[7] := 16#8b;
 
 AssignClassId(clsId);
                     
@@ -2118,17 +2118,17 @@ stInitData.ModelParametersHdr.cbData := SIZEOF(stInitData.ModelParameters);
 stInitData.ModelParameters.FM1.HomeLocationOpSpace[0] := 0;
 stInitData.ModelParameters.FM1.HomeLocationOpSpace[1] := 0.25;
 stInitData.ModelParameters.FM1.HomeLocationSize := 0.01;
-stInitData.ModelParameters.FM1.DynModParams[0] := 1;
-stInitData.ModelParameters.FM1.DynModParams[1] := 1;
-stInitData.ModelParameters.FM1.DynModParams[2] := 1;
-stInitData.ModelParameters.FM1.DynModParams[3] := 1;
-stInitData.ModelParameters.FM1.DynModParams[4] := 1;
-stInitData.ModelParameters.FM1.DynModParams[5] := 1;
-stInitData.ModelParameters.FM1.DynModParams[6] := 1;
+stInitData.ModelParameters.FM1.DynModParams[0] := 0.001597109;
+stInitData.ModelParameters.FM1.DynModParams[1] := 0.001580786;
+stInitData.ModelParameters.FM1.DynModParams[2] := 0.0702826;
+stInitData.ModelParameters.FM1.DynModParams[3] := 0.07988736;
+stInitData.ModelParameters.FM1.DynModParams[4] := -0.0009954503;
+stInitData.ModelParameters.FM1.DynModParams[5] := 0.1006366;
+stInitData.ModelParameters.FM1.DynModParams[6] := -0.001994173;
 stInitData.ModelParameters.FM1.Actuator1.JointAbsoluteEncoderCounts_rev := 65536;
-stInitData.ModelParameters.FM1.Actuator1.AbsEncoderOffset := 5.438117982957576;
+stInitData.ModelParameters.FM1.Actuator1.AbsEncoderOffset := 5.303223547422882;
 stInitData.ModelParameters.FM1.Actuator1.MotorEncoderCounts_rev := 4096;
-stInitData.ModelParameters.FM1.Actuator1.FOAWNoiseLevel := 4.793689962142629e-05;
+stInitData.ModelParameters.FM1.Actuator1.FOAWNoiseLevel := 0.0003834951969714103;
 stInitData.ModelParameters.FM1.Actuator1.transmissionRatio := 7.2976;
 stInitData.ModelParameters.FM1.Actuator1.motorTorqueConstant := 0.08486;
 stInitData.ModelParameters.FM1.Actuator1.drivePeakCurrent := 20;
@@ -2137,9 +2137,9 @@ stInitData.ModelParameters.FM1.Actuator1.TransmissionSlipAngleGuardMax := 0.0872
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMin := -0.4363323129985824;
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMax := 2.356194490192345;
 stInitData.ModelParameters.FM1.Actuator2.JointAbsoluteEncoderCounts_rev := 65536;
-stInitData.ModelParameters.FM1.Actuator2.AbsEncoderOffset := 7.516445644535906;
+stInitData.ModelParameters.FM1.Actuator2.AbsEncoderOffset := 7.340133727728301;
 stInitData.ModelParameters.FM1.Actuator2.MotorEncoderCounts_rev := 4096;
-stInitData.ModelParameters.FM1.Actuator2.FOAWNoiseLevel := 4.793689962142629e-05;
+stInitData.ModelParameters.FM1.Actuator2.FOAWNoiseLevel := 0.0003834951969714103;
 stInitData.ModelParameters.FM1.Actuator2.transmissionRatio := 7.331;
 stInitData.ModelParameters.FM1.Actuator2.motorTorqueConstant := 0.08486;
 stInitData.ModelParameters.FM1.Actuator2.drivePeakCurrent := 20;
@@ -2158,25 +2158,31 @@ stInitData.ModelParameters.Lb := 0.07000000000000001;
 stInitData.ModelParameters.Lf := 0.238;
 stInitData.ModelParameters.Lu := 0.153;
 stInitData.ModelParameters.sampleTime := 0.001;
-stInitData.ModelParameters.CompareToConstant_const := 400;
-stInitData.ModelParameters.CompareToConstant_const_f := 0;
-stInitData.ModelParameters.CompareToConstant_const_p := 1;
+stInitData.ModelParameters.DiscreteDerivative_ICPrevScaled := 0;
+stInitData.ModelParameters.DiscreteDerivative_ICPrevScal_f := 0;
+stInitData.ModelParameters.DiscreteDerivative_ICPrevScal_n := 0;
+stInitData.ModelParameters.DiscreteDerivative_ICPrevScal_h := 0;
+stInitData.ModelParameters.CompareToConstant_const := 300;
+stInitData.ModelParameters.CompareToConstant_const_l := 201;
+stInitData.ModelParameters.CompareToConstant_const_k := 0;
 stInitData.ModelParameters.Checkstate_const := 4;
-stInitData.ModelParameters.CompareToConstant_const_m := 4;
-stInitData.ModelParameters.CompareToConstant_const_l := 4;
-stInitData.ModelParameters.CompareToConstant1_const := 120;
-stInitData.ModelParameters.DetectChange1_vinit := 0;
-stInitData.ModelParameters.DetectChange_vinit := 0;
-stInitData.ModelParameters.DetectChange_vinit_n := 0;
+stInitData.ModelParameters.CompareToConstant_const_n := 4;
+stInitData.ModelParameters.CompareToConstant_const_b := 4;
+stInitData.ModelParameters.CompareToConstant1_const := 2.75;
 stInitData.ModelParameters.WrapToZero_Threshold := -1;
-stInitData.ModelParameters.WrapToZero_Threshold_n := -1;
-stInitData.ModelParameters.WrapToZero_Threshold_b := -1;
+stInitData.ModelParameters.WrapToZero_Threshold_h := -1;
+stInitData.ModelParameters.WrapToZero_Threshold_m := -1;
+stInitData.ModelParameters.CompareToConstant_const_kx := 0;
+stInitData.ModelParameters.CompareToConstant_const_p := 0;
 stInitData.ModelParameters.ErrorHasOccurred_initial_condit := 0;
-stInitData.ModelParameters.ErrorHasOccurred_initial_cond_k := 0;
+stInitData.ModelParameters.ErrorHasOccurred_initial_cond_j := 0;
 stInitData.ModelParameters.DetectRisePositive_vinit := 0;
 stInitData.ModelParameters.DetectRisePositive1_vinit := 0;
-stInitData.ModelParameters.DetectRisePositive_vinit_p := 0;
-stInitData.ModelParameters.DetectRisePositive1_vinit_b := 0;
+stInitData.ModelParameters.DetectRisePositive_vinit_o := 0;
+stInitData.ModelParameters.DetectRisePositive1_vinit_c := 0;
+stInitData.ModelParameters.DetectChange_vinit := 0;
+stInitData.ModelParameters.DetectChange_vinit_m := 0;
+stInitData.ModelParameters.DetectRiseNonnegative_vinit := 0;
 stInitData.ModelParameters.DetectIncrease_vinit := 0;
 stInitData.ModelParameters.dx_ref_Y0[0] := 0;
 stInitData.ModelParameters.dx_ref_Y0[1] := 0;
@@ -2205,36 +2211,36 @@ stInitData.ModelParameters.Saturation_UpperSat := 1;
 stInitData.ModelParameters.Saturation_LowerSat := 0;
 stInitData.ModelParameters.Gain1_Gain := 6.283185307179586;
 stInitData.ModelParameters.Gain2_Gain := 0.1591549430918953;
-stInitData.ModelParameters.Saturation_UpperSat_i := 1;
-stInitData.ModelParameters.Saturation_LowerSat_h := 0;
-stInitData.ModelParameters.One_Value_k := 1;
+stInitData.ModelParameters.Saturation_UpperSat_o := 1;
+stInitData.ModelParameters.Saturation_LowerSat_l := 0;
+stInitData.ModelParameters.One_Value_a := 1;
 stInitData.ModelParameters.RateLimiter_RisingLim := 0.00025;
 stInitData.ModelParameters.RateLimiter_FallingLim := -0.00015;
 stInitData.ModelParameters.RateLimiter_IC := 0;
-stInitData.ModelParameters.Saturation_UpperSat_f := 1;
-stInitData.ModelParameters.Saturation_LowerSat_p := 0;
-stInitData.ModelParameters.Gain1_Gain_c := 6.283185307179586;
-stInitData.ModelParameters.Gain2_Gain_i := 0.1591549430918953;
-stInitData.ModelParameters.Saturation_UpperSat_l := 1;
-stInitData.ModelParameters.Saturation_LowerSat_d := 0;
+stInitData.ModelParameters.Saturation_UpperSat_n := 1;
+stInitData.ModelParameters.Saturation_LowerSat_i := 0;
+stInitData.ModelParameters.Gain1_Gain_h := 6.283185307179586;
+stInitData.ModelParameters.Gain2_Gain_a := 0.1591549430918953;
+stInitData.ModelParameters.Saturation_UpperSat_p := 1;
+stInitData.ModelParameters.Saturation_LowerSat_o := 0;
 stInitData.ModelParameters.T_Value := 300;
-stInitData.ModelParameters.n_Value := 5;
+stInitData.ModelParameters.n_Value := 7;
 stInitData.ModelParameters.hstart_Value := 0.055;
 stInitData.ModelParameters.hend_Value := 0.055;
-stInitData.ModelParameters.wstart_Value := 6;
-stInitData.ModelParameters.wend_Value := 6;
-stInitData.ModelParameters.One_Value_g := 1;
-stInitData.ModelParameters.Saturation_UpperSat_b := 1;
-stInitData.ModelParameters.Saturation_LowerSat_m := 0;
-stInitData.ModelParameters.One_Value_h := 1;
-stInitData.ModelParameters.Saturation_UpperSat_e := 1;
-stInitData.ModelParameters.Saturation_LowerSat_e := 0;
+stInitData.ModelParameters.wstart_Value := 7;
+stInitData.ModelParameters.wend_Value := 7;
 stInitData.ModelParameters.One_Value_i := 1;
 stInitData.ModelParameters.Saturation_UpperSat_a := 1;
-stInitData.ModelParameters.Saturation_LowerSat_p1 := 0;
-stInitData.ModelParameters.One_Value_k0 := 1;
-stInitData.ModelParameters.Saturation_UpperSat_bb := 1;
-stInitData.ModelParameters.Saturation_LowerSat_c := 0;
+stInitData.ModelParameters.Saturation_LowerSat_m := 0;
+stInitData.ModelParameters.One_Value_f := 1;
+stInitData.ModelParameters.Saturation_UpperSat_ns := 1;
+stInitData.ModelParameters.Saturation_LowerSat_i2 := 0;
+stInitData.ModelParameters.One_Value_ab := 1;
+stInitData.ModelParameters.Saturation_UpperSat_h := 1;
+stInitData.ModelParameters.Saturation_LowerSat_g := 0;
+stInitData.ModelParameters.One_Value_b := 1;
+stInitData.ModelParameters.Saturation_UpperSat_ob := 1;
+stInitData.ModelParameters.Saturation_LowerSat_gk := 0;
 stInitData.ModelParameters.p_Y0[0] := 0;
 stInitData.ModelParameters.p_Y0[1] := 0;
 stInitData.ModelParameters.p_Y0[2] := 0;
@@ -2250,10 +2256,10 @@ stInitData.ModelParameters.Learningfactors_Value[2] := 0.0005;
 stInitData.ModelParameters.Learningfactors_Value[3] := 0.001;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0[0] := 0;
 stInitData.ModelParameters.JointTorqueDes_Nm_Y0[1] := 0;
-stInitData.ModelParameters.Constant3_Value_m[0] := 0;
-stInitData.ModelParameters.Constant3_Value_m[1] := 0;
-stInitData.ModelParameters.JointTorqueDes_Nm_Y0_e[0] := 0;
-stInitData.ModelParameters.JointTorqueDes_Nm_Y0_e[1] := 0;
+stInitData.ModelParameters.Constant3_Value_d[0] := 0;
+stInitData.ModelParameters.Constant3_Value_d[1] := 0;
+stInitData.ModelParameters.JointTorqueDes_Nm_Y0_h[0] := 0;
+stInitData.ModelParameters.JointTorqueDes_Nm_Y0_h[1] := 0;
 stInitData.ModelParameters.Constant_Value[0] := 0;
 stInitData.ModelParameters.Constant_Value[1] := 0;
 stInitData.ModelParameters.q_ref_Y0[0] := 0;
@@ -2262,83 +2268,101 @@ stInitData.ModelParameters.qdot_ref_Y0[0] := 0;
 stInitData.ModelParameters.qdot_ref_Y0[1] := 0;
 stInitData.ModelParameters.qddot_ref_Y0[0] := 0;
 stInitData.ModelParameters.qddot_ref_Y0[1] := 0;
-stInitData.ModelParameters.Constant1_Value_i := 1;
-stInitData.ModelParameters.One_Value_l := 1;
-stInitData.ModelParameters.RateLimiter_RisingLim_b := 0.0001;
-stInitData.ModelParameters.RateLimiter_FallingLim_d := -0.0002;
-stInitData.ModelParameters.RateLimiter_IC_c := 0;
-stInitData.ModelParameters.Saturation_UpperSat_c := 1;
-stInitData.ModelParameters.Saturation_LowerSat_g := 0;
-stInitData.ModelParameters.Gain1_Gain_m := 6.283185307179586;
-stInitData.ModelParameters.Gain2_Gain_n := 0.1591549430918953;
-stInitData.ModelParameters.Saturation_UpperSat_h := 1;
-stInitData.ModelParameters.Saturation_LowerSat_i := 0;
+stInitData.ModelParameters.Constant1_Value_g := 1;
+stInitData.ModelParameters.One_Value_ia := 1;
+stInitData.ModelParameters.RateLimiter_RisingLim_e := 0.0001;
+stInitData.ModelParameters.RateLimiter_FallingLim_p := -0.0002;
+stInitData.ModelParameters.RateLimiter_IC_d := 0;
+stInitData.ModelParameters.Saturation_UpperSat_nf := 1;
+stInitData.ModelParameters.Saturation_LowerSat_gg := 0;
+stInitData.ModelParameters.Gain1_Gain_g := 6.283185307179586;
+stInitData.ModelParameters.Gain2_Gain_f := 0.1591549430918953;
+stInitData.ModelParameters.Saturation_UpperSat_on := 1;
+stInitData.ModelParameters.Saturation_LowerSat_a := 0;
 stInitData.ModelParameters.Memory1_X0 := 0;
-stInitData.ModelParameters.Constant2_Value_n[0] := 0;
-stInitData.ModelParameters.Constant2_Value_n[1] := 0;
-stInitData.ModelParameters.Constant4_Value_m[0] := 0;
-stInitData.ModelParameters.Constant4_Value_m[1] := 0;
-stInitData.ModelParameters.q_ref_Y0_p[0] := 0;
-stInitData.ModelParameters.q_ref_Y0_p[1] := 0;
+stInitData.ModelParameters.Constant2_Value_m[0] := 0;
+stInitData.ModelParameters.Constant2_Value_m[1] := 0;
+stInitData.ModelParameters.Constant4_Value_i[0] := 0;
+stInitData.ModelParameters.Constant4_Value_i[1] := 0;
+stInitData.ModelParameters.q_ref_Y0_a[0] := 0;
+stInitData.ModelParameters.q_ref_Y0_a[1] := 0;
 stInitData.ModelParameters.qdot_ref_Y0_i[0] := 0;
 stInitData.ModelParameters.qdot_ref_Y0_i[1] := 0;
-stInitData.ModelParameters.qddot_ref_Y0_d[0] := 0;
-stInitData.ModelParameters.qddot_ref_Y0_d[1] := 0;
-stInitData.ModelParameters.JointTorqueDes_Nm_Y0_n[0] := 0;
-stInitData.ModelParameters.JointTorqueDes_Nm_Y0_n[1] := 0;
-stInitData.ModelParameters.Constant3_Value_h[0] := 0;
-stInitData.ModelParameters.Constant3_Value_h[1] := 0;
-stInitData.ModelParameters.EnableDrives_Value := 0;
-stInitData.ModelParameters.Constant_Value_m := 0;
+stInitData.ModelParameters.qddot_ref_Y0_h[0] := 0;
+stInitData.ModelParameters.qddot_ref_Y0_h[1] := 0;
+stInitData.ModelParameters.JointTorqueDes_Nm_Y0_b[0] := 0;
+stInitData.ModelParameters.JointTorqueDes_Nm_Y0_b[1] := 0;
+stInitData.ModelParameters.Constant3_Value_i[0] := 0;
+stInitData.ModelParameters.Constant3_Value_i[1] := 0;
+stInitData.ModelParameters.EnableDrives1_Value := 0;
+stInitData.ModelParameters.Constant_Value_f := 0;
 stInitData.ModelParameters.UseActuator_Value := 1;
-stInitData.ModelParameters.Constant_Value_my := 1;
-stInitData.ModelParameters.Requestedstate_Value := 0;
-stInitData.ModelParameters.PreventAlgebraicLoop_X0 := 0;
-stInitData.ModelParameters.PreventAlgebraicLoop_X0_o := 0;
-stInitData.ModelParameters.AvoidAlgebraicLoop_X0 := 0;
-stInitData.ModelParameters.AvoidAlgebraicLoop_X0_a := 0;
+stInitData.ModelParameters.DisableDrives1_Value := 0;
+stInitData.ModelParameters.Constant_Value_p := 0;
+stInitData.ModelParameters.CalibrateManually_Value := 0;
+stInitData.ModelParameters.Memory_X0 := 0;
+stInitData.ModelParameters.FreqHz_Value := 20;
+stInitData.ModelParameters.UnitDelay_InitialCondition := 0;
+stInitData.ModelParameters.TSamp_WtEt := 1000;
+stInitData.ModelParameters.FreqHz_Value_p := 100;
+stInitData.ModelParameters.UnitDelay_InitialCondition_b := 0;
+stInitData.ModelParameters.Constant_Value_c := 9.424777960769379;
 stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Value := 8;
 stInitData.ModelParameters.Bias_Bias := 0.5;
 stInitData.ModelParameters.InhibitTime_s_Value := 2;
 stInitData.ModelParameters.Memory1_1_X0 := 0;
-stInitData.ModelParameters.DisableDrives_Value := 0;
-stInitData.ModelParameters.Constant_Value_mp := 0;
-stInitData.ModelParameters.Constant_Value_l := 0;
-stInitData.ModelParameters.Constant_Value_f := 0;
-stInitData.ModelParameters.UseActuator_Value_p := 1;
-stInitData.ModelParameters.Constant_Value_la := 1;
-stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Valu_p := 8;
-stInitData.ModelParameters.Bias_Bias_l := 0.5;
-stInitData.ModelParameters.InhibitTime_s_Value_d := 2;
-stInitData.ModelParameters.Memory1_1_X0_k := 0;
-stInitData.ModelParameters.Constant_Value_ld := 0;
-stInitData.ModelParameters.Constant_Value_i := 0;
+stInitData.ModelParameters.NoOtherRobot_Value := 0;
+stInitData.ModelParameters.Constant_Value_pb := 0;
+stInitData.ModelParameters.Constant_Value_b := 0;
+stInitData.ModelParameters.UseActuator_Value_g := 1;
+stInitData.ModelParameters.Constant_Value_d := 0;
+stInitData.ModelParameters.CalibrateManually_Value_j := 0;
+stInitData.ModelParameters.FreqHz_Value_a := 20;
+stInitData.ModelParameters.UnitDelay_InitialCondition_i := 0;
+stInitData.ModelParameters.TSamp_WtEt_o := 1000;
+stInitData.ModelParameters.FreqHz_Value_g := 100;
+stInitData.ModelParameters.UnitDelay_InitialCondition_c := 0;
+stInitData.ModelParameters.Constant_Value_cj := 9.424777960769379;
+stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Valu_o := 8;
+stInitData.ModelParameters.Bias_Bias_m := 0.5;
+stInitData.ModelParameters.InhibitTime_s_Value_n := 2;
+stInitData.ModelParameters.Memory1_1_X0_e := 0;
 stInitData.ModelParameters.TimePerState_ms_Value[0] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value[1] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value := 10;
+stInitData.ModelParameters.TorqueLimit_Value := 4;
+stInitData.ModelParameters.Requestedstate1_Value := 4;
+stInitData.ModelParameters.Gain_Gain := 1;
+stInitData.ModelParameters.Gain_Gain_h := 1;
+stInitData.ModelParameters.Constant2_Value_p := 0.05;
 stInitData.ModelParameters.Merge1_InitialOutput[0] := 0;
 stInitData.ModelParameters.Merge1_InitialOutput[1] := 0;
 stInitData.ModelParameters.Merge2_InitialOutput[0] := 0;
 stInitData.ModelParameters.Merge2_InitialOutput[1] := 0;
 stInitData.ModelParameters.Merge3_InitialOutput[0] := 0;
 stInitData.ModelParameters.Merge3_InitialOutput[1] := 0;
-stInitData.ModelParameters.Kp_Gain := 0.5;
-stInitData.ModelParameters.Kd_Gain := 0.1;
-stInitData.ModelParameters.Gain_Gain := 1;
-stInitData.ModelParameters.Saturation_UpperSat_o := 1;
-stInitData.ModelParameters.Saturation_LowerSat_hx := -2;
-stInitData.ModelParameters.TimePerState_ms_Value_l[0] := 50;
-stInitData.ModelParameters.TimePerState_ms_Value_l[1] := 50;
-stInitData.ModelParameters.TimePerState_ms_Value_l[2] := 150;
-stInitData.ModelParameters.TimePerState_ms_Value_l[3] := 150;
-stInitData.ModelParameters.SetModeOp_val_slx_Value_l := 10;
-stInitData.ModelParameters.rad2deg_Gain[0] := 57.29577951308232;
-stInitData.ModelParameters.rad2deg_Gain[1] := 57.29577951308232;
-stInitData.ModelParameters.rad2deg_Gain[2] := 1;
-stInitData.ModelParameters.rad2deg_Gain[3] := 1;
-stInitData.ModelParameters.Gain_Gain_c := 57.29577951308232;
+stInitData.ModelParameters.Kp_Gain := 0.9;
+stInitData.ModelParameters.Kd_Gain := 0.05;
+stInitData.ModelParameters.Gain_Gain_b := 1;
+stInitData.ModelParameters.TimePerState_ms_Value_e[0] := 50;
+stInitData.ModelParameters.TimePerState_ms_Value_e[1] := 50;
+stInitData.ModelParameters.TimePerState_ms_Value_e[2] := 150;
+stInitData.ModelParameters.TimePerState_ms_Value_e[3] := 150;
+stInitData.ModelParameters.SetModeOp_val_slx_Value_o := 10;
+stInitData.ModelParameters.CalibrateForceSensors_Value := 0;
+stInitData.ModelParameters.Constant_Value_n := 0;
+stInitData.ModelParameters.Gain_Gain_k := 1.5;
+stInitData.ModelParameters.Gain_Gain_o := 1.5;
+stInitData.ModelParameters.TSamp_WtEt_a := 1000;
+stInitData.ModelParameters.FreqHz_Value_j := 150;
+stInitData.ModelParameters.UnitDelay_InitialCondition_cp := 0;
+stInitData.ModelParameters.TSamp_WtEt_j := 1000;
+stInitData.ModelParameters.FreqHz_Value_jj := 150;
+stInitData.ModelParameters.UnitDelay_InitialCondition_bv := 0;
+stInitData.ModelParameters.Memory1_10_X0 := 0;
+stInitData.ModelParameters.Memory1_11_X0 := 0;
 stInitData.ModelParameters.Memory1_2_X0 := 0;
 stInitData.ModelParameters.Memory1_3_X0 := 0;
 stInitData.ModelParameters.Memory1_4_X0 := 0;
@@ -2347,30 +2371,41 @@ stInitData.ModelParameters.Memory1_6_X0 := 0;
 stInitData.ModelParameters.Memory1_7_X0 := 0;
 stInitData.ModelParameters.Memory1_8_X0 := 0;
 stInitData.ModelParameters.Memory1_9_X0 := 0;
-stInitData.ModelParameters.Memory1_2_X0_k := 0;
-stInitData.ModelParameters.Memory1_3_X0_k := 0;
-stInitData.ModelParameters.Memory1_4_X0_k := 0;
-stInitData.ModelParameters.Memory1_5_X0_k := 0;
-stInitData.ModelParameters.Memory1_6_X0_k := 0;
-stInitData.ModelParameters.Memory1_7_X0_k := 0;
-stInitData.ModelParameters.Memory1_8_X0_k := 0;
-stInitData.ModelParameters.Memory1_9_X0_k := 0;
-stInitData.ModelParameters.Recorddata1yes0no_Value := 1;
+stInitData.ModelParameters.Memory1_10_X0_e := 0;
+stInitData.ModelParameters.Memory1_11_X0_e := 0;
+stInitData.ModelParameters.Memory1_2_X0_e := 0;
+stInitData.ModelParameters.Memory1_3_X0_e := 0;
+stInitData.ModelParameters.Memory1_4_X0_e := 0;
+stInitData.ModelParameters.Memory1_5_X0_e := 0;
+stInitData.ModelParameters.Memory1_6_X0_e := 0;
+stInitData.ModelParameters.Memory1_7_X0_e := 0;
+stInitData.ModelParameters.Memory1_8_X0_e := 0;
+stInitData.ModelParameters.Memory1_9_X0_e := 0;
+stInitData.ModelParameters.Recorddata1yes0no1_Value := 0;
+stInitData.ModelParameters.Gain_Gain_f := 1;
 stInitData.ModelParameters.Output_InitialCondition := 0;
 stInitData.ModelParameters.FixPtConstant_Value := 1;
-stInitData.ModelParameters.Constant_Value_p := 0;
+stInitData.ModelParameters.Constant_Value_p4 := 0;
 stInitData.ModelParameters.Output_InitialCondition_l := 0;
-stInitData.ModelParameters.FixPtConstant_Value_b := 1;
-stInitData.ModelParameters.Constant_Value_j := 0;
-stInitData.ModelParameters.FixPtConstant_Value_l := 1;
-stInitData.ModelParameters.Output_InitialCondition_a := 0;
-stInitData.ModelParameters.Constant_Value_d := 0;
+stInitData.ModelParameters.FixPtConstant_Value_j := 1;
+stInitData.ModelParameters.Constant_Value_pq := 0;
+stInitData.ModelParameters.FixPtConstant_Value_h := 1;
+stInitData.ModelParameters.Output_InitialCondition_n := 0;
+stInitData.ModelParameters.Constant_Value_l := 0;
 stInitData.ModelParameters.Switch_Threshold := 1;
 stInitData.ModelParameters.ManualSwitch_CurrentSetting := 0;
-stInitData.ModelParameters.ManualSwitch_CurrentSetting_m := 0;
-stInitData.ModelParameters.ManualSwitch_CurrentSetting_c := 0;
-stInitData.ModelParameters.Memory1_X0_l := 0;
-stInitData.ModelParameters.Memory_X0 := 0;
+stInitData.ModelParameters.ManualSwitch_CurrentSetting_k := 0;
+stInitData.ModelParameters.ManualSwitch_CurrentSetting_b := 0;
+stInitData.ModelParameters.Out_Y0 := 0;
+stInitData.ModelParameters.Out_Y0_n := 0;
+stInitData.ModelParameters.Memory1_X0_o := 0;
+stInitData.ModelParameters.Memory_X0_g := 0;
+stInitData.ModelParameters.PreventAlgebraicLoop_X0 := 0;
+stInitData.ModelParameters.PreventAlgebraicLoop_X0_c := 0;
+stInitData.ModelParameters.Constant_Value_b5 := 0;
+stInitData.ModelParameters.AvoidAlgebraicLoop_X0 := 0;
+stInitData.ModelParameters.AvoidAlgebraicLoop_X0_m := 0;
+stInitData.ModelParameters.Constant_Value_a := 0;
 stInitData.ModelParameters.Logic_table[0] := 0;
 stInitData.ModelParameters.Logic_table[1] := 1;
 stInitData.ModelParameters.Logic_table[2] := 0;
@@ -2387,30 +2422,28 @@ stInitData.ModelParameters.Logic_table[12] := 0;
 stInitData.ModelParameters.Logic_table[13] := 0;
 stInitData.ModelParameters.Logic_table[14] := 0;
 stInitData.ModelParameters.Logic_table[15] := 0;
+stInitData.ModelParameters.Memory1_X0_g := 0;
+stInitData.ModelParameters.Memory_X0_a := 0;
 stInitData.ModelParameters.Constant_Value_k := 0;
-stInitData.ModelParameters.Memory1_X0_b := 0;
-stInitData.ModelParameters.Memory_X0_i := 0;
-stInitData.ModelParameters.Logic_table_p[0] := 0;
-stInitData.ModelParameters.Logic_table_p[1] := 1;
-stInitData.ModelParameters.Logic_table_p[2] := 0;
-stInitData.ModelParameters.Logic_table_p[3] := 0;
-stInitData.ModelParameters.Logic_table_p[4] := 1;
-stInitData.ModelParameters.Logic_table_p[5] := 1;
-stInitData.ModelParameters.Logic_table_p[6] := 0;
-stInitData.ModelParameters.Logic_table_p[7] := 0;
-stInitData.ModelParameters.Logic_table_p[8] := 1;
-stInitData.ModelParameters.Logic_table_p[9] := 0;
-stInitData.ModelParameters.Logic_table_p[10] := 1;
-stInitData.ModelParameters.Logic_table_p[11] := 1;
-stInitData.ModelParameters.Logic_table_p[12] := 0;
-stInitData.ModelParameters.Logic_table_p[13] := 0;
-stInitData.ModelParameters.Logic_table_p[14] := 0;
-stInitData.ModelParameters.Logic_table_p[15] := 0;
-stInitData.ModelParameters.Constant_Value_d1 := 0;
-stInitData.ModelParameters.Memory_X0_n := 0;
-stInitData.ModelParameters.Memory_X0_e := 0;
-stInitData.ModelParameters.LatchRising_n.Out_Y0 := 0;
-stInitData.ModelParameters.LatchRising_i.Out_Y0 := 0;
+stInitData.ModelParameters.Constant_Value_di := 0;
+stInitData.ModelParameters.Logic_table_o[0] := 0;
+stInitData.ModelParameters.Logic_table_o[1] := 1;
+stInitData.ModelParameters.Logic_table_o[2] := 0;
+stInitData.ModelParameters.Logic_table_o[3] := 0;
+stInitData.ModelParameters.Logic_table_o[4] := 1;
+stInitData.ModelParameters.Logic_table_o[5] := 1;
+stInitData.ModelParameters.Logic_table_o[6] := 0;
+stInitData.ModelParameters.Logic_table_o[7] := 0;
+stInitData.ModelParameters.Logic_table_o[8] := 1;
+stInitData.ModelParameters.Logic_table_o[9] := 0;
+stInitData.ModelParameters.Logic_table_o[10] := 1;
+stInitData.ModelParameters.Logic_table_o[11] := 1;
+stInitData.ModelParameters.Logic_table_o[12] := 0;
+stInitData.ModelParameters.Logic_table_o[13] := 0;
+stInitData.ModelParameters.Logic_table_o[14] := 0;
+stInitData.ModelParameters.Logic_table_o[15] := 0;
+stInitData.ModelParameters.Memory_X0_f := 0;
+stInitData.ModelParameters.Memory_X0_fz := 0;
 stInitData.ContextInfoArr_0_TaskOidHdr.indexGroup := 0;
 stInitData.ContextInfoArr_0_TaskOidHdr.indexOffset := 16#03002060;
 stInitData.ContextInfoArr_0_TaskOidHdr.cbData := SIZEOF(stInitData.ContextInfoArr_0_TaskOid);
