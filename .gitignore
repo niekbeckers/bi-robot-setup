@@ -1853,6 +1853,7 @@ main-projects/data/bros/data_part8.mat
 main-projects/data/bros/data_part9.mat
 experiments/mattia/simulink/model_bros_mattia_tct/
 experiments/mattia/simulink/slprj/
+<<<<<<< HEAD
 main-projects/data/bros/meas01_bros1_adm_wobbly/data_part19.mat
 main-projects/data/bros/analyse_vel.m
 main-projects/data/bros/meas01_bros1_adm_wobbly/data_part1.mat
@@ -2366,3 +2367,7 @@ main-projects/data/bros/meas13_jolein_reaching2/data_part216.mat
 main-projects/data/bros/meas13_jolein_reaching2/data_part217.mat
 main-projects/xml-protocol-scripts/createBROSExperimentProtocol_visuomotortrial.m
 main-projects/xml-protocol-scripts/expprotocol_visuomotorreaching_jolein.xml
+=======
+
+experiments/mattia/simulink/targetposition_mattia\.m
+>>>>>>> fbea8b22a7dcf420c62b038e518fda42ff557152

@@ -18,6 +18,10 @@ A_target = A;
 maxofx_target = maxofx;
 maxofy_target = maxofy;
 
+%% Cursor rotation parameters
+
+rotation_angle = 80*pi/180;
+rot_mat = [cos(rotation_angle) -sin(rotation_angle); sin(rotation_angle) cos(rotation_angle)];
 
 %% RobotStruct_FM1
 clear FM1

@@ -57,35 +57,26 @@
 
 clear all; close all; clc;
 
-load('trialssequence.mat')
-c_stiff = 0; %it can be 0(solo), or other 4 values
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                    %%%   CHANGE FILENAME!!!   %%%
 % filename
-filename = 'expprotocol_bros_mattia_FIRSTTRY';
+filename = 'expprotocol_bros_totryvisualrotation';
 
 % create (main) struct
 s = struct;
 
 %% trial data
-% for normal experiment
+% example
+numTrials = 5;
+connected = zeros(1,numTrials);
+connectionStiffness = zeros(1,numTrials);
+condition = [0;1;0;1;1];
+trialDuration = 30*ones(size(connected));
+breakDuration = 5*ones(size(connected));
 
-numTrials = 60; %number of trials
-connected = seq(:, randi(5)); %2 subjects connected - using the 5 default sequencies
-connectionStiffness = c_stiff*ones(1,numTrials); %which connection stiffness is used?
-without = zeros(10,1);
-with    = ones(20,1);
-condition = [without; with; with; without]; % 1 is when there is the visuomotor rotation
-trialDuration = 40 * ones(size(connected));
-breakDuration = 20 + randi(10, size(connected));
 
 % sort elements of trialRandomization in random order
-phaseSets = [1:20, 1:20, 1:20];
+phaseSets = [1;2;3;4;5];
 trialRandomization = phaseSets(randperm(length(phaseSets)));
 
-%numTrials = length(connected);
 
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
@@ -102,7 +93,7 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:10; 11:30; 31:50; 51:60}; 
+divTrials = {1:5}; 
 numBlocks = length(divTrials);
 
 for ii = 1:numBlocks

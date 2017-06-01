@@ -60,11 +60,8 @@ clear all; close all; clc;
 load('trialssequence.mat')
 c_stiff = 0; %it can be 0(solo), or other 4 values
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                    %%%   CHANGE FILENAME!!!   %%%
 % filename
-filename = 'expprotocol_bros_mattia_FIRSTTRY';
+filename = 'expprotocol_bros_mattia_WHICH EXPERIMENT?';
 
 % create (main) struct
 s = struct;
@@ -73,16 +70,16 @@ s = struct;
 % for normal experiment
 
 numTrials = 60; %number of trials
-connected = seq(:, randi(5)); %2 subjects connected - using the 5 default sequencies
+connected = seq(:, abs(round(5*rand))); %2 subjects connected - using the 5 default sequencies
 connectionStiffness = c_stiff*ones(1,numTrials); %which connection stiffness is used?
 without = zeros(10,1);
 with    = ones(20,1);
 condition = [without; with; with; without]; % 1 is when there is the visuomotor rotation
 trialDuration = 40 * ones(size(connected));
-breakDuration = 20 + randi(10, size(connected));
+breakDuration = 20 + 10*rand(size(connected),1);
 
 % sort elements of trialRandomization in random order
-phaseSets = [1:20, 1:20, 1:20];
+phaseSets = [1:20];
 trialRandomization = phaseSets(randperm(length(phaseSets)));
 
 %numTrials = length(connected);
@@ -102,7 +99,7 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:10; 11:30; 31:50; 51:60}; 
+divTrials = {1:5; 6:15; 16:25; 26:30}; 
 numBlocks = length(divTrials);
 
 for ii = 1:numBlocks
