@@ -212,7 +212,9 @@ void ofAppExperiment::setTrialDataADS()
 	_tcClient->write(_lHdlVar_Write_ConnectionDamping, &_currentTrial.connectionDamping, sizeof(_currentTrial.connectionDamping));
 
 	// condition
-	_tcClient->write(_lHdlVar_Write_Condition, &_currentTrial.condition, sizeof(_currentTrial.condition));
+	int c = _currentTrial.condition;
+	ofLogVerbose(ofToString(c));
+	_tcClient->write(_lHdlVar_Write_Condition, &c, sizeof(c));
 	
 	// trialDuration
 	if (_currentTrial.trialDuration > 0.0) {
@@ -305,23 +307,22 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 				do {
 					// read and store trial data
 					trialData trial;
-
 					trial.trialNumber = ++trialNumber;
-					if (XML.getValue<int>("condition")) { trial.condition = XML.getValue<int>("condition"); }
-					if (XML.getValue<bool>("connected")) { trial.connected = XML.getValue<bool>("connected"); }
+					//if (XML.getValue<int>("condition")) 
+					{ trial.condition = XML.getValue<int>("condition"); cout << "condition " << ofToString(trial.condition) << " size " << ofToString(sizeof(int)) << '\n'; }
+					//if (XML.getValue<bool>("connected")) 
+					{ trial.connected = XML.getValue<bool>("connected"); }
 					if (XML.getValue<double>("connectionStiffness")) { trial.connectionStiffness = XML.getValue<double>("connectionStiffness"); }
 					if (XML.getValue<double>("connectionDamping")) { trial.connectionDamping = XML.getValue<double>("connectionDamping"); }
 					if (XML.getValue<double>("breakDuration")) { trial.breakDuration = XML.getValue<double>("breakDuration"); }
 					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration"); }
 					if (XML.getValue<int>("trialRandomization")) { trial.trialRandomization = XML.getValue<int>("trialRandomization"); }
 
-					trials.push_back(trial); // add trial to (temporary) trials list
+					block.trials.push_back(trial); // add trial to (temporary) trials list
+
 				} while (XML.setToSibling()); // go the next trial		
 
-				std::reverse(trials.begin(), trials.end()); // since we pushed all trials back, call reverse
-				block.trials = trials;	// add trials to block struct
-
-				block.numTrials = trials.size();
+				block.numTrials = block.trials.size();
 				_numTrials += block.numTrials;
 
 				_blocks.push_back(block); // add trials to vTrialsBlocks list
@@ -330,8 +331,6 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 			}
 
 		} while (XML.setToSibling()); // go to the next block
-
-		std::reverse(_blocks.begin(), _blocks.end()); // again, reverse block vector (now in correct order)
 
 		_experimentLoaded = true;
 

@@ -16,7 +16,7 @@ class ofAppDisplay : public ofBaseApp
 		const double scrDiagonal = 27.0;
 		double dots_per_m;
 		double x0 = 0.0;
-		double y0 = 0.25;
+		double y0 = 0*0.25;
 		
 		// message & font
 		string _message = "";
