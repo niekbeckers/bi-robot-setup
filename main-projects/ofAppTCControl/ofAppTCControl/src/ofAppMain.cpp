@@ -160,7 +160,7 @@ void ofAppMain::setupGUI()
 	_grpReqState.setup("Request state");
 	_grpReqState.setName("State request");
 	_grpReqState.add(_btnReqState_Reset.setup("Reset"));
-	_grpReqState.add(_btnReqState_Init.setup("Init"));
+	//_grpReqState.add(_btnReqState_Init.setup("Init"));
 	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate"));
 	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto"));
 	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual"));

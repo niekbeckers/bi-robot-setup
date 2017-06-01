@@ -15,21 +15,21 @@ class ofAppMain;
 
 // structs
 struct trialData {
-	int trialNumber;
+	int trialNumber = -1;
 	bool connected = false;				// default: not connected
 	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
 	double connectionDamping = 0.0;		// default: 0.0
-	int condition;						// condition type
+	int condition = 0;					// condition type
 	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
-	double breakDuration = 5.0;			// pause after each trial
-	int trialRandomization;				// select whcih phase set we are selecting
+	double breakDuration = -1.0;		// pause after each trial
+	int trialRandomization = 0;			// select whcih phase set we are selecting
 };
 
 struct blockData {
-	int blockNumber;
-	int numTrials;
+	int blockNumber = -1;
+	int numTrials = 0;
 	double breakDuration = 5.0*60.0;	// default: 5 minute break
-	int homingType = 302;// homing type. 301: manual homing, 302: auto homing (default)
+	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
 	vector<trialData> trials;
 };
 
@@ -128,7 +128,7 @@ class ofAppExperiment : public ofBaseApp
 		// countdown and break parameters
 		double _cdDuration = 3.0; // -1.0 countdown means no countdown
 		double _cdStartTime, _breakStartTime, _getReadyStartTime;
-		double _getReadyDuration = 3.0;
+		double _getReadyDuration = 2.0;
 
 		//
 		// functions

@@ -302,7 +302,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 			// set our "current" trial to the first one
 			if (XML.getName() == "block" && XML.setTo("trial[0]"))
 			{
-				vector<trialData> trials;
+				//vector<trialData> trials;
 				// read each trial
 				do {
 					// read and store trial data
@@ -316,7 +316,8 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.getValue<double>("connectionDamping")) { trial.connectionDamping = XML.getValue<double>("connectionDamping"); }
 					if (XML.getValue<double>("breakDuration")) { trial.breakDuration = XML.getValue<double>("breakDuration"); }
 					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration"); }
-					if (XML.getValue<int>("trialRandomization")) { trial.trialRandomization = XML.getValue<int>("trialRandomization"); }
+					//if (XML.getValue<int>("trialRandomization")) 
+					{ trial.trialRandomization = XML.getValue<int>("trialRandomization"); }
 
 					block.trials.push_back(trial); // add trial to (temporary) trials list
 
@@ -456,9 +457,6 @@ void ofAppExperiment::esmGetReady()
 //--------------------------------------------------------------
 void ofAppExperiment::esmGetReadyDone()
 {
-	// homing is done, so make sure the robot is in run mode!
-	mainApp->requestStateChange(SystemState::RUN);
-
 	if (_cdDuration < 0.0) {
 		// if countdown is negative (i.e. no countdown needed), return
 		setExperimentState(ExperimentState::COUNTDOWNDONE);
@@ -491,6 +489,9 @@ void ofAppExperiment::esmCountdown()
 //--------------------------------------------------------------
 void ofAppExperiment::esmCountdownDone()
 {
+	// countdown is done, so make sure the robot is in run mode!
+	mainApp->requestStateChange(SystemState::RUN);
+
 	// countdown done, start trial
 	display1->showMessage(false);
 	display2->showMessage(false);
@@ -572,6 +573,13 @@ void ofAppExperiment::esmCheckNextStep()
 //--------------------------------------------------------------
 void ofAppExperiment::esmTrialBreak()
 {
+	if (_currentTrial.breakDuration < -1.0) { // no break
+		display1->showMessage(false);
+		display2->showMessage(false);
+		setExperimentState(ExperimentState::TRIALBREAKDONE);
+		return; 
+	} 
+
 	double time = ofGetElapsedTimef();
 	if ((time - _breakStartTime) <= _currentTrial.breakDuration) {
 		// trial break is running, show feedback on display
