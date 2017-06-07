@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmItem" TcSmVersion="1.0" TcVersion="3.1.4020.28" ClassName="CFlbTermDef" SubType="9099">
+	<Box Id="6" BoxType="9099">
+		<Name>__FILENAME__</Name>
+		<ImageId>65</ImageId>
+		<EtherCAT SlaveType="2" PdiType="#x0e09" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" VendorId="#x00000270" ProductCode="#x00080000" RevisionNo="#x0001001a" InfoDataAddr="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="GSV-8" Desc="GSV-8">
+			<SyncMan>0010800026000100010000002200c0008000001026010000</SyncMan>
+			<SyncMan>0014800022000100020000002200c0008000001422010000</SyncMan>
+			<SyncMan>001800002400000003000000000000000000001824010000</SyncMan>
+			<SyncMan>001c28002000010004000000000000004000001c20010000</SyncMan>
+			<Fmmu>0000000000000000000000020000000001000000000000000000000000000000</Fmmu>
+			<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
+			<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+			<Pdo Name="TxPdo" Index="#x1a00" Flags="#x0001" SyncMan="3">
+				<Entry Name="Map FLOAT Process Value 1" Index="#x6130" Sub="#x01">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map FLOAT Process Value 2" Index="#x6130" Sub="#x02">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map FLOAT Process Value 3" Index="#x6130" Sub="#x03">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map FLOAT Process Value 4" Index="#x6130" Sub="#x04">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map FLOAT Process Value 5" Index="#x6130" Sub="#x05">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map FLOAT Process Value 6" Index="#x6130" Sub="#x06">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map FLOAT Process Value 7" Index="#x6130" Sub="#x07">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map FLOAT Process Value 8" Index="#x6130" Sub="#x08">
+					<Type>REAL</Type>
+				</Entry>
+				<Entry Name="Map Status 1" Index="#x6150" Sub="#x01">
+					<Type>USINT</Type>
+				</Entry>
+				<Entry Name="Map Status 2" Index="#x6150" Sub="#x02">
+					<Type>USINT</Type>
+				</Entry>
+				<Entry Name="Map Status 3" Index="#x6150" Sub="#x03">
+					<Type>USINT</Type>
+				</Entry>
+				<Entry Name="Map Status 4" Index="#x6150" Sub="#x04">
+					<Type>USINT</Type>
+				</Entry>
+				<Entry Name="Map Status 5" Index="#x6150" Sub="#x05">
+					<Type>USINT</Type>
+				</Entry>
+				<Entry Name="Map Status 6" Index="#x6150" Sub="#x06">
+					<Type>USINT</Type>
+				</Entry>
+				<Entry Name="Map Status 7" Index="#x6150" Sub="#x07">
+					<Type>USINT</Type>
+				</Entry>
+				<Entry Name="Map Status 8" Index="#x6150" Sub="#x08">
+					<Type>USINT</Type>
+				</Entry>
+			</Pdo>
+			<CoeProfile ProfileNo="404"/>
+		</EtherCAT>
+	</Box>
+	<Mappings>
+		<OwnerA Name="__THIS__">
+			<OwnerB Name="TIRC^TcCOM Objects^Object1 (ModelBROS)">
+				<Link VarA="TxPdo^Map FLOAT Process Value 1" VarB="Input^FTch1"/>
+				<Link VarA="TxPdo^Map FLOAT Process Value 2" VarB="Input^FTch2"/>
+				<Link VarA="TxPdo^Map FLOAT Process Value 3" VarB="Input^FTch3"/>
+				<Link VarA="TxPdo^Map FLOAT Process Value 4" VarB="Input^FTch4"/>
+				<Link VarA="TxPdo^Map FLOAT Process Value 5" VarB="Input^FTch5"/>
+				<Link VarA="TxPdo^Map FLOAT Process Value 6" VarB="Input^FTch6"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
+</TcSmItem>
