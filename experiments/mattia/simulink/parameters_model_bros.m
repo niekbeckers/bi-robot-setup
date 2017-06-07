@@ -18,6 +18,8 @@ A_target = A;
 maxofx_target = maxofx;
 maxofy_target = maxofy;
 
+max_radius_target = 0.08;
+
 %% Cursor rotation parameters
 
 rotation_angle = 80*pi/180;

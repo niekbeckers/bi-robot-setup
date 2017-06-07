@@ -79,7 +79,7 @@ without = zeros(10,1);
 with    = ones(20,1);
 condition = [without; with; with; without]; % 1 is when there is the visuomotor rotation
 trialDuration = 40 * ones(size(connected));
-breakDuration = 20 + randi(10, size(connected));
+breakDuration = 15 * ones(size(connected));
 
 % sort elements of trialRandomization in random order
 phaseSets = [1:20, 1:20, 1:20];
@@ -114,4 +114,10 @@ for ii = 1:numBlocks
 end
 
 %% write to to XML file
+
 struct2xml(s,[filename '.xml']);
+
+%% and save structure for further use in matlab
+
+saving_filename = sprintf('%s.mat', filename);
+eval 'save(saving_filename, 's');
