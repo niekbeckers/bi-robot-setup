@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-08T09:38:35" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-08T10:21:08" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseSysID_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#8ab05ff8;
-clsId.Data2 := 16#ae25;
-clsId.Data3 := 16#46ba;
-clsId.Data4[0] := 16#ad;
-clsId.Data4[1] := 16#3e;
-clsId.Data4[2] := 16#4b;
-clsId.Data4[3] := 16#25;
-clsId.Data4[4] := 16#e3;
-clsId.Data4[5] := 16#12;
-clsId.Data4[6] := 16#48;
-clsId.Data4[7] := 16#e2;
+clsId.Data1 := 16#e4166d58;
+clsId.Data2 := 16#a3c5;
+clsId.Data3 := 16#4384;
+clsId.Data4[0] := 16#b3;
+clsId.Data4[1] := 16#22;
+clsId.Data4[2] := 16#33;
+clsId.Data4[3] := 16#1b;
+clsId.Data4[4] := 16#d5;
+clsId.Data4[5] := 16#52;
+clsId.Data4[6] := 16#7e;
+clsId.Data4[7] := 16#27;
 
 AssignClassId(clsId);
                     
@@ -2226,7 +2226,7 @@ stInitData.ModelParametersHdr.indexGroup := 0;
 stInitData.ModelParametersHdr.indexOffset := 16#83000000;
 stInitData.ModelParametersHdr.cbData := SIZEOF(stInitData.ModelParameters);
 stInitData.ModelParameters.FM1.HomeLocationOpSpace[0] := 0;
-stInitData.ModelParameters.FM1.HomeLocationOpSpace[1] := 0.25;
+stInitData.ModelParameters.FM1.HomeLocationOpSpace[1] := 0.3;
 stInitData.ModelParameters.FM1.HomeLocationSize := 0.005;
 stInitData.ModelParameters.FM1.NominalPositionOpSpace[0] := 0;
 stInitData.ModelParameters.FM1.NominalPositionOpSpace[1] := 0.25;
@@ -2758,6 +2758,7 @@ stInitData.ModelParameters.Memory1_7_X0_ic := 0;
 stInitData.ModelParameters.Memory1_8_X0_ic := 0;
 stInitData.ModelParameters.Memory1_9_X0_ic := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
+stInitData.ModelParameters.Gain_Gain_j := 1;
 stInitData.ModelParameters.ExpConnectionDamping_Value := 0;
 stInitData.ModelParameters.ExpConnectionStiffness_Value := 0;
 stInitData.ModelParameters.ExpTrialDuration_Value := 30;

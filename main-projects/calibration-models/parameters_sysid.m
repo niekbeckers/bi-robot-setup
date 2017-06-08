@@ -11,7 +11,7 @@ load('data_inputsignal2.mat');
 %% RobotStruct_FM1
 % clear FM1
 
-FM1.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
+FM1.HomeLocationOpSpace = [0;0.30];                     % home location (homing) [m]
 FM1.HomeLocationSize = 0.005;
 FM1.NominalPositionOpSpace = [0;0.25];
 
