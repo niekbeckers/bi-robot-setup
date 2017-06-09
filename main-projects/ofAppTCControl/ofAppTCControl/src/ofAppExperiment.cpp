@@ -116,10 +116,10 @@ void ofAppExperiment::setupTCADS()
 	char szVar1[] = { "Object1 (ModelBROS).ModelParameters.ExpCondition_Value" };
 	_lHdlVar_Write_Condition = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 
-	char szVar2[] = { "Object1 (ModelBROS).ModelParameters.ExpConnectionStiffness_Value" };
+	char szVar2[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
 	_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
 
-	char szVar3[] = { "Object1 (ModelBROS).ModelParameters.ExpConnected_Value" };
+	char szVar3[] = { "Object1 (ModelBROS).ModelParameters.Connected_Value" };
 	_lHdlVar_Write_Connected = _tcClient->getVariableHandle(szVar3, sizeof(szVar3));
 
 	char szVar4[] = { "Object1 (ModelBROS).ModelParameters.ExpTrialDuration_Value" };
@@ -131,7 +131,7 @@ void ofAppExperiment::setupTCADS()
 	char szVar6[] = { "Object1 (ModelBROS).ModelParameters.ExpTrialRandom_Value" };
 	_lHdlVar_Write_TrialRandom = _tcClient->getVariableHandle(szVar6, sizeof(szVar6));
 
-	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.ExpConnectionDamping_Value" };
+	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
 	_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
 	
 }
