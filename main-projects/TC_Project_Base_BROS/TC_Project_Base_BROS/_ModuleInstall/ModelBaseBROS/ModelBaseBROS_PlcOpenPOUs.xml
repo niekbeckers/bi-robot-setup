@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-09T13:47:55" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-09T14:31:17" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#fdaf4045;
-clsId.Data2 := 16#7668;
-clsId.Data3 := 16#496b;
-clsId.Data4[0] := 16#a2;
+clsId.Data1 := 16#08ae952a;
+clsId.Data2 := 16#8376;
+clsId.Data3 := 16#4248;
+clsId.Data4[0] := 16#86;
 clsId.Data4[1] := 16#b1;
-clsId.Data4[2] := 16#31;
-clsId.Data4[3] := 16#84;
-clsId.Data4[4] := 16#a6;
-clsId.Data4[5] := 16#ab;
-clsId.Data4[6] := 16#59;
-clsId.Data4[7] := 16#57;
+clsId.Data4[2] := 16#1d;
+clsId.Data4[3] := 16#4e;
+clsId.Data4[4] := 16#62;
+clsId.Data4[5] := 16#35;
+clsId.Data4[6] := 16#b8;
+clsId.Data4[7] := 16#3f;
 
 AssignClassId(clsId);
                     
@@ -2466,8 +2466,8 @@ stInitData.ModelParameters.virtualmass_Value := 0.5;
 stInitData.ModelParameters.virtualdamping_Value := 0.05;
 stInitData.ModelParameters.CalibrateForceSensors_Value := 0;
 stInitData.ModelParameters.Constant_Value_k := 0;
-stInitData.ModelParameters.Kp_Value := 50;
-stInitData.ModelParameters.Kd_Value := 2;
+stInitData.ModelParameters.KpConnection_Value := 50;
+stInitData.ModelParameters.KdConnection_Value := 8;
 stInitData.ModelParameters.TSamp_WtEt_p4 := 1000;
 stInitData.ModelParameters.DiscreteFilter_NumCoef_d[0] := 0.023847556298911;
 stInitData.ModelParameters.DiscreteFilter_NumCoef_d[1] := 0.047695112597822;
@@ -2611,8 +2611,6 @@ stInitData.ModelParameters.Memory1_7_X0_c := 0;
 stInitData.ModelParameters.Memory1_8_X0_c := 0;
 stInitData.ModelParameters.Memory1_9_X0_c := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 1;
-stInitData.ModelParameters.ExpConnectionDamping_Value := 0;
-stInitData.ModelParameters.ExpConnectionStiffness_Value := 0;
 stInitData.ModelParameters.ExpTrialDuration_Value := 30;
 stInitData.ModelParameters.ExpCondition_Value := 0;
 stInitData.ModelParameters.ExpTrialNumber_Value := 1;
@@ -2674,6 +2672,7 @@ stInitData.ModelParameters.Logic_table_a[12] := 0;
 stInitData.ModelParameters.Logic_table_a[13] := 0;
 stInitData.ModelParameters.Logic_table_a[14] := 0;
 stInitData.ModelParameters.Logic_table_a[15] := 0;
+stInitData.ModelParameters.Connected_Value := 0;
 stInitData.ModelParameters.Memory1_X0_g := 0;
 stInitData.ModelParameters.Constant_Value_c := 0;
 stInitData.ModelParameters.Memory_X0_fd := 0;
@@ -2738,7 +2737,6 @@ stInitData.ModelParameters.Logic_table_h[12] := 0;
 stInitData.ModelParameters.Logic_table_h[13] := 0;
 stInitData.ModelParameters.Logic_table_h[14] := 0;
 stInitData.ModelParameters.Logic_table_h[15] := 0;
-stInitData.ModelParameters.ExpConnected_Value := 0;
 stInitData.ModelParameters.LatchRising_nw.Out_Y0 := 0;
 stInitData.ModelParameters.LatchRising_h.Out_Y0 := 0;
 stInitData.ModelParameters.run_k.x_ref_Y0[0] := 0;
