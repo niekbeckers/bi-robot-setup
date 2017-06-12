@@ -2,10 +2,15 @@
 
 %% 'globals'
 sampleTime = 0.001;             % sample time [s] Note: make sure the same sample time is set in TwinCAT XAE.
+fs = 1/sampleTime;              % sampling frequency
+fn = fs/2;                      % nyquist frequency
 Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
+% butterworth filter (filtering velocity signal) 
+fc = 60;
+[Bbutter,Abutter] = butter(2, fc/fn);
 %% RobotStruct_FM1
 % clear FM1
 
@@ -28,6 +33,8 @@ FM1.Actuator1.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torq
 FM1.Actuator1.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM1.Actuator1.JointPositionGuardMin = -25*pi/180;       % maximum allowable joint position [rad]
 FM1.Actuator1.JointPositionGuardMax = 135*pi/180;       % maximum allowable joint position [rad]
+FM1.Actuator1.FilterButterA = Abutter;
+FM1.Actuator1.FilterButterB = Bbutter;
 
 % actuator 2 data
 FM1.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
@@ -42,6 +49,8 @@ FM1.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torq
 FM1.Actuator2.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM1.Actuator2.JointPositionGuardMin = 45*pi/180;        % maximum allowable joint position [rad]
 FM1.Actuator2.JointPositionGuardMax = 205*pi/180;       % maximum allowable joint position [rad]
+FM1.Actuator2.FilterButterA = Abutter;
+FM1.Actuator2.FilterButterB = Bbutter;
 
 % force/torque sensor data
 FM1.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
@@ -71,6 +80,8 @@ FM2.Actuator1.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torq
 FM2.Actuator1.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM2.Actuator1.JointPositionGuardMin = -25*pi/180;       % maximum allowable joint position [rad]
 FM2.Actuator1.JointPositionGuardMax = 135*pi/180;       % maximum allowable joint position [rad]
+FM2.Actuator1.FilterButterA = Abutter;
+FM2.Actuator1.FilterButterB = Bbutter;
 
 % actuator 2 data
 FM2.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
@@ -85,6 +96,8 @@ FM2.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torq
 FM2.Actuator2.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM2.Actuator2.JointPositionGuardMin = 45*pi/180;        % maximum allowable joint position [rad]
 FM2.Actuator2.JointPositionGuardMax = 205*pi/180;       % maximum allowable joint position [rad]
+FM2.Actuator2.FilterButterA = Abutter;
+FM2.Actuator2.FilterButterB = Bbutter;
 
 % force/torque sensor data
 FM2.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
