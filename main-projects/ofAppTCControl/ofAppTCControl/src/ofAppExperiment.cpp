@@ -133,7 +133,6 @@ void ofAppExperiment::setupTCADS()
 
 	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
 	_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
-	
 }
 
 //--------------------------------------------------------------
