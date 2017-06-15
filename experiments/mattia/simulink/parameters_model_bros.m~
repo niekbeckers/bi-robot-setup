@@ -21,10 +21,7 @@ load('1order_phases_and_functiondata.mat')
 A_filt = A;
 maxofx_target = maxofx;
 maxofy_target = maxofy;
-phasesx_target = phasesx;
-phasesy_target = phasesy;
-nx_target = nx;
-ny_target = ny;
+phasesx_targ
 
 
 %% RobotStruct_FM1
