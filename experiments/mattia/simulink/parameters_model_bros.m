@@ -16,7 +16,7 @@ fc = 60;
 
 max_radius_target = 0.08;
 
-load('1order_phases_and_functiondata.mat')
+load('phases_and_functiondata.mat')
 
 A_filt = A;
 maxofx_target = maxofx;
