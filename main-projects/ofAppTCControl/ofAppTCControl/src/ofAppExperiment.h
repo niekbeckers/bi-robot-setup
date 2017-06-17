@@ -171,7 +171,7 @@ class ofAppExperiment : public ofBaseApp
 
 		string experimentStateLabel = StringExperimentStateLabel(_expState);
 		
-
+		bool debugMode = false;
 		// 
 		// functions
 		//

@@ -127,7 +127,7 @@ void ofAppMain::setupGUI()
 	// toggle
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
-
+	_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	
 	// setup GUIs
 	int width = 300;
@@ -175,6 +175,7 @@ void ofAppMain::setupGUI()
 	_guiSystem.add(&_grpDriveControl);
 
 	// GUI experiment
+	_guiExperiment.add(_btnDebugMode.setup("Debug mode", false));
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
@@ -328,7 +329,7 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 }
 
 //--------------------------------------------------------------
-void ofAppMain::pauseExperimentTogglePressed(bool & value) 
+void ofAppMain::pauseExperimentTogglePressed(bool & value)
 {
 	if (value) {
 		_btnExpPauseResume.setName("Resume");
@@ -340,7 +341,11 @@ void ofAppMain::pauseExperimentTogglePressed(bool & value)
 	}
 }
 
-
+//--------------------------------------------------------------
+void ofAppMain::experimentDebugModeTogglePressed(bool & value)
+{
+	experimentApp->debugMode = value;
+}
 
 //--------------------------------------------------------------
 void ofAppMain::keyPressed(int key){

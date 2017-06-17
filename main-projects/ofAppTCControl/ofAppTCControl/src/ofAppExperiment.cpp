@@ -148,10 +148,15 @@ string ofAppExperiment::secToMin(double seconds)
 void ofAppExperiment::startExperiment()
 {
 	if (_experimentLoaded && !_experimentRunning) {
-		//display1->drawTask = false;
-		//display2->drawTask = false;
-		display1->drawTask = true;
-		display2->drawTask = true;
+		if (!debugMode) {
+			display1->drawTask = false;
+			display2->drawTask = false;
+		}
+		else {
+			display1->drawTask = true;
+			display2->drawTask = true;
+		}
+
 		setExperimentState(ExperimentState::EXPERIMENTSTART);
 	}
 }
@@ -181,10 +186,10 @@ void ofAppExperiment::restartExperiment()
 	// restart trial. Only possible when in error mode / idle mode
 	if ((_expState == ExperimentState::SYSTEMFAULT && _experimentRunning) || _expState == ExperimentState::IDLE) {
 
-		//display1->drawTask = false;
-		//display2->drawTask = false;
-		display1->drawTask = true;
-		display2->drawTask = true;
+		if (!debugMode) {
+			display1->drawTask = false;
+			display2->drawTask = false;
+		}
 
 		_experimentRunning = true;
 
@@ -385,6 +390,7 @@ void ofAppExperiment::esmExperimentStart()
 void ofAppExperiment::esmExperimentStop()
 {
 	_experimentRunning = false;
+
 	display1->drawTask = true;
 	display2->drawTask = true;
 
@@ -521,10 +527,10 @@ void ofAppExperiment::esmTrialRunning()
 void ofAppExperiment::esmTrialDone()
 {
 	// set display to black
-	//display1->drawTask = false;
-	//display2->drawTask = false;
-	display1->drawTask = true;
-	display2->drawTask = true;
+	if (!debugMode) {
+		display1->drawTask = false;
+		display2->drawTask = false;
+	}
 	display1->showMessage(true, "Trial done");
 	display2->showMessage(true, "Trial done");
 
