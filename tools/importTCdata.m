@@ -9,7 +9,7 @@ function data = importTCdata(datapath, modelname)
 
 %% check input
 % no data path given? Call UI to select folder manually
-if isempty(datapath)
+if nargin < 1
     datapath = uigetdir;
 end
 if nargin == 2
@@ -20,8 +20,8 @@ if nargin == 2
     str_param_BROS2 = strsplit(get_param([modelname '/BusSelectorLoggerBROS2'],'OutputSignals'),',').';
     str_param_BROS2 = strcat(str_param_BROS2,'_BROS2');
 else
-    str_param_BROS1 = '';
-    str_param_BROS2 = '';
+    str_param_BROS1 = {'SystemState_BROS1';'qJointSpace.q_AbsEnc_BROS1';'qJointSpace.qdot_AbsEnc_BROS1';'qJointSpace.q_IncEnc_BROS1';'qJointSpace.qdot_IncEnc_BROS1';'xOpSpace.x_AbsEnc_BROS1';'xOpSpace.xdot_AbsEnc_BROS1';'Controller_ToLogger.x_ref_BROS1';'Controller_ToLogger.xdot_ref_BROS1';'Controller_ToLogger.xddot_ref_BROS1';'qJointSpace.JointTorque_Nm_BROS1';'BusFTSensor.ForcesOpSpace_BROS1';'BusActuators.BusActuator1.JointVelocity_LPF_rads_BROS1';'BusActuators.BusActuator2.JointVelocity_LPF_rads_BROS1'};
+    str_param_BROS2 = {'SystemState_BROS2';'qJointSpace.q_AbsEnc_BROS2';'qJointSpace.qdot_AbsEnc_BROS2';'qJointSpace.q_IncEnc_BROS2';'qJointSpace.qdot_IncEnc_BROS2';'xOpSpace.x_AbsEnc_BROS2';'xOpSpace.xdot_AbsEnc_BROS2';'Controller_ToLogger.x_ref_BROS2';'Controller_ToLogger.xdot_ref_BROS2';'Controller_ToLogger.xddot_ref_BROS2';'qJointSpace.JointTorque_Nm_BROS2';'BusFTSensor.ForcesOpSpace_BROS2';'BusActuators.BusActuator1.JointVelocity_LPF_rads_BROS2';'BusActuators.BusActuator2.JointVelocity_LPF_rads_BROS2'};
 end
 
 %% load measurement data
