@@ -352,22 +352,28 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 //--------------------------------------------------------------
 void ofAppExperiment::setCurrentBlockNumber(int blockNr)
 {
-	_currentBlockNumber = blockNr - 1; 
-	mainApp->lblBlockNumber = blockNr;
+	if (!_experimentLoaded) { return; }
 
-	try {
-		mainApp->lblTrialNumber.setMax(_blocks[_currentBlockNumber].trials.size());
-		mainApp->lblBlockNumber.setMax(_blocks.size());
+	if (blockNr > _blocks.size()) {
+		blockNr = _blocks.size();
+		ofLogWarning("ofAppExperiment::setCurrentBlockNumber","Block number out of bounds, reset to last block");
 	}
-	catch (int e) {
-		ofLogError("ofAppExperiment::setCurrentBlockNumber(int blockNr)","Cannot set block number. No experiment protocol loaded? Error: " + e);
-	}
-	 
+
+	_currentBlockNumber = blockNr - 1;
+	mainApp->lblBlockNumber = blockNr;
+	mainApp->lblTrialNumber.setMax(_blocks[_currentBlockNumber].trials.size());
+	mainApp->lblBlockNumber.setMax(_blocks.size());
 }
 
 //--------------------------------------------------------------
 void ofAppExperiment::setCurrentTrialNumber(int trialNr)
 {
+	if (!_experimentLoaded) { return; }
+
+	if (trialNr > _currentBlock.trials.size()) {
+		trialNr = _currentBlock.trials.size();
+		ofLogWarning("ofAppExperiment::setCurrentTrialNumber", "Trial number out of bounds, reset to last trial of this block");
+	}
 	_currentTrialNumber = trialNr - 1;
 	mainApp->lblTrialNumber = trialNr;
 }

@@ -70,6 +70,7 @@ void ofAppMain::update(){
 void ofAppMain::draw() {
 	_guiSystem.draw(); 
 	_guiExperiment.draw();
+	_guiAdmittance.draw();
 }
 
 //--------------------------------------------------------------
@@ -101,13 +102,22 @@ void ofAppMain::setupTCADS()
 
 	char szVar4[] = { "Object1 (ModelBROS).ModelParameters.CalibrateForceSensors_Value" };
 	_lHdlVar_Write_CalibrateForceSensor = _tcClientEvent->getVariableHandle(szVar4, sizeof(szVar4));
+
+	char szVar5[] = { "Object1 (ModelBROS).ModelParameters.Connected_Value" };
+	_lHdlVar_Connected = _tcClientEvent->getVariableHandle(szVar5, sizeof(szVar5));
+
+	char szVar6[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
+	_lHdlVar_ConnectionStiffness = _tcClientEvent->getVariableHandle(szVar6, sizeof(szVar6));
+
+	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
+	_lHdlVar_ConnectionDamping = _tcClientEvent->getVariableHandle(szVar7, sizeof(szVar7));
 	
 }
  
 //--------------------------------------------------------------
 void ofAppMain::setupGUI()
 {
-	// add listeners
+	// add button listeners
 	_btnCalibrateForceSensor.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
@@ -123,14 +133,11 @@ void ofAppMain::setupGUI()
 	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpEnterBlock.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpEnterTrial.addListener(this, &ofAppMain::buttonPressed);
-
-	// toggle
-	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
-	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
-	_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
+	_btnConnSetStiffness.addListener(this, &ofAppMain::buttonPressed);
+	_btnConnSetDamping.addListener(this, &ofAppMain::buttonPressed);
 	
 	// setup GUIs
-	int width = 300;
+	float width = 300.0;
 	_guiSystem.setDefaultWidth(width);
 	_guiExperiment.setDefaultWidth(width);
 
@@ -138,10 +145,14 @@ void ofAppMain::setupGUI()
 	_guiSystem.setPosition(10.0, 10.0);
 	
 	_guiExperiment.setup("Experiment");
-	_guiExperiment.setPosition(width+40, 10.0);
+	_guiExperiment.setPosition(width + 40.0, 10.0);
+
+	_guiAdmittance.setup("Admittance");
+	_guiAdmittance.setPosition(2.0 * width + 70, 10.0);
 
 	_guiSystem.setDefaultHeight(30.0);
 	_guiExperiment.setDefaultHeight(30);
+	_guiAdmittance.setDefaultHeight(30);
 	
 	// GUI system
 	//_guiSystem.add(_btnQuit.setup("Quit"));
@@ -189,7 +200,6 @@ void ofAppMain::setupGUI()
 	_grpExpControl.add(_btnExpEnterBlock.setup("Enter block #"));
 	_grpExpControl.add(_btnExpEnterTrial.setup("Enter trial #"));
 	_grpExpControl.add(_btnExpRestart.setup("Restart experiment"));
-
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
@@ -197,8 +207,24 @@ void ofAppMain::setupGUI()
 	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10));
 	_guiExperiment.add(_grpExpState);
 
+	_grpConnectionControl.setup("Connection control");
+	_grpConnectionControl.setName("Connection control");
+	_grpConnectionControl.add(_btnSetConnected.setup("Enable connection", false));
+	_grpConnectionControl.add(_lblConnStiffness.setup("Connection stiffness Kp", ofToString(0) + " N/m"));
+	_grpConnectionControl.add(_btnConnSetStiffness.setup("Connection stiffness"));
+	_grpConnectionControl.add(_lblConnDamping.setup("Connection damping Kd", ofToString(0) + " Ns/m"));
+	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
+	_guiAdmittance.add(&_grpConnectionControl);
+	_btnSetConnected.setName("Enable connection");
+
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
+
+	// add toggle listeners
+	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
+	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
+	_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
+	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
 }
 
 //--------------------------------------------------------------
@@ -301,7 +327,14 @@ void ofAppMain::buttonPressed(const void * sender)
 	else if (clickedBtn.compare(ofToString("Enter trial #")) == 0) {
 		string s = ofSystemTextBoxDialog("Enter desired trial number", "");
 		if (s != "") experimentApp->setCurrentTrialNumber(atoi(s.c_str()));
-		
+	}
+	else if (clickedBtn.compare(ofToString("Connection stiffness")) == 0) {
+		string s = ofSystemTextBoxDialog("Enter connection stiffness", "");
+		if (s != "") setConnectionStiffness(strtod(s.c_str(),NULL));
+	}
+	else if (clickedBtn.compare(ofToString("Connection damping")) == 0) {
+		string s = ofSystemTextBoxDialog("Enter connection damping", "");
+		if (s != "") setConnectionDamping(strtod(s.c_str(), NULL));
 	}
 	else {
 		ofLogError("Button " + clickedBtn + " unknown");
@@ -348,6 +381,41 @@ void ofAppMain::experimentDebugModeTogglePressed(bool & value)
 }
 
 //--------------------------------------------------------------
+void ofAppMain::setConnectionEnabled(bool & value)
+{
+	// write value to connected
+	try {
+		bool v = value;
+		_tcClientEvent->write(_lHdlVar_Connected, &v, sizeof(v));
+	}
+	catch (exception& e) {
+		ofLogError(e.what());
+	}
+
+	// set toggle button name
+	if (value) _btnSetConnected.setName("Connection enabled");
+	else _btnSetConnected.setName("Connection disabled");
+}
+
+//--------------------------------------------------------------
+void ofAppMain::setConnectionStiffness(double Kp)
+{
+	// write connection stiffness
+	double val = Kp;
+	_tcClientEvent->write(_lHdlVar_ConnectionStiffness, &val, sizeof(val));
+	_lblConnStiffness = ofToString(Kp, 1) + " N/m"; 
+}
+
+//--------------------------------------------------------------
+void ofAppMain::setConnectionDamping(double Kd)
+{
+	// write connection damping
+	double val = Kd;
+	_tcClientEvent->write(_lHdlVar_ConnectionDamping, &val, sizeof(val));
+	_lblConnDamping = ofToString(Kd, 1) + " Ns/m";
+}
+
+//--------------------------------------------------------------
 void ofAppMain::keyPressed(int key){
 	//if (key == 'n') {
 	//	ofLogVerbose(ofSystemTextBoxDialog("Input URL", ""));
@@ -371,11 +439,16 @@ void ofAppMain::exit() {
 	_btnExpStart.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpRestart.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpEnterBlock.removeListener(this, &ofAppMain::buttonPressed);
+	_btnExpEnterTrial.removeListener(this, &ofAppMain::buttonPressed);
+	_btnConnSetStiffness.removeListener(this, &ofAppMain::buttonPressed);
+	_btnConnSetDamping.removeListener(this, &ofAppMain::buttonPressed);
+
 	_btnToggleRecordData = false;
 	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);
-	_btnExpEnterBlock.removeListener(this, &ofAppMain::buttonPressed);
-	_btnExpEnterTrial.removeListener(this, &ofAppMain::buttonPressed);
+	_btnDebugMode.removeListener(this, &ofAppMain::experimentDebugModeTogglePressed);
+	_btnSetConnected.removeListener(this, &ofAppMain::setConnectionEnabled);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();

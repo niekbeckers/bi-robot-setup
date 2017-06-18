@@ -62,14 +62,13 @@ class ofAppMain : public ofBaseApp{
 		tcAdsClient *_tcClientCont, *_tcClientEvent;
 
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError, _lHdlVar_Write_CalibrateForceSensor,
-			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError;
+			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError, _lHdlVar_Connected, _lHdlVar_ConnectionStiffness, _lHdlVar_ConnectionDamping;
 
 
 		float _timeRefreshCheck = 1.0f; // 1 second refresh
 		float _timeCheck;
 
 		displayData _display1Data, _display2Data;
-
 		SystemState _systemState[2] = { SystemState::FAULT, SystemState::FAULT };
 
 		// GUI system
@@ -88,6 +87,12 @@ class ofAppMain : public ofBaseApp{
 		ofxToggle _btnExpPauseResume, _btnDebugMode;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
+
+		ofxPanel _guiAdmittance;
+		ofxToggle _btnSetConnected;
+		ofxGuiGroup _grpConnectionControl;
+		ofxButton _btnConnSetStiffness, _btnConnSetDamping;
+		ofxLabel _lblConnStiffness, _lblConnDamping;
 		
 		//
 		// custom
@@ -98,7 +103,10 @@ class ofAppMain : public ofBaseApp{
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);
 		void experimentDebugModeTogglePressed(bool & value);
+		void setConnectionEnabled(bool & value);
 		void calibrateForceSensors();
+		void setConnectionStiffness(double Kp);
+		void setConnectionDamping(double Kd);
 
 	public:
 		//
