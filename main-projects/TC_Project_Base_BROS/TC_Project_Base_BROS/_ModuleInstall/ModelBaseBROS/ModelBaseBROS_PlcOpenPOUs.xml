@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-13T10:30:26" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-18T17:33:24" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#1d5662e8;
-clsId.Data2 := 16#f67d;
-clsId.Data3 := 16#46cf;
-clsId.Data4[0] := 16#b7;
-clsId.Data4[1] := 16#9e;
-clsId.Data4[2] := 16#d2;
-clsId.Data4[3] := 16#37;
-clsId.Data4[4] := 16#81;
-clsId.Data4[5] := 16#d1;
-clsId.Data4[6] := 16#a9;
-clsId.Data4[7] := 16#fd;
+clsId.Data1 := 16#cb436592;
+clsId.Data2 := 16#000e;
+clsId.Data3 := 16#49fb;
+clsId.Data4[0] := 16#aa;
+clsId.Data4[1] := 16#18;
+clsId.Data4[2] := 16#f6;
+clsId.Data4[3] := 16#5e;
+clsId.Data4[4] := 16#3e;
+clsId.Data4[5] := 16#93;
+clsId.Data4[6] := 16#fb;
+clsId.Data4[7] := 16#f9;
 
 AssignClassId(clsId);
                     
@@ -2446,7 +2446,7 @@ stInitData.ModelParameters.Constant_Value_f := 0;
 stInitData.ModelParameters.TSamp_WtEt_p := 1000;
 stInitData.ModelParameters.FreqHz_Value_e := 100;
 stInitData.ModelParameters.UnitDelay_InitialCondition_e := 0;
-stInitData.ModelParameters.Constant_Value_m := 6.283185307179586;
+stInitData.ModelParameters.Constant_Value_m := 18.84955592153876;
 stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Value := 8;
 stInitData.ModelParameters.Bias_Bias := 0.5;
 stInitData.ModelParameters.InhibitTime_s_Value := 2;
@@ -2457,7 +2457,7 @@ stInitData.ModelParameters.Constant_Value_o := 0;
 stInitData.ModelParameters.TSamp_WtEt_ot := 1000;
 stInitData.ModelParameters.FreqHz_Value_cd := 100;
 stInitData.ModelParameters.UnitDelay_InitialCondition_c := 0;
-stInitData.ModelParameters.Constant_Value_i := 6.283185307179586;
+stInitData.ModelParameters.Constant_Value_i := 18.84955592153876;
 stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Valu_n := 8;
 stInitData.ModelParameters.Bias_Bias_c := 0.5;
 stInitData.ModelParameters.InhibitTime_s_Value_b := 2;
@@ -2472,8 +2472,8 @@ stInitData.ModelParameters.virtualmass_Value := 0.5;
 stInitData.ModelParameters.virtualdamping_Value := 0.05;
 stInitData.ModelParameters.CalibrateForceSensors_Value := 0;
 stInitData.ModelParameters.Constant_Value_k := 0;
-stInitData.ModelParameters.KpConnection_Value := 50;
-stInitData.ModelParameters.KdConnection_Value := 5;
+stInitData.ModelParameters.KpConnection_Value := 150;
+stInitData.ModelParameters.KdConnection_Value := 15;
 stInitData.ModelParameters.TSamp_WtEt_p4 := 1000;
 stInitData.ModelParameters.Butterworthfilter_InitialSta_cy := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDeno_c := 0;
@@ -2505,7 +2505,7 @@ stInitData.ModelParameters.Constant_Value_l := 0;
 stInitData.ModelParameters.TSamp_WtEt_e := 1000;
 stInitData.ModelParameters.FreqHz_Value_a := 100;
 stInitData.ModelParameters.UnitDelay_InitialCondition_a := 0;
-stInitData.ModelParameters.Constant_Value_fg := 6.283185307179586;
+stInitData.ModelParameters.Constant_Value_fg := 18.84955592153876;
 stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Valu_h := 8;
 stInitData.ModelParameters.Bias_Bias_o := 0.5;
 stInitData.ModelParameters.InhibitTime_s_Value_k := 2;
@@ -2516,7 +2516,7 @@ stInitData.ModelParameters.Constant_Value_j := 0;
 stInitData.ModelParameters.TSamp_WtEt_l := 1000;
 stInitData.ModelParameters.FreqHz_Value_b := 100;
 stInitData.ModelParameters.UnitDelay_InitialCondition_j := 0;
-stInitData.ModelParameters.Constant_Value_c := 6.283185307179586;
+stInitData.ModelParameters.Constant_Value_c := 18.84955592153876;
 stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Valu_d := 8;
 stInitData.ModelParameters.Bias_Bias_i := 0.5;
 stInitData.ModelParameters.InhibitTime_s_Value_kd := 2;
@@ -2593,7 +2593,7 @@ stInitData.ModelParameters.Memory1_7_X0_b := 0;
 stInitData.ModelParameters.Memory1_8_X0_b := 0;
 stInitData.ModelParameters.Memory1_9_X0_b := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
-stInitData.ModelParameters.Gain_Gain_o := 1;
+stInitData.ModelParameters.Gain_Gain_l := 1;
 stInitData.ModelParameters.ExpTrialDuration_Value := 30;
 stInitData.ModelParameters.ExpCondition_Value := 0;
 stInitData.ModelParameters.ExpTrialNumber_Value := 1;

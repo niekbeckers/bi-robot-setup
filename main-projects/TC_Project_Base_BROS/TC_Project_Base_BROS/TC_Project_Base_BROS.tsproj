@@ -1107,7 +1107,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{B62DD8C6-3BB1-040B-13C7-E935D5B42288}">P_model_base_bros_T</Name>
+			<Name GUID="{6480CC46-AF2B-6772-2D3A-86CA365903D3}">P_model_base_bros_T</Name>
 			<BitSize>29376</BitSize>
 			<SubItem>
 				<Name>FM1</Name>
@@ -2514,7 +2514,7 @@
 				<BitOffs>22016</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_o</Name>
+				<Name>Gain_Gain_l</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
 				<BitOffs>22080</BitOffs>
@@ -2898,6 +2898,8 @@
 				<BitOffs>29120</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{FAA5C95C-C1D1-4058-CAD8-5EE0A0675127}"/>
+				<Hide GUID="{B62DD8C6-3BB1-040B-13C7-E935D5B42288}"/>
 				<Hide GUID="{E003354A-3FA9-5387-B34B-BD6474768223}"/>
 				<Hide GUID="{6AE49727-F513-EED7-BDE0-BC4BBBC8E8E9}"/>
 				<Hide GUID="{A3DA581D-D631-BD50-4DC0-4406D7068CE4}"/>
@@ -4117,9 +4119,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{1D5662E8-F67D-46CF-B79E-D23781D1A9FD}">
+					<TmcDesc GUID="{CB436592-000E-49FB-AA18-F65E3E93FBF9}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{1D5662E8-F67D-46CF-B79E-D23781D1A9FD}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{CB436592-000E-49FB-AA18-F65E3E93FBF9}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -4241,7 +4243,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>29376</BitSize>
-								<BaseType GUID="{B62DD8C6-3BB1-040B-13C7-E935D5B42288}">P_model_base_bros_T</BaseType>
+								<BaseType GUID="{6480CC46-AF2B-6772-2D3A-86CA365903D3}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -9340,7 +9342,7 @@
 									<BitOffs>22016</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_o</Name>
+									<Name>Gain_Gain_l</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x83000ac8</PTCID>
@@ -12382,7 +12384,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant_Value_m</Name>
-								<Value>6.28318530717959</Value>
+								<Value>18.8495559215388</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.AbsoluteMaximumTorque_Nm_Value</Name>
@@ -12426,7 +12428,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant_Value_i</Name>
-								<Value>6.28318530717959</Value>
+								<Value>18.8495559215388</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.AbsoluteMaximumTorque_Nm_Valu_n</Name>
@@ -12486,11 +12488,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.KpConnection_Value</Name>
-								<Value>50</Value>
+								<Value>150</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.KdConnection_Value</Name>
-								<Value>5</Value>
+								<Value>15</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.TSamp_WtEt_p4</Name>
@@ -12618,7 +12620,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant_Value_fg</Name>
-								<Value>6.28318530717959</Value>
+								<Value>18.8495559215388</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.AbsoluteMaximumTorque_Nm_Valu_h</Name>
@@ -12662,7 +12664,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant_Value_c</Name>
-								<Value>6.28318530717959</Value>
+								<Value>18.8495559215388</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.AbsoluteMaximumTorque_Nm_Valu_d</Name>
@@ -12969,7 +12971,7 @@
 								<Value>0</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_o</Name>
+								<Name>ModelParameters.Gain_Gain_l</Name>
 								<Value>1</Value>
 							</Value>
 							<Value>
