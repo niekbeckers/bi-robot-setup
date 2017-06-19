@@ -221,7 +221,6 @@ void ofAppExperiment::setTrialDataADS()
 
 	// condition
 	int c = _currentTrial.condition;
-	ofLogVerbose(ofToString(c));
 	_tcClient->write(_lHdlVar_Write_Condition, &c, sizeof(c));
 	
 	// trialDuration

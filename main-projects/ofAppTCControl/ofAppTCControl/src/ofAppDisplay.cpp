@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofAppDisplay::setup()
 {
+	ofSetVerticalSync(false); // switch vsync off
+
 	ofBackground(25,25,25);
 	ofSetWindowTitle("Display");
 
