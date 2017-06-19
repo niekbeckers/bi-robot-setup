@@ -18,7 +18,8 @@ max_radius_target = 0.08;
 
 load('phases_and_functiondata.mat')
 
-A_filt = A;
+Ax_filt = Ax;
+Ay_filt = Ay;
 maxofx_target = maxofx;
 maxofy_target = maxofy;
 phasesx_target = phasesx;
