@@ -3714,3 +3714,5 @@ main-projects/data/bros/meas55_admittance/data_part11.mat
 main-projects/data/bros/meas55_admittance/data_part10.mat
 main-projects/data/bros/meas55_admittance/data_part1.mat
 main-projects/data/bros/meas55_admittance/analyse_square.m
+
+experiments/mattia/experiment-protocol-xml/experiment_info\.mat

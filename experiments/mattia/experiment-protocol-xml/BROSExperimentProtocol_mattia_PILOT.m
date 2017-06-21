@@ -58,25 +58,30 @@
 clear all; close all; clc;
 
 % filename
-filename = 'expprotocol_bros_template';
+filename = 'expprotocol_bros_template_mattia';
 
 % create (main) struct
 s = struct;
 
+% set trial duration and break duration in seconds
+trialD = 40;
+breakD = 5;
+betweenblocksD = 180.0;
+
 %% trial data
 % example
-
-connected = true*[1;0;1;0;1;0;1;0];
-connectionStiffness = [60;0;60;0;60;0;60;0];
-condition = ones(size(connected));
+numTrials = 40;
+connected = zeros(1,numTrials);
+connectionStiffness = zeros(1,numTrials);
+condition = zeros(1,numTrials);
 trialDuration = 40*ones(size(connected));
-breakDuration = 6*ones(size(connected));
+breakDuration = 5*ones(size(connected));
 
 % sort elements of trialRandomization in random order
-phaseSets = [1;2;3;4;1;2;3;4];
+phaseSets = [1:20,1:20];
 trialRandomization = phaseSets(randperm(length(phaseSets)));
 
-numTrials = length(connected);
+%numTrials = length(connected);
 
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
@@ -93,11 +98,11 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:4; 5:8}; 
+divTrials = {1:10; 11:20; 21:30; 31:40}; 
 numBlocks = length(divTrials);
 
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = betweenblocksD;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
@@ -106,3 +111,4 @@ end
 
 %% write to to XML file
 struct2xml(s,[filename '.xml']);
+save('experiment_info', 's')
