@@ -57,32 +57,30 @@
 
 clear all; close all; clc;
 
-load('trialssequence.mat')
-c_stiff = 0; %it can be 0(solo), or other 4 values
+load('trialssequence')
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                    %%%   CHANGE FILENAME!!!   %%%
 % filename
-filename = 'expprotocol_bros_mattia_FIRSTTRY';
+filename = 'expprotocol_bros_template_mattia_try1';
 
 % create (main) struct
 s = struct;
 
-%% trial data
-% for normal experiment
+% set trial duration and break duration in seconds
+trialD = 40;
+breakD = 5;
+betweenblocksD = 120.0;
 
-numTrials = 60; %number of trials
-connected = seq(:, randi(5)); %2 subjects connected - using the 5 default sequencies
-connectionStiffness = c_stiff*ones(1,numTrials); %which connection stiffness is used?
-without = zeros(10,1);
-with    = ones(20,1);
-condition = [without; with; with; without]; % 1 is when there is the visuomotor rotation
-trialDuration = 40 * ones(size(connected));
-breakDuration = 15 * ones(size(connected));
+%% trial data
+% example
+numTrials = 40;
+connected = seq(1:40, randi(4))';
+connectionStiffness = zeros(1,numTrials);
+condition = zeros(1,numTrials); % leftover from visuomotor rotation condition
+trialDuration = 40*ones(size(connected));
+breakDuration = 5*ones(size(connected));
 
 % sort elements of trialRandomization in random order
-phaseSets = [1:20, 1:20, 1:20];
+phaseSets = [1:10, 1:10, 1:10, 1:10];
 trialRandomization = phaseSets(randperm(length(phaseSets)));
 
 %numTrials = length(connected);
@@ -102,11 +100,11 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:10; 11:30; 31:50; 51:60}; 
+divTrials = {1:8; 9:16; 17:24; 25:32; 33:40};
 numBlocks = length(divTrials);
 
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = betweenblocksD;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
@@ -114,10 +112,5 @@ for ii = 1:numBlocks
 end
 
 %% write to to XML file
-
 struct2xml(s,[filename '.xml']);
-
-%% and save structure for further use in matlab
-
-saving_filename = sprintf('%s.mat', filename);
-eval 'save(saving_filename, 's');
+save('experiment_info', 's')

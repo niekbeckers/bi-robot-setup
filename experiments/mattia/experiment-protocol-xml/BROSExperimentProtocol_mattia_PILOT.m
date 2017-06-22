@@ -58,7 +58,7 @@
 clear all; close all; clc;
 
 % filename
-filename = 'expprotocol_bros_template_mattia';
+filename = 'expprotocol_bros_template_mattiaPILOT';
 
 % create (main) struct
 s = struct;
@@ -66,7 +66,7 @@ s = struct;
 % set trial duration and break duration in seconds
 trialD = 40;
 breakD = 5;
-betweenblocksD = 180.0;
+betweenblocksD = 120.0;
 
 %% trial data
 % example
@@ -78,7 +78,7 @@ trialDuration = 40*ones(size(connected));
 breakDuration = 5*ones(size(connected));
 
 % sort elements of trialRandomization in random order
-phaseSets = [1:20,1:20];
+phaseSets = [1:10, 1:10, 1:10, 1:10];
 trialRandomization = phaseSets(randperm(length(phaseSets)));
 
 %numTrials = length(connected);
@@ -98,7 +98,7 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:10; 11:20; 21:30; 31:40}; 
+divTrials = {1:8; 9:16; 17:24; 25:32; 33:40};
 numBlocks = length(divTrials);
 
 for ii = 1:numBlocks
