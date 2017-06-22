@@ -10,11 +10,13 @@ void ofAppMain::setup(){
 	ofBackground(ofColor::blueSteel);
 	ofSetWindowTitle("Control");
 
+	// setup tcAdsClient
+	setupTCADS();
+
 	// set up GUI
 	setupGUI();
 
-	// setup tcAdsClient
-	setupTCADS();
+	
 
 	_timeCheck = ofGetElapsedTimef();
 
@@ -111,12 +113,19 @@ void ofAppMain::setupTCADS()
 
 	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
 	_lHdlVar_ConnectionDamping = _tcClientEvent->getVariableHandle(szVar7, sizeof(szVar7));
+
+	// Request State
+	char szVar8[] = { "Object1 (ModelBROS).ModelParameters.Recorddata1yes0no_Value" };
+	_lHdlVar_RecordData = _tcClientEvent->getVariableHandle(szVar8, sizeof(szVar8));
 	
 }
  
 //--------------------------------------------------------------
 void ofAppMain::setupGUI()
 {
+
+	// The GUI is set up 
+
 	// add button listeners
 	_btnCalibrateForceSensor.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
@@ -203,76 +212,104 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
-	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));
-	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10));
+	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));  // add dummy experiment
+	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10)); // add dummy experiment
 	_guiExperiment.add(_grpExpState);
 
 	_grpConnectionControl.setup("Connection control");
 	_grpConnectionControl.setName("Connection control");
 	_grpConnectionControl.add(_btnSetConnected.setup("Enable connection", false));
+	_btnSetConnected.setName("Enable connection");
 	_grpConnectionControl.add(_lblConnStiffness.setup("Connection stiffness Kp", ofToString(0) + " N/m"));
 	_grpConnectionControl.add(_btnConnSetStiffness.setup("Connection stiffness"));
 	_grpConnectionControl.add(_lblConnDamping.setup("Connection damping Kd", ofToString(0) + " Ns/m"));
 	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
 	_guiAdmittance.add(&_grpConnectionControl);
-	_btnSetConnected.setName("Enable connection");
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
+
+	// initialize GUI
+	initGUI();
 
 	// add toggle listeners
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
+
+	
+}
+
+//--------------------------------------------------------------
+void ofAppMain::initGUI()
+{
+	// check record data
+	bool record;
+	_tcClientEvent->read(_lHdlVar_RecordData, &record, sizeof(record));
+	_btnToggleRecordData = record;
+	// give button a color
+	if (record)
+		_btnToggleRecordData.setBackgroundColor(ofColor::darkGreen);
+	else
+		_btnToggleRecordData.setBackgroundColor(ofColor::orange);
+
+	// connection enabled?
+	bool connected;
+	_tcClientEvent->read(_lHdlVar_Connected, &connected, sizeof(connected));
+	_btnSetConnected = connected;
+
+	// connection stiffness
+	double Kp;
+	_tcClientEvent->read(_lHdlVar_ConnectionStiffness, &Kp, sizeof(Kp));
+	_lblConnStiffness = ofToString(Kp, 1) + " N/m";
+
+	// connection damping
+	double Kd;
+	_tcClientEvent->read(_lHdlVar_ConnectionDamping, &Kd, sizeof(Kd));
+	_lblConnDamping = ofToString(Kd, 1) + " Ns/m";
 }
 
 //--------------------------------------------------------------
 void ofAppMain::requestStateChange(int reqState)
 {
 	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
-	tcAdsClient* tcClient = new tcAdsClient(adsPort);
+	//tcAdsClient* tcClient = new tcAdsClient(adsPort);
 
 	// Request State
 	char szVar[] = { "Object1 (ModelBROS).ModelParameters.Requestedstate_Value" };
-	long lHdlVar = tcClient->getVariableHandle(szVar, sizeof(szVar));
+	long lHdlVar = _tcClientEvent->getVariableHandle(szVar, sizeof(szVar));
 
 	double state = (double)reqState; // cast to double because the simulink model/TMC object expects a double
 	
 	// write state request to variable handle
-	tcClient->write(lHdlVar, &state, sizeof(state));
+	_tcClientEvent->write(lHdlVar, &state, sizeof(state));
 
 	// clean up
-	tcClient->disconnect();
+	//tcClient->disconnect();
 }
 
 //--------------------------------------------------------------
 void ofAppMain::requestDriveEnableDisable(bool enable)
 {
-	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
-	tcAdsClient* tcClient = new tcAdsClient(adsPort);
-
 	long lHdlVar; // variable handle
 
 	if (enable) { 
 		// enable drives
 		char szVar1[] = { "Object1 (ModelBROS).ModelParameters.EnableDrives_Value" };
-		lHdlVar = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+		lHdlVar = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
 	}
 	else {
 		// disable drives
 		char szVar1[] = { "Object1 (ModelBROS).ModelParameters.DisableDrives_Value" };
-		lHdlVar = tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+		lHdlVar = _tcClientEvent->getVariableHandle(szVar1, sizeof(szVar1));
 	}
 	
 	// write 1 and 0 to variable handle (pulse)
 	double val = 1.0;
-	tcClient->write(lHdlVar, &val, sizeof(val));
+	_tcClientEvent->write(lHdlVar, &val, sizeof(val));
 	val = 0.0;
-	tcClient->write(lHdlVar, &val, sizeof(val));
-
-	// clean up
-	tcClient->disconnect();
+	_tcClientEvent->write(lHdlVar, &val, sizeof(val));
 }
 
 //--------------------------------------------------------------
@@ -309,12 +346,18 @@ void ofAppMain::buttonPressed(const void * sender)
 		experimentApp->loadExperimentXML(); // load experiment XML
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
+		// if the data recorder is not checked, force data recorder on.
+		if (!_btnToggleRecordData) { _btnToggleRecordData = true; }
+		// start experiment
 		experimentApp->startExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
 		experimentApp->stopExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Restart experiment")) == 0) {
+		// if the data recorder is not checked, force data recorder on.
+		if (!_btnToggleRecordData) { _btnToggleRecordData = true; }
+		// restart the experiment
 		experimentApp->restartExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
@@ -344,21 +387,14 @@ void ofAppMain::buttonPressed(const void * sender)
 //--------------------------------------------------------------
 void ofAppMain::recordDataTogglePressed(bool & value)
 {
-	// button event in GUI, most likely a request to the ADS (TwinCAT), hence set up client
-	tcAdsClient* tcClient = new tcAdsClient(adsPort);
-
-	// Request State
-	char szVar[] = { "Object1 (ModelBROS).ModelParameters.Recorddata1yes0no_Value" };
-	long lHdlVar = tcClient->getVariableHandle(szVar, sizeof(szVar));
-
-	// Write 1 to enable data recording, 0 to disable data recording
-	double val = value ? 1.0 : 0.0;
-
 	// write
-	tcClient->write(lHdlVar, &val, sizeof(val));
+	_tcClientEvent->write(_lHdlVar_RecordData, &value, sizeof(value));
 
-	// clean up
-	tcClient->disconnect();
+	// give button a color
+	if (value) 
+		_btnToggleRecordData.setBackgroundColor(ofColor::darkGreen);
+	else
+		_btnToggleRecordData.setBackgroundColor(ofColor::orange);
 }
 
 //--------------------------------------------------------------
@@ -389,7 +425,7 @@ void ofAppMain::setConnectionEnabled(bool & value)
 		_tcClientEvent->write(_lHdlVar_Connected, &v, sizeof(v));
 	}
 	catch (exception& e) {
-		ofLogError(e.what());
+ofLogError(e.what());
 	}
 
 	// set toggle button name
@@ -403,7 +439,7 @@ void ofAppMain::setConnectionStiffness(double Kp)
 	// write connection stiffness
 	double val = Kp;
 	_tcClientEvent->write(_lHdlVar_ConnectionStiffness, &val, sizeof(val));
-	_lblConnStiffness = ofToString(Kp, 1) + " N/m"; 
+	_lblConnStiffness = ofToString(Kp, 1) + " N/m";
 }
 
 //--------------------------------------------------------------
@@ -416,10 +452,7 @@ void ofAppMain::setConnectionDamping(double Kd)
 }
 
 //--------------------------------------------------------------
-void ofAppMain::keyPressed(int key){
-	//if (key == 'n') {
-	//	ofLogVerbose(ofSystemTextBoxDialog("Input URL", ""));
-	//}
+void ofAppMain::keyPressed(int key) {
 }
 
 //--------------------------------------------------------------
@@ -485,8 +518,8 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 		sprintf(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
 		ofLogVerbose("Drive Enabled: " + ofToString(buf));
 		_lblOpsEnabled = ofToString(buf);
-	} 
-	else if (pNotification->hNotification == _lHdlNot_Read_SystemError)  {
+	}
+	else if (pNotification->hNotification == _lHdlNot_Read_SystemError) {
 		double * data = (double *)pNotification->data;
 		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
 		ofLogVerbose("System Error: " + ofToString(buf));
@@ -499,12 +532,13 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 
 		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
 		ofLogVerbose("System State: " + ofToString(buf));
+
 		_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
 		_lblSysState[1] = StringSystemStateLabel(_systemState[1]);
 	}
 	
 	// print (to screen)) the value of the variable 
-	ofLogVerbose("Notification: " + ofToString(pNotification->hNotification) + " SampleSize: " + ofToString(pNotification->cbSampleSize));
+	ofLogVerbose("ADS Notification: " + ofToString(pNotification->hNotification) + " SampleSize: " + ofToString(pNotification->cbSampleSize));
 }
 
 //--------------------------------------------------------------

@@ -62,7 +62,8 @@ class ofAppMain : public ofBaseApp{
 		tcAdsClient *_tcClientCont, *_tcClientEvent;
 
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError, _lHdlVar_Write_CalibrateForceSensor,
-			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError, _lHdlVar_Connected, _lHdlVar_ConnectionStiffness, _lHdlVar_ConnectionDamping;
+			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError, _lHdlVar_Connected, _lHdlVar_ConnectionStiffness, _lHdlVar_ConnectionDamping,
+			_lHdlVar_RecordData;
 
 
 		float _timeRefreshCheck = 1.0f; // 1 second refresh
@@ -99,6 +100,7 @@ class ofAppMain : public ofBaseApp{
 		//
 		void setupTCADS();
 		void setupGUI();
+		void initGUI();
 		void buttonPressed(const void * sender);
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);

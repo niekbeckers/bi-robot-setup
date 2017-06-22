@@ -34,7 +34,7 @@ int main( ){
 	settings2.windowMode = OF_FULLSCREEN;
 	//settings2.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
-
+	
 	//
 	// display2Window
 	//
