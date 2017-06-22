@@ -17,6 +17,9 @@ class ofAppDisplay : public ofBaseApp
 		double dots_per_m;
 		double x0 = 0.0;
 		double y0 = 0*0.25;
+
+		// colors
+		ofColor clrBackground, clrCursor, clrTarget, clrWSBoundary, clrText;
 		
 		// message & font
 		string _message = "";

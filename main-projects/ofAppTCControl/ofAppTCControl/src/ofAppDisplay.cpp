@@ -5,7 +5,15 @@ void ofAppDisplay::setup()
 {
 	ofSetVerticalSync(false); // switch vsync off
 
-	ofBackground(25,25,25);
+	// define colors
+	clrBackground = ofColor(25, 25, 25);
+	clrCursor = ofColor::darkCyan;
+	clrTarget = ofColor::darkRed;
+	clrWSBoundary = ofColor::lightGray;
+	clrText = ofColor::darkCyan;
+
+
+	ofBackground(25,25,25); // background color
 	ofSetWindowTitle("Display");
 
 	int h = ofGetScreenHeight();
@@ -44,19 +52,19 @@ void ofAppDisplay::draw()
 		// draw workspace boundary
 		ofNoFill();
 		ofSetLineWidth(4);
-		ofSetColor(ofColor::lightGray);
+		ofSetColor(clrWSBoundary);
 		ofSetCircleResolution(80);
 		ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
 		// draw target
-		ofSetColor(ofColor::darkRed);
+		ofSetColor(clrTarget);
 		ofSetLineWidth(4);
 		ofSetCircleResolution(30);
 		ofDrawCircle(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m, 15.0);
 
 		// draw cursor
 		ofFill();
-		ofSetColor(ofColor::darkCyan);
+		ofSetColor(clrCursor);
 		ofDrawCircle(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m, 12.0);
 
 		ofPopMatrix();
@@ -65,6 +73,7 @@ void ofAppDisplay::draw()
 	// draw message
 	if (_showMessage) {
 		ofPushMatrix();
+		ofSetColor(clrText);
 		ofRectangle bounds = verdana50.getStringBoundingBox(_message, 0, 0);
 		ofTranslate(-bounds.getCenter()[0], -( 0.4*ofGetScreenHeight() + bounds.getCenter()[1]));
 		verdana50.drawString(_message, 0.0, 0.0);
@@ -75,6 +84,7 @@ void ofAppDisplay::draw()
 	if (_showCountDown) {
 		// countdown bar
 		ofPushMatrix();
+		ofSetColor(clrText);
 		ofNoFill();
 		ofDrawRectangle(_cdBarPosition, _cdBarWidth, _cdBarHeight);
 		ofFill();
