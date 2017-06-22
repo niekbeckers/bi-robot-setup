@@ -3895,7 +3895,7 @@
 	</ImageDatas>
 	<Project ProjectGUID="{1EABB0D0-3AE9-49AE-AAD5-6A8853CE01DA}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
-			<Settings MaxCpus="4" NonWinCpus="1">
+			<Settings MaxCpus="4" NonWinCpus="1" DontCheckTarget="130.89.64.212.1.1">
 				<Cpu/>
 				<Cpu CpuId="3"/>
 			</Settings>
@@ -4119,9 +4119,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{CB436592-000E-49FB-AA18-F65E3E93FBF9}">
+					<TmcDesc GUID="{63E84E55-0271-4D90-875C-5FBC5F1D9C6B}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{CB436592-000E-49FB-AA18-F65E3E93FBF9}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{63E84E55-0271-4D90-875C-5FBC5F1D9C6B}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
