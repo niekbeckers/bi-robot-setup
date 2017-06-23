@@ -60,7 +60,7 @@ clear all; close all; clc;
 load('trialssequence')
 
 % filename
-filename = 'expprotocol_bros_template_mattia_try1';
+filename = 'expprotocol_bros_template_mattia_DYAD';
 
 % create (main) struct
 s = struct;
@@ -70,14 +70,17 @@ trialD = 40;
 breakD = 5;
 betweenblocksD = 120.0;
 
+%set connection stiffness
+c_stiffness = 0;
+
 %% trial data
 % example
 numTrials = 40;
 connected = seq(1:40, randi(4))';
-connectionStiffness = zeros(1,numTrials);
+connectionStiffness = c_stiffness*(1,numTrials);
 condition = zeros(1,numTrials); % leftover from visuomotor rotation condition
-trialDuration = 40*ones(size(connected));
-breakDuration = 5*ones(size(connected));
+trialDuration = trialD*ones(size(connected));
+breakDuration = breakD*ones(size(connected));
 
 % sort elements of trialRandomization in random order
 phaseSets = [1:10, 1:10, 1:10, 1:10];

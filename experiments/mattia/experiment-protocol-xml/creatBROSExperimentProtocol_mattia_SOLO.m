@@ -58,7 +58,7 @@
 clear all; close all; clc;
 
 % filename
-filename = 'expprotocol_bros_template_mattiaPILOT';
+filename = 'expprotocol_bros_template_mattia_SOLO';
 
 % create (main) struct
 s = struct;
@@ -74,8 +74,8 @@ numTrials = 40;
 connected = zeros(1,numTrials);
 connectionStiffness = zeros(1,numTrials);
 condition = zeros(1,numTrials);
-trialDuration = 40*ones(size(connected));
-breakDuration = 5*ones(size(connected));
+trialDuration = trialD*ones(size(connected));
+breakDuration = breakD*ones(size(connected));
 
 % sort elements of trialRandomization in random order
 phaseSets = [1:10, 1:10, 1:10, 1:10];
