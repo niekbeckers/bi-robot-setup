@@ -6,14 +6,15 @@ void ofAppDisplay::setup()
 	ofSetVerticalSync(false); // switch vsync off
 
 	// define colors
-	clrBackground = ofColor(25, 25, 25);
-	clrCursor = ofColor::darkCyan;
-	clrTarget = ofColor::darkRed;
-	clrWSBoundary = ofColor::lightGray;
+	clrBackground = ofColor(18, 40, 47);
+	clrCursor = ofColor(20, 138, 255);
+	//clrTarget = ofColor(225, 31, 31);
+	clrTarget = ofColor(153, 0, 0);
+	clrWSBoundary = ofColor(198, 192, 173);
 	clrText = ofColor::darkCyan;
 
 
-	ofBackground(25,25,25); // background color
+	ofBackground(clrBackground); // background color
 	ofSetWindowTitle("Display");
 
 	int h = ofGetScreenHeight();
@@ -58,8 +59,8 @@ void ofAppDisplay::draw()
 
 		// draw target
 		ofSetColor(clrTarget);
-		ofSetLineWidth(4);
-		ofSetCircleResolution(30);
+		ofSetLineWidth(6);
+		ofSetCircleResolution(60);
 		ofDrawCircle(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m, 15.0);
 
 		// draw cursor
