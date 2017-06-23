@@ -71,6 +71,9 @@ void ofAppExperiment::update()
 	case ExperimentState::TRIALDONE:
 		esmTrialDone();
 		break;
+	case ExperimentState::TRIALFEEDBACK:
+		esmTrialFeedback();
+		break;
 	case ExperimentState::HOMINGAFTER:
 		esmHomingAfter();
 		break;
@@ -133,6 +136,9 @@ void ofAppExperiment::setupTCADS()
 
 	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
 	_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
+
+	char szVar8[] = { "Object1 (ModelBROS).BlockIO.PerformanceFeedback" };
+	_lHdlVar_Read_PerformanceFeedback = _tcClient->getVariableHandle(szVar8, sizeof(szVar8));
 }
 
 //--------------------------------------------------------------
@@ -289,6 +295,21 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	// experiment settings (attributes)
 	if (XML.exists("experiment")) {
 		if (XML.getValue<double>("countDownDuration")) { _cdDuration = XML.getValue<double>("countDownDuration"); }
+		if (XML.getValue<int>("trialFeedback")) { 
+			_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
+			// depending on trial feedback, check if a performance metric is given in the XML
+			switch (_trialFeedbackType) {
+			case TrialFeedback::MSE:
+				if (XML.getValue<int>("trialPerformanceThreshold")) { _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold"); }
+				break;
+			case TrialFeedback::MT:
+				if (XML.getValue<int>("trialMTRangeLower")) { _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower"); }
+				if (XML.getValue<int>("trialMTRangeUpper")) { _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper"); }
+				break;
+			}
+		}
+		else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
+		
 	}
 
 	int trialNumber = 0;
@@ -305,6 +326,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 			block.blockNumber = ++blockNumber;
 			if (XML.getValue<double>("breakDuration")) { block.breakDuration = XML.getValue<double>("breakDuration"); }
 			if (XML.getValue<int>("homingType")) { block.homingType = XML.getValue<int>("homingType"); }
+			
 
 			// set our "current" trial to the first one
 			if (XML.getName() == "block" && XML.setTo("trial[0]"))
@@ -316,15 +338,14 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					trialData trial;
 					trial.trialNumber = ++trialNumber;
 					//if (XML.getValue<int>("condition")) 
-					{ trial.condition = XML.getValue<int>("condition"); cout << "condition " << ofToString(trial.condition) << " size " << ofToString(sizeof(int)) << '\n'; }
-					//if (XML.getValue<bool>("connected")) 
-					{ trial.connected = XML.getValue<bool>("connected"); }
+					{ trial.condition = XML.getValue<int>("condition"); }
+					if (XML.getValue<bool>("connected")) { trial.connected = true; } 
+					else { trial.connected = false; }
 					if (XML.getValue<double>("connectionStiffness")) { trial.connectionStiffness = XML.getValue<double>("connectionStiffness"); }
 					if (XML.getValue<double>("connectionDamping")) { trial.connectionDamping = XML.getValue<double>("connectionDamping"); }
 					if (XML.getValue<double>("breakDuration")) { trial.breakDuration = XML.getValue<double>("breakDuration"); }
 					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration"); }
-					//if (XML.getValue<int>("trialRandomization")) 
-					{ trial.trialRandomization = XML.getValue<int>("trialRandomization"); }
+					trial.trialRandomization = XML.getValue<int>("trialRandomization");
 
 					block.trials.push_back(trial); // add trial to (temporary) trials list
 
@@ -375,6 +396,22 @@ void ofAppExperiment::setCurrentTrialNumber(int trialNr)
 	}
 	_currentTrialNumber = trialNr - 1;
 	mainApp->lblTrialNumber = trialNr;
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::showVisualReward()
+{
+	double performanceDiff = _trialPerformance - _trialPerformancePrev;
+
+	if (performanceDiff < -_trialPerformanceThreshold) { // better performance compared to last trial
+		
+	}
+	else if (performanceDiff > _trialPerformanceThreshold) { // worse performance compared to last trial
+
+	}
+	else {  // similar performance compared to last trial
+
+	}
 }
 
 //
@@ -538,29 +575,74 @@ void ofAppExperiment::esmTrialDone()
 	}
 	display1->showMessage(true, "Trial done");
 	display2->showMessage(true, "Trial done");
+	_trialDoneTime = ofGetElapsedTimef();
 
-	// call for trial after homing
-	if (!mainApp->systemIsInState(SystemState::ATHOME)) {
-		//if (false) {
-		mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
-		setExperimentState(ExperimentState::HOMINGAFTER);
+	// call for homing after trial
+	mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
+	setExperimentState(ExperimentState::TRIALFEEDBACK);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::esmTrialFeedback()
+{
+	// show feedback (if enabled)
+	if (!_trialFeedbackType) {  // if trialFeedbackType is not NONE
+
+		// request trial performance feedback from the RT model
+		_trialPerformancePrev = _trialPerformance;
+		_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
+
+		string msg = "Trial done\n\n";
+
+		// depending on feedback type, adjust method
+		switch (_trialFeedbackType) {
+		case TrialFeedback::MSE:
+			// show MSE
+			msg += "Performance: " + ofToString(_trialPerformance, 1);
+
+			// visual reward
+			//showVisualReward();
+
+			break;
+		case TrialFeedback::MT:
+			// show movement time
+			// we need the most accurate movement time, so retrieve it from the RT model
+			if (_trialPerformance < _trialMovementTimeRangeSec[0])
+				msg += "Too fast";
+			else if (_trialPerformance > _trialMovementTimeRangeSec[1])
+				msg += "Too slow";
+
+			break;
+		}
+
+		// show feedback
+		display1->showMessage(true, msg);
+		display2->showMessage(true, msg);
 	}
-	else {
-		setExperimentState(ExperimentState::HOMINGAFTERDONE);
-	}
+
+	// go to homing after
+	setExperimentState(ExperimentState::HOMINGAFTER);
 }
 
 //--------------------------------------------------------------
 void ofAppExperiment::esmHomingAfter()
 {
 	// check whether system is 'at home' (399)
-	if (mainApp->systemIsInState(SystemState::ATHOME)) setExperimentState(ExperimentState::HOMINGAFTERDONE);
+	if (mainApp->systemIsInState(SystemState::ATHOME)) 
+		setExperimentState(ExperimentState::HOMINGAFTERDONE);
 }
 
 //--------------------------------------------------------------
 void ofAppExperiment::esmHomingAfterDone()
 {
-	setExperimentState(ExperimentState::CHECKNEXTSTEP);
+	// wait at least a couple of seconds after trial is done to show message etc to user before going to new trial
+	if (ofGetElapsedTimef() - _trialDoneTime > 4.0f) { 
+		display1->showMessage(false, "");
+		display2->showMessage(false, "");
+
+		// check next step
+		setExperimentState(ExperimentState::CHECKNEXTSTEP);
+	}
 }
 
 //--------------------------------------------------------------

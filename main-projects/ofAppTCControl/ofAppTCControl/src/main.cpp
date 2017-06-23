@@ -32,7 +32,7 @@ int main( ){
 	ofGLFWWindowSettings settings2;
 	//settings1.monitor = 0;
 	settings2.windowMode = OF_FULLSCREEN;
-	//settings2.windowMode = OF_WINDOW;
+	settings2.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
 	
 	//

@@ -44,6 +44,7 @@ void ofAppDisplay::update()
 //--------------------------------------------------------------
 void ofAppDisplay::draw()
 {
+
 	// translate origin to middle of the screen
 	ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 

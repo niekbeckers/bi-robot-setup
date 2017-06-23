@@ -51,6 +51,7 @@ enum ExperimentState {
 	COUNTDOWNDONE,
 	TRIALRUNNING,
 	TRIALDONE,
+	TRIALFEEDBACK,
 	HOMINGAFTER,
 	HOMINGAFTERDONE,
 	CHECKNEXTSTEP,
@@ -59,6 +60,12 @@ enum ExperimentState {
 	BLOCKBREAK,
 	BLOCKBREAKDONE,
 	BLOCKDONE
+};
+
+enum TrialFeedback {
+	NONE,
+	MSE,
+	MT
 };
 
 // ExperimentStateLabel: in order to print a string of the currect experimentstate
@@ -83,6 +90,7 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 		INSERT_ELEMENT(COUNTDOWNDONE);
 		INSERT_ELEMENT(TRIALRUNNING);
 		INSERT_ELEMENT(TRIALDONE);
+		INSERT_ELEMENT(TRIALFEEDBACK);
 		INSERT_ELEMENT(HOMINGAFTER);
 		INSERT_ELEMENT(HOMINGAFTERDONE);
 		INSERT_ELEMENT(CHECKNEXTSTEP);
@@ -110,12 +118,15 @@ class ofAppExperiment : public ofBaseApp
 		// tcAdsClient
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_ConnectionStiffness, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration, 
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Write_ConnectionDamping;
+			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Write_ConnectionDamping, _lHdlVar_Read_PerformanceFeedback;
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
 		
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
+
+		// trial feedback
+		int _trialFeedbackType = TrialFeedback::NONE;
 
 		bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
 		bool _prevTrialRunning = false, _nowTrialRunning = false;
@@ -127,8 +138,12 @@ class ofAppExperiment : public ofBaseApp
 
 		// countdown and break parameters
 		double _cdDuration = 3.0; // -1.0 countdown means no countdown
-		double _cdStartTime, _breakStartTime, _getReadyStartTime;
+		double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
 		double _getReadyDuration = 2.0;
+		double _trialPerformance = 0.0, _trialPerformancePrev = 0.0; // approximate mean-squared error
+		double _trialPerformanceThreshold = 0.0015; // if the MSE difference threshold (improvement, worse performance)s
+		double _trialMovementTimeSec = 0.0; 
+		double _trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
 
 		//
 		// functions
@@ -137,6 +152,7 @@ class ofAppExperiment : public ofBaseApp
 		void requestStartTrialADS();
 		void setExperimentState(ExperimentState newState);
 		string secToMin(double seconds);
+		void showVisualReward();
 
 		void esmExperimentStart();
 		void esmExperimentStop();
@@ -150,6 +166,7 @@ class ofAppExperiment : public ofBaseApp
 		void esmCountdownDone();
 		void esmTrialRunning();
 		void esmTrialDone();
+		void esmTrialFeedback();
 		void esmHomingAfter();
 		void esmHomingAfterDone();
 		void esmCheckNextStep();
