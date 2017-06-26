@@ -11,6 +11,12 @@
 %
 % <?xml version="1.0" encoding="utf-8"?>
 % <experiment>
+%    <countDownDuration>3</countDownDuration> 
+%    <trialFeedback>0</trialFeedback>
+%     <trialPerformanceThreshold>0.1</trialPerformanceThreshold>
+%     or:
+%     <trialMTRangeLower>0.8</trialMTRangeLower>
+%     <trialMTRangeUpper>1.2</trialMTRangeUpper>
 %    <block>
 %       <breakDuration>300</breakDuration>
 %       <homingType>302</homingType>
@@ -40,7 +46,21 @@
 % The names of the parameters have to match the following:
 %
 % - Parameters
-%   - Trial:
+%   - Experiment:
+%       countDownDuration:      duration of countdown [s] (default: 3s)
+%       trialFeedback:          trial performance feedback to user [-]
+%                               0: no feedback
+%                               1: Mean Squared Error
+%                               2: Movement time
+%                               Based on the performance trial feedback
+%                               type, you can set lower, upper bounds to
+%                               movement time or a MSE performance
+%                               threshold. 
+%       trialPerformanceThreshold: MSE threshold whether performance is
+%                               better or worse than previous performance.
+%       trialMTRangeLower       Movement time lower bound
+%       trialMTRangeUpper       Movement time upper bound
+%   - Trial: 
 %       connected:              physical connection between BROS1 and BROS2 (bool)
 %       connectionStiffness:    connection stiffness [N/m] (double)
 %       connectionDamping:      connection damping [Ns/m] (double)
