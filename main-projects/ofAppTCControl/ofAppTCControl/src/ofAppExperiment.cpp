@@ -401,10 +401,28 @@ void ofAppExperiment::setCurrentTrialNumber(int trialNr)
 //--------------------------------------------------------------
 void ofAppExperiment::showVisualReward()
 {
-	double performanceDiff = _trialPerformance - _trialPerformancePrev;
+	//
+	// BROS 1
+	//
+	double performanceDiff = _trialPerformance[0] - _trialPerformancePrev[0];
 
 	if (performanceDiff < -_trialPerformanceThreshold) { // better performance compared to last trial
-		
+
+	}
+	else if (performanceDiff > _trialPerformanceThreshold) { // worse performance compared to last trial
+
+	}
+	else {  // similar performance compared to last trial
+
+	}
+
+	//
+	// BROS 2
+	//
+	performanceDiff = _trialPerformance[1] - _trialPerformancePrev[1];
+
+	if (performanceDiff < -_trialPerformanceThreshold) { // better performance compared to last trial
+
 	}
 	else if (performanceDiff > _trialPerformanceThreshold) { // worse performance compared to last trial
 
@@ -588,8 +606,10 @@ void ofAppExperiment::esmTrialFeedback()
 	// show feedback (if enabled)
 	if (!_trialFeedbackType) {  // if trialFeedbackType is not NONE
 
+		// save previous trial performance
+		_trialPerformancePrev[0] = _trialPerformance[0];
+		_trialPerformancePrev[1] = _trialPerformance[1];
 		// request trial performance feedback from the RT model
-		_trialPerformancePrev = _trialPerformance;
 		_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
 
 		string msg = "Trial done\n\n";
@@ -598,8 +618,9 @@ void ofAppExperiment::esmTrialFeedback()
 		switch (_trialFeedbackType) {
 		case TrialFeedback::MSE:
 			// show MSE
-			msg += "Performance: " + ofToString(_trialPerformance, 1);
-
+			display1->showMessage(true, msg + "Performance: " + ofToString(_trialPerformance[0], 1));
+			display2->showMessage(true, msg + "Performance: " + ofToString(_trialPerformance[1], 1));
+			
 			// visual reward
 			//showVisualReward();
 
@@ -607,17 +628,20 @@ void ofAppExperiment::esmTrialFeedback()
 		case TrialFeedback::MT:
 			// show movement time
 			// we need the most accurate movement time, so retrieve it from the RT model
-			if (_trialPerformance < _trialMovementTimeRangeSec[0])
-				msg += "Too fast";
-			else if (_trialPerformance > _trialMovementTimeRangeSec[1])
-				msg += "Too slow";
 
+			// BROS1
+			if (_trialPerformance[0] < _trialMovementTimeRangeSec[0])
+				display1->showMessage(true, msg + "Too fast");
+			else if (_trialPerformance[1] > _trialMovementTimeRangeSec[1])
+				display1->showMessage(true, msg + "Too slow");
+
+			// BROS2
+			if (_trialPerformance[1] < _trialMovementTimeRangeSec[0])
+				display2->showMessage(true, msg + "Too fast");
+			else if (_trialPerformance[1] > _trialMovementTimeRangeSec[1])
+				display2->showMessage(true, msg + "Too slow");
 			break;
 		}
-
-		// show feedback
-		display1->showMessage(true, msg);
-		display2->showMessage(true, msg);
 	}
 
 	// go to homing after

@@ -140,7 +140,7 @@ class ofAppExperiment : public ofBaseApp
 		double _cdDuration = 3.0; // -1.0 countdown means no countdown
 		double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
 		double _getReadyDuration = 2.0;
-		double _trialPerformance = 0.0, _trialPerformancePrev = 0.0; // approximate mean-squared error
+		double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }; // approximate mean-squared error
 		double _trialPerformanceThreshold = 0.0015; // if the MSE difference threshold (improvement, worse performance)s
 		double _trialMovementTimeSec = 0.0; 
 		double _trialMovementTimeRangeSec[2] = { 0.8, 1.2 };

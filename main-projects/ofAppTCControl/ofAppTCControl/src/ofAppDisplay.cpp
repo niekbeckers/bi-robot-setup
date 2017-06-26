@@ -4,6 +4,7 @@
 void ofAppDisplay::setup()
 {
 	ofSetVerticalSync(false); // switch vsync off
+	ofEnableAntiAliasing(); // enable anti-aliasing
 
 	// define colors
 	clrBackground = ofColor(18, 40, 47);
@@ -22,7 +23,6 @@ void ofAppDisplay::setup()
 
 	dots_per_m = sqrt((double)(h * h) + (double)(w * w)) / scrDiagonal * 100.0 / 2.54; //dots per meter
 
-	ofEnableAntiAliasing(); // enable anti-aliasing
 
 	// font
 	ofTrueTypeFont::setGlobalDpi(72);
