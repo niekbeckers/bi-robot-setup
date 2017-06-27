@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-26T13:56:48" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-27T15:00:34" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBROSMattia_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#d4eb3e0a;
-clsId.Data2 := 16#db26;
-clsId.Data3 := 16#4b57;
-clsId.Data4[0] := 16#83;
-clsId.Data4[1] := 16#3a;
-clsId.Data4[2] := 16#3c;
-clsId.Data4[3] := 16#3f;
-clsId.Data4[4] := 16#31;
-clsId.Data4[5] := 16#6d;
-clsId.Data4[6] := 16#9a;
-clsId.Data4[7] := 16#05;
+clsId.Data1 := 16#548ceed6;
+clsId.Data2 := 16#e01c;
+clsId.Data3 := 16#449a;
+clsId.Data4[0] := 16#94;
+clsId.Data4[1] := 16#60;
+clsId.Data4[2] := 16#2b;
+clsId.Data4[3] := 16#23;
+clsId.Data4[4] := 16#86;
+clsId.Data4[5] := 16#77;
+clsId.Data4[6] := 16#78;
+clsId.Data4[7] := 16#c6;
 
 AssignClassId(clsId);
                     
@@ -2331,18 +2331,18 @@ stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[3] := 1.4
 stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[4] := 1.4;
 stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.4;
 stInitData.ModelParameters.FM2.FTSensor.TransformationMatrixSide := 2;
-stInitData.ModelParameters.Ax_filt[0] := 0.9766626038980073;
-stInitData.ModelParameters.Ax_filt[1] := 0.9451550077399153;
-stInitData.ModelParameters.Ax_filt[2] := 0.882082707212963;
-stInitData.ModelParameters.Ax_filt[3] := 0.7626049981276262;
-stInitData.ModelParameters.Ax_filt[4] := 0.5949757164195285;
-stInitData.ModelParameters.Ax_filt[5] := 0.5294723987375989;
-stInitData.ModelParameters.Ay_filt[0] := 0.9698388315126839;
-stInitData.ModelParameters.Ay_filt[1] := 0.9257686624349453;
-stInitData.ModelParameters.Ay_filt[2] := 0.8586640585780508;
-stInitData.ModelParameters.Ay_filt[3] := 0.7392144584720364;
-stInitData.ModelParameters.Ay_filt[4] := 0.6132453409770534;
-stInitData.ModelParameters.Ay_filt[5] := 0.544759603980757;
+stInitData.ModelParameters.Ax_filt[0] := 0.9759201358307332;
+stInitData.ModelParameters.Ax_filt[1] := 0.9425695212390997;
+stInitData.ModelParameters.Ax_filt[2] := 0.8729611807710893;
+stInitData.ModelParameters.Ax_filt[3] := 0.7314813477279549;
+stInitData.ModelParameters.Ax_filt[4] := 0.517848623270279;
+stInitData.ModelParameters.Ax_filt[5] := 0.4329497651601018;
+stInitData.ModelParameters.Ay_filt[0] := 0.96877889171161;
+stInitData.ModelParameters.Ay_filt[1] := 0.9215739122497216;
+stInitData.ModelParameters.Ay_filt[2] := 0.8461797526818163;
+stInitData.ModelParameters.Ay_filt[3] := 0.7025004675866554;
+stInitData.ModelParameters.Ay_filt[4] := 0.5415740269098168;
+stInitData.ModelParameters.Ay_filt[5] := 0.4526880878453721;
 stInitData.ModelParameters.Lb := 0.07000000000000001;
 stInitData.ModelParameters.Lf := 0.238;
 stInitData.ModelParameters.Lu := 0.153;

@@ -4247,9 +4247,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{D4EB3E0A-DB26-4B57-833A-3C3F316D9A05}">
+					<TmcDesc GUID="{548CEED6-E01C-449A-9460-2B23867778C6}">
 						<Name>ModelBROSMattia</Name>
-						<CLSID ClassFactory="ModelBROSMattia">{D4EB3E0A-DB26-4B57-833A-3C3F316D9A05}</CLSID>
+						<CLSID ClassFactory="ModelBROSMattia">{548CEED6-E01C-449A-9460-2B23867778C6}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -12304,51 +12304,51 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax_filt[0]</Name>
-								<Value>0.976662603898007</Value>
+								<Value>0.975920135830733</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax_filt[1]</Name>
-								<Value>0.945155007739915</Value>
+								<Value>0.9425695212391</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax_filt[2]</Name>
-								<Value>0.882082707212963</Value>
+								<Value>0.872961180771089</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax_filt[3]</Name>
-								<Value>0.762604998127626</Value>
+								<Value>0.731481347727955</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax_filt[4]</Name>
-								<Value>0.594975716419529</Value>
+								<Value>0.517848623270279</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax_filt[5]</Name>
-								<Value>0.529472398737599</Value>
+								<Value>0.432949765160102</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay_filt[0]</Name>
-								<Value>0.969838831512684</Value>
+								<Value>0.96877889171161</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay_filt[1]</Name>
-								<Value>0.925768662434945</Value>
+								<Value>0.921573912249722</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay_filt[2]</Name>
-								<Value>0.858664058578051</Value>
+								<Value>0.846179752681816</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay_filt[3]</Name>
-								<Value>0.739214458472036</Value>
+								<Value>0.702500467586655</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay_filt[4]</Name>
-								<Value>0.613245340977053</Value>
+								<Value>0.541574026909817</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay_filt[5]</Name>
-								<Value>0.544759603980757</Value>
+								<Value>0.452688087845372</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Lb</Name>
