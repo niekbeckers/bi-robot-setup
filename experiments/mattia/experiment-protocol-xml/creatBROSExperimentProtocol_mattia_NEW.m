@@ -58,7 +58,7 @@
 clear all; close all; clc;
 
 % filename
-filename = 'expprotocol_bros_template_mattia_SOLO';
+filename = 'expprotocol_bros_template_mattia_solo';
 
 % create (main) struct
 s = struct;
@@ -68,19 +68,24 @@ trialD = 40;
 breakD = 5;
 betweenblocksD = 120.0;
 
+%set connection stiffness
+c_stiffness = 0;
 %% trial data
 % example
-numTrials = 40;
+numTrials = 41;
 connected = zeros(1,numTrials);
-connectionStiffness = zeros(1,numTrials);
+
+connectionStiffness = c_stiffness*ones(1,numTrials);
 condition = zeros(1,numTrials);
+condition(1) = 1;
 trialDuration = trialD*ones(size(connected));
 breakDuration = breakD*ones(size(connected));
 
 % sort elements of trialRandomization in random order
 phaseSets = [1:10, 1:10, 1:10, 1:10];
 trialRandomization = phaseSets(randperm(length(phaseSets)));
-
+% add NaN to correspond with the first trial (the easy one)
+trialRandomization = [NaN trialRandomization];
 %numTrials = length(connected);
 
 for ii = 1:numTrials
@@ -98,8 +103,12 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:8; 9:16; 17:24; 25:32; 33:40};
+
+divTrials = {1; 2:9; 10:17; 18:25; 26:33; 34:41};
 numBlocks = length(divTrials);
+
+s.experiment.trialFeedback = 1;
+s.experiment.trialPerformanceThreshold = 0.001;
 
 for ii = 1:numBlocks
     s.experiment.block{ii}.breakDuration = betweenblocksD;
