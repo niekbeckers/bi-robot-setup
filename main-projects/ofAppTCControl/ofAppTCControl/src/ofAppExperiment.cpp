@@ -291,26 +291,24 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	if (XML.load(openFileResult.getPath())) {
 		ofLogVerbose("Loaded: " + openFileResult.getPath());
 	}
-
 	// experiment settings (attributes)
-	if (XML.exists("experiment")) {
-		if (XML.getValue<double>("countDownDuration")) { _cdDuration = XML.getValue<double>("countDownDuration"); }
-		if (XML.getValue<int>("trialFeedback")) { 
-			_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
-			// depending on trial feedback, check if a performance metric is given in the XML
-			switch (_trialFeedbackType) {
-			case TrialFeedback::MSE:
-				if (XML.getValue<int>("trialPerformanceThreshold")) { _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold"); }
-				break;
-			case TrialFeedback::MT:
-				if (XML.getValue<int>("trialMTRangeLower")) { _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower"); }
-				if (XML.getValue<int>("trialMTRangeUpper")) { _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper"); }
-				break;
-			}
+	if (XML.getValue<double>("countDownDuration")) { _cdDuration = XML.getValue<double>("countDownDuration"); }
+	if (XML.getValue<int>("trialFeedback")) { 
+		_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
+		ofLogVerbose("TrialFeedback " + ofToString(_trialFeedbackType));
+		// depending on trial feedback, check if a performance metric is given in the XML
+		switch (_trialFeedbackType) {
+		case TrialFeedback::RMSE:
+			if (XML.getValue<int>("trialPerformanceThreshold")) { _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold"); }
+			break;
+		case TrialFeedback::MT:
+			if (XML.getValue<int>("trialMTRangeLower")) { _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower"); }
+			if (XML.getValue<int>("trialMTRangeUpper")) { _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper"); }
+			break;
 		}
-		else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
-		
 	}
+	else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
+
 
 	int trialNumber = 0;
 	int blockNumber = 0;
@@ -604,23 +602,38 @@ void ofAppExperiment::esmTrialDone()
 void ofAppExperiment::esmTrialFeedback()
 {
 	// show feedback (if enabled)
-	if (!_trialFeedbackType) {  // if trialFeedbackType is not NONE
-
+	if (_trialFeedbackType > 0) {  // if trialFeedbackType is not NONE
+		ofLogVerbose("feedback?");
 		// save previous trial performance
 		_trialPerformancePrev[0] = _trialPerformance[0];
 		_trialPerformancePrev[1] = _trialPerformance[1];
+
 		// request trial performance feedback from the RT model
 		_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
 
-		string msg = "Trial done\n\n";
+		string msg1 = "Trial done\n\n";
+		string msg2 = "Trial done\n\n";
 
 		// depending on feedback type, adjust method
 		switch (_trialFeedbackType) {
-		case TrialFeedback::MSE:
-			// show MSE
-			display1->showMessage(true, msg + "Performance: " + ofToString(_trialPerformance[0], 1));
-			display2->showMessage(true, msg + "Performance: " + ofToString(_trialPerformance[1], 1));
+		case TrialFeedback::RMSE:
+			// show RMSE
+
+			msg1 += "Performance: " + ofToString(_trialPerformance[0], 2);
+			msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
+
+			if (_trialPerformance[0] < _trialPerformancePrev[0]) {
+				msg1 += "\n You improved!";
+			}
+			if (_trialPerformance[1] < _trialPerformancePrev[1]) {
+				msg2 += "\n You improved!";
+			}
+
+			display1->showMessage(true, msg1);
+			display2->showMessage(true, msg2);
 			
+			
+
 			// visual reward
 			//showVisualReward();
 
@@ -631,15 +644,15 @@ void ofAppExperiment::esmTrialFeedback()
 
 			// BROS1
 			if (_trialPerformance[0] < _trialMovementTimeRangeSec[0])
-				display1->showMessage(true, msg + "Too fast");
+				display1->showMessage(true, "Too fast");
 			else if (_trialPerformance[1] > _trialMovementTimeRangeSec[1])
-				display1->showMessage(true, msg + "Too slow");
+				display1->showMessage(true, "Too slow");
 
 			// BROS2
 			if (_trialPerformance[1] < _trialMovementTimeRangeSec[0])
-				display2->showMessage(true, msg + "Too fast");
+				display2->showMessage(true, "Too fast");
 			else if (_trialPerformance[1] > _trialMovementTimeRangeSec[1])
-				display2->showMessage(true, msg + "Too slow");
+				display2->showMessage(true, "Too slow");
 			break;
 		}
 	}

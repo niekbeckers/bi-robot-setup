@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-23T09:58:06" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-26T13:56:48" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBROSMattia_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#d58229ef;
-clsId.Data2 := 16#3a2a;
-clsId.Data3 := 16#430c;
-clsId.Data4[0] := 16#ac;
-clsId.Data4[1] := 16#5a;
-clsId.Data4[2] := 16#5d;
-clsId.Data4[3] := 16#5b;
-clsId.Data4[4] := 16#23;
-clsId.Data4[5] := 16#c7;
-clsId.Data4[6] := 16#86;
-clsId.Data4[7] := 16#40;
+clsId.Data1 := 16#d4eb3e0a;
+clsId.Data2 := 16#db26;
+clsId.Data3 := 16#4b57;
+clsId.Data4[0] := 16#83;
+clsId.Data4[1] := 16#3a;
+clsId.Data4[2] := 16#3c;
+clsId.Data4[3] := 16#3f;
+clsId.Data4[4] := 16#31;
+clsId.Data4[5] := 16#6d;
+clsId.Data4[6] := 16#9a;
+clsId.Data4[7] := 16#05;
 
 AssignClassId(clsId);
                     
@@ -2867,7 +2867,7 @@ stInitData.ModelParameters.Saturation_LowerSat_f := 0;
 stInitData.ModelParameters.One_Value_h := 1;
 stInitData.ModelParameters.Saturation_UpperSat_o := 1;
 stInitData.ModelParameters.Saturation_LowerSat_fc := 0;
-stInitData.ModelParameters.rotation_Value := 1.047197551196598;
+stInitData.ModelParameters.rotation_Value := 0;
 stInitData.ModelParameters.Merge3_InitialOutput[0] := 0;
 stInitData.ModelParameters.Merge3_InitialOutput[1] := 0;
 stInitData.ModelParameters.Memory1_10_X0 := 0;
@@ -2912,12 +2912,15 @@ stInitData.ModelParameters.Memory1_6_X0_fk := 0;
 stInitData.ModelParameters.Memory1_7_X0_fk := 0;
 stInitData.ModelParameters.Memory1_8_X0_fk := 0;
 stInitData.ModelParameters.Memory1_9_X0_fk := 0;
+stInitData.ModelParameters.Gain_Gain_d := 100;
 stInitData.ModelParameters.ExpTrialRandom3_Value[0] := 0;
 stInitData.ModelParameters.ExpTrialRandom3_Value[1] := 0;
+stInitData.ModelParameters.ExpCondition_Value := 0;
 stInitData.ModelParameters.ExpTrialRandom_Value := 1;
+stInitData.ModelParameters.Switch_Threshold := 0;
 stInitData.ModelParameters.ExpTrialRandom4_Value[0] := 0;
 stInitData.ModelParameters.ExpTrialRandom4_Value[1] := 0;
-stInitData.ModelParameters.ExpCondition_Value := 0;
+stInitData.ModelParameters.DoVisualRotation_Value := 0;
 stInitData.ModelParameters.ExpTrialNumber_Value := 1;
 stInitData.ModelParameters.FixPtConstant_Value := 1;
 stInitData.ModelParameters.Output_InitialCondition := 0;

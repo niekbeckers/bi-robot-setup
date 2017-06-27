@@ -63,8 +63,8 @@ enum ExperimentState {
 };
 
 enum TrialFeedback {
-	NONE,
-	MSE,
+	NONE = 0,
+	RMSE,
 	MT
 };
 
@@ -141,7 +141,7 @@ class ofAppExperiment : public ofBaseApp
 		double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
 		double _getReadyDuration = 2.0;
 		double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }; // approximate mean-squared error
-		double _trialPerformanceThreshold = 0.0015; // if the MSE difference threshold (improvement, worse performance)s
+		double _trialPerformanceThreshold = 0.0015; // if the RMSE difference threshold (improvement, worse performance)s
 		double _trialMovementTimeSec = 0.0; 
 		double _trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
 
