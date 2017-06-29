@@ -58,7 +58,7 @@
 clear all; close all; clc;
 
 % filename
-filename = 'expprotocol_bros_template_mattia_solo';
+filename = 'expprotocol_bros_template_mattia_solo_e1';
 
 % create (main) struct
 s = struct;
@@ -71,13 +71,18 @@ betweenblocksD = 120.0;
 %set connection stiffness
 c_stiffness = 0;
 %% trial data
-% example
-numTrials = 41;
-connected = zeros(1,numTrials);
 
+
+numTrials = 41;
+
+if c_stiffness
+    connected = seq(1:40, randi(2))';
+else
+    connected = zeros(1,numTrials);
+end
 connectionStiffness = c_stiffness*ones(1,numTrials);
 condition = zeros(1,numTrials);
-condition(1) = 1;
+condition(1) = 1; %condition = 1 makes the easy signal to run
 trialDuration = trialD*ones(size(connected));
 breakDuration = breakD*ones(size(connected));
 
@@ -120,4 +125,4 @@ end
 
 %% write to to XML file
 struct2xml(s,[filename '.xml']);
-save('experiment_info', 's')
+save('e1_info', 's')

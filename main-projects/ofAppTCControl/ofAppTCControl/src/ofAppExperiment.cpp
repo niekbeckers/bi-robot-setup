@@ -623,10 +623,10 @@ void ofAppExperiment::esmTrialFeedback()
 			msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
 
 			if (_trialPerformance[0] < _trialPerformancePrev[0]) {
-				msg1 += "\n You improved!";
+				msg1 += "\nYou improved!";
 			}
 			if (_trialPerformance[1] < _trialPerformancePrev[1]) {
-				msg2 += "\n You improved!";
+				msg2 += "\nYou improved!";
 			}
 
 			display1->showMessage(true, msg1);
