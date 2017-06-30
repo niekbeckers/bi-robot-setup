@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-29T17:12:13" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-06-30T07:32:14" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#7311f495;
-clsId.Data2 := 16#1033;
-clsId.Data3 := 16#4ca2;
-clsId.Data4[0] := 16#b7;
-clsId.Data4[1] := 16#33;
-clsId.Data4[2] := 16#84;
-clsId.Data4[3] := 16#d3;
-clsId.Data4[4] := 16#d6;
-clsId.Data4[5] := 16#94;
-clsId.Data4[6] := 16#62;
-clsId.Data4[7] := 16#9e;
+clsId.Data1 := 16#1e228487;
+clsId.Data2 := 16#7f8c;
+clsId.Data3 := 16#4e93;
+clsId.Data4[0] := 16#92;
+clsId.Data4[1] := 16#5d;
+clsId.Data4[2] := 16#e4;
+clsId.Data4[3] := 16#56;
+clsId.Data4[4] := 16#e9;
+clsId.Data4[5] := 16#8a;
+clsId.Data4[6] := 16#d4;
+clsId.Data4[7] := 16#41;
 
 AssignClassId(clsId);
                     
@@ -2386,6 +2386,7 @@ stInitData.ModelParameters.DetectRisePositive_vinit_l := 0;
 stInitData.ModelParameters.DetectRisePositive1_vinit_f := 0;
 stInitData.ModelParameters.Constant_Value := 1;
 stInitData.ModelParameters.Constant1_Value := 1;
+stInitData.ModelParameters.Tsdivideroversampling_Value := 5;
 stInitData.ModelParameters.x_prev1_InitialCondition := 0;
 stInitData.ModelParameters.xdot_prev1_InitialCondition := 0;
 stInitData.ModelParameters.x_prev2_InitialCondition := 0;
@@ -2654,7 +2655,7 @@ stInitData.ModelParameters.Logic_table_a[12] := 0;
 stInitData.ModelParameters.Logic_table_a[13] := 0;
 stInitData.ModelParameters.Logic_table_a[14] := 0;
 stInitData.ModelParameters.Logic_table_a[15] := 0;
-stInitData.ModelParameters.Connected_Value := 0;
+stInitData.ModelParameters.Connected_Value := 1;
 stInitData.ModelParameters.Memory1_X0_f := 0;
 stInitData.ModelParameters.Constant_Value_mj := 0;
 stInitData.ModelParameters.Memory_X0_i := 0;
