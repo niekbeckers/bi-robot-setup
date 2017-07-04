@@ -1,4 +1,5 @@
 #pragma once
+#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <ofMain.h>
 
@@ -50,7 +51,4 @@ class childParticle {
     
         bool addNoise = false;
         bool isActive = false;
-    
-    
-
 };

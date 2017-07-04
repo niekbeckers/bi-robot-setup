@@ -103,7 +103,7 @@ void parentParticle::draw()
     
     if (mode == PARENTPARTICLE_MODE_NORMAL) {
         ofSetCircleResolution(120);
-        ofSetLineWidth(3.0);
+        ofSetLineWidth(6);
         ofDrawCircle(pos.x,pos.y,radius);
     }
     else if (mode == PARENTPARTICLE_MODE_CLOUD || mode == PARENTPARTICLE_MODE_EXPLODE) {

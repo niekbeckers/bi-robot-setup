@@ -33,12 +33,25 @@ void ofAppDisplay::setup()
 	verdana30.load("verdana.ttf", 30, true, true);
 	verdana30.setLineHeight(30.0f);
 	verdana30.setLetterSpacing(1.035);
+
+	// setup cursor and target
+	cursor.setColor(clrCursor);
+	cursor.setFillMode(OF_FILLED);
+	cursor.radius = 12.0f;
+
+	target.setColor(clrTarget);
+	target.setFillMode(OF_OUTLINE);
+	target.radius = 15.0f;
 }
 
 //--------------------------------------------------------------
 void ofAppDisplay::update()
 {
-
+	// update target and cursor
+	target.setPosition(ofPoint(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m));
+	target.update();
+	cursor.setPosition(ofPoint(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m));
+	cursor.update();
 }
 
 //--------------------------------------------------------------
@@ -59,15 +72,17 @@ void ofAppDisplay::draw()
 		ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
 		// draw target
-		ofSetColor(clrTarget);
-		ofSetLineWidth(6);
-		ofSetCircleResolution(60);
-		ofDrawCircle(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m, 15.0);
+		//ofSetColor(clrTarget);
+		//ofSetLineWidth(6);
+		//ofSetCircleResolution(60);
+		//ofDrawCircle(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m, 15.0);
+		target.draw();
 
 		// draw cursor
-		ofFill();
-		ofSetColor(clrCursor);
-		ofDrawCircle(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m, 12.0);
+		//ofFill();
+		//ofSetColor(clrCursor);
+		//ofDrawCircle(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m, 12.0);
+		cursor.draw();
 
 		ofPopMatrix();
 	}

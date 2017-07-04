@@ -52,6 +52,12 @@
     <ClCompile Include="src\ofAppExperiment.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\childParticle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parentParticle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -123,6 +129,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ofAppExperiment.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\childParticle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\parentParticle.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

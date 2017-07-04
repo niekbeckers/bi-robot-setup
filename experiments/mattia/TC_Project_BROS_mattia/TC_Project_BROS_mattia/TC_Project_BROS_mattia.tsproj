@@ -4223,7 +4223,7 @@
 							</Value>
 							<Value>
 								<Name>MaxFileSize</Name>
-								<Value>1024</Value>
+								<Value>20480</Value>
 							</Value>
 							<Value>
 								<Name>InternalBufferSize</Name>

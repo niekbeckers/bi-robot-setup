@@ -405,13 +405,13 @@ void ofAppExperiment::showVisualReward()
 	double performanceDiff = _trialPerformance[0] - _trialPerformancePrev[0];
 
 	if (performanceDiff < -_trialPerformanceThreshold) { // better performance compared to last trial
-
+		display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 	else if (performanceDiff > _trialPerformanceThreshold) { // worse performance compared to last trial
-
+		// do nothing
 	}
 	else {  // similar performance compared to last trial
-
+		// do nothing
 	}
 
 	//
@@ -420,13 +420,13 @@ void ofAppExperiment::showVisualReward()
 	performanceDiff = _trialPerformance[1] - _trialPerformancePrev[1];
 
 	if (performanceDiff < -_trialPerformanceThreshold) { // better performance compared to last trial
-
+		display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 	else if (performanceDiff > _trialPerformanceThreshold) { // worse performance compared to last trial
-
+		// do nothing
 	}
 	else {  // similar performance compared to last trial
-
+		// do nothing
 	}
 }
 
@@ -564,6 +564,10 @@ void ofAppExperiment::esmCountdownDone()
 	display2->showMessage(false);
 	display1->showCountDown(false);
 	display2->showCountDown(false);
+	display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
+	display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+	display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
+	display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
 	display1->drawTask = true;
 	display2->drawTask = true;
 
@@ -631,11 +635,9 @@ void ofAppExperiment::esmTrialFeedback()
 
 			display1->showMessage(true, msg1);
 			display2->showMessage(true, msg2);
-			
-			
-
+	
 			// visual reward
-			//showVisualReward();
+			showVisualReward();
 
 			break;
 		case TrialFeedback::MT:

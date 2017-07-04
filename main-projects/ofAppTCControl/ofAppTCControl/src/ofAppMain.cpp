@@ -16,8 +16,6 @@ void ofAppMain::setup(){
 	// set up GUI
 	setupGUI();
 
-	
-
 	_timeCheck = ofGetElapsedTimef();
 
 	// point struct pointers of displays to data structs

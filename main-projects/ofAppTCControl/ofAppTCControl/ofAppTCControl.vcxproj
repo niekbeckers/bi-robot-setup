@@ -191,10 +191,12 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(Add
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="src\childParticle.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofAppDisplay.cpp" />
     <ClCompile Include="src\ofAppExperiment.cpp" />
     <ClCompile Include="src\ofAppMain.cpp" />
+    <ClCompile Include="src\parentParticle.cpp" />
     <ClCompile Include="src\tcAdsClient.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +211,11 @@ C:\Users\Labuser\Documents\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;%(Add
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="src\childParticle.h" />
     <ClInclude Include="src\ofAppDisplay.h" />
     <ClInclude Include="src\ofAppExperiment.h" />
     <ClInclude Include="src\ofAppMain.h" />
+    <ClInclude Include="src\parentParticle.h" />
     <ClInclude Include="src\tcAdsClient.h" />
     <ClInclude Include="src\myUtils.h" />
   </ItemGroup>

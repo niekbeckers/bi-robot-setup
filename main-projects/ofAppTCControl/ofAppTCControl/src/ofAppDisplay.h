@@ -4,7 +4,7 @@
 
 #include "ofMain.h"
 #include "ofUtils.h"
-
+#include "parentParticle.h"
 #include "myUtils.h"
 
 class ofAppDisplay : public ofBaseApp
@@ -27,6 +27,8 @@ class ofAppDisplay : public ofBaseApp
 		ofTrueTypeFont verdana50;
 		ofTrueTypeFont verdana30;
 
+		
+
 		// countdown
 		bool _showCountDown = false;
 		double _cdDuration = 3.0;
@@ -42,6 +44,9 @@ class ofAppDisplay : public ofBaseApp
 		//
 		displayData *pData;
 		bool drawTask = true;
+
+		parentParticle cursor;
+		parentParticle target;
 
 		//
 		// openFrameworks
