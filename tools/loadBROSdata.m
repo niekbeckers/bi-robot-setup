@@ -1,4 +1,12 @@
 function dataraw = loadBROSdata(datapath, savepath)
+%% function dataraw = loadBROSdata(datapath, savepath)
+%
+% Load relevant data from the massive TwinCAT data files. 
+% You can adapt the 'vars' parameter to your liking. Note that the variable
+% name you want to store in the 'data' struct need to match the
+% variablename in the 'dataraw' struct.
+%
+% Niek Beckers, 2017
 
 % check input parameters
 if nargin < 2
