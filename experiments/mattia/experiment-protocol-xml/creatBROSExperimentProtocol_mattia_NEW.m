@@ -58,44 +58,49 @@
 clear all; close all; clc;
 
 % filename
-filename = 'expprotocol_bros_template_mattia_solo_e1';
+filename = 'expprotocol_bros_template_mattia_e6_Mdyad2';
+load('sequencesNEW')
 
 % create (main) struct
 s = struct;
 
 % set trial duration and break duration in seconds
 trialD = 40;
-breakD = 5;
+breakD = 10;
 betweenblocksD = 120.0;
 
-%set connection stiffness
-c_stiffness = 0;
+%set connection stiffness and damping
+c_stiffness = 250;
+c_damping = 5;
 %% trial data
 
 
-numTrials = 41;
+numTrials = 49;
 
 if c_stiffness
-    connected = seq(1:40, randi(2))';
+    connected = seq(:, randi(2))';
 else
     connected = zeros(1,numTrials);
 end
+connected = [0 connected];
 connectionStiffness = c_stiffness*ones(1,numTrials);
+connectionDamping = c_damping*ones(1,numTrials);
 condition = zeros(1,numTrials);
 condition(1) = 1; %condition = 1 makes the easy signal to run
 trialDuration = trialD*ones(size(connected));
 breakDuration = breakD*ones(size(connected));
 
 % sort elements of trialRandomization in random order
-phaseSets = [1:10, 1:10, 1:10, 1:10];
+phaseSets = [1:4, 1:4, 1:4, 1:4, 1:4, 1:4, 1:4, 1:4, 1:4, 1:4, 1:4, 1:4];
 trialRandomization = phaseSets(randperm(length(phaseSets)));
 % add NaN to correspond with the first trial (the easy one)
-trialRandomization = [NaN trialRandomization];
+trialRandomization = [1 trialRandomization];
 %numTrials = length(connected);
 
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
     trial{ii}.connectionStiffness = connectionStiffness(ii);
+    trial{ii}.connectionDamping = connectionDamping(ii);
     trial{ii}.condition = condition(ii);
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
@@ -109,11 +114,11 @@ end
 
 % indices of trials per block
 
-divTrials = {1; 2:9; 10:17; 18:25; 26:33; 34:41};
+divTrials = {1; 2:9; 10:17; 18:25; 26:33; 34:41; 42:49};
 numBlocks = length(divTrials);
 
 s.experiment.trialFeedback = 1;
-s.experiment.trialPerformanceThreshold = 0.001;
+s.experiment.trialPerformanceThreshold = 0.15;
 
 for ii = 1:numBlocks
     s.experiment.block{ii}.breakDuration = betweenblocksD;
@@ -125,4 +130,4 @@ end
 
 %% write to to XML file
 struct2xml(s,[filename '.xml']);
-save('e1_info', 's')
+save('e6_info', 's')

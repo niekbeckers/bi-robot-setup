@@ -13,15 +13,11 @@ fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
 %% target function parameters
-
-max_radius_target = 0.08;
-
 load('phases_and_functiondata.mat')
-
+max_radius_target = 0.08;
 Ax_filt = Ax;
 Ay_filt = Ay;
-maxofx_target = maxofx;
-maxofy_target = maxofy;
+r_scale = new_r_max;
 phasesx_target = phasesx;
 phasesy_target = phasesy;
 nx_target = nx;
