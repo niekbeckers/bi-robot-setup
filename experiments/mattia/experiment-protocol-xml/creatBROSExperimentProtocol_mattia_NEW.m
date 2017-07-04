@@ -58,7 +58,7 @@
 clear all; close all; clc;
 
 % filename
-filename = 'expprotocol_bros_template_mattia_e6_Mdyad2';
+filename = 'expprotocol_bros_template_mattia_e10_Fdyad3';
 load('sequencesNEW')
 
 % create (main) struct
@@ -70,8 +70,8 @@ breakD = 10;
 betweenblocksD = 120.0;
 
 %set connection stiffness and damping
-c_stiffness = 250;
-c_damping = 5;
+c_stiffness = 125;
+c_damping = 2.5;
 %% trial data
 
 
@@ -130,4 +130,4 @@ end
 
 %% write to to XML file
 struct2xml(s,[filename '.xml']);
-save('e6_info', 's')
+save('e10_info', 's')

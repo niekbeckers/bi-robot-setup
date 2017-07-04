@@ -10,7 +10,8 @@ function dataraw = loadBROSdata(datapath, savepath)
 
 % check input parameters
 if nargin < 2
-    savepath = '.';
+    % save in same folder as raw data
+    savepath = datapath;
 end
 
 % import data
