@@ -119,8 +119,8 @@ void ofAppExperiment::setupTCADS()
 	char szVar1[] = { "Object1 (ModelBROS).ModelParameters.ExpCondition_Value" };
 	_lHdlVar_Write_Condition = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 
-	char szVar2[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
-	_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
+	//char szVar2[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
+	//_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
 
 	char szVar3[] = { "Object1 (ModelBROS).ModelParameters.Connected_Value" };
 	_lHdlVar_Write_Connected = _tcClient->getVariableHandle(szVar3, sizeof(szVar3));
@@ -134,8 +134,8 @@ void ofAppExperiment::setupTCADS()
 	char szVar6[] = { "Object1 (ModelBROS).ModelParameters.ExpTrialRandom_Value" };
 	_lHdlVar_Write_TrialRandom = _tcClient->getVariableHandle(szVar6, sizeof(szVar6));
 
-	char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
-	_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
+	//char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
+	//_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
 
 	char szVar8[] = { "Object1 (ModelBROS).BlockIO.PerformanceFeedback" };
 	_lHdlVar_Read_PerformanceFeedback = _tcClient->getVariableHandle(szVar8, sizeof(szVar8));
@@ -217,13 +217,15 @@ void ofAppExperiment::setTrialDataADS()
 	_tcClient->write(_lHdlVar_Write_TrialNumber, &_currentTrial.trialNumber, sizeof(_currentTrial.trialNumber));
 
 	// connected
-	_tcClient->write(_lHdlVar_Write_Connected, &_currentTrial.connected, sizeof(_currentTrial.connected));
+	//_tcClient->write(_lHdlVar_Write_Connected, &_currentTrial.connected, sizeof(_currentTrial.connected));
+	mainApp->setConnectionEnabled(_currentTrial.connected);
 
 	// connectionStiffness
-	_tcClient->write(_lHdlVar_Write_ConnectionStiffness, &_currentTrial.connectionStiffness, sizeof(_currentTrial.connectionStiffness));
-
+	//_tcClient->write(_lHdlVar_Write_ConnectionStiffness, &_currentTrial.connectionStiffness, sizeof(_currentTrial.connectionStiffness));
+	mainApp->setConnectionStiffness(_currentTrial.connectionStiffness);
 	// connection damping
-	_tcClient->write(_lHdlVar_Write_ConnectionDamping, &_currentTrial.connectionDamping, sizeof(_currentTrial.connectionDamping));
+	//_tcClient->write(_lHdlVar_Write_ConnectionDamping, &_currentTrial.connectionDamping, sizeof(_currentTrial.connectionDamping));
+	mainApp->setConnectionDamping(_currentTrial.connectionDamping);
 
 	// condition
 	int c = _currentTrial.condition;
@@ -451,6 +453,8 @@ void ofAppExperiment::esmExperimentStop()
 
 	display1->drawTask = true;
 	display2->drawTask = true;
+	display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
+	display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 
 	setExperimentState(ExperimentState::EXPERIMENTDONE);
 }
@@ -531,6 +535,10 @@ void ofAppExperiment::esmGetReadyDone()
 	else {
 		// start countdown
 		_cdStartTime = ofGetElapsedTimef();
+		display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
+		display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
+		display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		display1->drawTask = true;
 		display2->drawTask = true;
 		setExperimentState(ExperimentState::COUNTDOWN);
@@ -590,8 +598,8 @@ void ofAppExperiment::esmTrialDone()
 {
 	// set display to black
 	if (!debugMode) {
-		display1->drawTask = false;
-		display2->drawTask = false;
+		display1->drawTask = true;
+		display2->drawTask = true;
 	}
 	display1->showMessage(true, "Trial done");
 	display2->showMessage(true, "Trial done");
@@ -678,6 +686,9 @@ void ofAppExperiment::esmHomingAfterDone()
 	if (ofGetElapsedTimef() - _trialDoneTime > 4.0f) { 
 		display1->showMessage(false, "");
 		display2->showMessage(false, "");
+
+		display1->drawTask = false;
+		display2->drawTask = false;
 
 		// check next step
 		setExperimentState(ExperimentState::CHECKNEXTSTEP);

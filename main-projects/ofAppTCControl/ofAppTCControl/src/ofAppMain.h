@@ -105,10 +105,8 @@ class ofAppMain : public ofBaseApp{
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);
 		void experimentDebugModeTogglePressed(bool & value);
-		void setConnectionEnabled(bool & value);
 		void calibrateForceSensors();
-		void setConnectionStiffness(double Kp);
-		void setConnectionDamping(double Kd);
+		
 
 	public:
 		//
@@ -136,11 +134,16 @@ class ofAppMain : public ofBaseApp{
 		void keyPressed(int key);
 		void exit();
 
+		
+
 		// custom
 		void requestStateChange(int reqState);
 		void requestDriveEnableDisable(bool enable);
 		bool systemIsInState(int state) { return (_systemState[0] == state && _systemState[1] == state); }
 		bool systemIsInState(SystemState state) { return systemIsInState((int)state); }
 		bool systemIsInError() { return _systemState[0] == SystemState::FAULT || _systemState[1] == SystemState::FAULT; };
+		void setConnectionStiffness(double Kp);
+		void setConnectionDamping(double Kd);
+		void setConnectionEnabled(bool & value);
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 };

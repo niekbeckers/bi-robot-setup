@@ -32,7 +32,7 @@ int main( ){
 	ofGLFWWindowSettings settings2;
 	//settings1.monitor = 0;
 	settings2.windowMode = OF_FULLSCREEN;
-	settings2.windowMode = OF_WINDOW;
+	//settings2.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
 	
 	//
@@ -42,7 +42,7 @@ int main( ){
 	//settings2.monitor = 0;
 	settings3.setPosition(ofVec2f(-2560, 0));
 	settings3.windowMode = OF_FULLSCREEN;
-	settings3.windowMode = OF_WINDOW;
+	//settings3.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings3);
 
 	shared_ptr<ofAppDisplay> display1App(new ofAppDisplay);

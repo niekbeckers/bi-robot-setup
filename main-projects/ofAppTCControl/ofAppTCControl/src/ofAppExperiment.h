@@ -117,8 +117,8 @@ class ofAppExperiment : public ofBaseApp
 
 		// tcAdsClient
 		tcAdsClient *_tcClient;
-		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_ConnectionStiffness, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration, 
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Write_ConnectionDamping, _lHdlVar_Read_PerformanceFeedback;
+		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration,
+			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback; // _lHdlVar_Write_ConnectionDamping, _lHdlVar_Write_ConnectionStiffness;
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
