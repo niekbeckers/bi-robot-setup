@@ -45,7 +45,7 @@ void parentParticle::reset()
             
         case PARENTPARTICLE_MODE_EXPLODE:
             // make 2500 particles
-            particles.assign(1500, childParticle());
+            particles.assign(1250, childParticle());
             
             // all particles in a circle, give them a velocity
             for(unsigned int i = 0; i < particles.size(); i++){
@@ -88,7 +88,7 @@ void parentParticle::update()
             break;
         case PARENTPARTICLE_MODE_EXPLODE:
             for(unsigned int i = 0; i < particles.size(); i++){
-                particles[i].parentPos = pos;
+                //particles[i].parentPos = pos;
                 particles[i].update();
             }
             break;

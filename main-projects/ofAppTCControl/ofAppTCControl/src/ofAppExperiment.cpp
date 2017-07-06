@@ -7,6 +7,8 @@ void ofAppExperiment::setup()
 {
 	setupTCADS();	// setup TwinCAT ADS
 	setExperimentState(ExperimentState::IDLE);
+
+	_logFilename = "log_" + ofToString(ofGetDay(), 0, 2, '0') + ofToString(ofGetMonth(), 0, 2, '0') + ofToString(ofGetYear()) + ".txt";
 }
 
 //--------------------------------------------------------------
@@ -186,29 +188,6 @@ void ofAppExperiment::resumeExperiment()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::restartExperiment()
-{
-
-	// restart trial. Only possible when in error mode / idle mode
-	if ((_expState == ExperimentState::SYSTEMFAULT && _experimentRunning) || _expState == ExperimentState::IDLE) {
-
-		if (!debugMode) {
-			display1->drawTask = false;
-			display2->drawTask = false;
-		}
-
-		_experimentRunning = true;
-
-		// set new block
-		esmNewBlock(_currentTrialNumber);
-
-		setExperimentState(ExperimentState::NEWTRIAL);
-	}
-
-	
-}
-
-//--------------------------------------------------------------
 void ofAppExperiment::setTrialDataADS()
 {
 	// write trial data to ADS/Simulink model
@@ -292,12 +271,15 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 	if (XML.load(openFileResult.getPath())) {
 		ofLogVerbose("Loaded: " + openFileResult.getPath());
+		// log to file as well
+		ofLogToFile(_logFilename, true);
+		ofLogVerbose("ofAppExperiment","Experiment protocol XML file loaded: " + openFileResult.getPath());
+		ofLogToConsole();
 	}
 	// experiment settings (attributes)
 	if (XML.getValue<double>("countDownDuration")) { _cdDuration = XML.getValue<double>("countDownDuration"); }
 	if (XML.getValue<int>("trialFeedback")) { 
 		_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
-		ofLogVerbose("TrialFeedback " + ofToString(_trialFeedbackType));
 		// depending on trial feedback, check if a performance metric is given in the XML
 		switch (_trialFeedbackType) {
 		case TrialFeedback::RMSE:
@@ -370,35 +352,6 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::setCurrentBlockNumber(int blockNr)
-{
-	if (!_experimentLoaded) { return; }
-
-	if (blockNr > _blocks.size()) {
-		blockNr = _blocks.size();
-		ofLogWarning("ofAppExperiment::setCurrentBlockNumber","Block number out of bounds, reset to last block");
-	}
-
-	_currentBlockNumber = blockNr - 1;
-	mainApp->lblBlockNumber = blockNr;
-	mainApp->lblTrialNumber.setMax(_blocks[_currentBlockNumber].trials.size());
-	mainApp->lblBlockNumber.setMax(_blocks.size());
-}
-
-//--------------------------------------------------------------
-void ofAppExperiment::setCurrentTrialNumber(int trialNr)
-{
-	if (!_experimentLoaded) { return; }
-
-	if (trialNr > _currentBlock.trials.size()) {
-		trialNr = _currentBlock.trials.size();
-		ofLogWarning("ofAppExperiment::setCurrentTrialNumber", "Trial number out of bounds, reset to last trial of this block");
-	}
-	_currentTrialNumber = trialNr - 1;
-	mainApp->lblTrialNumber = trialNr;
-}
-
-//--------------------------------------------------------------
 void ofAppExperiment::showVisualReward()
 {
 	//
@@ -460,12 +413,12 @@ void ofAppExperiment::esmExperimentStop()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::esmNewBlock(int trialNumber)
+void ofAppExperiment::esmNewBlock()
 {
 	if (!_experimentRunning) { return; }
 
 	_currentBlock = _blocks[_currentBlockNumber];
-	_currentTrialNumber = trialNumber;
+	_currentTrialNumber = 0;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	mainApp->lblTrialNumber.setMax(_currentBlock.trials.size());
 
@@ -604,6 +557,13 @@ void ofAppExperiment::esmTrialDone()
 	display1->showMessage(true, "Trial done");
 	display2->showMessage(true, "Trial done");
 	_trialDoneTime = ofGetElapsedTimef();
+
+	// write trial done to log file 
+	// In case the software/pc crashes, we can backtrace where we were. 
+	// Edit the experiment XML (remove the trials that already have been done) and start experiment again.
+	ofLogToFile(_logFilename, true);
+	ofLogVerbose("ofAppExperiment", "Trial done. Trial " + ofToString(_currentTrialNumber) + " Block "+ofToString(_currentBlockNumber));
+	ofLogToConsole(); // log back to console
 
 	// call for homing after trial
 	mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));

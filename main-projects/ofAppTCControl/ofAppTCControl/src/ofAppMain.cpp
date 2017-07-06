@@ -134,12 +134,9 @@ void ofAppMain::setupGUI()
 	_btnReqState_Run.addListener(this, &ofAppMain::buttonPressed);
 	_btnEnableDrive.addListener(this, &ofAppMain::buttonPressed);
 	_btnDisableDrive.addListener(this, &ofAppMain::buttonPressed);
-	_btnExpRestart.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpLoad.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.addListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
-	_btnExpEnterBlock.addListener(this, &ofAppMain::buttonPressed);
-	_btnExpEnterTrial.addListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetStiffness.addListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetDamping.addListener(this, &ofAppMain::buttonPressed);
 	
@@ -178,7 +175,6 @@ void ofAppMain::setupGUI()
 	_grpReqState.setup("Request state");
 	_grpReqState.setName("State request");
 	_grpReqState.add(_btnReqState_Reset.setup("Reset"));
-	//_grpReqState.add(_btnReqState_Init.setup("Init"));
 	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate"));
 	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto"));
 	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual"));
@@ -204,9 +200,6 @@ void ofAppMain::setupGUI()
 	_grpExpControl.add(_btnExpStart.setup("Start"));
 	_grpExpControl.add(_btnExpStop.setup("Stop"));
 	_grpExpControl.add(_btnExpPauseResume.setup("Pause", false));
-	_grpExpControl.add(_btnExpEnterBlock.setup("Enter block #"));
-	_grpExpControl.add(_btnExpEnterTrial.setup("Enter trial #"));
-	_grpExpControl.add(_btnExpRestart.setup("Restart experiment"));
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
@@ -235,8 +228,6 @@ void ofAppMain::setupGUI()
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
-
-	
 }
 
 //--------------------------------------------------------------
@@ -352,30 +343,28 @@ void ofAppMain::buttonPressed(const void * sender)
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
 		experimentApp->stopExperiment();
 	}
-	else if (clickedBtn.compare(ofToString("Restart experiment")) == 0) {
-		// if the data recorder is not checked, force data recorder on.
-		if (!_btnToggleRecordData) { _btnToggleRecordData = true; }
-		// restart the experiment
-		experimentApp->restartExperiment();
-	}
 	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
 		calibrateForceSensors();
 	}
-	else if (clickedBtn.compare(ofToString("Enter block #")) == 0) {
-		string s = ofSystemTextBoxDialog("Enter desired block number", "");
-		if (s != "") experimentApp->setCurrentBlockNumber(atoi(s.c_str()));
-	}
-	else if (clickedBtn.compare(ofToString("Enter trial #")) == 0) {
-		string s = ofSystemTextBoxDialog("Enter desired trial number", "");
-		if (s != "") experimentApp->setCurrentTrialNumber(atoi(s.c_str()));
-	}
 	else if (clickedBtn.compare(ofToString("Connection stiffness")) == 0) {
 		string s = ofSystemTextBoxDialog("Enter connection stiffness", "");
-		if (s != "") setConnectionStiffness(strtod(s.c_str(),NULL));
+
+		try {
+			if (s != "") setConnectionStiffness(strtod(s.c_str(), NULL));
+		}
+		catch (exception& e) {
+			ofLogError(e.what());
+		}
+		
 	}
 	else if (clickedBtn.compare(ofToString("Connection damping")) == 0) {
 		string s = ofSystemTextBoxDialog("Enter connection damping", "");
-		if (s != "") setConnectionDamping(strtod(s.c_str(), NULL));
+		try {
+			if (s != "") setConnectionDamping(strtod(s.c_str(), NULL));
+		}
+		catch (exception& e) {
+			ofLogError(e.what());
+		}
 	}
 	else {
 		ofLogError("Button " + clickedBtn + " unknown");
@@ -423,7 +412,7 @@ void ofAppMain::setConnectionEnabled(bool & value)
 		_tcClientEvent->write(_lHdlVar_Connected, &v, sizeof(v));
 	}
 	catch (exception& e) {
-ofLogError(e.what());
+		ofLogError(e.what());
 	}
 
 	// set toggle button name
@@ -469,9 +458,6 @@ void ofAppMain::exit() {
 	_btnExpLoad.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStart.removeListener(this, &ofAppMain::buttonPressed);
 	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
-	_btnExpRestart.removeListener(this, &ofAppMain::buttonPressed);
-	_btnExpEnterBlock.removeListener(this, &ofAppMain::buttonPressed);
-	_btnExpEnterTrial.removeListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetStiffness.removeListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetDamping.removeListener(this, &ofAppMain::buttonPressed);
 

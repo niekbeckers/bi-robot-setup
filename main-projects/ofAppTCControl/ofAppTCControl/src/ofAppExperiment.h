@@ -118,7 +118,7 @@ class ofAppExperiment : public ofBaseApp
 		// tcAdsClient
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration,
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback; // _lHdlVar_Write_ConnectionDamping, _lHdlVar_Write_ConnectionStiffness;
+			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback;
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
@@ -145,6 +145,9 @@ class ofAppExperiment : public ofBaseApp
 		double _trialMovementTimeSec = 0.0; 
 		double _trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
 
+		// log
+		string _logFilename;
+
 		//
 		// functions
 		//
@@ -156,7 +159,7 @@ class ofAppExperiment : public ofBaseApp
 
 		void esmExperimentStart();
 		void esmExperimentStop();
-		void esmNewBlock(int trialNumber = 0);
+		void esmNewBlock();
 		void esmNewTrial();
 		void esmHomingBefore();
 		void esmHomingBeforeDone();
@@ -207,10 +210,7 @@ class ofAppExperiment : public ofBaseApp
 		void stopExperiment();
 		void pauseExperiment();
 		void resumeExperiment();
-		void restartExperiment();
 
 		ExperimentState experimentState() { return _expState; };
-		void setCurrentBlockNumber(int blockNr);
-		void setCurrentTrialNumber(int trialNr);
 };
 

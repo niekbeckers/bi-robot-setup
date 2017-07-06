@@ -84,7 +84,7 @@ class ofAppMain : public ofBaseApp{
 
 		// GUI experiment
 		ofxPanel _guiExperiment;
-		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop, _btnExpEnterTrial, _btnExpEnterBlock, _btnExpRestart;
+		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop;
 		ofxToggle _btnExpPauseResume, _btnDebugMode;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
