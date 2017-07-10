@@ -47,45 +47,44 @@ for ii = 1:2:size(xtarget_1,2)
     eucl_i = eucl_i + 1;
 end
 
-e_1 = mean(inst_eucl_e_1); %here it should be a 1*n_trials vector
-e_2 = mean(inst_eucl_e_2);
+e_1 = rms(inst_eucl_e_1); %here it should be a 1*n_trials vector
+e_2 = rms(inst_eucl_e_2);
 
-e_1 = e_1(2:end);
-e_2 = e_2(2:end);
 
 %% find DS
 
-index_counter = 1;
+index_counter_dual = 1;
 
-while index_counter < length(e_1) %keep looking for D trials until trials are over
+while index_counter_dual < length(e_1) %keep looking for D trials until trials are over
     
-    while not(trial_sequence(index_counter)) % I want to find the dyadic trial
-        index_counter = index_counter + 1;
-        if index_counter > length(e_1)
+    while not(trial_sequence(index_counter_dual)) % I want to find the dyadic trial
+        index_counter_dual = index_counter_dual + 1;
+        if index_counter_dual > length(e_1)
             break
         end
     end
     % dual trial found
-    index_counter_single = index_counter+1;
-    if index_counter > length(e_1)
+    index_counter_single = index_counter_dual+1;
+    if index_counter_single > length(e_1)
         break
     end
     
+    
     while (trial_sequence(index_counter_single)) % I want to find the single trial
         index_counter_single = index_counter_single +1;
-        if index_counter > length(e_1)
+        if index_counter_dual > length(e_1)
             break
         end
     end
     
     % single trial after dual trial
     % I can compute improvement after dual trial
-    improv_dual_trial_1 = [improv_dual_trial_1 e_1(index_counter_single)-e_1(index_counter)];
-    improv_dual_trial_2 = [improv_dual_trial_2 e_2(index_counter_single)-e_2(index_counter)];
+    improv_dual_trial_1 = [improv_dual_trial_1 e_1(index_counter_single)-e_1(index_counter_dual)];
+    improv_dual_trial_2 = [improv_dual_trial_2 e_2(index_counter_single)-e_2(index_counter_dual)];
     
     relative_performance1 = [relative_performance1 e_1(index_counter_single) - e_2(index_counter_single)];
-    
-    index_counter = index_counter_single + 1;
+    %relative_performance1 is to be plotted with improvement data from 1
+    index_counter_dual = index_counter_single + 1;
 end
 
 %% find SS
@@ -99,16 +98,20 @@ while (index_counter_single1 < length(e_1)) %keep looking for D trials until tri
     end
     
     % first single trial found
-    index_counter_single2 = index_counter_single1 + 1;
     
+    index_counter_single2 = index_counter_single1 + 1;
+    if index_counter_single2 >= length(e_1)
+        break
+    end
     
     while (trial_sequence(index_counter_single2)) % I want to find the single trial 2
         index_counter_single2 = index_counter_single2 +1;
-    end
-    
-    if (index_counter_single2 > length(e_1))
+            if (index_counter_single2 >= length(e_1))
         break
     end
+    end
+    
+
     
     % single trial after dual trial
     % I can compute improvement after dual trial

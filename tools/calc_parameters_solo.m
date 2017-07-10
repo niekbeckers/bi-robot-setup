@@ -35,8 +35,8 @@ for ii = 1:2:size(xtarget,2)
     eucl_i = eucl_i + 1;
 end
 
-e = mean(inst_eucl_e); %here it should be a 1*n_trials vector
-e = e(2:end);
+e = rms(inst_eucl_e); %here it should be a 1*n_trials vector
+
 
     improv_single_trial = NaN(length(e)-1, 1);
     
