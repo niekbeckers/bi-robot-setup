@@ -1,4 +1,4 @@
-function [] = run_1st_analysis (nExp)
+function [s] = run_1st_analysis (nExp)
 clc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     INPUTS !!!
@@ -12,9 +12,6 @@ clc
 %
 %
 %
-nExp = 14;
-
-
 Expstring = sprintf('e%d', nExp);
 
 fs = 1000; % this should always be the same because it's a robot thing
@@ -56,10 +53,13 @@ target_mat_r1 = NaN(trial_duration*fs, (n_trials)*2);
 target_mat_r2 = NaN(trial_duration*fs, (n_trials)*2);
 cursor_mat_r1 = NaN(trial_duration*fs, (n_trials)*2);
 cursor_mat_r2 = NaN(trial_duration*fs, (n_trials)*2);
+forces_mat_r1 = NaN(trial_duration*fs, (n_trials)*6);
+forces_mat_r2 = NaN(trial_duration*fs, (n_trials)*6);
 
 % create new time vector for resampling
 tnew = 0:1/fs:45;
 index = 1;
+indexF = 1;
 
 for i = 2:n_trials+1 %I want to avoid the first trial
     
@@ -68,21 +68,28 @@ for i = 2:n_trials+1 %I want to avoid the first trial
     target_BROS2_resampled = interp1(data.trial(i).t, data.trial(i).target_BROS2, tnew, 'linear','extrap');
     cursor_BROS1_resampled = interp1(data.trial(i).t, data.trial(i).cursor_BROS1, tnew, 'linear','extrap');
     cursor_BROS2_resampled = interp1(data.trial(i).t, data.trial(i).cursor_BROS2, tnew, 'linear','extrap');
+    forces_BROS1_resampled = interp1(data.trial(i).t, data.trial(i).ForcesOpSpace_BROS1, tnew, 'linear','extrap');
+    forces_BROS2_resampled = interp1(data.trial(i).t, data.trial(i).ForcesOpSpace_BROS2, tnew, 'linear','extrap');
     
     target_mat_r1(:,index:index+1) = target_BROS1_resampled(5001:end-1,:);
     target_mat_r2(:,index:index+1) = target_BROS2_resampled(5001:end-1,:);
     
-    
     cursor_mat_r1(:,index:index+1) = cursor_BROS1_resampled(5001:end-1,:);
     cursor_mat_r2(:,index:index+1) = cursor_BROS2_resampled(5001:end-1,:);
     
+    forces_mat_r1(:,indexF:indexF+5) = forces_BROS1_resampled(5001:end-1,:);
+    forces_mat_r2(:,indexF:indexF+5) = forces_BROS2_resampled(5001:end-1,:);
+    
     index = index+2;
+    indexF = indexF + 6;
 end
 
 trials = 1:n_trials;
 trials = trials';
 
-%%
+%% extracting parameters and saving structure
+
+s = struct; %Here all the data from the experiment will be saved
 
 cd(currentdir);
 
@@ -102,16 +109,17 @@ if dyad
     
     % normalization
     min_e_r1 = min(e_r1);
-    min_e_r2 = min(e_r2);                                       
+    min_e_r2 = min(e_r2);
     normd_e_r1 = e_r1 - min_e_r1;
     normd_e_r2 = e_r2 - min_e_r2;
     
-    % figure
-    cd(datapath); % go to data directory
-    figure
-    plot(1:n_trials, normd_e_r1*100, 'o', 1:n_trials, normd_e_r2*100, 'o')
-    savefig(saveerrors)
-    saveas(gcf,saveEpng)
+    
+    
+    %     % figure
+    %     figure
+    %     plot(1:n_trials, normd_e_r1*100, 'o', 1:n_trials, normd_e_r2*100, 'o')
+    %     savefig(saveerrors)
+    %     saveas(gcf,saveEpng)
     
     % curve fitting
     expfit_r1 = fit(trials, normd_e_r1', 'exp1');
@@ -119,8 +127,28 @@ if dyad
     pwrfit_r1 = fit(trials, normd_e_r1', 'power1');
     pwrfit_r2 = fit(trials, normd_e_r2', 'power1');
     
-
-    save(saveparameters, 'e_r1', 'e_r2', 'improv_dual_trial_r1', 'improv_single_trial_r1', 'improv_dual_trial_r2', 'improv_single_trial_r2', 'relative_performance1', 'trial_sequence', 'expfit_r1', 'expfit_r2', 'pwrfit_r1', 'pwrfit_r2', 'phase_sets')
+    %     cd(datapath); % go to data directory
+    %     save(saveparameters, 'e_r1', 'e_r2', 'improv_dual_trial_r1', 'improv_single_trial_r1', 'improv_dual_trial_r2', 'improv_single_trial_r2', 'relative_performance1', 'trial_sequence', 'expfit_r1', 'expfit_r2', 'pwrfit_r1', 'pwrfit_r2', 'phase_sets')
+    
+    % save to structure
+    s.e_r1 = normd_e_r1;
+    s.e_r2 = normd_e_r2;
+    s.improv_single_r1 = improv_single_trial_r1;
+    s.improv_single_r2 = improv_single_trial_r2;
+    s.improv_dual_r1 = improv_dual_trial_r1;
+    s.improv_dual_r2 = improv_dual_trial_r2;
+    s.relative_perf_r1 = relative_performance1;
+    s.relative_perf_r2 = - relative_performance1;
+    s.expfit_r1 = expfit_r1;
+    s.pwrfit_r1 = pwrfit_r1;
+    s.expfit_r2 = expfit_r2;
+    s.pwrfit_r2 = pwrfit_r2;
+    s.connected_sequence = trial_sequence;
+    s.phases_sequence = phase_sets;
+    s.F_r1 = forces_mat_r1;
+    s.F_r2 = forces_mat_r2;
+    
+    
 else
     
     [e_r1, improv_single_trial_r1] = calc_parameters_solo (target_mat_r1, cursor_mat_r1);
@@ -132,12 +160,11 @@ else
     normd_e_r1 = e_r1 - min_e_r1;
     normd_e_r2 = e_r2 - min_e_r2;
     
-    %figure
-    cd(datapath); % go to data directory
-    figure
-    plot(1:n_trials, normd_e_r1*100, 'o', 1:n_trials, normd_e_r2*100, 'o')
-    savefig(saveerrors)
-    saveas(gcf,saveEpng)
+    %     %figure
+    %     figure
+    %     plot(1:n_trials, normd_e_r1*100, 'o', 1:n_trials, normd_e_r2*100, 'o')
+    %     savefig(saveerrors)
+    %     saveas(gcf,saveEpng)
     
     % curve fitting
     expfit_r1 = fit(trials, normd_e_r1', 'exp1');
@@ -145,11 +172,21 @@ else
     pwrfit_r1 = fit(trials, normd_e_r1', 'power1');
     pwrfit_r2 = fit(trials, normd_e_r2', 'power1');
     
-
-    save(saveparameters, 'e_r1', 'improv_single_trial_r1', 'e_r2', 'improv_single_trial_r2', 'expfit_r1', 'expfit_r2', 'pwrfit_r1', 'pwrfit_r2', 'phase_sets')
+    %     cd(datapath); % go to data directory
+    %     save(saveparameters, 'e_r1', 'improv_single_trial_r1', 'e_r2', 'improv_single_trial_r2', 'expfit_r1', 'expfit_r2', 'pwrfit_r1', 'pwrfit_r2', 'phase_sets')
+    
+    % save to structure
+    s.e_r1 = normd_e_r1;
+    s.e_r2 = normd_e_r2;
+    s.improv_single_r1 = improv_single_trial_r1;
+    s.improv_single_r2 = improv_single_trial_r2;
+    s.expfit_r1 = expfit_r1;
+    s.pwrfit_r1 = pwrfit_r1;
+    s.expfit_r2 = expfit_r2;
+    s.pwrfit_r2 = pwrfit_r2;
+    s.phases_sequence = phase_sets;
+    s.F_r1 = forces_mat_r1;
+    s.F_r2 = forces_mat_r2;
 end
 
-
-
-disp('DONE!')
 
