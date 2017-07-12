@@ -15,7 +15,14 @@ experiments_struct = struct;
 tic
 for ii = n_exp
     cd(currentdir);
-    Experiment = run_1st_analysis(ii);
+    Experiment = extract_parameters(ii);
     experiments_struct.Experiment{ii} = Experiment;
+        if ii == 16
+        experiments_struct.Experiment{ii}.e_r2 = experiments_struct.Experiment{ii}.e_r2.*NaN;
+        experiments_struct.Experiment{ii}.improv_single_r2 = experiments_struct.Experiment{ii}.improv_single_r2.*NaN;
+        experiments_struct.Experiment{ii}.F_r2 = experiments_struct.Experiment{ii}.F_r2.*NaN;
+        %experiments_struct.Experiment{ii}.expfit_r2 = experiments_struct.Experiment{ii}.expfit_r2.*NaN;
+        %experiments_struct.Experiment{ii}.pwrfit_r2 = experiments_struct.Experiment{ii}.pwrfit_r2.*NaN;
+    end
 end
 toc

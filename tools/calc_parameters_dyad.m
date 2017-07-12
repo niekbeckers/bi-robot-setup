@@ -28,10 +28,10 @@ function [e_1, improv_single_trial_1, improv_dual_trial_1, e_2, improv_single_tr
 
 
 improv_dual_trial_1 = [];
-improv_single_trial_1 = [];
+improv_single_trial_1 = NaN(1, length(trial_sequence));
 
 improv_dual_trial_2 = [];
-improv_single_trial_2 = [];
+improv_single_trial_2 = NaN(1, length(trial_sequence));
 
 relative_performance1 = [];
 
@@ -79,11 +79,11 @@ while index_counter_dual < length(e_1) %keep looking for D trials until trials a
     
     % single trial after dual trial
     % I can compute improvement after dual trial
-    improv_dual_trial_1 = [improv_dual_trial_1 e_1(index_counter_single)-e_1(index_counter_dual)];
-    improv_dual_trial_2 = [improv_dual_trial_2 e_2(index_counter_single)-e_2(index_counter_dual)];
+    improv_dual_trial_1 = [improv_dual_trial_1 -(e_1(index_counter_single)-e_1(index_counter_dual))];
+    improv_dual_trial_2 = [improv_dual_trial_2 -(e_2(index_counter_single)-e_2(index_counter_dual))];
     
     relative_performance1 = [relative_performance1 e_1(index_counter_single) - e_2(index_counter_single)];
-    %relative_performance1 is to be plotted with improvement data from 1
+    %relative_performance1 is to be plotted with improvement data from 2
     index_counter_dual = index_counter_single + 1;
 end
 
@@ -113,12 +113,13 @@ while (index_counter_single1 < length(e_1)) %keep looking for D trials until tri
     
 
     
-    % single trial after dual trial
-    % I can compute improvement after dual trial
-    improv_single_trial_1 = [improv_single_trial_1 e_1(index_counter_single2)-e_1(index_counter_single1)];
-    improv_single_trial_2 = [improv_single_trial_2 e_2(index_counter_single2)-e_2(index_counter_single1)];
+    % single trial after firs single trial
+    % I can compute improvement after single trial
+    improv_single_trial_1(1,index_counter_single2) = e_1(index_counter_single1) - e_1(index_counter_single2);
+    improv_single_trial_2(1,index_counter_single2) = e_2(index_counter_single1) - e_2(index_counter_single2);
     
     index_counter_single1 = index_counter_single2;
 end
-
+    improv_single_trial_1 = improv_single_trial_1(2:end);
+    improv_single_trial_2 = improv_single_trial_2(2:end);
 end

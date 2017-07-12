@@ -38,10 +38,10 @@ end
 e = rms(inst_eucl_e); %here it should be a 1*n_trials vector
 
 
-    improv_single_trial = NaN(length(e)-1, 1);
+    improv_single_trial = NaN(1,length(e)-1);
     
     for ii = 1:(length(e)-1)
-        improv_single_trial(ii) = e(ii+1)-e(ii);
+        improv_single_trial(ii) = e(ii)-e(ii+1);
     end
 
 end

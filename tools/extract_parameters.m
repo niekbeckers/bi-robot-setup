@@ -1,4 +1,4 @@
-function [s] = run_1st_analysis (nExp)
+function [s, e_r1, e_r2] = extract_parameters (nExp)
 clc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     INPUTS !!!
@@ -10,7 +10,7 @@ clc
 % figure in the correct folder.
 %
 %
-%
+% e16: Only robot 1 was used: thus, data from robot 2 is not needed
 %
 Expstring = sprintf('e%d', nExp);
 
@@ -122,10 +122,10 @@ if dyad
     %     saveas(gcf,saveEpng)
     
     % curve fitting
-    expfit_r1 = fit(trials, normd_e_r1', 'exp1');
-    expfit_r2 = fit(trials, normd_e_r2', 'exp1');
-    pwrfit_r1 = fit(trials, normd_e_r1', 'power1');
-    pwrfit_r2 = fit(trials, normd_e_r2', 'power1');
+    expfit_r1 = fit(trials, normd_e_r1', 'exp1', 'Exclude', normd_e_r1>0.015);
+    expfit_r2 = fit(trials, normd_e_r2', 'exp1', 'Exclude', normd_e_r2>0.015);
+    pwrfit_r1 = fit(trials, normd_e_r1', 'power1', 'Exclude', normd_e_r1>0.015);
+    pwrfit_r2 = fit(trials, normd_e_r2', 'power1', 'Exclude', normd_e_r2>0.015);
     
     %     cd(datapath); % go to data directory
     %     save(saveparameters, 'e_r1', 'e_r2', 'improv_dual_trial_r1', 'improv_single_trial_r1', 'improv_dual_trial_r2', 'improv_single_trial_r2', 'relative_performance1', 'trial_sequence', 'expfit_r1', 'expfit_r2', 'pwrfit_r1', 'pwrfit_r2', 'phase_sets')
@@ -154,6 +154,7 @@ else
     [e_r1, improv_single_trial_r1] = calc_parameters_solo (target_mat_r1, cursor_mat_r1);
     [e_r2, improv_single_trial_r2] = calc_parameters_solo (target_mat_r2, cursor_mat_r2);
     
+    
     % normalization
     min_e_r1 = min(e_r1);
     min_e_r2 = min(e_r2);
@@ -167,10 +168,10 @@ else
     %     saveas(gcf,saveEpng)
     
     % curve fitting
-    expfit_r1 = fit(trials, normd_e_r1', 'exp1');
-    expfit_r2 = fit(trials, normd_e_r2', 'exp1');
-    pwrfit_r1 = fit(trials, normd_e_r1', 'power1');
-    pwrfit_r2 = fit(trials, normd_e_r2', 'power1');
+    expfit_r1 = fit(trials, normd_e_r1', 'exp1', 'Exclude', normd_e_r1>0.015);
+    expfit_r2 = fit(trials, normd_e_r2', 'exp1', 'Exclude', normd_e_r2>0.015);
+    pwrfit_r1 = fit(trials, normd_e_r1', 'power1', 'Exclude', normd_e_r1>0.015);
+    pwrfit_r2 = fit(trials, normd_e_r2', 'power1', 'Exclude', normd_e_r2>0.015);
     
     %     cd(datapath); % go to data directory
     %     save(saveparameters, 'e_r1', 'improv_single_trial_r1', 'e_r2', 'improv_single_trial_r2', 'expfit_r1', 'expfit_r2', 'pwrfit_r1', 'pwrfit_r2', 'phase_sets')
