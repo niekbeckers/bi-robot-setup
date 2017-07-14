@@ -79,11 +79,11 @@ while index_counter_dual < length(e_1) %keep looking for D trials until trials a
     
     % single trial after dual trial
     % I can compute improvement after dual trial
-    improv_dual_trial_1 = [improv_dual_trial_1 -(e_1(index_counter_single)-e_1(index_counter_dual))];
-    improv_dual_trial_2 = [improv_dual_trial_2 -(e_2(index_counter_single)-e_2(index_counter_dual))];
+    improv_dual_trial_1 = [improv_dual_trial_1 (e_1(index_counter_dual) - e_1(index_counter_single))];
+    improv_dual_trial_2 = [improv_dual_trial_2 (e_2(index_counter_dual) - e_2(index_counter_single))];
     
     relative_performance1 = [relative_performance1 e_1(index_counter_single) - e_2(index_counter_single)];
-    %relative_performance1 is to be plotted with improvement data from 2
+    %relative_performance1 is to be plotted with improvement dual data from 1
     index_counter_dual = index_counter_single + 1;
 end
 
@@ -120,6 +120,6 @@ while (index_counter_single1 < length(e_1)) %keep looking for D trials until tri
     
     index_counter_single1 = index_counter_single2;
 end
-    improv_single_trial_1 = improv_single_trial_1(2:end);
-    improv_single_trial_2 = improv_single_trial_2(2:end);
+    improv_single_trial_1 = improv_single_trial_1(3:end); % to get rid of NaN's
+    improv_single_trial_2 = improv_single_trial_2(3:end);
 end

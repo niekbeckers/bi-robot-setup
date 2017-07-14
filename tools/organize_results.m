@@ -2,7 +2,7 @@ clc
 clear all
 close all
 
-% experiment 1 used a different signals, so cannot be used for data
+% experiment 1 used a different signal,  so cannot be used for data
 % analysis
 
 currentdir = pwd;
@@ -26,3 +26,4 @@ for ii = n_exp
     end
 end
 toc
+save('ALLresults.mat')

@@ -138,7 +138,7 @@ if dyad
     s.improv_dual_r1 = improv_dual_trial_r1;
     s.improv_dual_r2 = improv_dual_trial_r2;
     s.relative_perf_r1 = relative_performance1;
-    s.relative_perf_r2 = - relative_performance1;
+    s.relative_perf_r2 = -relative_performance1;
     s.expfit_r1 = expfit_r1;
     s.pwrfit_r1 = pwrfit_r1;
     s.expfit_r2 = expfit_r2;
