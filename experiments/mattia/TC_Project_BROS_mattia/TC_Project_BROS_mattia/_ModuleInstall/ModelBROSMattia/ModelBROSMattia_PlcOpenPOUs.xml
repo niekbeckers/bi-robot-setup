@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-07-05T10:50:24" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-07-17T09:52:20" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBROSMattia_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#0d056129;
-clsId.Data2 := 16#d9d2;
-clsId.Data3 := 16#4906;
-clsId.Data4[0] := 16#bf;
-clsId.Data4[1] := 16#bb;
-clsId.Data4[2] := 16#11;
-clsId.Data4[3] := 16#6a;
-clsId.Data4[4] := 16#4c;
-clsId.Data4[5] := 16#b3;
-clsId.Data4[6] := 16#37;
-clsId.Data4[7] := 16#ba;
+clsId.Data1 := 16#c712c5e5;
+clsId.Data2 := 16#2d2e;
+clsId.Data3 := 16#400d;
+clsId.Data4[0] := 16#9e;
+clsId.Data4[1] := 16#c1;
+clsId.Data4[2] := 16#7b;
+clsId.Data4[3] := 16#43;
+clsId.Data4[4] := 16#99;
+clsId.Data4[5] := 16#36;
+clsId.Data4[6] := 16#dd;
+clsId.Data4[7] := 16#15;
 
 AssignClassId(clsId);
                     
