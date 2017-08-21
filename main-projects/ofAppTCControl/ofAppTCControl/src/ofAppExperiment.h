@@ -22,7 +22,7 @@ struct trialData {
 	int condition = 0;					// condition type
 	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
 	double breakDuration = -1.0;		// pause after each trial
-	int trialRandomization = 0;			// select whcih phase set we are selecting
+	double trialRandomization = 0.0;			// random start time
 };
 
 struct blockData {

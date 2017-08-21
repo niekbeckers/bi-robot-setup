@@ -77,24 +77,28 @@
 
 clear all; close all; clc;
 
+expID = 'pilotFF1';
+
 % filename
-filename = 'expprotocol_bros_template';
+filename = ['expprotocol_bros_' expID];
 
 % create (main) struct
 s = struct;
 
 %% trial data
 % example
+Ntrials = 8;
 
-connected = true*[1;0;1;0;1;0;1;0];
-connectionStiffness = [60;0;60;0;60;0;60;0];
-condition = ones(size(connected));
+connected = true*zeros(Ntrials,1);
+connectionStiffness = zeros(size(connected));
+condition = [0 0 0 0 1 1 1 1].';
 trialDuration = 40*ones(size(connected));
 breakDuration = 6*ones(size(connected));
 
 % sort elements of trialRandomization in random order
-phaseSets = [1;2;3;4;1;2;3;4];
-trialRandomization = phaseSets(randperm(length(phaseSets)));
+% phaseSets = [1;2;3;4;1;2;3;4];
+% trialRandomization = phaseSets(randperm(length(phaseSets)));
+trialRandomization = 20*rand(size(connected));
 
 numTrials = length(connected);
 
@@ -115,6 +119,7 @@ end
 % indices of trials per block
 divTrials = {1:4; 5:8}; 
 numBlocks = length(divTrials);
+s.experiment.expID = expID;
 
 for ii = 1:numBlocks
     s.experiment.block{ii}.breakDuration = 240.0;

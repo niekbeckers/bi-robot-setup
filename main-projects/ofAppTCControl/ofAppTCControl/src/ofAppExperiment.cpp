@@ -327,7 +327,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.getValue<double>("connectionDamping")) { trial.connectionDamping = XML.getValue<double>("connectionDamping"); }
 					if (XML.getValue<double>("breakDuration")) { trial.breakDuration = XML.getValue<double>("breakDuration"); }
 					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration"); }
-					trial.trialRandomization = XML.getValue<int>("trialRandomization");
+					trial.trialRandomization = XML.getValue<double>("trialRandomization");
 
 					block.trials.push_back(trial); // add trial to (temporary) trials list
 

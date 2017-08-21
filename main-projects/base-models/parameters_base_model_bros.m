@@ -8,9 +8,17 @@ Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
+
+% load target signal data
+load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
+
+% force field
+FFMatrix = [0 -15; 15 0];
+
 % butterworth filter (filtering velocity signal) 
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
+
 %% RobotStruct_FM1
 % clear FM1
 
