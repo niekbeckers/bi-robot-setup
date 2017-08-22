@@ -13,7 +13,7 @@ Lb = 0.07;                      % base width [m]
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
 % force field
-FFMatrix = [0 -15; 15 0];
+FFMatrix = [0 -13; 13 0];
 
 % butterworth filter (filtering velocity signal) 
 fc = 60;
@@ -34,7 +34,7 @@ FM1.Actuator1.AbsEncoderOffset = 54769/FM1.Actuator1.JointAbsoluteEncoderCounts_
 FM1.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM1.Actuator1.FOAWNoiseLevel = 9e-4;                  % Noise level for FOAW algorithm
-FM1.Actuator1.transmissionRatio = 7.2976;               % transmission ratio (estimated)[-]
+FM1.Actuator1.transmissionRatio = 7.31011;               % transmission ratio (estimated)[-]
 FM1.Actuator1.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM1.Actuator1.drivePeakCurrent = 20;                    % drive peak current [A]
 FM1.Actuator1.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
@@ -50,7 +50,7 @@ FM1.Actuator2.AbsEncoderOffset = 44338/FM1.Actuator2.JointAbsoluteEncoderCounts_
 FM1.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM1.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
-FM1.Actuator2.transmissionRatio = 7.3310;               % transmission ratio (estimated) [-]
+FM1.Actuator2.transmissionRatio = 7.32236;               % transmission ratio (estimated) [-]
 FM1.Actuator2.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM1.Actuator2.drivePeakCurrent = 20;                    % drive peak current [A]
 FM1.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
@@ -64,7 +64,7 @@ FM1.Actuator2.FilterButterB = Bbutter;
 FM1.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 FM1.FTSensor.TransformationMatrixSide = 1; % 1 = transformation matrix based from q1, 2 = transformation from q5.
 
-%% RobotStruct_FM1
+%% RobotStruct_FM2
 % clear FM2
 
 FM2.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
@@ -81,7 +81,7 @@ FM2.Actuator1.AbsEncoderOffset = 33205/FM1.Actuator1.JointAbsoluteEncoderCounts_
 FM2.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM2.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM2.Actuator1.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
-FM2.Actuator1.transmissionRatio = 7.36070;               % transmission ratio (estimated)[-]
+FM2.Actuator1.transmissionRatio = 7.36678;               % transmission ratio (estimated)[-]
 FM2.Actuator1.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM2.Actuator1.drivePeakCurrent = 20;                    % drive peak current [A]
 FM2.Actuator1.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
@@ -97,7 +97,7 @@ FM2.Actuator2.AbsEncoderOffset = 14143/FM1.Actuator2.JointAbsoluteEncoderCounts_
 FM2.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM2.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 FM2.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
-FM2.Actuator2.transmissionRatio = 7.32214;               % transmission ratio (estimated) [-]
+FM2.Actuator2.transmissionRatio = 7.33339;               % transmission ratio (estimated) [-]
 FM2.Actuator2.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM2.Actuator2.drivePeakCurrent = 20;                    % drive peak current [A]
 FM2.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]

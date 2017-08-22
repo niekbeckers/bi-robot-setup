@@ -91,7 +91,7 @@ Ntrials = 8;
 
 connected = true*zeros(Ntrials,1);
 connectionStiffness = zeros(size(connected));
-condition = [0 0 0 0 1 1 1 1].';
+condition = [1 1 1 1 1 1 1 1].';
 trialDuration = 40*ones(size(connected));
 breakDuration = 6*ones(size(connected));
 

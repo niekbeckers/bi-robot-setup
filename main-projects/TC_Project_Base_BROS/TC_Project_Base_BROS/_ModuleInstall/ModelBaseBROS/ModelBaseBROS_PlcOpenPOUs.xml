@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-21T09:54:33" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-21T13:59:28" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#0d5b03de;
-clsId.Data2 := 16#c9fa;
-clsId.Data3 := 16#4852;
-clsId.Data4[0] := 16#a0;
-clsId.Data4[1] := 16#e7;
-clsId.Data4[2] := 16#a6;
-clsId.Data4[3] := 16#e0;
-clsId.Data4[4] := 16#f3;
-clsId.Data4[5] := 16#c6;
-clsId.Data4[6] := 16#a8;
-clsId.Data4[7] := 16#73;
+clsId.Data1 := 16#003e115a;
+clsId.Data2 := 16#32e4;
+clsId.Data3 := 16#4bad;
+clsId.Data4[0] := 16#9d;
+clsId.Data4[1] := 16#db;
+clsId.Data4[2] := 16#bc;
+clsId.Data4[3] := 16#59;
+clsId.Data4[4] := 16#ec;
+clsId.Data4[5] := 16#a0;
+clsId.Data4[6] := 16#d8;
+clsId.Data4[7] := 16#28;
 
 AssignClassId(clsId);
                     
@@ -2331,17 +2331,17 @@ stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[3] := 1.4
 stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[4] := 1.4;
 stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.4;
 stInitData.ModelParameters.FM2.FTSensor.TransformationMatrixSide := 2;
-stInitData.ModelParameters.Ax[0] := 0.8755629734612251;
-stInitData.ModelParameters.Ax[1] := 0.6767324514637781;
-stInitData.ModelParameters.Ax[2] := 0.4670875473803303;
-stInitData.ModelParameters.Ax[3] := 0.2314742521694526;
-stInitData.ModelParameters.Ay[0] := 0.8379109481927242;
-stInitData.ModelParameters.Ay[1] := 0.637556185526327;
-stInitData.ModelParameters.Ay[2] := 0.4387695491777361;
-stInitData.ModelParameters.Ay[3] := 0.2196326274080058;
+stInitData.ModelParameters.Ax[0] := 0.03408069933169681;
+stInitData.ModelParameters.Ax[1] := 0.02634135511140423;
+stInitData.ModelParameters.Ax[2] := 0.01818106834842496;
+stInitData.ModelParameters.Ax[3] := 0.009009979442176404;
+stInitData.ModelParameters.Ay[0] := 0.03261511959465913;
+stInitData.ModelParameters.Ay[1] := 0.0248164453324139;
+stInitData.ModelParameters.Ay[2] := 0.01707880933146017;
+stInitData.ModelParameters.Ay[3] := 0.008549052169865798;
 stInitData.ModelParameters.FFMatrix[0] := 0;
-stInitData.ModelParameters.FFMatrix[1] := 15;
-stInitData.ModelParameters.FFMatrix[2] := -15;
+stInitData.ModelParameters.FFMatrix[1] := 13;
+stInitData.ModelParameters.FFMatrix[2] := -13;
 stInitData.ModelParameters.FFMatrix[3] := 0;
 stInitData.ModelParameters.Lb := 0.07000000000000001;
 stInitData.ModelParameters.Lf := 0.238;
@@ -2438,14 +2438,10 @@ stInitData.ModelParameters.Constant3_Value_b[1] := 0;
 stInitData.ModelParameters.Requestedstate_Value := 0;
 stInitData.ModelParameters.CalibrateManually_Value := 0;
 stInitData.ModelParameters.Memory_X0 := 0;
-stInitData.ModelParameters.FreqHz_Value := 20;
-stInitData.ModelParameters.UnitDelay_InitialCondition := 0;
 stInitData.ModelParameters.TSamp_WtEt := 1000;
 stInitData.ModelParameters.Butterworthfilter_InitialStates := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDenomi := 0;
 stInitData.ModelParameters.CalibrateManually_Value_p := 0;
-stInitData.ModelParameters.FreqHz_Value_j := 20;
-stInitData.ModelParameters.UnitDelay_InitialCondition_f := 0;
 stInitData.ModelParameters.TSamp_WtEt_b := 1000;
 stInitData.ModelParameters.Butterworthfilter_InitialStat_j := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDeno_p := 0;
@@ -2454,14 +2450,10 @@ stInitData.ModelParameters.target3_Value[0] := 0;
 stInitData.ModelParameters.target3_Value[1] := 0.25;
 stInitData.ModelParameters.CalibrateManually_Value_pg := 0;
 stInitData.ModelParameters.Memory_X0_c := 0;
-stInitData.ModelParameters.FreqHz_Value_l := 20;
-stInitData.ModelParameters.UnitDelay_InitialCondition_i := 0;
 stInitData.ModelParameters.TSamp_WtEt_j := 1000;
 stInitData.ModelParameters.Butterworthfilter_InitialStat_c := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDeno_e := 0;
 stInitData.ModelParameters.CalibrateManually_Value_c := 0;
-stInitData.ModelParameters.FreqHz_Value_c := 20;
-stInitData.ModelParameters.UnitDelay_InitialCondition_fk := 0;
 stInitData.ModelParameters.TSamp_WtEt_o := 1000;
 stInitData.ModelParameters.Butterworthfilter_InitialStat_e := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDeno_f := 0;
@@ -2473,8 +2465,8 @@ stInitData.ModelParameters.UseActuator_Value := 1;
 stInitData.ModelParameters.DisableDrives_Value := 0;
 stInitData.ModelParameters.Constant_Value_f := 0;
 stInitData.ModelParameters.TSamp_WtEt_p := 1000;
-stInitData.ModelParameters.FreqHz_Value_e := 100;
-stInitData.ModelParameters.UnitDelay_InitialCondition_e := 0;
+stInitData.ModelParameters.FreqHz_Value := 100;
+stInitData.ModelParameters.UnitDelay_InitialCondition := 0;
 stInitData.ModelParameters.Constant_Value_m := 18.84955592153876;
 stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Value := 8;
 stInitData.ModelParameters.Bias_Bias := 0.5;
@@ -2484,7 +2476,7 @@ stInitData.ModelParameters.Constant_Value_n := 0;
 stInitData.ModelParameters.UseActuator_Value_g := 1;
 stInitData.ModelParameters.Constant_Value_o := 0;
 stInitData.ModelParameters.TSamp_WtEt_ot := 1000;
-stInitData.ModelParameters.FreqHz_Value_cd := 100;
+stInitData.ModelParameters.FreqHz_Value_c := 100;
 stInitData.ModelParameters.UnitDelay_InitialCondition_c := 0;
 stInitData.ModelParameters.Constant_Value_i := 18.84955592153876;
 stInitData.ModelParameters.AbsoluteMaximumTorque_Nm_Valu_n := 8;
@@ -2496,7 +2488,7 @@ stInitData.ModelParameters.TimePerState_ms_Value[1] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value := 10;
-stInitData.ModelParameters.TorqueLimit_Value := 6;
+stInitData.ModelParameters.TorqueLimit_Value := 8;
 stInitData.ModelParameters.virtualmass_Value := 0.4;
 stInitData.ModelParameters.virtualdamping_Value := 0;
 stInitData.ModelParameters.CalibrateForceSensors_Value := 0;
