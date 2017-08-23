@@ -4247,9 +4247,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{C7D9DD4C-1D07-4145-97AA-0C14467F34D2}">
+					<TmcDesc GUID="{9CB2C3ED-0C84-495B-B9C4-E4215AAE7E45}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{C7D9DD4C-1D07-4145-97AA-0C14467F34D2}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{9CB2C3ED-0C84-495B-B9C4-E4215AAE7E45}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -4332,7 +4332,7 @@
 								<BaseType GUID="{FAB91EB8-90F2-411F-980B-E32C12715544}">TctExtModeServerStatusType</BaseType>
 								<PTCID>#xbf003000</PTCID>
 							</Parameter>
-							<Parameter ShowSubItems="true" CreateSymbol="true">
+							<Parameter CreateSymbol="true">
 								<Name>ExtModeParameters</Name>
 								<BitSize>192</BitSize>
 								<BaseType GUID="{E8C74883-A6C7-461C-AF16-40F211A1E7DB}">TctExtModeParametersType</BaseType>
