@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-24T08:20:37" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-24T09:19:31" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#bb18b4a2;
-clsId.Data2 := 16#03aa;
-clsId.Data3 := 16#4211;
-clsId.Data4[0] := 16#96;
-clsId.Data4[1] := 16#d3;
-clsId.Data4[2] := 16#29;
-clsId.Data4[3] := 16#3a;
-clsId.Data4[4] := 16#74;
-clsId.Data4[5] := 16#87;
-clsId.Data4[6] := 16#4d;
-clsId.Data4[7] := 16#29;
+clsId.Data1 := 16#865743a8;
+clsId.Data2 := 16#6c3b;
+clsId.Data3 := 16#48e1;
+clsId.Data4[0] := 16#b2;
+clsId.Data4[1] := 16#d2;
+clsId.Data4[2] := 16#22;
+clsId.Data4[3] := 16#77;
+clsId.Data4[4] := 16#5d;
+clsId.Data4[5] := 16#0e;
+clsId.Data4[6] := 16#7d;
+clsId.Data4[7] := 16#df;
 
 AssignClassId(clsId);
                     
@@ -2244,7 +2244,7 @@ stInitData.ModelParameters.FM1.Actuator1.FOAWNoiseLevel := 0.0009;
 stInitData.ModelParameters.FM1.Actuator1.transmissionRatio := 7.31011;
 stInitData.ModelParameters.FM1.Actuator1.motorTorqueConstant := 0.08486;
 stInitData.ModelParameters.FM1.Actuator1.drivePeakCurrent := 20;
-stInitData.ModelParameters.FM1.Actuator1.AbsoluteMaximumTorque_Nm := 8;
+stInitData.ModelParameters.FM1.Actuator1.AbsoluteMaximumTorque_Nm := 12;
 stInitData.ModelParameters.FM1.Actuator1.TransmissionSlipAngleGuardMax := 0.08726646259971647;
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMin := -0.4363323129985824;
 stInitData.ModelParameters.FM1.Actuator1.JointPositionGuardMax := 2.356194490192345;
@@ -2447,7 +2447,7 @@ stInitData.ModelParameters.Butterworthfilter_InitialStat_j := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDeno_p := 0;
 stInitData.ModelParameters.Constant2_Value := 0.05;
 stInitData.ModelParameters.target3_Value[0] := 0;
-stInitData.ModelParameters.target3_Value[1] := 0.25;
+stInitData.ModelParameters.target3_Value[1] := 0.37;
 stInitData.ModelParameters.CalibrateManually_Value_pg := 0;
 stInitData.ModelParameters.Memory_X0_c := 0;
 stInitData.ModelParameters.TSamp_WtEt_j := 1000;
@@ -2459,7 +2459,7 @@ stInitData.ModelParameters.Butterworthfilter_InitialStat_e := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDeno_f := 0;
 stInitData.ModelParameters.Constant2_Value_d := 0.05;
 stInitData.ModelParameters.target4_Value[0] := 0;
-stInitData.ModelParameters.target4_Value[1] := 0.25;
+stInitData.ModelParameters.target4_Value[1] := 0.3;
 stInitData.ModelParameters.EnableDrives_Value := 0;
 stInitData.ModelParameters.UseActuator_Value := 1;
 stInitData.ModelParameters.DisableDrives_Value := 0;
@@ -2488,7 +2488,7 @@ stInitData.ModelParameters.TimePerState_ms_Value[1] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value := 10;
-stInitData.ModelParameters.TorqueLimit_Value := 8;
+stInitData.ModelParameters.TorqueLimit_Value := 12;
 stInitData.ModelParameters.virtualmass_Value := 0.4;
 stInitData.ModelParameters.virtualdamping_Value := 0;
 stInitData.ModelParameters.CalibrateForceSensors_Value := 0;
@@ -2754,7 +2754,6 @@ stInitData.ModelParameters.Logic_table_h[13] := 0;
 stInitData.ModelParameters.Logic_table_h[14] := 0;
 stInitData.ModelParameters.Logic_table_h[15] := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
-stInitData.ModelParameters.Gain_Gain_fp := 128;
 stInitData.ModelParameters.LatchRising_d.Out_Y0 := 0;
 stInitData.ModelParameters.LatchRising_du.Out_Y0 := 0;
 stInitData.ModelParameters.run_o.x_ref_Y0[0] := 0;
