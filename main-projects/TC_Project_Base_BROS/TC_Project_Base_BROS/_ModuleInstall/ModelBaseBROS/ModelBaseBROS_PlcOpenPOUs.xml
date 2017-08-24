@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-24T13:08:15" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-24T13:28:07" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#ab96c542;
-clsId.Data2 := 16#4288;
-clsId.Data3 := 16#47a4;
-clsId.Data4[0] := 16#a4;
-clsId.Data4[1] := 16#be;
-clsId.Data4[2] := 16#e1;
-clsId.Data4[3] := 16#01;
-clsId.Data4[4] := 16#00;
-clsId.Data4[5] := 16#62;
-clsId.Data4[6] := 16#75;
-clsId.Data4[7] := 16#23;
+clsId.Data1 := 16#195a6675;
+clsId.Data2 := 16#a28f;
+clsId.Data3 := 16#4d59;
+clsId.Data4[0] := 16#9a;
+clsId.Data4[1] := 16#d9;
+clsId.Data4[2] := 16#22;
+clsId.Data4[3] := 16#58;
+clsId.Data4[4] := 16#7b;
+clsId.Data4[5] := 16#dd;
+clsId.Data4[6] := 16#36;
+clsId.Data4[7] := 16#88;
 
 AssignClassId(clsId);
                     
@@ -2551,10 +2551,10 @@ stInitData.ModelParameters.SetModeOp_val_slx_Value_o := 10;
 stInitData.ModelParameters.TorqueLimit_Value_a := 12;
 stInitData.ModelParameters.Merge1_InitialOutput_l[0] := 0;
 stInitData.ModelParameters.Merge1_InitialOutput_l[1] := 0;
-stInitData.ModelParameters.Kp_Gain_e := 1000;
+stInitData.ModelParameters.Kp_Gain_e := 1500;
 stInitData.ModelParameters.Merge2_InitialOutput_f[0] := 0;
 stInitData.ModelParameters.Merge2_InitialOutput_f[1] := 0;
-stInitData.ModelParameters.Kd_Gain_c := 8;
+stInitData.ModelParameters.Kd_Gain_c := 15;
 stInitData.ModelParameters.Kd1_Gain_d := 0;
 stInitData.ModelParameters.TSamp_WtEt_d := 1000;
 stInitData.ModelParameters.Butterworthfilter_InitialStat_g := 0;
@@ -2562,7 +2562,7 @@ stInitData.ModelParameters.Butterworthfilter_InitialDeno_j := 0;
 stInitData.ModelParameters.TSamp_WtEt_ap := 1000;
 stInitData.ModelParameters.Butterworthfilter_InitialSta_eb := 0;
 stInitData.ModelParameters.Butterworthfilter_InitialDeno_k := 0;
-stInitData.ModelParameters.Kd2_Gain_k := 8;
+stInitData.ModelParameters.Kd2_Gain_k := 5;
 stInitData.ModelParameters.Gain_Gain_f := 0;
 stInitData.ModelParameters.TimePerState_ms_Value_dr[0] := 50;
 stInitData.ModelParameters.TimePerState_ms_Value_dr[1] := 50;
@@ -2750,7 +2750,6 @@ stInitData.ModelParameters.Logic_table_h[13] := 0;
 stInitData.ModelParameters.Logic_table_h[14] := 0;
 stInitData.ModelParameters.Logic_table_h[15] := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
-stInitData.ModelParameters.Gain_Gain_c := 128;
 stInitData.ModelParameters.LatchRising_d.Out_Y0 := 0;
 stInitData.ModelParameters.LatchRising_du.Out_Y0 := 0;
 stInitData.ModelParameters.run_o.x_ref_Y0[0] := 0;
