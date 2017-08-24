@@ -13,10 +13,10 @@ Lb = 0.07;                      % base width [m]
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
 % force field
-FFMatrix = -[0 -2; 2 0]; % added minus due to coordinate system flip (y pointing up)
+FFMatrix = -[0 -10; 10 0]; % added minus due to coordinate system flip (y pointing up)
 
 % butterworth filter (filtering velocity signal) 
-fc = 70;
+fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
 %% RobotStruct_FM1
@@ -53,7 +53,7 @@ FM1.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
 FM1.Actuator2.transmissionRatio = 7.32236;               % transmission ratio (estimated) [-]
 FM1.Actuator2.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM1.Actuator2.drivePeakCurrent = 20;                    % drive peak current [A]
-FM1.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
+FM1.Actuator2.AbsoluteMaximumTorque_Nm = 12;             % maximum allowable torque (at joints) [Nm]
 FM1.Actuator2.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM1.Actuator2.JointPositionGuardMin = 45*pi/180;        % maximum allowable joint position [rad]
 FM1.Actuator2.JointPositionGuardMax = 205*pi/180;       % maximum allowable joint position [rad]
@@ -84,7 +84,7 @@ FM2.Actuator1.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
 FM2.Actuator1.transmissionRatio = 7.36678;               % transmission ratio (estimated)[-]
 FM2.Actuator1.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM2.Actuator1.drivePeakCurrent = 20;                    % drive peak current [A]
-FM2.Actuator1.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
+FM2.Actuator1.AbsoluteMaximumTorque_Nm = 12;             % maximum allowable torque (at joints) [Nm]
 FM2.Actuator1.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM2.Actuator1.JointPositionGuardMin = -25*pi/180;       % maximum allowable joint position [rad]
 FM2.Actuator1.JointPositionGuardMax = 135*pi/180;       % maximum allowable joint position [rad]
@@ -100,7 +100,7 @@ FM2.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
 FM2.Actuator2.transmissionRatio = 7.33339;               % transmission ratio (estimated) [-]
 FM2.Actuator2.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 FM2.Actuator2.drivePeakCurrent = 20;                    % drive peak current [A]
-FM2.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
+FM2.Actuator2.AbsoluteMaximumTorque_Nm = 12;             % maximum allowable torque (at joints) [Nm]
 FM2.Actuator2.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 FM2.Actuator2.JointPositionGuardMin = 45*pi/180;        % maximum allowable joint position [rad]
 FM2.Actuator2.JointPositionGuardMax = 205*pi/180;       % maximum allowable joint position [rad]
