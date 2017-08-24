@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-24T13:28:07" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-08-24T13:47:40" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#195a6675;
-clsId.Data2 := 16#a28f;
-clsId.Data3 := 16#4d59;
-clsId.Data4[0] := 16#9a;
-clsId.Data4[1] := 16#d9;
-clsId.Data4[2] := 16#22;
-clsId.Data4[3] := 16#58;
-clsId.Data4[4] := 16#7b;
-clsId.Data4[5] := 16#dd;
-clsId.Data4[6] := 16#36;
-clsId.Data4[7] := 16#88;
+clsId.Data1 := 16#6a9485ff;
+clsId.Data2 := 16#11e4;
+clsId.Data3 := 16#4fe6;
+clsId.Data4[0] := 16#80;
+clsId.Data4[1] := 16#2d;
+clsId.Data4[2] := 16#5d;
+clsId.Data4[3] := 16#1a;
+clsId.Data4[4] := 16#54;
+clsId.Data4[5] := 16#17;
+clsId.Data4[6] := 16#e9;
+clsId.Data4[7] := 16#b9;
 
 AssignClassId(clsId);
                     
@@ -2629,7 +2629,7 @@ stInitData.ModelParameters.ExpTrialNumber_Value := 1;
 stInitData.ModelParameters.FixPtConstant_Value := 1;
 stInitData.ModelParameters.Output_InitialCondition := 0;
 stInitData.ModelParameters.Constant_Value_d := 0;
-stInitData.ModelParameters.ManualSwitch_CurrentSetting := 0;
+stInitData.ModelParameters.ManualSwitch_CurrentSetting := 1;
 stInitData.ModelParameters.ManualSwitch_CurrentSetting_e := 0;
 stInitData.ModelParameters.ManualSwitch_CurrentSetting_f := 0;
 stInitData.ModelParameters.ManualSwitch_CurrentSetting_ff := 0;
@@ -2750,6 +2750,7 @@ stInitData.ModelParameters.Logic_table_h[13] := 0;
 stInitData.ModelParameters.Logic_table_h[14] := 0;
 stInitData.ModelParameters.Logic_table_h[15] := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
+stInitData.ModelParameters.Gain_Gain_p := 128;
 stInitData.ModelParameters.LatchRising_d.Out_Y0 := 0;
 stInitData.ModelParameters.LatchRising_du.Out_Y0 := 0;
 stInitData.ModelParameters.run_o.x_ref_Y0[0] := 0;
