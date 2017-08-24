@@ -13,7 +13,7 @@ Lb = 0.07;                      % base width [m]
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
 % force field
-FFMatrix = -[0 -10; 10 0]; % added minus due to coordinate system flip (y pointing up)
+FFMatrix = -[0 -12; 12 0]; % added minus due to coordinate system flip (y pointing up)
 
 % butterworth filter (filtering velocity signal) 
 fc = 60;
