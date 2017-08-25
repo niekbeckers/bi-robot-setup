@@ -77,7 +77,7 @@
 
 clear all; close all; clc;
 
-expID = 'pilot2_dyadtest';
+expID = 'example';
 
 % filename
 filename = ['expprotocol_bros_' expID];
@@ -85,13 +85,15 @@ filename = ['expprotocol_bros_' expID];
 % create (main) struct
 s = struct;
 
+% indicate which type of trial feedback
+s.experiment.expID = expID;
 s.experiment.trialFeedback = 1;
 
 %% trial data
-% example
-Ntrials = 4;
+numTrials = 4; % example
 
-connected = true*[ones(Ntrials,1)];
+% trial settings
+connected = true*[ones(numTrials,1)];
 connectionStiffness = 100*ones(size(connected));
 connectionDamping = 2*ones(size(connected));
 condition = [zeros(1,2) ones(1,2)].';
@@ -99,11 +101,7 @@ trialDuration = 40*ones(size(connected));
 breakDuration = 6*ones(size(connected));
 
 % sort elements of trialRandomization in random order
-% phaseSets = [1;2;3;4;1;2;3;4];
-% trialRandomization = phaseSets(randperm(length(phaseSets)));
 trialRandomization = 20*rand(size(connected));
-
-numTrials = length(connected);
 
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
@@ -114,7 +112,6 @@ for ii = 1:numTrials
     trial{ii}.trialRandomization = trialRandomization(ii);
 end
 
-
 %% block data
 % indicate how the trials are divided over the blocks
 % NOTE: you always need at least 1 block
@@ -122,7 +119,7 @@ end
 % indices of trials per block
 divTrials = {1:4}; 
 numBlocks = length(divTrials);
-s.experiment.expID = expID;
+
 
 for ii = 1:numBlocks
     s.experiment.block{ii}.breakDuration = 60.0;
@@ -132,5 +129,9 @@ for ii = 1:numBlocks
     end
 end
 
-%% write to to XML file
+%% save everything (in xml and mat)
+
+% write to to XML file
 struct2xml(s,[filename '.xml']);
+% save experiment struct in mat file
+save(filename, 's');
