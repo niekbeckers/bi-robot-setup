@@ -77,7 +77,7 @@
 
 clear all; close all; clc;
 
-expID = 'pilotFF1';
+expID = 'pilot2_dyadtest';
 
 % filename
 filename = ['expprotocol_bros_' expID];
@@ -85,13 +85,16 @@ filename = ['expprotocol_bros_' expID];
 % create (main) struct
 s = struct;
 
+s.experiment.trialFeedback = 1;
+
 %% trial data
 % example
-Ntrials = 8;
+Ntrials = 4;
 
-connected = true*zeros(Ntrials,1);
-connectionStiffness = zeros(size(connected));
-condition = [1 1 1 1 1 1 1 1].';
+connected = true*[ones(Ntrials,1)];
+connectionStiffness = 100*ones(size(connected));
+connectionDamping = 2*ones(size(connected));
+condition = [zeros(1,2) ones(1,2)].';
 trialDuration = 40*ones(size(connected));
 breakDuration = 6*ones(size(connected));
 
@@ -117,12 +120,12 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:4; 5:8}; 
+divTrials = {1:4}; 
 numBlocks = length(divTrials);
 s.experiment.expID = expID;
 
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = 60.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
