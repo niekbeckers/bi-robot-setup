@@ -86,7 +86,7 @@ filename = ['expprotocol_bros_' expID];
 s = struct;
 
 % indicate which type of trial feedback
-s.experiment.expID = expID;
+s.experiment.expID = expID; 
 s.experiment.trialFeedback = 1;
 
 %% trial data
