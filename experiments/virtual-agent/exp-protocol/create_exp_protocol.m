@@ -106,6 +106,7 @@ trialRandomization = 79*rand(size(connected));
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
     trial{ii}.connectionStiffness = connectionStiffness(ii);
+    trial{ii}.connectionDamping = connectionDamping(ii);
     trial{ii}.condition = condition(ii);
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
@@ -117,7 +118,7 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:4}; 
+divTrials = {1:10 11:30}; 
 numBlocks = length(divTrials);
 
 

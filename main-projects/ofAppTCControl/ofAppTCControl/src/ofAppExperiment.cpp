@@ -264,6 +264,9 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	_currentTrialNumber = 0;
 	_numTrials = 0;
 
+	// clear block vector
+	_blocks.clear();
+
 	// set labels in the GUI
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
