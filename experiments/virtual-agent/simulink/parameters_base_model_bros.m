@@ -16,13 +16,13 @@ load('data_target_signal4.mat','nx','ny','Ax','Ay','phx','phy');
 FFMatrix = [0 -20; 20 0]*-1; % added minus due to coordinate system flip (y pointing up)
 
 %% virtual partner settings
-VirtualPartner1.A = eye(4);
-VirtualPartner1.B = zeros(4,1);
-VirtualPartner1.C = eye(4);
+% dynamicssssssss
+Ae_vp = [1 2;3 4];
+Aim_vp = Ae_vp
+Be_vp = zeros(2,1);
+Ce_vp = zeros(1,2);
+P0_vp = zeros(2,2);
 
-VirtualPartner2.A = eye(4);
-VirtualPartner2.B = zeros(4,1);
-VirtualPartner2.C = eye(4);
 
 % butterworth filter (filtering velocity signal) 
 fc = 60;
