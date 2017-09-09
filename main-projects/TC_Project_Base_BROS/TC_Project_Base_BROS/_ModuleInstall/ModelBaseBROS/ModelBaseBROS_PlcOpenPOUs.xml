@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-09-08T14:00:56" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-09-09T12:22:14" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#cb28d353;
-clsId.Data2 := 16#29f0;
-clsId.Data3 := 16#4ac5;
-clsId.Data4[0] := 16#a6;
-clsId.Data4[1] := 16#89;
-clsId.Data4[2] := 16#75;
-clsId.Data4[3] := 16#1c;
-clsId.Data4[4] := 16#8d;
-clsId.Data4[5] := 16#0e;
-clsId.Data4[6] := 16#47;
-clsId.Data4[7] := 16#37;
+clsId.Data1 := 16#ac51b45f;
+clsId.Data2 := 16#b17e;
+clsId.Data3 := 16#4ca5;
+clsId.Data4[0] := 16#98;
+clsId.Data4[1] := 16#9f;
+clsId.Data4[2] := 16#92;
+clsId.Data4[3] := 16#7d;
+clsId.Data4[4] := 16#d7;
+clsId.Data4[5] := 16#4e;
+clsId.Data4[6] := 16#2c;
+clsId.Data4[7] := 16#bf;
 
 AssignClassId(clsId);
                     
@@ -2324,21 +2324,21 @@ stInitData.ModelParameters.FM2.Actuator2.FilterButterA[2] := 0.5869195080611904;
 stInitData.ModelParameters.FM2.Actuator2.FilterButterB[0] := 0.02785976611713603;
 stInitData.ModelParameters.FM2.Actuator2.FilterButterB[1] := 0.05571953223427206;
 stInitData.ModelParameters.FM2.Actuator2.FilterButterB[2] := 0.02785976611713603;
-stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[0] := 70;
-stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[1] := 70;
-stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[2] := 140;
-stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[3] := 1.4;
-stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[4] := 1.4;
-stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.4;
+stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[0] := 80;
+stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[1] := 80;
+stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[2] := 160;
+stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[3] := 1.6;
+stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[4] := 1.6;
+stInitData.ModelParameters.FM2.FTSensor.MaxAllowableForcesTorqueSensor[5] := 1.6;
 stInitData.ModelParameters.FM2.FTSensor.TransformationMatrixSide := 2;
-stInitData.ModelParameters.Ax[0] := 0.02779763335044192;
-stInitData.ModelParameters.Ax[1] := 0.02542067392477508;
-stInitData.ModelParameters.Ax[2] := 0.02103613007263344;
-stInitData.ModelParameters.Ax[3] := 0.01436533280679711;
-stInitData.ModelParameters.Ay[0] := 0.02670516701178964;
-stInitData.ModelParameters.Ay[1] := 0.02400922615718106;
-stInitData.ModelParameters.Ay[2] := 0.01956515609576909;
-stInitData.ModelParameters.Ay[3] := 0.01328225842049561;
+stInitData.ModelParameters.Ax[0] := 0.02812744402960059;
+stInitData.ModelParameters.Ax[1] := 0.02572228268499235;
+stInitData.ModelParameters.Ax[2] := 0.02128571751983296;
+stInitData.ModelParameters.Ax[3] := 0.01453577322197996;
+stInitData.ModelParameters.Ay[0] := 0.02702201590169932;
+stInitData.ModelParameters.Ay[1] := 0.02429408850805626;
+stInitData.ModelParameters.Ay[2] := 0.01979729087279997;
+stInitData.ModelParameters.Ay[3] := 0.0134398484791599;
 stInitData.ModelParameters.FFMatrix[0] := -0;
 stInitData.ModelParameters.FFMatrix[1] := -15;
 stInitData.ModelParameters.FFMatrix[2] := 15;
@@ -2354,14 +2354,14 @@ stInitData.ModelParameters.ny[0] := 4;
 stInitData.ModelParameters.ny[1] := 6;
 stInitData.ModelParameters.ny[2] := 9;
 stInitData.ModelParameters.ny[3] := 14;
-stInitData.ModelParameters.phx[0] := -2.28238215673044;
-stInitData.ModelParameters.phx[1] := -1.062066126763669;
-stInitData.ModelParameters.phx[2] := 14.95765936971186;
-stInitData.ModelParameters.phx[3] := -8.105343479167379;
-stInitData.ModelParameters.phy[0] := 3.516628764946208;
-stInitData.ModelParameters.phy[1] := -10.98958898015138;
-stInitData.ModelParameters.phy[2] := -9.042646820486356;
-stInitData.ModelParameters.phy[3] := -9.08173580237761;
+stInitData.ModelParameters.phx[0] := -2.288093691766289;
+stInitData.ModelParameters.phx[1] := -0.4142314688454111;
+stInitData.ModelParameters.phx[2] := -2.297244594783888;
+stInitData.ModelParameters.phx[3] := 6.437330629232732;
+stInitData.ModelParameters.phy[0] := 3.941276400301507;
+stInitData.ModelParameters.phy[1] := 1.580603527700102;
+stInitData.ModelParameters.phy[2] := -2.900966540693437;
+stInitData.ModelParameters.phy[3] := -6.529999693032082;
 stInitData.ModelParameters.sampleTime := 0.001;
 stInitData.ModelParameters.DiscreteDerivative_ICPrevScaled := 0;
 stInitData.ModelParameters.DiscreteDerivative_ICPrevScal_l := 0;
@@ -2750,7 +2750,6 @@ stInitData.ModelParameters.Logic_table_h[13] := 0;
 stInitData.ModelParameters.Logic_table_h[14] := 0;
 stInitData.ModelParameters.Logic_table_h[15] := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
-stInitData.ModelParameters.Gain_Gain_j := 128;
 stInitData.ModelParameters.LatchRising_d.Out_Y0 := 0;
 stInitData.ModelParameters.LatchRising_du.Out_Y0 := 0;
 stInitData.ModelParameters.run_o.x_ref_Y0[0] := 0;
