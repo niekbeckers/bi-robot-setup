@@ -10,10 +10,10 @@ Lb = 0.07;                      % base width [m]
 
 
 % load target signal data
-load('data_target_signal2.mat','nx','ny','Ax','Ay','phx','phy');
+load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
 % force field
-FFMatrix = -[0 -20; 20 0]; % added minus due to coordinate system flip (y pointing up)
+FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointing up)
 
 % butterworth filter (filtering velocity signal) 
 fc = 60;
@@ -108,5 +108,5 @@ FM2.Actuator2.FilterButterA = Abutter;
 FM2.Actuator2.FilterButterB = Bbutter;
 
 % force/torque sensor data
-FM2.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
+FM2.FTSensor.MaxAllowableForcesTorqueSensor = 0.8*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 FM2.FTSensor.TransformationMatrixSide = 2; % 1 = transformation matrix based from q1, 2 = transformation from q5.
