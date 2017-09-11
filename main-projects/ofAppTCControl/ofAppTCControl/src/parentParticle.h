@@ -16,13 +16,16 @@ enum parentParticleMode {
 
 class parentParticle {
     private:
-        parentParticleMode mode = PARENTPARTICLE_MODE_NORMAL;
-        ofPoint pos;
-        ofColor color = ofColor::deepSkyBlue;
-        float startTime;
-        ofFillFlag fillMode = OF_OUTLINE;
+        parentParticleMode _mode = PARENTPARTICLE_MODE_NORMAL;
+        ofPoint _pos;
+        ofColor _color = ofColor::deepSkyBlue;
+        float _startTime;
+        ofFillFlag _fillMode = OF_OUTLINE;
     
-        vector<childParticle> particles;
+        vector<childParticle> _particles;
+		deque<ofPoint> _tailPoints;
+		int _numTailPoints = 120;
+		ofPolyline _line;
     
         void resetPositions();
     public:
@@ -33,6 +36,8 @@ class parentParticle {
         float mean = 0.0f;
         float stdev = 6.0f;
         float velExplode = 400.0f;
+
+		bool drawTail = false;
     
         void reset();
         void update();

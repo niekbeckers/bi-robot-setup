@@ -85,7 +85,7 @@ class ofAppMain : public ofBaseApp{
 		// GUI experiment
 		ofxPanel _guiExperiment;
 		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop;
-		ofxToggle _btnExpPauseResume, _btnDebugMode;
+		ofxToggle _btnExpPauseResume, _btnDebugMode, _btnDrawTargetTail;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
 
@@ -105,6 +105,7 @@ class ofAppMain : public ofBaseApp{
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);
 		void experimentDebugModeTogglePressed(bool & value);
+		void drawTargetTailPressed(bool & value);
 		void calibrateForceSensors();
 		
 

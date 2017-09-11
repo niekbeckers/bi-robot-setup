@@ -193,6 +193,7 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
+	_guiExperiment.add(_btnDrawTargetTail.setup("Draw target tail", false));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
 
 	_grpExpControl.setup("Experiment control");
@@ -224,6 +225,7 @@ void ofAppMain::setupGUI()
 	initGUI();
 
 	// add toggle listeners
+	_btnDrawTargetTail.addListener(this, &ofAppMain::drawTargetTailPressed);
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
@@ -382,6 +384,13 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 		_btnToggleRecordData.setBackgroundColor(ofColor::darkGreen);
 	else
 		_btnToggleRecordData.setBackgroundColor(ofColor::orange);
+}
+
+//--------------------------------------------------------------
+void ofAppMain::drawTargetTailPressed(bool & value)
+{
+		display1->target.drawTail = value;
+		display2->target.drawTail = value;
 }
 
 //--------------------------------------------------------------
