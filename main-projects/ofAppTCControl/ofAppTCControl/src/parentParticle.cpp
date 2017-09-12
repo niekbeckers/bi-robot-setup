@@ -73,12 +73,16 @@ void parentParticle::update()
 {
     switch (_mode) {
         case PARENTPARTICLE_MODE_NORMAL:
-            // do nothing, position is updated externally
-			_tailPoints.push_back(_pos);
+            // position is updated externally
 
-			// add position to _tailPoints deque
-			if (_tailPoints.size() > _numTailPoints)
-				_tailPoints.pop_front();
+			if (ofGetElapsedTimef() - _timeTick > _tickPeriod) {
+				_timeTick = ofGetElapsedTimef();
+				_tailPoints.push_back(_pos);
+
+				// add position to _tailPoints deque
+				if (_tailPoints.size() > _numTailPoints)
+					_tailPoints.pop_front();
+			}
 			
 
             break;

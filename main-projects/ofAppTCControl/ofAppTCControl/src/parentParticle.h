@@ -21,11 +21,16 @@ class parentParticle {
         ofColor _color = ofColor::deepSkyBlue;
         float _startTime;
         ofFillFlag _fillMode = OF_OUTLINE;
+
+		float _tickPeriod = 1.0f / 60.0f; // 1 second refresh
+		float _timeTick;
     
         vector<childParticle> _particles;
 		deque<ofPoint> _tailPoints;
-		int _numTailPoints = 120;
+		int _numTailPoints = 60;
 		ofPolyline _line;
+
+		
     
         void resetPositions();
     public:
