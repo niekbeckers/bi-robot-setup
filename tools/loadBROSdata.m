@@ -32,9 +32,12 @@ for ii = 1:length(trialnumbers)
     t = dataraw.time(idx); t = t - t(1);
     data.trial(ii).t = t;
     
+    % retrieve dt (assume it's a multiple of 1ms)
+    dt = round(mode(diff(t))/0.001)*0.001;
+
     % select the data per trial
     for jj = 1:length(vars)
-        data.trial(ii).(vars{jj}) = dataraw.(vars{jj})(idx,:);
+        data.trial(ii).(vars{jj}) = resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
     end
 end
 
