@@ -37,7 +37,9 @@ for ii = 1:length(trialnumbers)
 
     % select the data per trial
     for jj = 1:length(vars)
-        data.trial(ii).(vars{jj}) = resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
+         [tres,datares]= resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
+         data.trial(ii).(vars{jj}) = datares;
+         data.trial(ii).t = tres;
     end
 end
 
