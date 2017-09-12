@@ -77,7 +77,7 @@
 
 clear all; close all; clc;
 
-expID = 'tracking_pilot2_shortT';
+expID = 'tracking_pilot3';
 
 % filename
 filename = ['expprotocol_bros_' expID];
@@ -90,18 +90,18 @@ s.experiment.expID = expID;
 s.experiment.trialFeedback = 1;
 
 %% trial data
-numTrials = 10; % example
+numTrials = 30; % example
 
 % trial settings
 connected = false*[ones(numTrials,1)];
 connectionStiffness = 0*ones(size(connected));
 connectionDamping = 0*ones(size(connected));
-condition = [zeros(10,1)];
-breakDuration = 4*ones(size(connected));
-trialDuration = 20*ones(size(connected));
+condition = [zeros(10,1); ones(20,1)];
+breakDuration = 1*ones(size(connected));
+trialDuration = 12*ones(size(connected));
 
 % sort elements of trialRandomization in random order
-trialRandomization = 80*rand(size(connected));
+trialRandomization = 20*rand(size(connected));
 
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
@@ -117,12 +117,12 @@ end
 % NOTE: you always need at least 1 block
 
 % indices of trials per block
-divTrials = {1:10}; 
+divTrials = {1:10 11:30}; 
 numBlocks = length(divTrials);
 
 
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 30.0;
+    s.experiment.block{ii}.breakDuration = 15.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
