@@ -926,7 +926,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{C9E01D81-86CA-005E-611B-1657D4BD1933}">P_model_base_bros_T</Name>
+			<Name GUID="{2B5ED71E-3A69-7279-39BF-CC3E9F843A59}">P_model_base_bros_T</Name>
 			<BitSize>31168</BitSize>
 			<SubItem>
 				<Name>FM1</Name>
@@ -2711,16 +2711,22 @@
 				<BitOffs>25184</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Gain_Gain_g</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>25192</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>LatchRising_d</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>25192</BitOffs>
+				<BitOffs>25200</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_du</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>25200</BitOffs>
+				<BitOffs>25208</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_o</Name>
@@ -2783,6 +2789,7 @@
 				<BitOffs>30912</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{C9E01D81-86CA-005E-611B-1657D4BD1933}"/>
 				<Hide GUID="{AB0B0172-B302-E233-0178-22569E4D765B}"/>
 				<Hide GUID="{709242EC-612B-F70C-6871-D5A30AF8D205}"/>
 				<Hide GUID="{DB0FEBBE-DA89-2605-D9A4-26EA76892339}"/>
@@ -4028,9 +4035,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{82B5515E-E5E0-498C-8B3C-7BC41E768343}">
+					<TmcDesc GUID="{20C27C13-F3CB-4CAE-B1B2-5397C5F92486}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{82B5515E-E5E0-498C-8B3C-7BC41E768343}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{20C27C13-F3CB-4CAE-B1B2-5397C5F92486}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -4152,7 +4159,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>31168</BitSize>
-								<BaseType GUID="{C9E01D81-86CA-005E-611B-1657D4BD1933}">P_model_base_bros_T</BaseType>
+								<BaseType GUID="{2B5ED71E-3A69-7279-39BF-CC3E9F843A59}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -6977,11 +6984,18 @@
 									<BitOffs>32728</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x82000ffc</PTCID>
+									<BitOffs>32736</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x82000ffc</PTCID>
-									<BitOffs>32736</BitOffs>
+									<PTCID>#x82000ffd</PTCID>
+									<BitOffs>32744</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_b</Name>
@@ -9734,18 +9748,25 @@
 									<BitOffs>25184</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain_Gain_g</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x83000c4d</PTCID>
+									<BitOffs>25192</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>LatchRising_d</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x83000c4d</PTCID>
-									<BitOffs>25192</BitOffs>
+									<PTCID>#x83000c4e</PTCID>
+									<BitOffs>25200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_du</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x83000c4e</PTCID>
-									<BitOffs>25200</BitOffs>
+									<PTCID>#x83000c4f</PTCID>
+									<BitOffs>25208</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_o</Name>
@@ -11983,35 +12004,35 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax[0]</Name>
-								<Value>0.0281274440296006</Value>
+								<Value>0.0286583637243904</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax[1]</Name>
-								<Value>0.0257222826849924</Value>
+								<Value>0.0270981680386836</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax[2]</Name>
-								<Value>0.021285717519833</Value>
+								<Value>0.0234505258969499</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ax[3]</Name>
-								<Value>0.01453577322198</Value>
+								<Value>0.0179991434704809</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay[0]</Name>
-								<Value>0.0270220159016993</Value>
+								<Value>0.0270981680386836</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay[1]</Name>
-								<Value>0.0242940885080563</Value>
+								<Value>0.0253254894496357</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay[2]</Name>
-								<Value>0.0197972908728</Value>
+								<Value>0.0215637914740674</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Ay[3]</Name>
-								<Value>0.0134398484791599</Value>
+								<Value>0.0163904070645813</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.FFMatrix[0]</Name>
@@ -12047,15 +12068,15 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.nx[1]</Name>
-								<Value>5</Value>
+								<Value>4</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.nx[2]</Name>
-								<Value>8</Value>
+								<Value>6</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.nx[3]</Name>
-								<Value>13</Value>
+								<Value>9</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.ny[0]</Name>
@@ -12063,47 +12084,47 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.ny[1]</Name>
-								<Value>6</Value>
+								<Value>5</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.ny[2]</Name>
-								<Value>9</Value>
+								<Value>7</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.ny[3]</Name>
-								<Value>14</Value>
+								<Value>10</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phx[0]</Name>
-								<Value>-2.28809369176629</Value>
+								<Value>-7.77441521106383</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phx[1]</Name>
-								<Value>-0.414231468845411</Value>
+								<Value>-8.53488320419656</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phx[2]</Name>
-								<Value>-2.29724459478389</Value>
+								<Value>-4.36104325861537</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phx[3]</Name>
-								<Value>6.43733062923273</Value>
+								<Value>-3.78796037329377</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phy[0]</Name>
-								<Value>3.94127640030151</Value>
+								<Value>-0.714244784372782</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phy[1]</Name>
-								<Value>1.5806035277001</Value>
+								<Value>-3.45250659196524</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phy[2]</Name>
-								<Value>-2.90096654069344</Value>
+								<Value>3.91801696660327</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.phy[3]</Name>
-								<Value>-6.52999969303208</Value>
+								<Value>4.93073057511669</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.sampleTime</Name>
@@ -13660,6 +13681,10 @@
 							<Value>
 								<Name>ModelParameters.Recorddata1yes0no_Value</Name>
 								<EnumText>FALSE</EnumText>
+							</Value>
+							<Value>
+								<Name>ModelParameters.Gain_Gain_g</Name>
+								<Value>128</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.LatchRising_d.Out_Y0</Name>
