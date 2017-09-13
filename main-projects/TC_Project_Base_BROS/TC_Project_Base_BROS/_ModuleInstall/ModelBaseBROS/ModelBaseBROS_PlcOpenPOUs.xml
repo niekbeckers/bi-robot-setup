@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-09-13T14:03:29" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-09-13T14:42:56" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#20c27c13;
-clsId.Data2 := 16#f3cb;
-clsId.Data3 := 16#4cae;
-clsId.Data4[0] := 16#b1;
-clsId.Data4[1] := 16#b2;
-clsId.Data4[2] := 16#53;
-clsId.Data4[3] := 16#97;
-clsId.Data4[4] := 16#c5;
-clsId.Data4[5] := 16#f9;
-clsId.Data4[6] := 16#24;
-clsId.Data4[7] := 16#86;
+clsId.Data1 := 16#6db4ed1d;
+clsId.Data2 := 16#976e;
+clsId.Data3 := 16#47cc;
+clsId.Data4[0] := 16#96;
+clsId.Data4[1] := 16#6c;
+clsId.Data4[2] := 16#28;
+clsId.Data4[3] := 16#32;
+clsId.Data4[4] := 16#bf;
+clsId.Data4[5] := 16#be;
+clsId.Data4[6] := 16#8a;
+clsId.Data4[7] := 16#0f;
 
 AssignClassId(clsId);
                     
@@ -2496,8 +2496,8 @@ stInitData.ModelParameters.TimePerState_ms_Value[2] := 150;
 stInitData.ModelParameters.TimePerState_ms_Value[3] := 150;
 stInitData.ModelParameters.SetModeOp_val_slx_Value := 10;
 stInitData.ModelParameters.TorqueLimit_Value := 12;
-stInitData.ModelParameters.virtualmass_Value := 0.4;
-stInitData.ModelParameters.virtualdamping_Value := 0;
+stInitData.ModelParameters.virtualmass_Value := 0.3;
+stInitData.ModelParameters.virtualdamping_Value := 0.15;
 stInitData.ModelParameters.CalibrateForceSensors_Value := 0;
 stInitData.ModelParameters.Constant_Value_k := 0;
 stInitData.ModelParameters.KpConnection_Value := 125;
@@ -2625,7 +2625,7 @@ stInitData.ModelParameters.Memory1_9_X0_b := 0;
 stInitData.ModelParameters.Gain_Gain_b := 100;
 stInitData.ModelParameters.ExpTrialRandom3_Value[0] := 0;
 stInitData.ModelParameters.ExpTrialRandom3_Value[1] := 0;
-stInitData.ModelParameters.ExpCondition_Value := 1;
+stInitData.ModelParameters.ExpCondition_Value := 0;
 stInitData.ModelParameters.ExpTrialNumber_Value := 1;
 stInitData.ModelParameters.FixPtConstant_Value := 1;
 stInitData.ModelParameters.Output_InitialCondition := 0;

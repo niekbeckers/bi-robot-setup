@@ -2790,6 +2790,7 @@
 			</SubItem>
 			<Hides>
 				<Hide GUID="{C9E01D81-86CA-005E-611B-1657D4BD1933}"/>
+				<Hide GUID="{DEA72A3C-A05D-1BBD-9729-E92D1CE62689}"/>
 				<Hide GUID="{AB0B0172-B302-E233-0178-22569E4D765B}"/>
 				<Hide GUID="{709242EC-612B-F70C-6871-D5A30AF8D205}"/>
 				<Hide GUID="{DB0FEBBE-DA89-2605-D9A4-26EA76892339}"/>
@@ -4035,9 +4036,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{20C27C13-F3CB-4CAE-B1B2-5397C5F92486}">
+					<TmcDesc GUID="{6DB4ED1D-976E-47CC-966C-2832BFBE8A0F}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{20C27C13-F3CB-4CAE-B1B2-5397C5F92486}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{6DB4ED1D-976E-47CC-966C-2832BFBE8A0F}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -12664,11 +12665,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.virtualmass_Value</Name>
-								<Value>0.4</Value>
+								<Value>0.3</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.virtualdamping_Value</Name>
-								<Value>0</Value>
+								<Value>0.15</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.CalibrateForceSensors_Value</Name>
@@ -13180,7 +13181,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.ExpCondition_Value</Name>
-								<Value>1</Value>
+								<Value>0</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.ExpTrialNumber_Value</Name>
