@@ -14,6 +14,7 @@ load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
 % force field
 FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointing up)
+% FFMatrix = -[-11.5 -9.6; -9.6 11.5];
 
 % butterworth filter (filtering velocity signal) 
 fc = 60;

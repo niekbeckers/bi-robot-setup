@@ -2,7 +2,7 @@
 <!-- Beckhoff Automation GmbH & Co. KG -->
 <!-- TwinCAT Target for MATLAB/Simulink 1.2.1228.0-->
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-09-13T14:42:56" />
+  <fileHeader companyName="Beckhoff Automation GmbH &amp; Co. KG" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.2.1228" creationDateTime="2017-09-14T12:05:26" />
   <contentHeader name="TC3_TE1400_GeneratedModule_ModelBaseBROS_FB">
     <coordinateInfo>
       <fbd>
@@ -2177,17 +2177,17 @@ SaveOnlineParametersForInit := SUPER^.SaveOnlineParametersForInit();
 bParametersVerified := false;
                     
 // set module class id for compatibility check
-clsId.Data1 := 16#6db4ed1d;
-clsId.Data2 := 16#976e;
-clsId.Data3 := 16#47cc;
-clsId.Data4[0] := 16#96;
-clsId.Data4[1] := 16#6c;
-clsId.Data4[2] := 16#28;
-clsId.Data4[3] := 16#32;
-clsId.Data4[4] := 16#bf;
-clsId.Data4[5] := 16#be;
-clsId.Data4[6] := 16#8a;
-clsId.Data4[7] := 16#0f;
+clsId.Data1 := 16#ba4434d4;
+clsId.Data2 := 16#1ce1;
+clsId.Data3 := 16#49aa;
+clsId.Data4[0] := 16#ad;
+clsId.Data4[1] := 16#c9;
+clsId.Data4[2] := 16#92;
+clsId.Data4[3] := 16#3d;
+clsId.Data4[4] := 16#b5;
+clsId.Data4[5] := 16#6e;
+clsId.Data4[6] := 16#dd;
+clsId.Data4[7] := 16#7b;
 
 AssignClassId(clsId);
                     
@@ -2339,10 +2339,10 @@ stInitData.ModelParameters.Ay[0] := 0.02709816803868362;
 stInitData.ModelParameters.Ay[1] := 0.02532548944963574;
 stInitData.ModelParameters.Ay[2] := 0.02156379147406741;
 stInitData.ModelParameters.Ay[3] := 0.01639040706458133;
-stInitData.ModelParameters.FFMatrix[0] := -0;
-stInitData.ModelParameters.FFMatrix[1] := -15;
-stInitData.ModelParameters.FFMatrix[2] := 15;
-stInitData.ModelParameters.FFMatrix[3] := -0;
+stInitData.ModelParameters.FFMatrix[0] := 11.5;
+stInitData.ModelParameters.FFMatrix[1] := 9.6;
+stInitData.ModelParameters.FFMatrix[2] := 9.6;
+stInitData.ModelParameters.FFMatrix[3] := -11.5;
 stInitData.ModelParameters.Lb := 0.07000000000000001;
 stInitData.ModelParameters.Lf := 0.238;
 stInitData.ModelParameters.Lu := 0.153;
@@ -2751,7 +2751,6 @@ stInitData.ModelParameters.Logic_table_h[13] := 0;
 stInitData.ModelParameters.Logic_table_h[14] := 0;
 stInitData.ModelParameters.Logic_table_h[15] := 0;
 stInitData.ModelParameters.Recorddata1yes0no_Value := 0;
-stInitData.ModelParameters.Gain_Gain_g := 128;
 stInitData.ModelParameters.LatchRising_d.Out_Y0 := 0;
 stInitData.ModelParameters.LatchRising_du.Out_Y0 := 0;
 stInitData.ModelParameters.run_o.x_ref_Y0[0] := 0;
