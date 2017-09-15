@@ -1,2 +1,3 @@
 ofxGui
+ofxTextAlign
 ofxXmlSettings

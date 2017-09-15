@@ -578,7 +578,6 @@ void ofAppExperiment::esmTrialFeedback()
 {
 	// show feedback (if enabled)
 	if (_trialFeedbackType > 0) {  // if trialFeedbackType is not NONE
-		ofLogVerbose("feedback?");
 		// save previous trial performance
 		_trialPerformancePrev[0] = _trialPerformance[0];
 		_trialPerformancePrev[1] = _trialPerformance[1];
@@ -598,10 +597,10 @@ void ofAppExperiment::esmTrialFeedback()
 			msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
 
 			if (_trialPerformance[0] < _trialPerformancePrev[0]) {
-				msg1 += "\nYou improved!";
+				msg1 += "\nYou improved! Keep up the good work!";
 			}
 			if (_trialPerformance[1] < _trialPerformancePrev[1]) {
-				msg2 += "\nYou improved!";
+				msg2 += "\nYou improved! Keep up the good work!";
 			}
 
 			display1->showMessage(true, msg1);

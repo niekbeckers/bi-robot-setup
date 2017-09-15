@@ -29,6 +29,7 @@ void ofAppDisplay::setup()
 	verdana50.load("verdana.ttf", 50, true, true);
 	verdana50.setLineHeight(50.0f);
 	verdana50.setLetterSpacing(1.035);
+	_text.load("verdana.ttf", 50);
 
 	verdana30.load("verdana.ttf", 30, true, true);
 	verdana30.setLineHeight(30.0f);
@@ -92,8 +93,14 @@ void ofAppDisplay::draw()
 		ofPushMatrix();
 		ofSetColor(clrText);
 		ofRectangle bounds = verdana50.getStringBoundingBox(_message, 0, 0);
-		ofTranslate(-bounds.getCenter()[0], -( 0.4*ofGetScreenHeight() + bounds.getCenter()[1]));
-		verdana50.drawString(_message, 0.0, 0.0);
+		//ofTranslate(-bounds.getCenter()[0], -( 0.4*ofGetScreenHeight() + bounds.getCenter()[1]));
+
+		unsigned int flags = 0;
+		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
+		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
+		ofTranslate(0.0, -0.4*ofGetScreenHeight());
+		_text.draw(_message, 0.0, 0.0, flags);
+		//verdana50.drawString(_message, 0.0, 0.0);
 		ofPopMatrix();
 	}
 

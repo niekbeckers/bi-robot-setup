@@ -4,6 +4,27 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\childParticle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ofAppDisplay.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ofAppExperiment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ofAppMain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parentParticle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tcAdsClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
@@ -28,11 +49,11 @@
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ofAppMain.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlign.cpp">
+      <Filter>addons\ofxTextAlign\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\tcAdsClient.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlignTTF.cpp">
+      <Filter>addons\ofxTextAlign\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
       <Filter>addons\ofxXmlSettings\src</Filter>
@@ -46,43 +67,58 @@
     <ClCompile Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClCompile>
-    <ClCompile Include="src\ofAppDisplay.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ofAppExperiment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\childParticle.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\parentParticle.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
       <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons">
-      <UniqueIdentifier>{2e9ebba3-f9c8-4942-83db-7521339211ce}</UniqueIdentifier>
+      <UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxGui">
-      <UniqueIdentifier>{930f24d3-aa0f-42dc-a213-b54ad034d2be}</UniqueIdentifier>
+      <UniqueIdentifier>{4F2A59AF-5F4E-704B-D067-EC13}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxGui\src">
-      <UniqueIdentifier>{fe80aa24-c06e-4f1a-8aa0-381f1eddd88c}</UniqueIdentifier>
+      <UniqueIdentifier>{645E9533-4DCD-6179-1CDF-CB65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxTextAlign">
+      <UniqueIdentifier>{98987682-2DF1-CBC9-75EC-6EB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxTextAlign\src">
+      <UniqueIdentifier>{9A2B15DB-0A3F-2F62-AB38-204C}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxXmlSettings">
-      <UniqueIdentifier>{05510fe3-c165-4136-b845-0457c22092c2}</UniqueIdentifier>
+      <UniqueIdentifier>{877F005D-13E6-0592-1D97-F2E3}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxXmlSettings\src">
-      <UniqueIdentifier>{8fcf01b6-654b-4eb2-9673-6177130e5ff3}</UniqueIdentifier>
+      <UniqueIdentifier>{CCB2AC63-49D2-977C-CFE8-AEAD}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxXmlSettings\libs">
-      <UniqueIdentifier>{e8b4997d-b156-4930-a4b6-0267b8f03080}</UniqueIdentifier>
+      <UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\childParticle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\myUtils.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofAppDisplay.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofAppExperiment.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofAppMain.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\parentParticle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tcAdsClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
@@ -110,32 +146,17 @@
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="src\ofAppMain.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlign.h">
+      <Filter>addons\ofxTextAlign\src</Filter>
     </ClInclude>
-    <ClInclude Include="src\tcAdsClient.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlignTTF.h">
+      <Filter>addons\ofxTextAlign\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h">
       <Filter>addons\ofxXmlSettings\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h">
       <Filter>addons\ofxXmlSettings\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ofAppDisplay.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\myUtils.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ofAppExperiment.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\childParticle.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\parentParticle.h">
-      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
