@@ -2,9 +2,16 @@
 #include "ofAppMain.h"
 #include "ofAppDisplay.h"
 #include "ofAppExperiment.h"
+#include "ofAppGLFWWindow.h"
 
 //========================================================================
 int main( ){
+
+	// check number of displays/windows
+	int monitorCount;
+	glfwGetMonitors(&monitorCount);
+	ofWindowMode wmode = (monitorCount > 1) ? ofWindowMode::OF_FULLSCREEN : ofWindowMode::OF_WINDOW;
+
 
 	//
 	// mainWindow
@@ -31,7 +38,7 @@ int main( ){
 	//
 	ofGLFWWindowSettings settings2;
 	//settings1.monitor = 0;
-	settings2.windowMode = OF_FULLSCREEN;
+	settings2.windowMode = wmode;
 	//settings2.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
 	
@@ -41,7 +48,7 @@ int main( ){
 	ofGLFWWindowSettings settings3;
 	//settings2.monitor = 0;
 	settings3.setPosition(ofVec2f(-2560, 0));
-	settings3.windowMode = OF_FULLSCREEN;
+	settings3.windowMode = wmode;
 	//settings3.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings3);
 
