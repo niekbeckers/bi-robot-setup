@@ -118,7 +118,8 @@ class ofAppExperiment : public ofBaseApp
 		// tcAdsClient
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration,
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback;
+			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback,
+			_lHdlVar_Write_DoVirtualPartner, _lHdlVar_Write_VPModelParams, _lHdlVar_Write_VPModelParamsChanged;
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
@@ -130,6 +131,12 @@ class ofAppExperiment : public ofBaseApp
 
 		bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
 		bool _prevTrialRunning = false, _nowTrialRunning = false;
+
+		// virtual partner fit bool
+		bool _vpDoVirtualPartner = false;
+		bool _vpOptimizationDone = false;
+		string _vpOptimFunction = "";
+		int _vpNumOptimParams = 4;
 		
 		// block and trial data for current trial/block
 		blockData _currentBlock;
@@ -177,6 +184,9 @@ class ofAppExperiment : public ofBaseApp
 		void esmTrialBreakDone();
 		void esmBlockBreak();
 		void esmBlockBreakDone();
+
+		void initVPOptimization();
+		void runVPOptimization();
 
 	public:
 

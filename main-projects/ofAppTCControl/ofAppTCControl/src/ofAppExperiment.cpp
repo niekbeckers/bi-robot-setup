@@ -196,14 +196,11 @@ void ofAppExperiment::setTrialDataADS()
 	_tcClient->write(_lHdlVar_Write_TrialNumber, &_currentTrial.trialNumber, sizeof(_currentTrial.trialNumber));
 
 	// connected
-	//_tcClient->write(_lHdlVar_Write_Connected, &_currentTrial.connected, sizeof(_currentTrial.connected));
 	mainApp->setConnectionEnabled(_currentTrial.connected);
 
 	// connectionStiffness
-	//_tcClient->write(_lHdlVar_Write_ConnectionStiffness, &_currentTrial.connectionStiffness, sizeof(_currentTrial.connectionStiffness));
 	mainApp->setConnectionStiffness(_currentTrial.connectionStiffness);
 	// connection damping
-	//_tcClient->write(_lHdlVar_Write_ConnectionDamping, &_currentTrial.connectionDamping, sizeof(_currentTrial.connectionDamping));
 	mainApp->setConnectionDamping(_currentTrial.connectionDamping);
 
 	// condition
@@ -254,6 +251,11 @@ void ofAppExperiment::loadExperimentXML()
 	else {
 		ofLogVerbose("User hit cancel");
 	}
+
+
+	// in case we need the virtual partner optimization, prepare.
+	if (_vpDoVirtualPartner)
+		initVPOptimization();
 	
 }
 
@@ -279,23 +281,29 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 		ofLogVerbose("ofAppExperiment","Experiment protocol XML file loaded: " + openFileResult.getPath());
 		ofLogToConsole();
 	}
+
 	// experiment settings (attributes)
-	if (XML.getValue<double>("countDownDuration")) { _cdDuration = XML.getValue<double>("countDownDuration"); }
+	_cdDuration = XML.getValue<double>("countDownDuration", _cdDuration);
+
 	if (XML.getValue<int>("trialFeedback")) { 
 		_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
 		// depending on trial feedback, check if a performance metric is given in the XML
 		switch (_trialFeedbackType) {
 		case TrialFeedback::RMSE:
-			if (XML.getValue<int>("trialPerformanceThreshold")) { _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold"); }
+			_trialPerformanceThreshold = XML.getValue<int>("trialPerformanceThreshold", _trialPerformanceThreshold);
 			break;
 		case TrialFeedback::MT:
-			if (XML.getValue<int>("trialMTRangeLower")) { _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower"); }
-			if (XML.getValue<int>("trialMTRangeUpper")) { _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper"); }
+			_trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower", _trialMovementTimeRangeSec[0]);
+			_trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper", _trialMovementTimeRangeSec[1]); 
 			break;
 		}
 	}
 	else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
 
+	// virtual partner settings
+	_vpDoVirtualPartner = XML.getValue<bool>("vpDoVirtualPartner", _vpDoVirtualPartner);
+	_vpOptimFunction = XML.getValue<string>("vpOptimFunction", _vpOptimFunction);
+	_vpNumOptimParams = XML.getValue<int>("vpNumOptimParams", _vpNumOptimParams);
 
 	int trialNumber = 0;
 	int blockNumber = 0;
@@ -309,10 +317,9 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 			// read block data
 			block.blockNumber = ++blockNumber;
-			if (XML.getValue<double>("breakDuration")) { block.breakDuration = XML.getValue<double>("breakDuration"); }
-			if (XML.getValue<int>("homingType")) { block.homingType = XML.getValue<int>("homingType"); }
+			block.breakDuration = XML.getValue<double>("breakDuration", block.breakDuration);
+			block.homingType = XML.getValue<int>("homingType", block.homingType);
 			
-
 			// set our "current" trial to the first one
 			if (XML.getName() == "block" && XML.setTo("trial[0]"))
 			{
@@ -322,15 +329,15 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					// read and store trial data
 					trialData trial;
 					trial.trialNumber = ++trialNumber;
-					//if (XML.getValue<int>("condition")) 
-					{ trial.condition = XML.getValue<int>("condition"); }
+					trial.condition = XML.getValue<int>("condition", 0);
 					if (XML.getValue<bool>("connected")) { trial.connected = true; } 
 					else { trial.connected = false; }
-					if (XML.getValue<double>("connectionStiffness")) { trial.connectionStiffness = XML.getValue<double>("connectionStiffness"); }
-					if (XML.getValue<double>("connectionDamping")) { trial.connectionDamping = XML.getValue<double>("connectionDamping"); }
-					if (XML.getValue<double>("breakDuration")) { trial.breakDuration = XML.getValue<double>("breakDuration"); }
-					if (XML.getValue<double>("trialDuration")) { trial.trialDuration = XML.getValue<double>("trialDuration"); }
-					trial.trialRandomization = XML.getValue<double>("trialRandomization");
+
+					trial.connectionStiffness = XML.getValue<double>("connectionStiffness", trial.connectionStiffness);
+					trial.connectionDamping = XML.getValue<double>("connectionDamping", trial.connectionDamping);
+					trial.breakDuration = XML.getValue<double>("breakDuration", trial.breakDuration);
+					trial.trialDuration = XML.getValue<double>("trialDuration", trial.trialDuration);
+					trial.trialRandomization = XML.getValue<double>("trialRandomization", 0);
 
 					block.trials.push_back(trial); // add trial to (temporary) trials list
 
@@ -736,4 +743,23 @@ void ofAppExperiment::esmBlockBreakDone()
 	// block break done, on to the next block!
 	_currentBlockNumber++;
 	setExperimentState(ExperimentState::NEWBLOCK);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::initVPOptimization()
+{
+	//char szVar0[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
+	//_lHdlVar_Write_DoVirtualPartner = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
+
+	//char szVar1[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
+	//_lHdlVar_Write_VPModelParams = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
+
+	//char szVar2[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
+	//_lHdlVar_Write_VPModelParamsChanged = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::runVPOptimization()
+{
+	// run MATLAB script
 }

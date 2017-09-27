@@ -52,10 +52,12 @@ void ofAppMain::update(){
 
 		// Check TwinCAT/ADS
 		if (_tcClientCont->nErr == 0) {
+			twinCatRunning = true;
 			_lblEtherCAT = "ON";
 			_lblEtherCAT.setBackgroundColor(ofColor::darkGreen);
 		}
 		else {
+			twinCatRunning = false;
 			// error, probably no ADS running
 			_lblEtherCAT = "OFF";
 			_lblEtherCAT.setBackgroundColor(ofColor::red);
@@ -115,7 +117,6 @@ void ofAppMain::setupTCADS()
 	// Request State
 	char szVar8[] = { "Object1 (ModelBROS).ModelParameters.Recorddata1yes0no_Value" };
 	_lHdlVar_RecordData = _tcClientEvent->getVariableHandle(szVar8, sizeof(szVar8));
-	
 }
  
 //--------------------------------------------------------------
@@ -222,7 +223,8 @@ void ofAppMain::setupGUI()
 	_guiExperiment.setWidthElements(width);
 
 	// initialize GUI
-	initGUI();
+	if (twinCatRunning)
+		initGUI();
 
 	// add toggle listeners
 	//_btnDrawTargetTail.addListener(this, &ofAppMain::drawTargetTailPressed);
@@ -235,6 +237,7 @@ void ofAppMain::setupGUI()
 //--------------------------------------------------------------
 void ofAppMain::initGUI()
 {
+	
 	// check record data
 	bool record;
 	_tcClientEvent->read(_lHdlVar_RecordData, &record, sizeof(record));
@@ -247,6 +250,7 @@ void ofAppMain::initGUI()
 
 	// connection enabled?
 	bool connected;
+	
 	_tcClientEvent->read(_lHdlVar_Connected, &connected, sizeof(connected));
 	_btnSetConnected = connected;
 

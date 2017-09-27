@@ -65,6 +65,7 @@ class ofAppMain : public ofBaseApp{
 			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError, _lHdlVar_Connected, _lHdlVar_ConnectionStiffness, _lHdlVar_ConnectionDamping,
 			_lHdlVar_RecordData;
 
+		
 
 		float _timeRefreshCheck = 1.0f; // 1 second refresh
 		float _timeCheck;
@@ -114,6 +115,8 @@ class ofAppMain : public ofBaseApp{
 		// variables
 		//
 		double AdsData[9] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+
+		bool twinCatRunning = false;
 
 		// pointers to other classes
 		shared_ptr<ofAppExperiment> experimentApp = 0;
