@@ -155,6 +155,10 @@ class ofAppExperiment : public ofBaseApp
 		// log
 		string _logFilename;
 
+		// every 4 trials, show instructions during the break
+		int _instructionMessageInterval = 4;
+		string _instructionMessage = "Great job so far!\nSmall reminder, try to track the target as good as possible \nand try not to stiffen up your arm too much!";
+
 		//
 		// functions
 		//

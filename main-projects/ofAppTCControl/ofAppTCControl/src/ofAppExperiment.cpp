@@ -636,6 +636,13 @@ void ofAppExperiment::esmTrialFeedback()
 		}
 	}
 
+	// occasionaly show instructions
+	if ((_currentTrialNumber + (rand() % 2)) % _instructionMessageInterval == 0) {
+		display1->showMessageCenter(true, _instructionMessage);
+		display2->showMessageCenter(true, _instructionMessage);
+	}
+
+
 	// go to homing after
 	setExperimentState(ExperimentState::HOMINGAFTER);
 }
@@ -705,8 +712,12 @@ void ofAppExperiment::esmTrialBreak()
 		display2->showMessageNorth(true, msg);
 	}
 	else {
+		// clear any message from the screen
 		display1->showMessageNorth(false);
 		display2->showMessageNorth(false);
+		display1->showMessageCenter(false);
+		display2->showMessageCenter(false);
+		
 		setExperimentState(ExperimentState::TRIALBREAKDONE);
 	}
 }
