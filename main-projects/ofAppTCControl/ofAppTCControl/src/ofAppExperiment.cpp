@@ -470,8 +470,8 @@ void ofAppExperiment::esmHomingBefore()
 void ofAppExperiment::esmHomingBeforeDone()
 {
 	_getReadyStartTime = ofGetElapsedTimef();
-	display1->showMessage(true, "GET READY");
-	display2->showMessage(true, "GET READY");
+	display1->showMessageNorth(true, "GET READY");
+	display2->showMessageNorth(true, "GET READY");
 	setExperimentState(ExperimentState::GETREADY);
 }
 
@@ -482,8 +482,8 @@ void ofAppExperiment::esmGetReady()
 		//
 	}
 	else {
-		display1->showMessage(false, "");
-		display2->showMessage(false, "");
+		display1->showMessageNorth(false, "");
+		display2->showMessageNorth(false, "");
 		setExperimentState(ExperimentState::GETREADYDONE);
 	}
 }
@@ -514,8 +514,8 @@ void ofAppExperiment::esmCountdown()
 	double time = ofGetElapsedTimef();
 	if ((time - _cdStartTime) <= _cdDuration) {
 		double cdTimeRemaining = _cdDuration - (time - _cdStartTime);
-		display1->showMessage(true, "COUNTDOWN");
-		display2->showMessage(true, "COUNTDOWN");
+		display1->showMessageNorth(true, "COUNTDOWN");
+		display2->showMessageNorth(true, "COUNTDOWN");
 		display1->showCountDown(true, cdTimeRemaining, _cdDuration);
 		display2->showCountDown(true, cdTimeRemaining, _cdDuration);
 	}
@@ -531,8 +531,8 @@ void ofAppExperiment::esmCountdownDone()
 	mainApp->requestStateChange(SystemState::RUN);
 
 	// countdown done, start trial
-	display1->showMessage(false);
-	display2->showMessage(false);
+	display1->showMessageNorth(false);
+	display2->showMessageNorth(false);
 	display1->showCountDown(false);
 	display2->showCountDown(false);
 	display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
@@ -564,8 +564,8 @@ void ofAppExperiment::esmTrialDone()
 		display1->drawTask = true;
 		display2->drawTask = true;
 	}
-	display1->showMessage(true, "Trial done");
-	display2->showMessage(true, "Trial done");
+	display1->showMessageNorth(true, "Trial done");
+	display2->showMessageNorth(true, "Trial done");
 	_trialDoneTime = ofGetElapsedTimef();
 
 	// write trial done to log file 
@@ -610,8 +610,8 @@ void ofAppExperiment::esmTrialFeedback()
 				msg2 += "\nYou improved! Keep up the good work!";
 			}
 
-			display1->showMessage(true, msg1);
-			display2->showMessage(true, msg2);
+			display1->showMessageNorth(true, msg1);
+			display2->showMessageNorth(true, msg2);
 	
 			// visual reward
 			showVisualReward();
@@ -623,15 +623,15 @@ void ofAppExperiment::esmTrialFeedback()
 
 			// BROS1
 			if (_trialPerformance[0] < _trialMovementTimeRangeSec[0])
-				display1->showMessage(true, "Too fast");
+				display1->showMessageNorth(true, "Too fast");
 			else if (_trialPerformance[1] > _trialMovementTimeRangeSec[1])
-				display1->showMessage(true, "Too slow");
+				display1->showMessageNorth(true, "Too slow");
 
 			// BROS2
 			if (_trialPerformance[1] < _trialMovementTimeRangeSec[0])
-				display2->showMessage(true, "Too fast");
+				display2->showMessageNorth(true, "Too fast");
 			else if (_trialPerformance[1] > _trialMovementTimeRangeSec[1])
-				display2->showMessage(true, "Too slow");
+				display2->showMessageNorth(true, "Too slow");
 			break;
 		}
 	}
@@ -653,8 +653,8 @@ void ofAppExperiment::esmHomingAfterDone()
 {
 	// wait at least a couple of seconds after trial is done to show message etc to user before going to new trial
 	if (ofGetElapsedTimef() - _trialDoneTime > 4.0f) { 
-		display1->showMessage(false, "");
-		display2->showMessage(false, "");
+		display1->showMessageNorth(false, "");
+		display2->showMessageNorth(false, "");
 
 		display1->drawTask = false;
 		display2->drawTask = false;
@@ -690,8 +690,8 @@ void ofAppExperiment::esmCheckNextStep()
 void ofAppExperiment::esmTrialBreak()
 {
 	if (_currentTrial.breakDuration < -1.0) { // no break
-		display1->showMessage(false);
-		display2->showMessage(false);
+		display1->showMessageNorth(false);
+		display2->showMessageNorth(false);
 		setExperimentState(ExperimentState::TRIALBREAKDONE);
 		return; 
 	} 
@@ -701,12 +701,12 @@ void ofAppExperiment::esmTrialBreak()
 		// trial break is running, show feedback on display
 		double timeRemaining = _currentTrial.breakDuration - (time - _breakStartTime);
 		string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
-		display1->showMessage(true, msg);
-		display2->showMessage(true, msg);
+		display1->showMessageNorth(true, msg);
+		display2->showMessageNorth(true, msg);
 	}
 	else {
-		display1->showMessage(false);
-		display2->showMessage(false);
+		display1->showMessageNorth(false);
+		display2->showMessageNorth(false);
 		setExperimentState(ExperimentState::TRIALBREAKDONE);
 	}
 }
@@ -727,12 +727,12 @@ void ofAppExperiment::esmBlockBreak()
 		// block break is running, show feedback on display
 		double timeRemaining = _currentBlock.breakDuration - (time - _breakStartTime);
 		string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
-		display1->showMessage(true, msg);
-		display2->showMessage(true, msg);
+		display1->showMessageNorth(true, msg);
+		display2->showMessageNorth(true, msg);
 	}
 	else {
-		display1->showMessage(false);
-		display2->showMessage(false);
+		display1->showMessageNorth(false);
+		display2->showMessageNorth(false);
 		setExperimentState(ExperimentState::BLOCKBREAKDONE);
 	}
 }

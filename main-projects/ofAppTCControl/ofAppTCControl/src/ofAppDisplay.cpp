@@ -89,26 +89,27 @@ void ofAppDisplay::draw()
 	}
 
 	// draw message
-	if (_showMessage) {
+	if (_showMessageNorth) {
 		ofPushMatrix();
 		ofSetColor(clrText);
-		ofRectangle bounds = verdana50.getStringBoundingBox(_message, 0, 0);
-		//ofTranslate(-bounds.getCenter()[0], -( 0.4*ofGetScreenHeight() + bounds.getCenter()[1]));
-
+		ofRectangle bounds = verdana50.getStringBoundingBox(_messageNorth, 0, 0);
 		unsigned int flags = 0;
 		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
 		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
+		ofTranslate(0.0, -0.4*ofGetScreenHeight());
+		_text.draw(_messageNorth, 0.0, 0.0, flags);
+		ofPopMatrix();
+	}
 
-		float y = 0.0;
-		switch (_messagePos) {
-			case MessagePosition::CENTER: y = 0.0; break;
-			case MessagePosition::NORTH: y = -0.4*ofGetScreenHeight(); break;
-			case MessagePosition::SOUTH: y = 0.4*ofGetScreenHeight(); break;
-		}
-
-		ofTranslate(0.0, y);
-		_text.draw(_message, 0.0, 0.0, flags);
-		//verdana50.drawString(_message, 0.0, 0.0);
+	if (_showMessageCenter) {
+		ofPushMatrix();
+		ofSetColor(clrText);
+		ofRectangle bounds = verdana50.getStringBoundingBox(_messageCenter, 0, 0);
+		unsigned int flags = 0;
+		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
+		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
+		ofTranslate(0.0, 0.0);
+		_text.draw(_messageCenter, 0.0, 0.0, flags);
 		ofPopMatrix();
 	}
 
@@ -140,25 +141,20 @@ void ofAppDisplay::windowResized(int w, int h)
 }
 
 //--------------------------------------------------------------
-void ofAppDisplay::showMessage(bool show)
+void ofAppDisplay::showMessageNorth(bool show, const string &msg)
 {
-	_showMessage = show;
+	_messageNorth = msg;
+	_showMessageNorth = show;
 }
 
 //--------------------------------------------------------------
-void ofAppDisplay::showMessage(bool show, const string &msg, MessagePosition mesPos)
+void ofAppDisplay::showMessageCenter(bool show, const string &msg)
 {
-	_messagePos = mesPos;
-	setMessage(msg);
-	showMessage(show);
+	_messageCenter = msg;
+	_showMessageCenter = show;
 }
 
 //--------------------------------------------------------------
-void ofAppDisplay::setMessage(const string &msg)
-{
-	_message = msg;
-}
-
 void ofAppDisplay::showCountDown(bool show, double timeRemaining, double duration)
 {
 	_showCountDown = show;
