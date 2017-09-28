@@ -98,7 +98,15 @@ void ofAppDisplay::draw()
 		unsigned int flags = 0;
 		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
 		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
-		ofTranslate(0.0, -0.4*ofGetScreenHeight());
+
+		float y = 0.0;
+		switch (_messagePos) {
+			case MessagePosition::CENTER: y = 0.0; break;
+			case MessagePosition::NORTH: y = -0.4*ofGetScreenHeight(); break;
+			case MessagePosition::SOUTH: y = 0.4*ofGetScreenHeight(); break;
+		}
+
+		ofTranslate(0.0, y);
 		_text.draw(_message, 0.0, 0.0, flags);
 		//verdana50.drawString(_message, 0.0, 0.0);
 		ofPopMatrix();
@@ -138,8 +146,9 @@ void ofAppDisplay::showMessage(bool show)
 }
 
 //--------------------------------------------------------------
-void ofAppDisplay::showMessage(bool show, const string &msg)
+void ofAppDisplay::showMessage(bool show, const string &msg, MessagePosition mesPos)
 {
+	_messagePos = mesPos;
 	setMessage(msg);
 	showMessage(show);
 }

@@ -8,6 +8,8 @@
 #include "parentParticle.h"
 #include "myUtils.h"
 
+enum MessagePosition {CENTER, NORTH, SOUTH};
+
 class ofAppDisplay : public ofBaseApp
 {
 	private:
@@ -27,6 +29,7 @@ class ofAppDisplay : public ofBaseApp
 		bool _showMessage = false;
 		ofTrueTypeFont verdana50;
 		ofTrueTypeFont verdana30;
+		MessagePosition _messagePos = MessagePosition::NORTH;
 
 		ofxTextAlignTTF _text;
 
@@ -58,7 +61,7 @@ class ofAppDisplay : public ofBaseApp
 		void windowResized(int w, int h);
 
 		void showMessage(bool show);
-		void showMessage(bool show, const string &msg);
+		void showMessage(bool show, const string &msg, MessagePosition mespos = MessagePosition::NORTH);
 		void setMessage(const string &msg);
 
 		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
