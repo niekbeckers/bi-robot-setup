@@ -77,10 +77,10 @@
 
 clear all; close all; clc;
 
-expID = 'motorlearning1_solo1';
+expID = 'motorlearning_p1_s1';
 
 % filename
-filename = ['expprotocol_bros_' expID];
+filename = ['expprotocol_' expID];
 
 % create (main) struct
 s = struct;
@@ -91,12 +91,12 @@ s.experiment.trialFeedback = 1;
 s.experiment.trialPerformanceThreshold = 0.05;
 
 %% trial data
-numTrials = 80; % example
+numTrials = 84; % example
 
 % trial settings
 
 % experiment settings
-condition = [zeros(20,1); ones(20,1); ones(20,1); zeros(20,1)];
+condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
 breakDuration = 3*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
 
@@ -110,7 +110,7 @@ divTrials = {1:20 21:40 41:60 61:80};
 
 %% randomization
 % sort elements of trialRandomization in random order
-NRandomizationBlocks = {repmat([0;1;2;3],5,1), repmat([0;1;2;3],5,1), repmat([0;1;2;3],5,1), repmat([0;1;2;3],5,1)};
+NRandomizationBlocks = {[repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1]};
 %mix up the order:
 nRand = [];
 for ii = 1:length(NRandomizationBlocks)
