@@ -637,7 +637,7 @@ void ofAppExperiment::esmTrialFeedback()
 	}
 
 	// occasionaly show instructions
-	if ((_currentTrialNumber + (rand() % 2)) % _instructionMessageInterval == 0) {
+	if (_currentTrialNumber % _instructionMessageInterval == 0) {
 		display1->showMessageCenter(true, _instructionMessage);
 		display2->showMessageCenter(true, _instructionMessage);
 	}
