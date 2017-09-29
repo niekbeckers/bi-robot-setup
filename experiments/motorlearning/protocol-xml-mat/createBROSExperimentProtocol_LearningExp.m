@@ -1,7 +1,5 @@
 %% createBROSExperimentProtocol_template
 %
-% TEMPLATE! DO NOT CHANGE (EXCEPT FOR BUG FIXES). COPY AND MAKE YOUR OWN
-% SCRIPT FOR YOUR EXPERIMENT%
 % - Niek
 %
 %
@@ -77,7 +75,12 @@
 
 clear all; close all; clc;
 
-expID = 'motorlearning_p1_s1';
+expID = 'motorlearning_partners1_session1';
+selectPremadeTrialSequence = 1;
+groupType = 'solo';
+Ks = 100;
+Ds = 2;
+
 
 % filename
 filename = ['expprotocol_' expID];
@@ -91,35 +94,63 @@ s.experiment.trialFeedback = 1;
 s.experiment.trialPerformanceThreshold = 0.05;
 
 %% trial data
-numTrials = 84; % example
+
 
 % trial settings
 
 % experiment settings
 condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
+numTrials = numel(condition); % example
 breakDuration = 3*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
 
 % connection
-connected = false*[ones(numTrials,1)];
-connectionStiffness = 0*ones(numTrials,1);
-connectionDamping = 0*ones(numTrials,1);
+if strcmpi(groupType,'solo')
+    connected = zeros(numTrials,1);
+    connectionStiffness = zeros(numTrials,1);
+    connectionDamping = zeros(numTrials,1);
+else
+    connected = zeros(numTrials,1); connected(2:2:end) = 1;
+    connectionStiffness = connected*Ks;
+    connectionDamping = connected*Ds;
+end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:20 21:40 41:60 61:80}; 
+divTrials = {1:21 22:42 43:63 64:84}; 
 
 %% randomization
 % sort elements of trialRandomization in random order
-NRandomizationBlocks = {[repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1]};
-%mix up the order:
-nRand = [];
-for ii = 1:length(NRandomizationBlocks)
-    nRand = [nRand; NRandomizationBlocks{ii}(randperm(length(NRandomizationBlocks{ii})))];
-end
+if ~selectPremadeTrialSequence
+    imin = 0;
+    imax = 5;
+    orderPerBlock = [repmat(imin:imax,1,3) randi([imin imax],1,3)]; 
+    NRandomizationBlocks = {orderPerBlock, orderPerBlock, orderPerBlock, orderPerBlock};
 
-% randomization: four target rotations, make sure that in each block, you
-% have the same amount of trials per rotation
-trialRandomization = 20*nRand+5*rand(size(nRand));
+    % %mix up the order:
+    % nRand = [];
+    % for ii = 1:length(NRandomizationBlocks)
+    %     nRand = [nRand; NRandomizationBlocks{ii}(randperm(length(NRandomizationBlocks{ii})))];
+    % end
+
+    parfor ii = 1:4
+        noconsnumbers = 1;
+        while (noconsnumbers)
+            randomOrder = NRandomizationBlocks{ii}(randperm(length(NRandomizationBlocks{ii})));
+            if ~any(diff(randomOrder) == 0)
+                noconsnumbers = 0;
+                NRandomizationBlocks{ii} = randomOrder;
+                disp(['done ' num2str(ii)])
+            end
+        end
+    end
+    
+    % randomization: four target rotations, make sure that in each block, you
+    % have the same amount of trials per rotation
+    trialRandomization = 20*nRand+5*rand(size(nRand));
+
+else
+    load('randomizedtrialorder_motorlearning_session1.mat');
+end
 
 
 %% prepare trials
@@ -146,7 +177,27 @@ end
 
 %% save everything (in xml and mat)
 
-% write to to XML file
-struct2xml(s,[filename '.xml']);
-% save experiment struct in mat file
-save(filename, 's');
+protocolpath = 'protocols';
+
+if exist(protocolpath,'dir')
+    mkdir(protocolpath);
+end
+
+% check if you want to overwrite the protocol
+saveProtocol = 1;
+if exist([protocolpath filesep filename '.xml'],'file') || exist([protocolpath filesep filename],'file')
+    promptMessage = sprintf('This file already exists:\n%s\nDo you want to overwrite it?', [protocolpath filesep filename '.xml']);
+	titleBarCaption = 'Overwrite protocol?';
+	buttonText = questdlg(promptMessage, titleBarCaption, 'Yes', 'No', 'No');
+    
+    if strcmpi(buttonText,'No')
+        saveProtocol = 0;
+    end
+end
+
+if saveProtocol
+    % write to to XML file
+    struct2xml(s,[protocolpath filesep filename '.xml']);
+    % save experiment struct in mat file
+    save([protocolpath filesep filename], 's');
+end
