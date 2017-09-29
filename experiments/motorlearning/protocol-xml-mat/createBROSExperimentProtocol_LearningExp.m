@@ -75,11 +75,14 @@
 
 clear all; close all; clc;
 
-expID = 'motorlearning_partners1_session1';
+partnersNr = 1;
+sessionnr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'solo';
+groupType = 'solo'; % solo or interaction
+groupTypeNr = 0; % 0 = solo, 1 = interaction
 Ks = 100;
 Ds = 2;
+expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
 
 
 % filename
@@ -92,6 +95,9 @@ s = struct;
 s.experiment.expID = expID;
 s.experiment.trialFeedback = 1;
 s.experiment.trialPerformanceThreshold = 0.05;
+s.experiment.groupTypeNr = groupTypeNr;
+s.experiment.sessionNr = sessionnr;
+s.experiment.partnersNr = partnersNr;
 
 %% trial data
 
@@ -109,7 +115,7 @@ if strcmpi(groupType,'solo')
     connected = zeros(numTrials,1);
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
-else
+elseif strcmpi(groupType,'interaction')
     connected = zeros(numTrials,1); connected(2:2:end) = 1;
     connectionStiffness = connected*Ks;
     connectionDamping = connected*Ds;

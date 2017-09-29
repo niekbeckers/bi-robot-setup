@@ -642,7 +642,6 @@ void ofAppExperiment::esmTrialFeedback()
 		display2->showMessageCenter(true, _instructionMessage);
 	}
 
-
 	// go to homing after
 	setExperimentState(ExperimentState::HOMINGAFTER);
 }
