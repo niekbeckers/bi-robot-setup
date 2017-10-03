@@ -80,7 +80,7 @@ sessionnr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
-Ks = 100;
+Ks = 150;
 Ds = 2;
 expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
 
@@ -107,7 +107,7 @@ s.experiment.partnersNr = partnersNr;
 % experiment settings
 condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
 numTrials = numel(condition); % example
-breakDuration = 3*ones(numTrials,1);
+breakDuration = 10*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
 
 % connection
@@ -116,7 +116,8 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    connected = zeros(numTrials,1); connected(2:2:end) = 1;
+    connected = zeros(21,1); connected(2:2:end) = 1;
+    connected = repmat(connected,4,1);
     connectionStiffness = connected*Ks;
     connectionDamping = connected*Ds;
 end
@@ -163,6 +164,7 @@ end
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
     trial{ii}.connectionStiffness = connectionStiffness(ii);
+    trial{ii}.connectionDamping = connectionDamping(ii);
     trial{ii}.condition = condition(ii);
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
@@ -174,7 +176,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 300.0;
+    s.experiment.block{ii}.breakDuration = 240.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
