@@ -404,6 +404,8 @@ void ofAppExperiment::esmExperimentStart()
 	_currentBlockNumber = 0;
 	_currentTrialNumber = 0;
 	_experimentRunning = true;
+	display1->showMessageNorth(false);
+	display2->showMessageNorth(false);
 
 	setExperimentState(ExperimentState::NEWBLOCK);
 }
@@ -417,6 +419,9 @@ void ofAppExperiment::esmExperimentStop()
 	display2->drawTask = true;
 	display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
+
+	display1->showMessageNorth(true, "EXPERIMENT FINISHED");
+	display2->showMessageNorth(true, "EXPERIMENT FINISHED");
 
 	setExperimentState(ExperimentState::EXPERIMENTDONE);
 }
@@ -615,7 +620,8 @@ void ofAppExperiment::esmTrialFeedback()
 
 			display1->showMessageNorth(true, msg1);
 			display2->showMessageNorth(true, msg2);
-	
+			display1->drawTask = true;
+			display2->drawTask = true;
 			// visual reward
 			showVisualReward();
 
