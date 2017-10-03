@@ -75,11 +75,11 @@
 
 clear all; close all; clc;
 
-partnersNr = 1;
+partnersNr = 2;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'solo'; % solo or interaction
-groupTypeNr = 0; % 0 = solo, 1 = interaction
+groupType = 'interaction'; % solo or interaction
+groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 100;
 Ds = 2;
 expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
@@ -185,7 +185,7 @@ end
 
 protocolpath = 'protocols';
 
-if exist(protocolpath,'dir')
+if ~exist(protocolpath,'dir')
     mkdir(protocolpath);
 end
 

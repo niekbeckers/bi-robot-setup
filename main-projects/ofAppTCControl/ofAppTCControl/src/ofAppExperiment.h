@@ -10,6 +10,7 @@
 #include "ofUtils.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"
+#include "encrypt.h"
 
 class ofAppMain;
 
