@@ -65,6 +65,9 @@ void ofAppMain::update(){
 
 		// frame rate in GUI
 		_lblFRM = ofToString((int)ofGetFrameRate()) + " fps";
+
+		// update GUI ADS data (in case something changed)
+		updateADSDataGUI();
 	}	
 }
 
@@ -211,6 +214,7 @@ void ofAppMain::setupGUI()
 
 	_grpConnectionControl.setup("Connection control");
 	_grpConnectionControl.setName("Connection control");
+	_grpConnectionControl.add(_lblConnected.setup("Connection","disabled"));
 	_grpConnectionControl.add(_btnSetConnected.setup("Enable connection", false));
 	_btnSetConnected.setName("Enable connection");
 	_grpConnectionControl.add(_lblConnStiffness.setup("Connection stiffness Kp", ofToString(0) + " N/m"));
@@ -224,7 +228,7 @@ void ofAppMain::setupGUI()
 
 	// initialize GUI
 	if (twinCatRunning)
-		initGUI();
+		updateADSDataGUI();
 
 	// add toggle listeners
 	//_btnDrawTargetTail.addListener(this, &ofAppMain::drawTargetTailPressed);
@@ -235,7 +239,7 @@ void ofAppMain::setupGUI()
 }
 
 //--------------------------------------------------------------
-void ofAppMain::initGUI()
+void ofAppMain::updateADSDataGUI()
 {
 	
 	// check record data
@@ -342,11 +346,12 @@ void ofAppMain::buttonPressed(const void * sender)
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
 		// if the data recorder is not checked, force data recorder on.
-		if (!_btnToggleRecordData) { _btnToggleRecordData = true; }
+		if (!_btnToggleRecordData) { _loggerStartedDueExperiment = true; _btnToggleRecordData = true; }
 		// start experiment
 		experimentApp->startExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
+		if (_btnToggleRecordData && _loggerStartedDueExperiment) { _btnToggleRecordData = false; }
 		experimentApp->stopExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
@@ -429,8 +434,8 @@ void ofAppMain::setConnectionEnabled(bool & value)
 	}
 
 	// set toggle button name
-	if (value) _btnSetConnected.setName("Connection enabled");
-	else _btnSetConnected.setName("Connection disabled");
+	if (value) _lblConnected = "enabled";
+	else _lblConnected = "disabled";
 }
 
 //--------------------------------------------------------------
@@ -457,6 +462,9 @@ void ofAppMain::keyPressed(int key) {
 
 //--------------------------------------------------------------
 void ofAppMain::exit() {
+
+	// switch off data logger (if this app switched it on)
+	if (_loggerStartedDueExperiment && _btnToggleRecordData) { _btnToggleRecordData = false; }
 
 	// remove listeners
 	_btnCalibrateForceSensor.removeListener(this, &ofAppMain::buttonPressed);

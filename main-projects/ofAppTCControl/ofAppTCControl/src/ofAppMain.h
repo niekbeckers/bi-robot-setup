@@ -65,10 +65,10 @@ class ofAppMain : public ofBaseApp{
 			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError, _lHdlVar_Connected, _lHdlVar_ConnectionStiffness, _lHdlVar_ConnectionDamping,
 			_lHdlVar_RecordData;
 
-		
-
-		float _timeRefreshCheck = 1.0f; // 1 second refresh
+		float _timeRefreshCheck = 1.0f; // 2 second refresh
 		float _timeCheck;
+
+		bool _loggerStartedDueExperiment = false;
 
 		displayData _display1Data, _display2Data;
 		SystemState _systemState[2] = { SystemState::FAULT, SystemState::FAULT };
@@ -94,14 +94,14 @@ class ofAppMain : public ofBaseApp{
 		ofxToggle _btnSetConnected;
 		ofxGuiGroup _grpConnectionControl;
 		ofxButton _btnConnSetStiffness, _btnConnSetDamping;
-		ofxLabel _lblConnStiffness, _lblConnDamping;
+		ofxLabel _lblConnected, _lblConnStiffness, _lblConnDamping;
 		
 		//
 		// custom
 		//
 		void setupTCADS();
 		void setupGUI();
-		void initGUI();
+		void updateADSDataGUI();
 		void buttonPressed(const void * sender);
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);
@@ -137,8 +137,6 @@ class ofAppMain : public ofBaseApp{
 		void draw();
 		void keyPressed(int key);
 		void exit();
-
-		
 
 		// custom
 		void requestStateChange(int reqState);
