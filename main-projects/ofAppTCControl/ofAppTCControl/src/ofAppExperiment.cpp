@@ -240,23 +240,21 @@ void ofAppExperiment::loadExperimentXML()
 	setExperimentState(ExperimentState::IDLE);
 	//Open the Open File Dialog
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)",false, ofFilePath().getCurrentExeDir());
-	ofLogVerbose(ofFilePath().getCurrentExePath());
+	ofLogVerbose("ofAppExperiment", ofFilePath().getCurrentExePath());
 	//Check if the user opened a file
 	if (openFileResult.bSuccess) {
-		ofLogVerbose("User opened file " + openFileResult.fileName);
+		ofLogVerbose("ofAppExperiment","User opened file " + openFileResult.fileName);
 
 		//We have a file, check it and process it
 		processOpenFileSelection(openFileResult);
+
+		// in case we need the virtual partner optimization, prepare.
+		if (_vpDoVirtualPartner)
+			initVPOptimization();
 	}
 	else {
-		ofLogVerbose("User hit cancel");
+		ofLogVerbose("ofAppExperiment", "User hit cancel");
 	}
-
-
-	// in case we need the virtual partner optimization, prepare.
-	if (_vpDoVirtualPartner)
-		initVPOptimization();
-	
 }
 
 //--------------------------------------------------------------
@@ -275,7 +273,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	mainApp->lblExpLoaded = openFileResult.fileName;
 
 	if (XML.load(openFileResult.getPath())) {
-		ofLogVerbose("Loaded: " + openFileResult.getPath());
+		ofLogVerbose("ofAppExperiment","Loaded: " + openFileResult.getPath());
 		// log to file as well
 		ofLogToFile(_logFilename, true);
 		ofLogVerbose("ofAppExperiment","Experiment protocol XML file loaded: " + openFileResult.getPath());
@@ -283,27 +281,28 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	}
 
 	// experiment settings (attributes)
-	_cdDuration = XML.getValue<double>("countDownDuration", _cdDuration);
+	if (XML.getValue<double>("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
 
 	if (XML.getValue<int>("trialFeedback")) { 
 		_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
 		// depending on trial feedback, check if a performance metric is given in the XML
+
 		switch (_trialFeedbackType) {
 		case TrialFeedback::RMSE:
-			_trialPerformanceThreshold = XML.getValue<int>("trialPerformanceThreshold", _trialPerformanceThreshold);
+			if (XML.getValue<double>("trialPerformanceThreshold")) _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold");
 			break;
 		case TrialFeedback::MT:
-			_trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower", _trialMovementTimeRangeSec[0]);
-			_trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper", _trialMovementTimeRangeSec[1]); 
+			if (XML.getValue<double>("trialMTRangeLower")) _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower");
+			if (XML.getValue<double>("trialMTRangeUpper")) _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper");
 			break;
 		}
 	}
 	else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
 
 	// virtual partner settings
-	_vpDoVirtualPartner = XML.getValue<bool>("vpDoVirtualPartner", _vpDoVirtualPartner);
-	_vpOptimFunction = XML.getValue<string>("vpOptimFunction", _vpOptimFunction);
-	_vpNumOptimParams = XML.getValue<int>("vpNumOptimParams", _vpNumOptimParams);
+	if (XML.getValue<bool>("vpDoVirtualPartner")) _vpDoVirtualPartner = XML.getValue<bool>("vpDoVirtualPartner");
+	if (XML.getValue<string>("vpOptimFunction") != "") _vpOptimFunction = XML.getValue<string>("vpOptimFunction");
+	if (XML.getValue<int>("vpNumOptimParams")) _vpNumOptimParams = XML.getValue<int>("vpNumOptimParams");
 
 	int trialNumber = 0;
 	int blockNumber = 0;
@@ -317,8 +316,8 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 			// read block data
 			block.blockNumber = ++blockNumber;
-			block.breakDuration = XML.getValue<double>("breakDuration", block.breakDuration);
-			block.homingType = XML.getValue<int>("homingType", block.homingType);
+			if (XML.getValue<double>("breakDuration")) block.breakDuration = XML.getValue<double>("breakDuration");
+			if (XML.getValue<int>("homingType")) block.homingType = XML.getValue<int>("homingType");
 			
 			// set our "current" trial to the first one
 			if (XML.getName() == "block" && XML.setTo("trial[0]"))
@@ -329,15 +328,15 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					// read and store trial data
 					trialData trial;
 					trial.trialNumber = ++trialNumber;
-					trial.condition = XML.getValue<int>("condition", 0);
+					if (XML.getValue<int>("condition")) trial.condition = XML.getValue<int>("condition");
 					if (XML.getValue<bool>("connected")) { trial.connected = true; } 
 					else { trial.connected = false; }
 
-					trial.connectionStiffness = XML.getValue<double>("connectionStiffness", trial.connectionStiffness);
-					trial.connectionDamping = XML.getValue<double>("connectionDamping", trial.connectionDamping);
-					trial.breakDuration = XML.getValue<double>("breakDuration", trial.breakDuration);
-					trial.trialDuration = XML.getValue<double>("trialDuration", trial.trialDuration);
-					trial.trialRandomization = XML.getValue<double>("trialRandomization", 0);
+					if (XML.getValue<double>("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
+					if (XML.getValue<double>("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
+					if (XML.getValue<double>("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
+					if (XML.getValue<double>("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
+					if (XML.getValue<double>("trialRandomization")) trial.trialRandomization = XML.getValue<double>("trialRandomization");
 
 					block.trials.push_back(trial); // add trial to (temporary) trials list
 
@@ -432,6 +431,10 @@ void ofAppExperiment::esmNewBlock()
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	mainApp->lblTrialNumber.setMax(_currentBlock.trials.size());
 
+	// reset trial performance
+	_trialPerformancePrev[0] = 0.0;
+	_trialPerformancePrev[1] = 0.0;
+
 	// start first trial
 	setExperimentState(ExperimentState::NEWTRIAL);
 }
@@ -482,8 +485,8 @@ void ofAppExperiment::esmGetReady()
 		//
 	}
 	else {
-		display1->showMessageNorth(false, "");
-		display2->showMessageNorth(false, "");
+		display1->showMessageNorth(false);
+		display2->showMessageNorth(false);
 		setExperimentState(ExperimentState::GETREADYDONE);
 	}
 }
@@ -535,12 +538,12 @@ void ofAppExperiment::esmCountdownDone()
 	display2->showMessageNorth(false);
 	display1->showCountDown(false);
 	display2->showCountDown(false);
+	display1->drawTask = true;
+	display2->drawTask = true;
 	display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 	display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
 	display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 	display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
-	display1->drawTask = true;
-	display2->drawTask = true;
 
 	requestStartTrialADS();
 
@@ -561,11 +564,11 @@ void ofAppExperiment::esmTrialDone()
 {
 	// set display to black
 	if (!debugMode) {
-		display1->drawTask = true;
-		display2->drawTask = true;
+		display1->drawTask = false;
+		display2->drawTask = false;
 	}
-	display1->showMessageNorth(true, "Trial done");
-	display2->showMessageNorth(true, "Trial done");
+	display1->showMessageNorth(true, "TRIAL DONE");
+	display2->showMessageNorth(true, "TRIAL DONE");
 	_trialDoneTime = ofGetElapsedTimef();
 
 	// write trial done to log file 
@@ -592,8 +595,8 @@ void ofAppExperiment::esmTrialFeedback()
 		// request trial performance feedback from the RT model
 		_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
 
-		string msg1 = "Trial done\n\n";
-		string msg2 = "Trial done\n\n";
+		string msg1 = "TRIAL DONE\n\n";
+		string msg2 = "TRIAL DONE\n\n";
 
 		// depending on feedback type, adjust method
 		switch (_trialFeedbackType) {
@@ -637,7 +640,7 @@ void ofAppExperiment::esmTrialFeedback()
 	}
 
 	// occasionaly show instructions
-	if (_currentTrialNumber % _instructionMessageInterval == 0) {
+	if ((_currentTrialNumber + 1) % _instructionMessageInterval == 0) {
 		display1->showMessageCenter(true, _instructionMessage);
 		display2->showMessageCenter(true, _instructionMessage);
 	}
