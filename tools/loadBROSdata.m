@@ -31,7 +31,8 @@ if length(trialnumbers) ~= length(idxtrialrunning)
    warning('Inconsistent trialnumbers and dataraw.ExpTrialNumbers. Fixing it.');
    trialnumbers = 1:length(idxtrialrunning);
    
-   % also fix dataraw
+   % also fix dataraw.ExpTrialNumber (note: we are not overwriting the
+   % actual data files, just the variable)
    for ii = 1:length(idxtrialrunning)
        idx = trialrunning(idxtrialrunning(ii),2):trialrunning(idxtrialrunning(ii),3);
        dataraw.ExpTrialNumber(idx) = trialnumbers(ii);
