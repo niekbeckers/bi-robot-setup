@@ -107,7 +107,7 @@ s.experiment.partnersNr = partnersNr;
 % experiment settings
 condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
 numTrials = numel(condition); % example
-breakDuration = 10*ones(numTrials,1);
+breakDuration = 3*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
 
 % connection
@@ -116,10 +116,20 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
+    
+    
+    
     connected = zeros(21,1); connected(2:2:end) = 1;
     connected = repmat(connected,4,1);
+
+%     connected1 = zeros(42,1); connected1(2:2:end) = 1;
+%     connected = [connected1;connected;connected];
+    
+    
+    
     connectionStiffness = connected*Ks;
     connectionDamping = connected*Ds;
+
 end
 
 % specify how the trials are divided over the blocks
@@ -176,12 +186,20 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = 300.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
     end
+    
+    expprotocol.block(ii).connected = connected(divTrials{ii});
+    expprotocol.block(ii).condition = condition(divTrials{ii});
+    expprotocol.block(ii).trialRandomization = trialRandomization(divTrials{ii});
+    expprotocol.block(ii).connectionStiffness = connectionStiffness(divTrials{ii});
+    expprotocol.block(ii).connectionDamping = connectionDamping(divTrials{ii});
 end
+
+
 
 
 
@@ -209,5 +227,5 @@ if saveProtocol
     % write to to XML file
     struct2xml(s,[protocolpath filesep filename '.xml']);
     % save experiment struct in mat file
-    save([protocolpath filesep filename], 's','');
+    save([protocolpath filesep filename], 's','expprotocol');
 end
