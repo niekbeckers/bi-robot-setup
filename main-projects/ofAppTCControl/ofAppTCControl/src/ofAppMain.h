@@ -147,5 +147,7 @@ class ofAppMain : public ofBaseApp{
 		void setConnectionStiffness(double Kp);
 		void setConnectionDamping(double Kd);
 		void setConnectionEnabled(bool & value);
+		void stopDataRecorder();
+		void startDataRecorder();
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 };

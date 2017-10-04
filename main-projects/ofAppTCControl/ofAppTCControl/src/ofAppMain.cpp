@@ -346,12 +346,12 @@ void ofAppMain::buttonPressed(const void * sender)
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
 		// if the data recorder is not checked, force data recorder on.
-		if (!_btnToggleRecordData) { _loggerStartedDueExperiment = true; _btnToggleRecordData = true; }
+		startDataRecorder();
 		// start experiment
 		experimentApp->startExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
-		if (_btnToggleRecordData && _loggerStartedDueExperiment) { _btnToggleRecordData = false; }
+		stopDataRecorder();
 		experimentApp->stopExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
@@ -380,6 +380,18 @@ void ofAppMain::buttonPressed(const void * sender)
 	else {
 		ofLogError("Button " + clickedBtn + " unknown");
 	}
+}
+
+//--------------------------------------------------------------
+void ofAppMain::stopDataRecorder()
+{
+	if (_btnToggleRecordData && _loggerStartedDueExperiment) { _btnToggleRecordData = false; }
+}
+
+//--------------------------------------------------------------
+void ofAppMain::startDataRecorder()
+{
+	if (!_btnToggleRecordData) { _loggerStartedDueExperiment = true; _btnToggleRecordData = true; }
 }
 
 //--------------------------------------------------------------
@@ -464,7 +476,7 @@ void ofAppMain::keyPressed(int key) {
 void ofAppMain::exit() {
 
 	// switch off data logger (if this app switched it on)
-	if (_loggerStartedDueExperiment && _btnToggleRecordData) { _btnToggleRecordData = false; }
+	stopDataRecorder();
 
 	// remove listeners
 	_btnCalibrateForceSensor.removeListener(this, &ofAppMain::buttonPressed);
