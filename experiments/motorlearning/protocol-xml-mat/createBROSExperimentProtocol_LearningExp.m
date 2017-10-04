@@ -75,11 +75,11 @@
 
 clear all; close all; clc;
 
-partnersNr = 2;
+partnersNr = 3;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'interaction'; % solo or interaction
-groupTypeNr = 1; % 0 = solo, 1 = interaction
+groupType = 'solo'; % solo or interaction
+groupTypeNr = 0; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
 expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
@@ -107,7 +107,7 @@ s.experiment.partnersNr = partnersNr;
 % experiment settings
 condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
 numTrials = numel(condition); % example
-breakDuration = 3*ones(numTrials,1);
+breakDuration = 10*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
 
 % connection
@@ -180,7 +180,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 300.0;
+    s.experiment.block{ii}.breakDuration = 240.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};

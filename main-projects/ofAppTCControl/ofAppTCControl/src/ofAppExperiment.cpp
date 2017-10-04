@@ -413,12 +413,16 @@ void ofAppExperiment::esmExperimentStart()
 //--------------------------------------------------------------
 void ofAppExperiment::esmExperimentStop()
 {
+
 	_experimentRunning = false;
 
 	display1->drawTask = true;
 	display2->drawTask = true;
 	display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
+
+	// stop the data recorder
+	mainApp->stopDataRecorder();
 
 	display1->showMessageNorth(true, "EXPERIMENT FINISHED");
 	display2->showMessageNorth(true, "EXPERIMENT FINISHED");
@@ -430,6 +434,9 @@ void ofAppExperiment::esmExperimentStop()
 void ofAppExperiment::esmNewBlock()
 {
 	if (!_experimentRunning) { return; }
+
+	// request data recorder start
+	mainApp->startDataRecorder();
 
 	_currentBlock = _blocks[_currentBlockNumber];
 	_currentTrialNumber = 0;
@@ -593,9 +600,7 @@ void ofAppExperiment::esmTrialFeedback()
 {
 	// show feedback (if enabled)
 	if (_trialFeedbackType > 0) {  // if trialFeedbackType is not NONE
-		// save previous trial performance
-		_trialPerformancePrev[0] = _trialPerformance[0];
-		_trialPerformancePrev[1] = _trialPerformance[1];
+
 
 		// request trial performance feedback from the RT model
 		_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
@@ -622,6 +627,7 @@ void ofAppExperiment::esmTrialFeedback()
 			display2->showMessageNorth(true, msg2);
 			display1->drawTask = true;
 			display2->drawTask = true;
+
 			// visual reward
 			showVisualReward();
 
@@ -643,6 +649,10 @@ void ofAppExperiment::esmTrialFeedback()
 				display2->showMessageNorth(true, "Too slow");
 			break;
 		}
+
+		// save previous trial performance
+		_trialPerformancePrev[0] = _trialPerformance[0];
+		_trialPerformancePrev[1] = _trialPerformance[1];
 	}
 
 	// occasionaly show instructions
@@ -692,6 +702,10 @@ void ofAppExperiment::esmCheckNextStep()
 		if (_currentBlockNumber < _blocks.size() - 1) {
 			// new block! First, block break
 			_breakStartTime = ofGetElapsedTimef();
+
+			// switch off the data recorder
+			mainApp->stopDataRecorder();
+
 			setExperimentState(ExperimentState::BLOCKBREAK);
 		}
 		else {
