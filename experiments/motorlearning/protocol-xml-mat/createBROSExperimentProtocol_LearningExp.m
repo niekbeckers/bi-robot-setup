@@ -116,17 +116,11 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    
-    
-    
     connected = zeros(21,1); connected(2:2:end) = 1;
     connected = repmat(connected,4,1);
 
 %     connected1 = zeros(42,1); connected1(2:2:end) = 1;
 %     connected = [connected1;connected;connected];
-    
-    
-    
     connectionStiffness = connected*Ks;
     connectionDamping = connected*Ds;
 
