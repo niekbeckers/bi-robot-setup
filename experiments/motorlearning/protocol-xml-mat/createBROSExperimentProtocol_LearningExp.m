@@ -75,11 +75,11 @@
 
 clear all; close all; clc;
 
-partnersNr = 3;
+partnersNr = 2;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'solo'; % solo or interaction
-groupTypeNr = 0; % 0 = solo, 1 = interaction
+groupType = 'interaction'; % solo or interaction
+groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
 expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
@@ -183,6 +183,8 @@ for ii = 1:numBlocks
     end
 end
 
+
+
 %% save everything (in xml and mat)
 
 protocolpath = 'protocols';
@@ -207,5 +209,5 @@ if saveProtocol
     % write to to XML file
     struct2xml(s,[protocolpath filesep filename '.xml']);
     % save experiment struct in mat file
-    save([protocolpath filesep filename], 's');
+    save([protocolpath filesep filename], 's','');
 end
