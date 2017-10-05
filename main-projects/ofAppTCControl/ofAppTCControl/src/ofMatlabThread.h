@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include <functional>
 
 // For debugging purposes - check if any MATLAB SDK library is defined. If not, don't execute MATLAB code
 #if defined(mclmcrrt_h)
@@ -32,13 +33,15 @@ private:
 	// functions
 	//
 	void threadedFunction();
+
+	// callback function, when 
+	std::function<void(matlabOutput)> _cbFunction = NULL;
 	
 public:
 	//
 	// Initialized
 	//
-	bool _matlabThreadInitialized;
-
+	bool matlabThreadInitialized;
 
 	//
 	// functions
@@ -49,4 +52,5 @@ public:
 	void analyze(matlabInput input);
 	void update();
 	bool newOutputData();
+	inline void registerCBFunction(std::function<void(matlabOutput)> callback) { _cbFunction = callback; };
 };

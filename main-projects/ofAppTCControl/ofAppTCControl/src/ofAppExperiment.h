@@ -197,6 +197,7 @@ class ofAppExperiment : public ofBaseApp
 
 		void initVPOptimization();
 		void runVPOptimization();
+		void onVPOptimizationDone(matlabOutput output);
 
 	public:
 

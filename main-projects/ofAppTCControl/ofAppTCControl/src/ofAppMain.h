@@ -58,7 +58,6 @@ class ofAppMain : public ofBaseApp{
 		//
 		// variables
 		//
-
 		tcAdsClient *_tcClientCont, *_tcClientEvent;
 
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError, _lHdlVar_Write_CalibrateForceSensor,

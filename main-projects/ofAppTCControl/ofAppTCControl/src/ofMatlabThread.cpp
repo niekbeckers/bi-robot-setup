@@ -10,7 +10,7 @@
  //--------------------------------------------------------------
 MatlabThread::MatlabThread():
 	_newOutput(true),
-	_matlabThreadInitialized(false)
+	matlabThreadInitialized(false)
 {
 	// start the thread as soon as the
 	// class is created, it won't use any CPU
@@ -32,7 +32,7 @@ void MatlabThread::initialize() {
 	}
 	else {
 		// everything is initialized
-		_matlabThreadInitialized = true;
+		matlabThreadInitialized = true;
 	}
 #endif
 }
@@ -73,6 +73,11 @@ void MatlabThread::update(){
 	if(_newOutput){
         // do stuff with the output
 		ofLogVerbose("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x(1)=", ofToString(_output.d[0]) + " x(2)=" + ofToString(_output.d[1]));
+		
+		// do callback function (check if it is assigned)
+		if (_cbFunction) {
+			_cbFunction(_output);
+		}
 	}
 }
 
@@ -89,7 +94,7 @@ void MatlabThread::threadedFunction(){
 	matlabInput input;
     while(_toAnalyze.receive(input)){
 
-		if (!_matlabThreadInitialized) return; // matlab not initialized
+		if (!matlabThreadInitialized) return; // matlab not initialized
 
 		matlabOutput data;
 

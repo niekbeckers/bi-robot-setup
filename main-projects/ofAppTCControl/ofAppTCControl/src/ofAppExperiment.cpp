@@ -781,9 +781,15 @@ void ofAppExperiment::esmBlockBreakDone()
 //--------------------------------------------------------------
 void ofAppExperiment::initVPOptimization()
 {
+	using namespace std::placeholders;
+
 	// initialize matlab 
 	matlabThread.initialize();
 
+	// register the callback function in the matlab thread. 
+	matlabThread.registerCBFunction(std::bind(&ofAppExperiment::onVPOptimizationDone, this, _1));
+
+	// set ADS handles
 	//char szVar0[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
 	//_lHdlVar_Write_DoVirtualPartner = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
 
@@ -797,7 +803,7 @@ void ofAppExperiment::initVPOptimization()
 //--------------------------------------------------------------
 void ofAppExperiment::runVPOptimization()
 {
-	if (!matlabThread._matlabThreadInitialized) {
+	if (!matlabThread.matlabThreadInitialized) {
 		ofLogError("MATLAB Runtime nog initialized. Did you add the header, is the DLL in the path?");
 		return;
 	}
@@ -809,4 +815,14 @@ void ofAppExperiment::runVPOptimization()
 
 	// call for analysis. Once the MATLAB script is ready, it will call the registered callback function.
 	matlabThread.analyze(input);
+
+	// once the optimization is done, the callback function onVPOptimizationDone will be called, in which we can set everything (in the state machine, ADS, etc).
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::onVPOptimizationDone(matlabOutput output)
+{
+	// do soemthing with the output data
+	ofLogVerbose("onVPOptimizationDone","callback funtion called");
+
 }
