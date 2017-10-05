@@ -9,31 +9,36 @@
 
  //--------------------------------------------------------------
 MatlabThread::MatlabThread():
-	_newOutput(true)
+	_newOutput(true),
+	_matlabThreadInitialized(false)
 {
-
-#if INCLUDEMATLABFUNCTIONS
-	// Initialize the MATLAB Compiler Runtime global state
-	if (!mclInitializeApplication(NULL, 0))
-	{
-		ofLogError("Could not initialize the application properly.");
-	}
-
-	// Initialize the Vigenere library
-	if (!libtestInitialize())
-	{
-		ofLogError("Could not initialize the library properly.");
-	}
-#endif
-
 	// start the thread as soon as the
 	// class is created, it won't use any CPU
 	// until we send a new frame to be analyzed
 	startThread();
 }
 
+//--
+void MatlabThread::initialize() {
+#if INCLUDEMATLABFUNCTIONS
+	// Initialize the MATLAB Compiler Runtime global state
+	if (!mclInitializeApplication(NULL, 0)) {
+		ofLogError("Could not initialize the application properly.");
+	}
+
+	// Initialize the Vigenere library
+	if (!libtestInitialize()) {
+		ofLogError("Could not initialize the library properly.");
+	}
+	else {
+		// everything is initialized
+		_matlabThreadInitialized = true;
+	}
+#endif
+}
+
 //--------------------------------------------------------------
-MatlabThread::~MatlabThread(){
+MatlabThread::~MatlabThread() {
 	// when the class is destroyed
 	// close both channels and wait for
 	// the thread to finish
@@ -83,6 +88,9 @@ void MatlabThread::threadedFunction(){
 
 	matlabInput input;
     while(_toAnalyze.receive(input)){
+
+		if (!_matlabThreadInitialized) return; // matlab not initialized
+
 		matlabOutput data;
 
 		//

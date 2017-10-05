@@ -781,6 +781,9 @@ void ofAppExperiment::esmBlockBreakDone()
 //--------------------------------------------------------------
 void ofAppExperiment::initVPOptimization()
 {
+	// initialize matlab 
+	matlabThread.initialize();
+
 	//char szVar0[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
 	//_lHdlVar_Write_DoVirtualPartner = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
 
@@ -794,5 +797,16 @@ void ofAppExperiment::initVPOptimization()
 //--------------------------------------------------------------
 void ofAppExperiment::runVPOptimization()
 {
+	if (!matlabThread._matlabThreadInitialized) {
+		ofLogError("MATLAB Runtime nog initialized. Did you add the header, is the DLL in the path?");
+		return;
+	}
+
 	// run MATLAB script
+
+	// 1. create input struct
+	matlabInput input;
+
+	// call for analysis. Once the MATLAB script is ready, it will call the registered callback function.
+	matlabThread.analyze(input);
 }

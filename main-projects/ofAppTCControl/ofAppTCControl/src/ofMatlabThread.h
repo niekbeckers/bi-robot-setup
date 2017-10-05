@@ -34,12 +34,18 @@ private:
 	void threadedFunction();
 	
 public:
+	//
+	// Initialized
+	//
+	bool _matlabThreadInitialized;
+
 
 	//
 	// functions
 	//
 	MatlabThread();
 	~MatlabThread();
+	void initialize();
 	void analyze(matlabInput input);
 	void update();
 	bool newOutputData();
