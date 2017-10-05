@@ -808,6 +808,10 @@ void ofAppExperiment::runVPOptimization()
 		return;
 	}
 
+	// Make sure that the datalogger is paused, such that the last datafile is closed. 
+	// do we need to wait for a little bit?
+	mainApp->stopDataRecorder();
+
 	// run MATLAB script
 
 	// 1. create input struct
@@ -825,4 +829,8 @@ void ofAppExperiment::onVPOptimizationDone(matlabOutput output)
 	// do soemthing with the output data
 	ofLogVerbose("onVPOptimizationDone","callback funtion called");
 
+	// set virtual partner settings here (send over ADS)
+
+	// Unpause the data logger
+	mainApp->startDataRecorder();
 }
