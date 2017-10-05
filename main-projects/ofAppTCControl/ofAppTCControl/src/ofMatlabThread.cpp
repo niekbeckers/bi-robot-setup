@@ -5,15 +5,14 @@
  *      Author: arturo
  */
 
-#include "matlabThread.h"
-#include "ofConstants.h"
+#include "ofMatlabThread.h"
 
  //--------------------------------------------------------------
 MatlabThread::MatlabThread():
-	_newData(true)
+	_newOutput(true)
 {
 
-#if INCLUDEMATLABFUNCTION
+#if INCLUDEMATLABFUNCTIONS
 	// Initialize the MATLAB Compiler Runtime global state
 	if (!mclInitializeApplication(NULL, 0))
 	{
@@ -31,7 +30,6 @@ MatlabThread::MatlabThread():
 	// class is created, it won't use any CPU
 	// until we send a new frame to be analyzed
 	startThread();
-
 }
 
 //--------------------------------------------------------------
@@ -43,7 +41,7 @@ MatlabThread::~MatlabThread(){
 	_analyzed.close();
 	waitForThread(true);
 
-#if INCLUDEMATLABFUNCTION
+#if INCLUDEMATLABFUNCTIONS
 	// Shut down the library and the application global state.
 	libtestTerminate();
 	mclTerminateApplication();
@@ -52,10 +50,8 @@ MatlabThread::~MatlabThread(){
 
 //--------------------------------------------------------------
 void MatlabThread::analyze(matlabInput input) {
-	// send the frame to the thread for analyzing
-	// this makes a copy but we can't avoid it anyway if
-	// we want to update the grabber while analyzing
-    // previous frames
+	// send the frame to the thread for analyzing this makes a copy but we can't avoid it anyway if
+	// we want to update the grabber while analyzing previous frames
 	_toAnalyze.send(input);
 }
 
@@ -64,23 +60,27 @@ void MatlabThread::update(){
 	// check if there's a new analyzed frame and upload it to the texture. we use a while loop to drop any
 	// extra frame in case the main thread is slower than the analysis
 	// tryReceive doesn't reallocate or make any copies
-	_newData = false;
+	_newOutput = false;
 	while(_analyzed.tryReceive(_output)){
-		_newData = true;
+		_newOutput = true;
 	}
 
-	if(_newData){
-        // do stuff
-		ofLogError("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x(1)=", ofToString(_output.d[0]) + " x(2) = " + ofToString(_output.d[1]));
+	if(_newOutput){
+        // do stuff with the output
+		ofLogVerbose("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x(1)=", ofToString(_output.d[0]) + " x(2)=" + ofToString(_output.d[1]));
 	}
 }
 
 //--------------------------------------------------------------
+bool MatlabThread::newOutputData() {
+	return _newOutput;
+}
+
+//--------------------------------------------------------------
 void MatlabThread::threadedFunction(){
-    // wait until there's a new frame
-    // this blocks the thread, so it doesn't use
-    // the CPU at all, until a frame arrives.
-    // also receive doesn't allocate or make any copies
+    // wait until there's a new frame this blocks the thread, so it doesn't use
+    // the CPU at all, until a frame arrives. also receive doesn't allocate or make any copies
+
 	matlabInput input;
     while(_toAnalyze.receive(input)){
 		matlabOutput data;

@@ -10,7 +10,7 @@
 #include "ofUtils.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"
-//#include "encrypt.h"
+#include "ofMatlabThread.h"
 
 class ofAppMain;
 
@@ -159,6 +159,11 @@ class ofAppExperiment : public ofBaseApp
 		// every 4 trials, show instructions during the break
 		int _instructionMessageInterval = 6;
 		string _instructionMessage = "Great job so far!\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
+
+
+		// MATLAB Thread
+		// the matlabthread is started upon construction. Don't worry, the thread does not consume any (hardly) CPU until it's actually called.
+		MatlabThread matlabThread;
 
 		//
 		// functions

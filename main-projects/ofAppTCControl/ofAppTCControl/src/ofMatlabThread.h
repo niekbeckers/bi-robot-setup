@@ -2,11 +2,16 @@
 
 #include "ofMain.h"
 
-#define INCLUDEMATLABFUNCTION 0
+// For debugging purposes - check if any MATLAB SDK library is defined. If not, don't execute MATLAB code
+#if defined(mclmcrrt_h)
+	#define INCLUDEMATLABFUNCTIONS 1
+#else
+	#define INCLUDEMATLABFUNCTIONS 0
+#endif
 
 struct matlabOutput {
 	double d[2] = {0.0,-1.0};
-	int trialID = -1;
+	int trialID = -1;				//
 };
 
 struct matlabInput {
@@ -20,7 +25,7 @@ private:
 	//
 	ofThreadChannel<matlabInput> _toAnalyze;
 	ofThreadChannel<matlabOutput> _analyzed;
-	bool _newData;
+	bool _newOutput;
 	matlabOutput _output;
 
 	//
@@ -37,4 +42,5 @@ public:
 	~MatlabThread();
 	void analyze(matlabInput input);
 	void update();
+	bool newOutputData();
 };
