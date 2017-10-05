@@ -23,7 +23,6 @@ void ofAppDisplay::setup()
 
 	dots_per_m = sqrt((double)(h * h) + (double)(w * w)) / scrDiagonal * 100.0 / 2.54; //dots per meter
 
-
 	// font
 	ofTrueTypeFont::setGlobalDpi(72);
 	verdana50.load("verdana.ttf", 50, true, true);
@@ -73,16 +72,9 @@ void ofAppDisplay::draw()
 		ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
 		// draw target
-		//ofSetColor(clrTarget);
-		//ofSetLineWidth(6);
-		//ofSetCircleResolution(60);
-		//ofDrawCircle(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m, 15.0);
 		target.draw();
 
 		// draw cursor
-		//ofFill();
-		//ofSetColor(clrCursor);
-		//ofDrawCircle(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m, 12.0);
 		cursor.draw();
 
 		ofPopMatrix();
