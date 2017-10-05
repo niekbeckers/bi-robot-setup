@@ -5,6 +5,7 @@ The is the README file for the BROS software.
 ### Software components ###
 
 The software for the BROS setup consists out of 3 main components:
+
 * MATLAB R2016B (9.1) & Simulink 8.8 (models), win64
 * TwinCAT 3 (RT software)
 * openFrameWorks (GUI & experiment backbone)
