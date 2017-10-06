@@ -72,7 +72,7 @@ void MatlabThread::update(){
 
 	if(_newOutput){
         // do stuff with the output
-		ofLogVerbose("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x(1)=", ofToString(_output.d[0]) + " x(2)=" + ofToString(_output.d[1]));
+		ofLogVerbose("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x=", ofToString(_output.x));
 		
 		// do callback function (check if it is assigned)
 		if (_cbFunction) {
@@ -96,28 +96,32 @@ void MatlabThread::threadedFunction(){
 
 		if (!matlabThreadInitialized) return; // matlab not initialized
 
-		matlabOutput data;
+		matlabOutput output;
 
-		//
-		// call MATLAB functions here
-		//
-
-		// Must declare all MATLAB data types after initializing the
-		// application and the library, or their constructors will fail.
-		//mwArray key(i);
-		//mwArray result(2,1, mxDOUBLE_CLASS);
-
-		//myrandom(1,result,key);
-
-		//result.GetData(data.d, 2);
-
-		//data.trialID = input.trialID;
+		// perform optimization per BROS
+		callMatlabOptimization(input, output);
 
 #if __cplusplus>=201103
         _analyzed.send(std::move(data));
 #else
-        _analyzed.send(data);
+        _analyzed.send(output);
 #endif
 	}
+}
+
+void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &output)
+{
+
+	// Must declare all MATLAB data types after initializing the
+	// application and the library, or their constructors will fail.
+
+	//mwArray key(i);
+	//mwArray result(2,1, mxDOUBLE_CLASS);
+
+	//myrandom(1,result,key);
+
+	//result.GetData(data.d, 2);
+
+	//data.trialID = input.trialID;
 }
 

@@ -16,28 +16,6 @@
 
 class ofAppMain;
 
-// structs
-struct trialData {
-	int trialNumber = -1;
-	bool connected = false;				// default: not connected
-	int connectedTo = ConnectedToTypes::PARTNER; // specify to which people are connected
-	bool fitVPModel = false;			// specify whether model fit is performed on this trial (after trial is done)
-	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
-	double connectionDamping = 0.0;		// default: 0.0
-	int condition = 0;					// condition type
-	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
-	double breakDuration = -1.0;		// pause after each trial
-	double trialRandomization = 0.0;			// random start time
-};
-
-struct blockData {
-	int blockNumber = -1;
-	int numTrials = 0;
-	double breakDuration = 5.0*60.0;	// default: 5 minute break
-	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
-	vector<trialData> trials;
-};
-
 enum ConnectedToTypes {
 	PARTNER = 0,
 	VIRTUALPARTNER = 1
@@ -115,6 +93,28 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 	return strings[value];
 };
 
+// structs
+struct trialData {
+	int trialNumber = -1;
+	bool connected = false;				// default: not connected
+	ConnectedToTypes connectedTo = ConnectedToTypes::PARTNER; // specify to which people are connected
+	bool fitVPModel = false;			// specify whether model fit is performed on this trial (after trial is done)
+	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
+	double connectionDamping = 0.0;		// default: 0.0
+	int condition = 0;					// condition type
+	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
+	double breakDuration = -1.0;		// pause after each trial
+	double trialRandomization = 0.0;			// random start time
+};
+
+struct blockData {
+	int blockNumber = -1;
+	int numTrials = 0;
+	double breakDuration = 5.0*60.0;	// default: 5 minute break
+	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
+	vector<trialData> trials;
+};
+
 
 
 class ofAppExperiment : public ofBaseApp
@@ -128,8 +128,9 @@ class ofAppExperiment : public ofBaseApp
 		// tcAdsClient
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration,
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback,
-			_lHdlVar_Write_DoVirtualPartner, _lHdlVar_Write_VPModelParams, _lHdlVar_Write_VPModelParamsChanged;
+			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback;
+
+		unsigned long _lHdlVar_Write_UseVirtualPartner[2], _lHdlVar_Write_VPModelParams[2], _lHdlVar_Write_VPModelParamsChanged[2];
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
@@ -145,6 +146,8 @@ class ofAppExperiment : public ofBaseApp
 		// virtual partner fit bool
 		bool _vpDoVirtualPartner = false;
 		bool _runningVPOptimization = false;
+		bool _useVPinTrial[2] = { true, true };
+		vector<int> doVirtualPartnerBROSIDs;
 		
 		// block and trial data for current trial/block
 		blockData _currentBlock;
@@ -205,6 +208,7 @@ class ofAppExperiment : public ofBaseApp
 		void initVPOptimization();
 		void runVPOptimization();
 		void onVPOptimizationDone(matlabOutput output);
+		void setVirtualPartnerADS(matlabOutput output);
 
 	public:
 

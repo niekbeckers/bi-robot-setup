@@ -287,27 +287,42 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	}
 
 	// experiment settings (attributes)
-	if (XML.getValue<double>("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
+	if (XML.exists("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
 
-	if (XML.getValue<int>("trialFeedback")) { 
+	if (XML.exists("trialFeedback")) {
 		_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
 		// depending on trial feedback, check if a performance metric is given in the XML
-
 		switch (_trialFeedbackType) {
 		case TrialFeedback::RMSE:
-			if (XML.getValue<double>("trialPerformanceThreshold")) _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold");
+			if (XML.exists("trialPerformanceThreshold")) _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold");
 			break;
 		case TrialFeedback::MT:
-			if (XML.getValue<double>("trialMTRangeLower")) _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower");
-			if (XML.getValue<double>("trialMTRangeUpper")) _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper");
+			if (XML.exists("trialMTRangeLower")) _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower");
+			if (XML.exists("trialMTRangeUpper")) _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper");
 			break;
 		}
 	}
 	else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
 
 	// virtual partner settings
-	if (XML.getValue<bool>("vpDoVirtualPartner")) _vpDoVirtualPartner = XML.getValue<bool>("vpDoVirtualPartner");
+	if (XML.exists("doVirtualPartner")) {
+		_vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner");
+		// loop through the 
+		XML.setTo("doVirtualPartner");
+		int i = 0;
+		do {
+			// check which BROSIDs are used for the virtual partner
+			string s = "brosID[" + ofToString(i) + "]";
+			if (XML.exists(s)) { 
+				doVirtualPartnerBROSIDs.push_back(XML.getValue<int>(s)); 
+				ofLogVerbose("doVirtualPartnerBROSID "+ofToString(XML.getValue<int>(s)));
+			}
+			i++;
+		} while (XML.exists("brosID[" + ofToString(i) + "]"));
 
+		XML.setToParent();
+	}
+	
 	int trialNumber = 0;
 	int blockNumber = 0;
 
@@ -320,42 +335,40 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 			// read block data
 			block.blockNumber = ++blockNumber;
-			if (XML.getValue<double>("breakDuration")) block.breakDuration = XML.getValue<double>("breakDuration");
-			if (XML.getValue<int>("homingType")) block.homingType = XML.getValue<int>("homingType");
-			
+			if (XML.exists("breakDuration")) block.breakDuration = XML.getValue<double>("breakDuration");
+			if (XML.exists("homingType")) block.homingType = XML.getValue<int>("homingType");
+
 			// set our "current" trial to the first one
 			if (XML.getName() == "block" && XML.setTo("trial[0]"))
 			{
-				//vector<trialData> trials;
 				// read each trial
 				do {
 					// read and store trial data
 					trialData trial;
 					trial.trialNumber = ++trialNumber;
-					if (XML.getValue<int>("condition")) trial.condition = XML.getValue<int>("condition");
-					if (XML.getValue<bool>("connected")) { trial.connected = true; } 
-					else { trial.connected = false; }
-					if (XML.getValue<int>("connectedTo")) trial.connectedTo = static_cast<ConnectedToTypes>(XML.getValue<int>("connectedTo"));
-					if (XML.getValue<bool>("fitVPModel")) trial.fitVPModel = XML.getValue<bool>("fitVPModel");
-					if (XML.getValue<double>("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
-					if (XML.getValue<double>("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
-					if (XML.getValue<double>("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
-					if (XML.getValue<double>("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
-					if (XML.getValue<double>("trialRandomization")) trial.trialRandomization = XML.getValue<double>("trialRandomization");
 
+					if (XML.exists("condition")) trial.condition = XML.getValue<int>("condition");
+					if (XML.exists("connected")) { trial.connected = true; } else { trial.connected = false; }
+					if (XML.exists("connectedTo")) trial.connectedTo = static_cast<ConnectedToTypes>(XML.getValue<int>("connectedTo"));
+					if (XML.exists("fitVPModel")) trial.fitVPModel = XML.getValue<bool>("fitVPModel");
+					if (XML.exists("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
+					if (XML.exists("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
+					if (XML.exists("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
+					if (XML.exists("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
+					if (XML.exists("trialRandomization")) trial.trialRandomization = XML.getValue<double>("trialRandomization");
 
 					block.trials.push_back(trial); // add trial to (temporary) trials list
 
 				} while (XML.setToSibling()); // go the next trial		
 
 				block.numTrials = block.trials.size();
+
 				_numTrials += block.numTrials;
 
 				_blocks.push_back(block); // add trials to vTrialsBlocks list
 
 				XML.setToParent(); // go back up to the block level
 			}
-
 		} while (XML.setToSibling()); // go to the next block
 
 		_experimentLoaded = true;
@@ -607,7 +620,6 @@ void ofAppExperiment::esmTrialFeedback()
 	// show feedback (if enabled)
 	if (_trialFeedbackType > 0) {  // if trialFeedbackType is not NONE
 
-
 		// request trial performance feedback from the RT model
 		_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
 
@@ -684,8 +696,8 @@ void ofAppExperiment::esmHomingAfterDone()
 {
 	// wait at least a couple of seconds after trial is done to show message etc to user before going to new trial
 	if (ofGetElapsedTimef() - _trialDoneTime > 4.0f) { 
-		display1->showMessageNorth(false, "");
-		display2->showMessageNorth(false, "");
+		display1->showMessageNorth(false);
+		display2->showMessageNorth(false);
 
 		display1->drawTask = false;
 		display2->drawTask = false;
@@ -698,12 +710,14 @@ void ofAppExperiment::esmHomingAfterDone()
 //--------------------------------------------------------------
 void ofAppExperiment::esmCheckNextStep()
 {
+	
+
 	if (_currentTrialNumber < _currentBlock.trials.size() - 1) {
 		// new trial in block, go to trial break
 		_breakStartTime = ofGetElapsedTimef();
 		setExperimentState(ExperimentState::TRIALBREAK);
 
-		// virtual partner
+		
 
 	}
 	else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
@@ -721,6 +735,11 @@ void ofAppExperiment::esmCheckNextStep()
 			// all blocks are done, experiment is done
 			setExperimentState(ExperimentState::EXPERIMENTSTOP);
 		}
+	}
+
+	// check if we need to fit the virtual partner
+	if (_currentTrial.fitVPModel) {
+		runVPOptimization();
 	}
 }
 
@@ -790,67 +809,4 @@ void ofAppExperiment::esmBlockBreakDone()
 	// block break done, on to the next block!
 	_currentBlockNumber++;
 	setExperimentState(ExperimentState::NEWBLOCK);
-}
-
-//--------------------------------------------------------------
-void ofAppExperiment::initVPOptimization()
-{
-	using namespace std::placeholders;
-
-	// register the callback function in the matlab thread. 
-	matlabThread.registerCBFunction(std::bind(&ofAppExperiment::onVPOptimizationDone, this, _1));
-
-	// set ADS handles
-	//char szVar0[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
-	//_lHdlVar_Write_DoVirtualPartner = _tcClient->getVariableHandle(szVar0, sizeof(szVar0));
-
-	//char szVar1[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
-	//_lHdlVar_Write_VPModelParams = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
-
-	//char szVar2[] = { "Object1 (ModelBROS).ModelParameters.ExpStartTrial_Value" };
-	//_lHdlVar_Write_VPModelParamsChanged = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
-}
-
-//--------------------------------------------------------------
-void ofAppExperiment::runVPOptimization()
-{
-	if (!matlabThread.matlabThreadInitialized) {
-		ofLogError("MATLAB Runtime nog initialized. Did you add the header, is the DLL in the path?");
-		return;
-	}
-
-	// Make sure that the datalogger is paused, such that the last datafile is closed. 
-	// do we need to wait for a little bit?
-	mainApp->stopDataRecorder();
-
-	// optimization is not done
-	_runningVPOptimization = true;
-
-	// run MATLAB script
-
-	// 1. create input struct
-	matlabInput input;
-
-	// call for analysis. Once the MATLAB script is ready, it will call the registered callback function.
-	matlabThread.analyze(input);
-
-	// once the optimization is done, the callback function onVPOptimizationDone will be called, in which we can set everything (in the state machine, ADS, etc).
-}
-
-//--------------------------------------------------------------
-void ofAppExperiment::onVPOptimizationDone(matlabOutput output)
-{
-	// do soemthing with the output data
-	ofLogVerbose("onVPOptimizationDone","callback funtion called");
-
-	// set virtual partner settings here (send over ADS)
-
-
-	// if (checkMatlabOutput)
-	{
-		_runningVPOptimization = false;
-	}
-
-	// Unpause the data logger
-	mainApp->startDataRecorder();
 }

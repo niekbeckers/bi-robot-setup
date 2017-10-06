@@ -11,12 +11,16 @@
 #endif
 
 struct matlabOutput {
-	double d[2] = {0.0,-1.0};
-	int trialID = -1;				//
+	int trialID = -1;
+	vector<double> x;
+	int error[2] = { 0, 0 };					// error of optimization
 };
 
 struct matlabInput {
 	int trialID = -1;
+	bool doOptimization[2] = { false, false };
+	double x0[2] = { -1.0, -1.0 };
+	bool useX0 = false;
 };
 
 class MatlabThread : public ofThread {
@@ -33,6 +37,7 @@ private:
 	// functions
 	//
 	void threadedFunction();
+	void callMatlabOptimization(matlabInput input, matlabOutput &output);
 
 	// callback function, when 
 	std::function<void(matlabOutput)> _cbFunction = NULL;
