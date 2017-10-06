@@ -8,6 +8,12 @@ void ofAppExperiment::setup()
 	setupTCADS();	// setup TwinCAT ADS
 	setExperimentState(ExperimentState::IDLE);
 
+	if (initializeMATLABRuntime) {
+		// initialize matlab 
+		matlabThread.initialize();
+	}
+
+
 	_logFilename = "log_" + ofToString(ofGetDay(), 0, 2, '0') + ofToString(ofGetMonth(), 0, 2, '0') + ofToString(ofGetYear()) + ".txt";
 }
 
@@ -121,9 +127,6 @@ void ofAppExperiment::setupTCADS()
 	char szVar1[] = { "Object1 (ModelBROS).ModelParameters.ExpCondition_Value" };
 	_lHdlVar_Write_Condition = _tcClient->getVariableHandle(szVar1, sizeof(szVar1));
 
-	//char szVar2[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
-	//_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
-
 	char szVar3[] = { "Object1 (ModelBROS).ModelParameters.Connected_Value" };
 	_lHdlVar_Write_Connected = _tcClient->getVariableHandle(szVar3, sizeof(szVar3));
 
@@ -136,11 +139,14 @@ void ofAppExperiment::setupTCADS()
 	char szVar6[] = { "Object1 (ModelBROS).ModelParameters.ExpTrialRandom_Value" };
 	_lHdlVar_Write_TrialRandom = _tcClient->getVariableHandle(szVar6, sizeof(szVar6));
 
-	//char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
-	//_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
-
 	char szVar8[] = { "Object1 (ModelBROS).BlockIO.PerformanceFeedback" };
 	_lHdlVar_Read_PerformanceFeedback = _tcClient->getVariableHandle(szVar8, sizeof(szVar8));
+
+	//char szVar2[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
+	//_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
+
+	//char szVar7[] = { "Object1 (ModelBROS).ModelParameters.KdConnection_Value" };
+	//_lHdlVar_Write_ConnectionDamping = _tcClient->getVariableHandle(szVar7, sizeof(szVar7));
 }
 
 //--------------------------------------------------------------
@@ -301,8 +307,6 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 	// virtual partner settings
 	if (XML.getValue<bool>("vpDoVirtualPartner")) _vpDoVirtualPartner = XML.getValue<bool>("vpDoVirtualPartner");
-	if (XML.getValue<string>("vpOptimFunction") != "") _vpOptimFunction = XML.getValue<string>("vpOptimFunction");
-	if (XML.getValue<int>("vpNumOptimParams")) _vpNumOptimParams = XML.getValue<int>("vpNumOptimParams");
 
 	int trialNumber = 0;
 	int blockNumber = 0;
@@ -331,12 +335,14 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.getValue<int>("condition")) trial.condition = XML.getValue<int>("condition");
 					if (XML.getValue<bool>("connected")) { trial.connected = true; } 
 					else { trial.connected = false; }
-
+					if (XML.getValue<int>("connectedTo")) trial.connectedTo = static_cast<ConnectedToTypes>(XML.getValue<int>("connectedTo"));
+					if (XML.getValue<bool>("fitVPModel")) trial.fitVPModel = XML.getValue<bool>("fitVPModel");
 					if (XML.getValue<double>("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
 					if (XML.getValue<double>("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
 					if (XML.getValue<double>("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
 					if (XML.getValue<double>("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
 					if (XML.getValue<double>("trialRandomization")) trial.trialRandomization = XML.getValue<double>("trialRandomization");
+
 
 					block.trials.push_back(trial); // add trial to (temporary) trials list
 
@@ -696,6 +702,9 @@ void ofAppExperiment::esmCheckNextStep()
 		// new trial in block, go to trial break
 		_breakStartTime = ofGetElapsedTimef();
 		setExperimentState(ExperimentState::TRIALBREAK);
+
+		// virtual partner
+
 	}
 	else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
 		// end of block, determine if we proceed to the next block, or experiment is done
@@ -718,28 +727,33 @@ void ofAppExperiment::esmCheckNextStep()
 //--------------------------------------------------------------
 void ofAppExperiment::esmTrialBreak()
 {
+	bool breakDone = false;
 	if (_currentTrial.breakDuration < -1.0) { // no break
-		display1->showMessageNorth(false);
-		display2->showMessageNorth(false);
-		setExperimentState(ExperimentState::TRIALBREAKDONE);
-		return; 
+		breakDone = true;
 	} 
 
 	double time = ofGetElapsedTimef();
 	if ((time - _breakStartTime) <= _currentTrial.breakDuration) {
 		// trial break is running, show feedback on display
 		double timeRemaining = _currentTrial.breakDuration - (time - _breakStartTime);
+		if (timeRemaining < 0.0) { timeRemaining = 0.0; }
+		
 		string msg = "BREAK\n" + secToMin(timeRemaining) + " remaining";
+
 		display1->showMessageNorth(true, msg);
 		display2->showMessageNorth(true, msg);
 	}
 	else {
-		// clear any message from the screen
+		breakDone = true;
+	}
+
+	if (breakDone && !_runningVPOptimization) {
+		// clear screen messages
 		display1->showMessageNorth(false);
 		display2->showMessageNorth(false);
 		display1->showMessageCenter(false);
 		display2->showMessageCenter(false);
-		
+
 		setExperimentState(ExperimentState::TRIALBREAKDONE);
 	}
 }
@@ -783,9 +797,6 @@ void ofAppExperiment::initVPOptimization()
 {
 	using namespace std::placeholders;
 
-	// initialize matlab 
-	matlabThread.initialize();
-
 	// register the callback function in the matlab thread. 
 	matlabThread.registerCBFunction(std::bind(&ofAppExperiment::onVPOptimizationDone, this, _1));
 
@@ -812,6 +823,9 @@ void ofAppExperiment::runVPOptimization()
 	// do we need to wait for a little bit?
 	mainApp->stopDataRecorder();
 
+	// optimization is not done
+	_runningVPOptimization = true;
+
 	// run MATLAB script
 
 	// 1. create input struct
@@ -830,6 +844,12 @@ void ofAppExperiment::onVPOptimizationDone(matlabOutput output)
 	ofLogVerbose("onVPOptimizationDone","callback funtion called");
 
 	// set virtual partner settings here (send over ADS)
+
+
+	// if (checkMatlabOutput)
+	{
+		_runningVPOptimization = false;
+	}
 
 	// Unpause the data logger
 	mainApp->startDataRecorder();

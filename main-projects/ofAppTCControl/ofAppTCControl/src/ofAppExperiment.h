@@ -12,12 +12,16 @@
 #include "myUtils.h"
 #include "ofMatlabThread.h"
 
+#define initializeMATLABRuntime 0
+
 class ofAppMain;
 
 // structs
 struct trialData {
 	int trialNumber = -1;
 	bool connected = false;				// default: not connected
+	int connectedTo = ConnectedToTypes::PARTNER; // specify to which people are connected
+	bool fitVPModel = false;			// specify whether model fit is performed on this trial (after trial is done)
 	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
 	double connectionDamping = 0.0;		// default: 0.0
 	int condition = 0;					// condition type
@@ -32,6 +36,11 @@ struct blockData {
 	double breakDuration = 5.0*60.0;	// default: 5 minute break
 	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
 	vector<trialData> trials;
+};
+
+enum ConnectedToTypes {
+	PARTNER = 0,
+	VIRTUALPARTNER = 1
 };
 
 enum ExperimentState {
@@ -135,9 +144,7 @@ class ofAppExperiment : public ofBaseApp
 
 		// virtual partner fit bool
 		bool _vpDoVirtualPartner = false;
-		bool _vpOptimizationDone = false;
-		string _vpOptimFunction = "";
-		int _vpNumOptimParams = 4;
+		bool _runningVPOptimization = false;
 		
 		// block and trial data for current trial/block
 		blockData _currentBlock;
