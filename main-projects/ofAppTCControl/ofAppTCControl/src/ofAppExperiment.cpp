@@ -8,12 +8,6 @@ void ofAppExperiment::setup()
 	setupTCADS();	// setup TwinCAT ADS
 	setExperimentState(ExperimentState::IDLE);
 
-	if (initializeMATLABRuntime) {
-		// initialize matlab 
-		matlabThread.initialize();
-	}
-
-
 	_logFilename = "log_" + ofToString(ofGetDay(), 0, 2, '0') + ofToString(ofGetMonth(), 0, 2, '0') + ofToString(ofGetYear()) + ".txt";
 }
 
@@ -255,8 +249,8 @@ void ofAppExperiment::loadExperimentXML()
 		processOpenFileSelection(openFileResult);
 
 		// in case we need the virtual partner optimization, prepare.
-		if (_vpDoVirtualPartner)
-			initVPOptimization();
+		if (_vpDoVirtualPartner) {}
+			//virtualPartnerApp.initialize(_activeBROSIDs);
 	}
 	else {
 		ofLogVerbose("ofAppExperiment", "User hit cancel");
@@ -305,22 +299,28 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
 
 	// virtual partner settings
-	if (XML.exists("doVirtualPartner")) {
-		_vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner");
-		// loop through the 
-		XML.setTo("doVirtualPartner");
+	if (XML.exists("doVirtualPartner")) { _vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner"); }
+
+	// check which BROS need to be active
+	_activeBROSIDs.clear();
+	if (XML.exists("activeBROSID") && XML.setTo("activeBROSID")) {
 		int i = 0;
 		do {
-			// check which BROSIDs are used for the virtual partner
+			// check which BROSIDs are active
 			string s = "brosID[" + ofToString(i) + "]";
 			if (XML.exists(s)) { 
-				doVirtualPartnerBROSIDs.push_back(XML.getValue<int>(s)); 
-				ofLogVerbose("doVirtualPartnerBROSID "+ofToString(XML.getValue<int>(s)));
+				_activeBROSIDs.push_back(XML.getValue<int>(s)); 
+				ofLogVerbose("ofAppExperiment","activeBROSID: "+ofToString(XML.getValue<int>(s)));
 			}
 			i++;
 		} while (XML.exists("brosID[" + ofToString(i) + "]"));
 
 		XML.setToParent();
+	}
+	else {
+		// user did not include BROSID in the XML file. Use default  (BROS1 & BROS2)
+		_activeBROSIDs.push_back(1); // BROS 1
+		_activeBROSIDs.push_back(2); // BROS 2
 	}
 	
 	int trialNumber = 0;
@@ -348,16 +348,47 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					trial.trialNumber = ++trialNumber;
 
 					if (XML.exists("condition")) trial.condition = XML.getValue<int>("condition");
-					if (XML.exists("connected")) { trial.connected = true; } else { trial.connected = false; }
-					if (XML.exists("connectedTo")) trial.connectedTo = static_cast<ConnectedToTypes>(XML.getValue<int>("connectedTo"));
-					if (XML.exists("fitVPModel")) trial.fitVPModel = XML.getValue<bool>("fitVPModel");
-					if (XML.exists("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
-					if (XML.exists("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
 					if (XML.exists("breakDuration")) trial.breakDuration = XML.getValue<double>("breakDuration");
 					if (XML.exists("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
 					if (XML.exists("trialRandomization")) trial.trialRandomization = XML.getValue<double>("trialRandomization");
 
-					block.trials.push_back(trial); // add trial to (temporary) trials list
+					if (XML.exists("connected")) { trial.connected = true; } else { trial.connected = false; }
+					if (XML.exists("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
+					if (XML.exists("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
+
+					// check connection types
+					trial.connectedTo.clear();
+					if (XML.exists("connectedTo")) {
+						XML.setTo("connectedTo");
+						// loop through active BROS IDs
+						for (auto id : _activeBROSIDs) {
+							string s = "brosID" + ofToString(id);
+							if (XML.exists(s)) { trial.connectedTo.push_back(static_cast<ConnectedToTypes>(XML.getValue<int>(s))); }
+							else { trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); }
+						}
+						XML.setToParent();
+					}
+					else {
+						for (auto id : _activeBROSIDs) trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); // DEFAULT
+					}
+
+					// check fit virtual partner
+					if (XML.exists("fitVirtualPartner")) {
+						trial.fitVirtualPartner = XML.getValue<bool>("fitVirtualPartner");
+
+						// read which partners we need to fit the virtual partner model to
+						XML.setTo("fitVirtualPartner");
+
+						for (int i = 0; i < _activeBROSIDs.size(); i++) {
+							string s = "brosID[" + ofToString(i) + "]";
+							if (XML.exists(s)) { trial.fitVPBROSIDs.push_back(XML.getValue<int>(s)); }
+							else { trial.fitVPBROSIDs.push_back(_activeBROSIDs[i]); }
+						}
+
+						XML.setToParent();
+					}
+
+					block.trials.push_back(trial); // add trial to trials list
 
 				} while (XML.setToSibling()); // go the next trial		
 
@@ -738,9 +769,9 @@ void ofAppExperiment::esmCheckNextStep()
 	}
 
 	// check if we need to fit the virtual partner
-	if (_currentTrial.fitVPModel) {
-		runVPOptimization();
-	}
+	//if (_currentTrial.fitVPModel) {
+		//virtualPartnerApp.runVPOptimization();
+	//}
 }
 
 //--------------------------------------------------------------

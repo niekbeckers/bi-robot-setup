@@ -7,18 +7,17 @@
 #include "ofMain.h"
 #include "ofAppMain.h"
 #include "ofAppDisplay.h"
+#include "ofAppVirtualPartner.h"
 #include "ofUtils.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"
-#include "ofMatlabThread.h"
 
 #define initializeMATLABRuntime 0
 
-class ofAppMain;
-
 enum ConnectedToTypes {
-	PARTNER = 0,
-	VIRTUALPARTNER = 1
+	NOONE = 0,
+	HUMANPARTNER,
+	VIRTUALPARTNER
 };
 
 enum ExperimentState {
@@ -96,26 +95,28 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 // structs
 struct trialData {
 	int trialNumber = -1;
-	bool connected = false;				// default: not connected
-	ConnectedToTypes connectedTo = ConnectedToTypes::PARTNER; // specify to which people are connected
-	bool fitVPModel = false;			// specify whether model fit is performed on this trial (after trial is done)
-	double connectionStiffness = 0.0;	// default: 0.0 (no connection stiffness)
-	double connectionDamping = 0.0;		// default: 0.0
-	int condition = 0;					// condition type
-	double trialDuration = -1.0;		// - 1.0 seconds: define trialDone in Simulink
-	double breakDuration = -1.0;		// pause after each trial
-	double trialRandomization = 0.0;			// random start time
+	bool connected = false;					// default: not connected
+	vector<ConnectedToTypes> connectedTo;	// specify to which people are connected
+	bool fitVirtualPartner = false;			// specify whether model fit is performed on this trial (after trial is done)
+	vector<int>fitVPBROSIDs;				// BROS ID 
+	double connectionStiffness = 0.0;		// default: 0.0 (no connection stiffness)
+	double connectionDamping = 0.0;			// default: 0.0
+	int condition = 0;						// condition type
+	double trialDuration = -1.0;			// - 1.0 seconds: define trialDone in Simulink
+	double breakDuration = -1.0;			// pause after each trial
+	double trialRandomization = 0.0;		// random start time
 };
 
 struct blockData {
 	int blockNumber = -1;
 	int numTrials = 0;
-	double breakDuration = 5.0*60.0;	// default: 5 minute break
+	double breakDuration = 4.0*60.0;	// default: 5 minute break
 	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
 	vector<trialData> trials;
 };
 
-
+class ofAppMain;
+class ofAppVirtualPartner;
 
 class ofAppExperiment : public ofBaseApp
 {
@@ -129,8 +130,6 @@ class ofAppExperiment : public ofBaseApp
 		tcAdsClient *_tcClient;
 		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration,
 			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback;
-
-		unsigned long _lHdlVar_Write_UseVirtualPartner[2], _lHdlVar_Write_VPModelParams[2], _lHdlVar_Write_VPModelParamsChanged[2];
 
 		// experiment state
 		ExperimentState _expState = ExperimentState::IDLE;
@@ -147,7 +146,8 @@ class ofAppExperiment : public ofBaseApp
 		bool _vpDoVirtualPartner = false;
 		bool _runningVPOptimization = false;
 		bool _useVPinTrial[2] = { true, true };
-		vector<int> doVirtualPartnerBROSIDs;
+
+		vector<int> _activeBROSIDs;
 		
 		// block and trial data for current trial/block
 		blockData _currentBlock;
@@ -170,10 +170,7 @@ class ofAppExperiment : public ofBaseApp
 		int _instructionMessageInterval = 6;
 		string _instructionMessage = "Great job so far!\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
 
-
-		// MATLAB Thread
-		// the matlabthread is started upon construction. Don't worry, the thread does not consume any (hardly) CPU until it's actually called.
-		MatlabThread matlabThread;
+		//ofAppVirtualPartner virtualPartnerApp;
 
 		//
 		// functions
@@ -204,11 +201,6 @@ class ofAppExperiment : public ofBaseApp
 		void esmTrialBreakDone();
 		void esmBlockBreak();
 		void esmBlockBreakDone();
-
-		void initVPOptimization();
-		void runVPOptimization();
-		void onVPOptimizationDone(matlabOutput output);
-		void setVirtualPartnerADS(matlabOutput output);
 
 	public:
 
@@ -244,5 +236,6 @@ class ofAppExperiment : public ofBaseApp
 		void resumeExperiment();
 
 		ExperimentState experimentState() { return _expState; };
+		inline int getCurrentTrialNumber() { return _currentTrialNumber; };
 };
 

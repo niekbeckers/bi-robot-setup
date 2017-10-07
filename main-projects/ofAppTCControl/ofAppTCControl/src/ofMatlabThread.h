@@ -13,7 +13,8 @@
 struct matlabOutput {
 	int trialID = -1;
 	vector<double> x;
-	int error[2] = { 0, 0 };					// error of optimization
+	int error[2] = { 0, 0 };
+	bool executeVirtualPartner[2] = { false, false };
 };
 
 struct matlabInput {

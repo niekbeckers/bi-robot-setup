@@ -70,6 +70,9 @@
     <ClCompile Include="src\ofMatlabThread.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ofAppVirtualPartner.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -162,6 +165,9 @@
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClInclude>
     <ClInclude Include="src\ofMatlabThread.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofAppVirtualPartner.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
