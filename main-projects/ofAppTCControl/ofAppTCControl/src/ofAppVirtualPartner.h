@@ -29,7 +29,7 @@ class ofAppVirtualPartner
 		// variables
 		//
 		tcAdsClient *_tcClient;
-		unsigned long _lHdlVar_Write_ExecuteVirtualPartner[2], _lHdlVar_Write_VPModelParams[2], _lHdlVar_Write_VPModelParamsChanged[2];
+		vector<unsigned long> _lHdlVar_Write_ExecuteVirtualPartner, _lHdlVar_Write_VPModelParams, _lHdlVar_Write_VPModelParamsChanged;
 
 		// MATLAB Thread
 		// the matlabthread is started upon construction. Don't worry, the thread does not consume any (hardly) CPU until it's actually called.
@@ -49,7 +49,7 @@ class ofAppVirtualPartner
 		//
 		// functions
 		//
-		void initialize(vector<int> v);
+		void initialize(vector<int> vID);
 		void runVPOptimization();
 		void sendToTwinCatADS(matlabOutput output);
 

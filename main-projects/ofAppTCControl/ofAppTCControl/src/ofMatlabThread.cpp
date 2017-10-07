@@ -10,7 +10,7 @@
  //--------------------------------------------------------------
 MatlabThread::MatlabThread():
 	_newOutput(true),
-	matlabThreadInitialized(false)
+	initialized(false)
 {
 	// start the thread as soon as the
 	// class is created, it won't use any CPU
@@ -32,9 +32,11 @@ void MatlabThread::initialize() {
 	}
 	else {
 		// everything is initialized
-		matlabThreadInitialized = true;
+		initialized = true;
 	}
 #endif
+
+	_startTimeParpoolCheck = ofGetElapsedTimef();
 }
 
 //--------------------------------------------------------------
@@ -72,13 +74,24 @@ void MatlabThread::update(){
 
 	if(_newOutput){
         // do stuff with the output
-		ofLogVerbose("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x=", ofToString(_output.x));
+		//ofLogVerbose("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x=", ofToString(_output.x));
 		
 		// do callback function (check if it is assigned)
 		if (_cbFunction) {
 			_cbFunction(_output);
 		}
 	}
+
+	if (ofGetElapsedTimef() - _startTimeParpoolCheck > _checkMatlabParpoolTime) {
+
+#if INCLUDEMATLABFUNCTIONS
+		mwArray result(1);
+		checkMatlabParpool();
+#endif
+
+		_startTimeParpoolCheck = ofGetElapsedTimef();
+	}
+
 }
 
 //--------------------------------------------------------------
@@ -94,7 +107,7 @@ void MatlabThread::threadedFunction(){
 	matlabInput input;
     while(_toAnalyze.receive(input)){
 
-		if (!matlabThreadInitialized) return; // matlab not initialized
+		if (!initialized) return; // matlab not initialized
 
 		matlabOutput output;
 

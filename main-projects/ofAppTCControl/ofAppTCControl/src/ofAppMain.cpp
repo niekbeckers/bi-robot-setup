@@ -227,8 +227,7 @@ void ofAppMain::setupGUI()
 	_guiExperiment.setWidthElements(width);
 
 	// initialize GUI
-	if (twinCatRunning)
-		updateADSDataGUI();
+	if (twinCatRunning) { updateADSDataGUI(); }
 
 	// add toggle listeners
 	//_btnDrawTargetTail.addListener(this, &ofAppMain::drawTargetTailPressed);
@@ -241,7 +240,8 @@ void ofAppMain::setupGUI()
 //--------------------------------------------------------------
 void ofAppMain::updateADSDataGUI()
 {
-	
+	if (!twinCatRunning) return;
+
 	// check record data
 	bool record;
 	_tcClientEvent->read(_lHdlVar_RecordData, &record, sizeof(record));
@@ -346,12 +346,12 @@ void ofAppMain::buttonPressed(const void * sender)
 	}
 	else if (clickedBtn.compare(ofToString("Start")) == 0) {
 		// if the data recorder is not checked, force data recorder on.
-		startDataRecorder();
+		startDataLogger();
 		// start experiment
 		experimentApp->startExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Stop")) == 0) {
-		stopDataRecorder();
+		stopDataLogger();
 		experimentApp->stopExperiment();
 	}
 	else if (clickedBtn.compare(ofToString("Calibrate force sensors")) == 0) {
@@ -383,13 +383,13 @@ void ofAppMain::buttonPressed(const void * sender)
 }
 
 //--------------------------------------------------------------
-void ofAppMain::stopDataRecorder()
+void ofAppMain::stopDataLogger()
 {
 	if (_btnToggleRecordData && _loggerStartedDueExperiment) { _btnToggleRecordData = false; }
 }
 
 //--------------------------------------------------------------
-void ofAppMain::startDataRecorder()
+void ofAppMain::startDataLogger()
 {
 	if (!_btnToggleRecordData) { _loggerStartedDueExperiment = true; _btnToggleRecordData = true; }
 }
@@ -476,7 +476,7 @@ void ofAppMain::keyPressed(int key) {
 void ofAppMain::exit() {
 
 	// switch off data logger (if this app switched it on)
-	stopDataRecorder();
+	stopDataLogger();
 
 	// remove listeners
 	_btnCalibrateForceSensor.removeListener(this, &ofAppMain::buttonPressed);

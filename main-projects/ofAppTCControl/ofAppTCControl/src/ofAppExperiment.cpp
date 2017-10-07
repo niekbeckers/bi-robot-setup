@@ -472,7 +472,7 @@ void ofAppExperiment::esmExperimentStop()
 	display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 
 	// stop the data recorder
-	mainApp->stopDataRecorder();
+	mainApp->stopDataLogger();
 
 	display1->showMessageNorth(true, "EXPERIMENT FINISHED");
 	display2->showMessageNorth(true, "EXPERIMENT FINISHED");
@@ -486,7 +486,7 @@ void ofAppExperiment::esmNewBlock()
 	if (!_experimentRunning) { return; }
 
 	// request data recorder start
-	mainApp->startDataRecorder();
+	mainApp->startDataLogger();
 
 	_currentBlock = _blocks[_currentBlockNumber];
 	_currentTrialNumber = 0;
@@ -758,7 +758,7 @@ void ofAppExperiment::esmCheckNextStep()
 			_breakStartTime = ofGetElapsedTimef();
 
 			// switch off the data recorder
-			mainApp->stopDataRecorder();
+			mainApp->stopDataLogger();
 
 			setExperimentState(ExperimentState::BLOCKBREAK);
 		}

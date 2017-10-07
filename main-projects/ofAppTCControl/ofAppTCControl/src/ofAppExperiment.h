@@ -98,7 +98,7 @@ struct trialData {
 	bool connected = false;					// default: not connected
 	vector<ConnectedToTypes> connectedTo;	// specify to which people are connected
 	bool fitVirtualPartner = false;			// specify whether model fit is performed on this trial (after trial is done)
-	vector<int>fitVPBROSIDs;				// BROS ID 
+	vector<int> fitVPBROSIDs;				// BROS ID 
 	double connectionStiffness = 0.0;		// default: 0.0 (no connection stiffness)
 	double connectionDamping = 0.0;			// default: 0.0
 	int condition = 0;						// condition type
@@ -237,5 +237,6 @@ class ofAppExperiment : public ofBaseApp
 
 		ExperimentState experimentState() { return _expState; };
 		inline int getCurrentTrialNumber() { return _currentTrialNumber; };
+		inline trialData getCurrentTrial() { return _currentTrial; };
 };
 

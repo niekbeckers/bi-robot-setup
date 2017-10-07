@@ -12,16 +12,16 @@
 
 struct matlabOutput {
 	int trialID = -1;
-	vector<double> x;
-	int error[2] = { 0, 0 };
-	bool executeVirtualPartner[2] = { false, false };
+	vector<vector<double>> x;
+	vector<int> error;
+	vector<bool> executeVirtualPartner;
 };
 
 struct matlabInput {
 	int trialID = -1;
-	bool doOptimization[2] = { false, false };
-	double x0[2] = { -1.0, -1.0 };
-	bool useX0 = false;
+	vector<int> doFitForBROSIDs;
+	vector<vector<double>> x0;
+	vector<bool> useX0;
 };
 
 class MatlabThread : public ofThread {
@@ -33,6 +33,7 @@ private:
 	ofThreadChannel<matlabOutput> _analyzed;
 	bool _newOutput;
 	matlabOutput _output;
+	double _startTimeParpoolCheck = 0.0, _checkMatlabParpoolTime = 5.0;
 
 	//
 	// functions
@@ -40,14 +41,14 @@ private:
 	void threadedFunction();
 	void callMatlabOptimization(matlabInput input, matlabOutput &output);
 
-	// callback function, when 
+	// callback function 
 	std::function<void(matlabOutput)> _cbFunction = NULL;
 	
 public:
 	//
 	// Initialized
 	//
-	bool matlabThreadInitialized;
+	bool initialized;
 
 	//
 	// functions
