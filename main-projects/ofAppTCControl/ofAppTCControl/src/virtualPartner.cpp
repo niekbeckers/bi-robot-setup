@@ -1,4 +1,4 @@
-#include "ofAppVirtualPartner.h"
+#include "virtualPartner.h"
 
 using namespace std;
 

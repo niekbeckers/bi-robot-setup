@@ -7,7 +7,7 @@
 #include "ofMain.h"
 #include "ofAppMain.h"
 #include "ofAppDisplay.h"
-#include "ofAppVirtualPartner.h"
+#include "virtualPartner.h"
 #include "ofUtils.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"

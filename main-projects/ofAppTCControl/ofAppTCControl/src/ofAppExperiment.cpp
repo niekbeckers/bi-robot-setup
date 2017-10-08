@@ -810,8 +810,9 @@ void ofAppExperiment::esmTrialBreak()
 	}
 
 	if (breakDone && !_runningModelFit) {
-
+		// make sure to upause logger (if it was not running anymore)
 		mainApp->startDataLogger();
+
 		// clear screen messages
 		display1->showMessageNorth(false);
 		display2->showMessageNorth(false);
