@@ -95,7 +95,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\MATLAB\R2017b\extern\include;%(AdditionalIncludeDirectories);src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -133,7 +133,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\MATLAB\R2017b\extern\include;%(AdditionalIncludeDirectories);src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>

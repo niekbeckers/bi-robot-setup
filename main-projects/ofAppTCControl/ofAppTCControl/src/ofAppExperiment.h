@@ -207,7 +207,7 @@ class ofAppExperiment : public ofBaseApp
 		//
 		// variables
 		//
-		ofXml XML;
+		ofXml XML, _XMLWrite;
 
 		shared_ptr<ofAppMain> mainApp;
 		shared_ptr<ofAppDisplay> display1;

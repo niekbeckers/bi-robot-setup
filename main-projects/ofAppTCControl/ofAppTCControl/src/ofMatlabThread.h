@@ -40,15 +40,19 @@ private:
 	//
 	void threadedFunction();
 	void callMatlabOptimization(matlabInput input, matlabOutput &output);
+	void input2xml(matlabInput input);
+	matlabOutput xml2output(ofXml xml);
 
 	// callback function 
 	std::function<void(matlabOutput)> _cbFunction = NULL;
 	
 public:
 	//
-	// Initialized
+	// Parameters
 	//
 	bool initialized;
+	string matlabFunctionPath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\ofAppTCControl\\ofAppTCControl\\matlab\\";
+
 
 	//
 	// functions
