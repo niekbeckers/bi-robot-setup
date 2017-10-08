@@ -173,7 +173,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\childParticle.cpp" />
-    <ClCompile Include="src\ofAppVirtualPartner.cpp" />
+    <ClCompile Include="src\virtualPartner.cpp" />
     <ClCompile Include="src\ofMatlabThread.cpp" />
     <ClCompile Include="src\ofAppDisplay.cpp" />
     <ClCompile Include="src\ofAppExperiment.cpp" />
@@ -197,7 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\childParticle.h" />
-    <ClInclude Include="src\ofAppVirtualPartner.h" />
+    <ClInclude Include="src\virtualPartner.h" />
     <ClInclude Include="src\ofMatlabThread.h" />
     <ClInclude Include="src\myUtils.h" />
     <ClInclude Include="src\ofAppDisplay.h" />

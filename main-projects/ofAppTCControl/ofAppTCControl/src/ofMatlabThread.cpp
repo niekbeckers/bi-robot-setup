@@ -82,7 +82,7 @@ void MatlabThread::update(){
 		}
 	}
 
-	if (ofGetElapsedTimef() - _startTimeParpoolCheck > _checkMatlabParpoolTime) {
+	if (ofGetElapsedTimef() - _startTimeParpoolCheck > _checkMatlabParpoolPeriod) {
 
 #if INCLUDEMATLABFUNCTIONS
 		mwArray result(1);

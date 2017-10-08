@@ -33,7 +33,7 @@ private:
 	ofThreadChannel<matlabOutput> _analyzed;
 	bool _newOutput;
 	matlabOutput _output;
-	double _startTimeParpoolCheck = 0.0, _checkMatlabParpoolTime = 5.0;
+	double _startTimeParpoolCheck = 0.0, _checkMatlabParpoolPeriod = 30.0;
 
 	//
 	// functions

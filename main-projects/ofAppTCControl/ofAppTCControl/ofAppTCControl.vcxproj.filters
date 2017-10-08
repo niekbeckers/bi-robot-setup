@@ -70,7 +70,7 @@
     <ClCompile Include="src\ofMatlabThread.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ofAppVirtualPartner.cpp">
+    <ClCompile Include="src\virtualPartner.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,7 +167,7 @@
     <ClInclude Include="src\ofMatlabThread.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\ofAppVirtualPartner.h">
+    <ClInclude Include="src\virtualPartner.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
