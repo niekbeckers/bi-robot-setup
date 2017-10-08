@@ -6,8 +6,6 @@
 
 
 // custom classes
-#include "ofAppMain.h"
-#include "ofAppExperiment.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"
 #include "ofMatlabThread.h"
@@ -18,10 +16,7 @@
 #define INCLUDEMATLABFUNCTIONS 0
 #endif
 
-class ofAppMain;
-class ofAppExperiment;
-
-class ofAppVirtualPartner
+class VirtualPartner
 {
 	private:
 
@@ -43,14 +38,14 @@ class ofAppVirtualPartner
 		//
 		// variables
 		//
-		shared_ptr<ofAppMain> mainApp;
-		shared_ptr<ofAppExperiment> experimentApp;
 
 		//
 		// functions
 		//
+		VirtualPartner();
+		~VirtualPartner();
 		void initialize(vector<int> vID);
-		void runVPOptimization();
+		void runVPOptimization(matlabInput input);
 		void sendToTwinCatADS(matlabOutput output);
 
 		void onVPOptimizationDone(matlabOutput output);

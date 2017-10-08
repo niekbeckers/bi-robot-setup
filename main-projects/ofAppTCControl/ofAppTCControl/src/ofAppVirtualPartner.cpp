@@ -1,9 +1,18 @@
 #include "ofAppVirtualPartner.h"
 
 using namespace std;
- 
+
+VirtualPartner::VirtualPartner()
+{
+
+}
+
+VirtualPartner::~VirtualPartner()
+{
+
+}
 //--------------------------------------------------------------
-void ofAppVirtualPartner::initialize(vector<int> vID)
+void VirtualPartner::initialize(vector<int> vID)
 {
 	// set up tcAdsClient for data reading
 	_tcClient = new tcAdsClient(adsPort);
@@ -38,20 +47,16 @@ void ofAppVirtualPartner::initialize(vector<int> vID)
 	}
 
 	// register the callback function in the matlab thread. 
-	_matlabThread.registerCBFunction(std::bind(&ofAppVirtualPartner::onVPOptimizationDone, this, _1));
+	_matlabThread.registerCBFunction(std::bind(&VirtualPartner::onVPOptimizationDone, this, _1));
 }
 
 //--------------------------------------------------------------
-void ofAppVirtualPartner::runVPOptimization()
+void VirtualPartner::runVPOptimization(matlabInput input)
 {
 	if (!_matlabThread.initialized) {
 		ofLogError("MATLAB Runtime nog initialized. Did you add the header, is the DLL in the path?");
 		return;
 	}
-
-	// Make sure that the datalogger is paused, such that the last datafile is closed. 
-	// do we need to wait for a little bit?
-	mainApp->stopDataLogger();
 
 	// set _runningVPOptimization flag
 	_runningModelFit = true;
@@ -61,9 +66,9 @@ void ofAppVirtualPartner::runVPOptimization()
 	//
 
 	// Create input struct
-	matlabInput input;
-	input.trialID = experimentApp->getCurrentTrialNumber();
-	input.doFitForBROSIDs = experimentApp->getCurrentTrial().fitVPBROSIDs;
+	//matlabInput input;
+	//input.trialID = experimentApp->getCurrentTrialNumber();
+	//input.doFitForBROSIDs = experimentApp->getCurrentTrial().fitVPBROSIDs;
 
 	// call for analysis. Once the MATLAB script is ready, it will call the registered callback function.
 	_matlabThread.analyze(input);
@@ -72,7 +77,7 @@ void ofAppVirtualPartner::runVPOptimization()
 }
 
 //--------------------------------------------------------------
-void ofAppVirtualPartner::onVPOptimizationDone(matlabOutput output)
+void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 {
 	// do soemthing with the output data
 	ofLogVerbose("ofAppExperiment::onVPOptimizationDone", "callback function called");
@@ -98,12 +103,10 @@ void ofAppVirtualPartner::onVPOptimizationDone(matlabOutput output)
 	}
 	
 	_runningModelFit = false;
-	// unpause the data logger
-	mainApp->startDataLogger();
 }
 
 //--------------------------------------------------------------
-void ofAppVirtualPartner::sendToTwinCatADS(matlabOutput output)
+void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 {
 	double d;
 	for (int i = 0; i < _activeBROSIDs.size(); i++) {

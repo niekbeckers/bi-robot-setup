@@ -24,6 +24,9 @@ void ofAppExperiment::update()
 		setExperimentState(ExperimentState::SYSTEMFAULT); 
 	}
 
+	// check if partner is still fitting
+	_runningModelFit = partner.modelFitIsRunning();
+
 	//
 	// experiment state machine
 	//
@@ -250,7 +253,7 @@ void ofAppExperiment::loadExperimentXML()
 
 		// in case we need the virtual partner optimization, prepare.
 		if (_vpDoVirtualPartner) {}
-			//virtualPartnerApp.initialize(_activeBROSIDs);
+			partner.initialize(_activeBROSIDs);
 	}
 	else {
 		ofLogVerbose("ofAppExperiment", "User hit cancel");
@@ -769,9 +772,18 @@ void ofAppExperiment::esmCheckNextStep()
 	}
 
 	// check if we need to fit the virtual partner
-	//if (_currentTrial.fitVPModel) {
-		//virtualPartnerApp.runVPOptimization();
-	//}
+	if (_currentTrial.fitVirtualPartner) {
+		// pause data logger before doing optimization
+		mainApp->stopDataLogger();
+
+		// setup optimization (settings)
+		matlabInput settings;
+		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
+		settings.trialID = _currentTrialNumber;
+		partner.runVPOptimization(settings);
+
+		_runningModelFit = true;
+	}
 }
 
 //--------------------------------------------------------------
@@ -797,7 +809,9 @@ void ofAppExperiment::esmTrialBreak()
 		breakDone = true;
 	}
 
-	if (breakDone && !_runningVPOptimization) {
+	if (breakDone && !_runningModelFit) {
+
+		mainApp->startDataLogger();
 		// clear screen messages
 		display1->showMessageNorth(false);
 		display2->showMessageNorth(false);

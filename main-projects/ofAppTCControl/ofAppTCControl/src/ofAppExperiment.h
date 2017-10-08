@@ -116,7 +116,7 @@ struct blockData {
 };
 
 class ofAppMain;
-class ofAppVirtualPartner;
+//class VirtualPartner;
 
 class ofAppExperiment : public ofBaseApp
 {
@@ -144,8 +144,7 @@ class ofAppExperiment : public ofBaseApp
 
 		// virtual partner fit bool
 		bool _vpDoVirtualPartner = false;
-		bool _runningVPOptimization = false;
-		bool _useVPinTrial[2] = { true, true };
+		bool _runningModelFit = false;
 
 		vector<int> _activeBROSIDs;
 		
@@ -170,7 +169,8 @@ class ofAppExperiment : public ofBaseApp
 		int _instructionMessageInterval = 6;
 		string _instructionMessage = "Great job so far!\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
 
-		//ofAppVirtualPartner virtualPartnerApp;
+		//VirtualPartner virtualPartnerApp;
+		VirtualPartner partner; 
 
 		//
 		// functions
