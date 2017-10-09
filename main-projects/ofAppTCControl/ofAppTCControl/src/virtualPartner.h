@@ -20,7 +20,7 @@ class VirtualPartner
 {
 	private:
 
-		// niek is een schaap
+		// 
 		// variables
 		//
 		tcAdsClient *_tcClient;
@@ -33,6 +33,7 @@ class VirtualPartner
 		vector<int> _activeBROSIDs;
 
 		bool _runningModelFit = false;
+		bool _validVirtualPartnerFit = false;
 
 	public:
 		//
@@ -44,10 +45,10 @@ class VirtualPartner
 		//
 		VirtualPartner();
 		~VirtualPartner();
+		void update();
 		void initialize(vector<int> vID);
 		void runVPOptimization(matlabInput input);
 		void sendToTwinCatADS(matlabOutput output);
-
 		void onVPOptimizationDone(matlabOutput output);
 
 		inline bool modelFitIsRunning() { return _runningModelFit; }

@@ -1,16 +1,10 @@
-/*
- * ImgAnalysisThread.cpp
- *
- *  Created on: Oct 8, 2014
- *      Author: arturo
- */
-
 #include "ofMatlabThread.h"
 
  //--------------------------------------------------------------
 MatlabThread::MatlabThread():
 	_newOutput(true),
-	initialized(false)
+	initialized(false),
+	_counterMatlabInputFile(0)
 {
 	// start the thread as soon as the
 	// class is created, it won't use any CPU
@@ -20,23 +14,7 @@ MatlabThread::MatlabThread():
 
 //--
 void MatlabThread::initialize() {
-#if INCLUDEMATLABFUNCTIONS
-	// Initialize the MATLAB Compiler Runtime global state
-	if (!mclInitializeApplication(NULL, 0)) {
-		ofLogError("Could not initialize the application properly.");
-	}
 
-	// Initialize the Vigenere library
-	if (!libtestInitialize()) {
-		ofLogError("Could not initialize the library properly.");
-	}
-	else {
-		// everything is initialized
-		initialized = true;
-	}
-#endif
-
-	_startTimeParpoolCheck = ofGetElapsedTimef();
 }
 
 //--------------------------------------------------------------
@@ -74,20 +52,13 @@ void MatlabThread::update(){
 
 	if(_newOutput){
         // do stuff with the output
-		//ofLogVerbose("Message from MATLAB thread: trialID = " + ofToString(_output.trialID) + " x=", ofToString(_output.x));
+		ofLogVerbose("Message from MATLAB thread");
 
 		// do callback function (check if it is assigned)
 		if (_cbFunction) {
 			_cbFunction(_output);
 		}
 	}
-
-	/*
-	if (ofGetElapsedTimef() - _startTimeParpoolCheck > _checkMatlabParpoolPeriod) {
-		_startTimeParpoolCheck = ofGetElapsedTimef();
-	}
-	*/
-
 }
 
 //--------------------------------------------------------------
@@ -103,7 +74,7 @@ void MatlabThread::threadedFunction(){
 	matlabInput input;
     while(_toAnalyze.receive(input)){
 
-		if (!initialized) return; // matlab not initialized
+		//if (!initialized) return; // matlab not initialized
 
 		matlabOutput output;
 
@@ -123,19 +94,37 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 {
 	input2xml(input);
 
-	// call matlab executable
-	//std::system();
-
 	//now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
-	ofXml xml;
 	string outputFilename = matlabFunctionPath + "fitResults_trial" + ofToString(input.trialID) + ".xml";
-	while (!xml.load(outputFilename)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
-		sleep(200); // sleep thread for a little bit
+	bool foundFile = false;
+	double startTime = ofGetElapsedTimef();
+	ofFile file(outputFilename);
+	
+	while (!foundFile && (ofGetElapsedTimef()-startTime < 10.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
+		if (file.exists()) { foundFile = true; }
+		sleep(2000); // sleep thread for a little bit
+		ofLogVerbose("file does not exist");
 	}
 
-	// parse xml file
-	xml2output(xml);
+	if (foundFile) {
+		// load xml file
+		ofXml xml;
+		xml.load(outputFilename);
+
+		// parse xml file
+		_output = xml2output(xml);
+	}
+	else {
+		matlabOutput tmp;
+		_output = tmp;
+	}
+}
+
+void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback) 
+{ 
+	_cbFunction = callback; 
+	ofLogVerbose("MatlabThread::registerCBFunction");
 }
 
 //--------------------------------------------------------------
@@ -151,13 +140,16 @@ void MatlabThread::input2xml(matlabInput input)
 
 	xml.addChild("doFitForBROSID");
 	xml.setTo("doFitForBROSID");
-	for (auto id : input.doFitForBROSIDs) { xml.addValue("brosID", id); }
+	for (int i = 0; i < input.doFitForBROSIDs.size(); i++) {
+		xml.addValue("id" + ofToString(i) , input.doFitForBROSIDs[i]);
+	}
 	xml.setToParent();
 	//_XMLWrite.addValue("useX0", input.useX0[0]); (etc)
 
 	// save settings to XML file (one for the matlab script/exe, the other for our own administration/data logging
 	xml.save(matlabFunctionPath + "vpFitSettings.xml");
-	xml.save(matlabFunctionPath + "vpFitSettings_trial" + ofToString(input.trialID) + ".xml");
+	xml.save(matlabFunctionPath + "vpFitSettings_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+	_counterMatlabInputFile++;
 }
 
 //--------------------------------------------------------------
@@ -171,19 +163,19 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		xml.setTo("executeVirtualPartner");
 
 		int i = 0;
-		while (xml.exists("brosID[" + ofToString(i) + "]")) {
-			output.executeVirtualPartner.push_back(xml.getValue<bool>("brosID[" + ofToString(i) + "]"));
+		while (xml.exists("id" + ofToString(i))) {
+			output.executeVirtualPartner.push_back(xml.getValue<bool>("id" + ofToString(i)));
 			i++;
 		}
 		xml.setToParent();
 	}
 	// errors
-	if (xml.exists("errors")) {
-		xml.setTo("errors");
+	if (xml.exists("error")) {
+		xml.setTo("error");
 
 		int i = 0;
-		while (xml.exists("brosID[" + ofToString(i) + "]")) {
-			output.error.push_back(xml.getValue<bool>("brosID[" + ofToString(i) + "]"));
+		while (xml.exists("id" + ofToString(i))) {
+			output.error.push_back(xml.getValue<bool>("id" + ofToString(i)));
 			i++;
 		}
 		xml.setToParent();
@@ -207,7 +199,6 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
-
 
 	return output;
 }

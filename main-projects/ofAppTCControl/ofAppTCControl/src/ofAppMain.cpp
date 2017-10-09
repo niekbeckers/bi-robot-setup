@@ -79,6 +79,17 @@ void ofAppMain::draw() {
 }
 
 //--------------------------------------------------------------
+void ofAppMain::keyReleased(int key) {
+	if (key == 'o') {
+		matlabInput input;
+		input.trialID = 1;
+		input.doFitForBROSIDs.push_back(1);
+		ofLogVerbose("keyreleased");
+		experimentApp->partner.runVPOptimization(input);
+	}
+}
+
+//--------------------------------------------------------------
 void ofAppMain::setupTCADS()
 {
 	// set up tcAdsClient for data reading
@@ -468,9 +479,6 @@ void ofAppMain::setConnectionDamping(double Kd)
 	_lblConnDamping = ofToString(Kd, 1) + " Ns/m";
 }
 
-//--------------------------------------------------------------
-void ofAppMain::keyPressed(int key) {
-}
 
 //--------------------------------------------------------------
 void ofAppMain::exit() {

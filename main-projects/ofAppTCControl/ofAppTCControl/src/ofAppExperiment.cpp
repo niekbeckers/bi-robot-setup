@@ -24,7 +24,8 @@ void ofAppExperiment::update()
 		setExperimentState(ExperimentState::SYSTEMFAULT); 
 	}
 
-	// check if partner is still fitting
+	// update partner and check if partner is still fitting
+	partner.update();
 	_runningModelFit = partner.modelFitIsRunning();
 
 	//
@@ -307,17 +308,13 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	// check which BROS need to be active
 	_activeBROSIDs.clear();
 	if (XML.exists("activeBROSID") && XML.setTo("activeBROSID")) {
-		int i = 0;
-		do {
-			// check which BROSIDs are active
-			string s = "brosID[" + ofToString(i) + "]";
-			if (XML.exists(s)) { 
-				_activeBROSIDs.push_back(XML.getValue<int>(s)); 
-				ofLogVerbose("ofAppExperiment","activeBROSID: "+ofToString(XML.getValue<int>(s)));
-			}
-			i++;
-		} while (XML.exists("brosID[" + ofToString(i) + "]"));
 
+		int i = 0;
+		while (XML.exists("id" + ofToString(i))) {
+			_activeBROSIDs.push_back(XML.getValue<int>("id" + ofToString(i)));
+			ofLogVerbose("ofAppExperiment", "activeBROSID: " + ofToString(XML.getValue<int>("id" + ofToString(i))));
+			i++;
+		}
 		XML.setToParent();
 	}
 	else {
@@ -365,8 +362,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 						XML.setTo("connectedTo");
 						// loop through active BROS IDs
 						for (auto id : _activeBROSIDs) {
-							string s = "brosID" + ofToString(id);
-							if (XML.exists(s)) { trial.connectedTo.push_back(static_cast<ConnectedToTypes>(XML.getValue<int>(s))); }
+							if (XML.exists("id" + ofToString(id))) { trial.connectedTo.push_back(static_cast<ConnectedToTypes>(XML.getValue<int>("id" + ofToString(id)))); }
 							else { trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); }
 						}
 						XML.setToParent();
@@ -377,16 +373,15 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 					// check fit virtual partner
 					if (XML.exists("fitVirtualPartner")) {
-						trial.fitVirtualPartner = XML.getValue<bool>("fitVirtualPartner");
 
 						// read which partners we need to fit the virtual partner model to
 						XML.setTo("fitVirtualPartner");
-
-						for (int i = 0; i < _activeBROSIDs.size(); i++) {
-							string s = "brosID[" + ofToString(i) + "]";
-							if (XML.exists(s)) { trial.fitVPBROSIDs.push_back(XML.getValue<int>(s)); }
-							else { trial.fitVPBROSIDs.push_back(_activeBROSIDs[i]); }
+						int i = 0;
+						while (XML.exists("id" + ofToString(i))) {
+							trial.fitVPBROSIDs.push_back(XML.getValue<int>("id" + ofToString(i)));
+							i++;
 						}
+						if (trial.fitVPBROSIDs.size() > 0) { trial.fitVirtualPartner = true; }
 
 						XML.setToParent();
 					}

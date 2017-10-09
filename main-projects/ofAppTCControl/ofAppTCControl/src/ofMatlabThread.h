@@ -33,7 +33,7 @@ private:
 	ofThreadChannel<matlabOutput> _analyzed;
 	bool _newOutput;
 	matlabOutput _output;
-	double _startTimeParpoolCheck = 0.0, _checkMatlabParpoolPeriod = 30.0;
+	int _counterMatlabInputFile = 0;
 
 	//
 	// functions
@@ -44,7 +44,7 @@ private:
 	matlabOutput xml2output(ofXml xml);
 
 	// callback function 
-	std::function<void(matlabOutput)> _cbFunction = NULL;
+	std::function<void(matlabOutput)> _cbFunction;
 	
 public:
 	//
@@ -63,5 +63,5 @@ public:
 	void analyze(matlabInput input);
 	void update();
 	bool newOutputData();
-	inline void registerCBFunction(std::function<void(matlabOutput)> callback) { _cbFunction = callback; };
+	void registerCBFunction(std::function<void(matlabOutput)> cb);
 };

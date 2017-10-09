@@ -116,7 +116,7 @@ struct blockData {
 };
 
 class ofAppMain;
-//class VirtualPartner;
+class VirtualPartner;
 
 class ofAppExperiment : public ofBaseApp
 {
@@ -169,9 +169,6 @@ class ofAppExperiment : public ofBaseApp
 		int _instructionMessageInterval = 6;
 		string _instructionMessage = "Great job so far!\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
 
-		//VirtualPartner virtualPartnerApp;
-		VirtualPartner partner; 
-
 		//
 		// functions
 		//
@@ -210,11 +207,14 @@ class ofAppExperiment : public ofBaseApp
 		ofXml XML, _XMLWrite;
 
 		shared_ptr<ofAppMain> mainApp;
+		shared_ptr<VirtualPartner> vpApp;
 		shared_ptr<ofAppDisplay> display1;
 		shared_ptr<ofAppDisplay> display2;
 
 		string experimentStateLabel = StringExperimentStateLabel(_expState);
 		
+		VirtualPartner partner;
+
 		bool debugMode = false;
 		// 
 		// functions
