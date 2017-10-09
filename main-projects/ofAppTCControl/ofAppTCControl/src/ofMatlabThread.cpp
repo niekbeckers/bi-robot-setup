@@ -196,7 +196,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 				tmp.clear();
 				if (xml.setToChild(0)) {
 					do {
-						tmp.push_back(xml.getValue<double>("x" + ofToString(j)));
+						tmp.push_back(xml.getFloatValue());
 					} while (xml.setToSibling());
 				}
 				xml.setToParent(); // go back to brosX

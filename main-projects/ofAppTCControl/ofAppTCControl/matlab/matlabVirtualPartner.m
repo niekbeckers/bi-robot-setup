@@ -37,16 +37,16 @@ while (keepRunning)
         
         % DEBUG dummy output
         out.VP.trialID = s.VP.trialID;
-        out.VP.executeVirtualPartner.id0 = 1;
+        out.VP.executeVirtualPartner.id0 = 0;
         out.VP.executeVirtualPartner.id1 = 0;
         out.VP.error.id0 = 0;
         out.VP.error.id1 = 0;
-        out.VP.modelparameters.bros1.x1 = 0.1;
-        out.VP.modelparameters.bros1.x2 = 0.2;
-        out.VP.modelparameters.bros1.x3 = 0.3;
-        out.VP.modelparameters.bros2.x1 = 0.1;
-        out.VP.modelparameters.bros2.x2 = 0.2;
-        out.VP.modelparameters.bros2.x3 = 0.3;
+        out.VP.modelparameters.bros1.x1 = randn(1);
+        out.VP.modelparameters.bros1.x2 = randn(1);
+        out.VP.modelparameters.bros1.x3 = randn(1);
+        out.VP.modelparameters.bros2.x1 = randn(1);
+        out.VP.modelparameters.bros2.x2 = randn(1);
+        out.VP.modelparameters.bros2.x3 = randn(1);
 
         % write results to XML file
         
