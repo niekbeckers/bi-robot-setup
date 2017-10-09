@@ -4,6 +4,7 @@ disp([callerID 'Starting up ' mfilename]);
 
 %% initialize
 cntr_filename = 0;
+folderpath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\ofAppTCControl\ofAppTCControl\matlab\';
 filepath = 'vpFitSettings_trial';
 loopPause = 0.5;
 
@@ -11,14 +12,11 @@ loopPause = 0.5;
 if (size(gcp) == 0)
     parpool(2,'IdleTimeout',30); % setup workers with idle timeout of 30 minutes
 end
-disp([])
-
-
 
 keepRunning = true;
 while (keepRunning)
     try
-        [loadOkay,s] = readXML([filepath num2str(cntr_filename)]);
+        [loadOkay,s] = readXML([folderpath filepath num2str(cntr_filename) '.xml']);
     catch
         loadOkay = false;
     end
@@ -49,13 +47,15 @@ while (keepRunning)
         out.VP.modelparameters.bros2.x1 = 0.1;
         out.VP.modelparameters.bros2.x2 = 0.2;
         out.VP.modelparameters.bros2.x3 = 0.3;
-        
+
         % write results to XML file
-        cntr_filename = cntr_filename+1;
+        
         if (errorFlag == 0)
-            outputfile = ['fitResults_trial' num2str(out.VP.trialID)];
-            writeXML(s,outputfile);
+            outputfile = [folderpath 'fitResults_trial' num2str(out.VP.trialID) '.xml'];
+            writeXML(out,outputfile);
+            disp([callerID 'Results written to ''fitResults_trial' num2str(out.VP.trialID) '.xml''']);
         end
+        cntr_filename = cntr_filename+1;
     end
     pause(loopPause);
 end

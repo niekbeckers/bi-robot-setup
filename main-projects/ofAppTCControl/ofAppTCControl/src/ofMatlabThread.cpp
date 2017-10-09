@@ -51,10 +51,8 @@ void MatlabThread::update(){
 	}
 
 	if(_newOutput){
-        // do stuff with the output
-		ofLogVerbose("Message from MATLAB thread");
 
-		// do callback function (check if it is assigned)
+		// new uoutput ready: do callback function (check if it is assigned)
 		if (_cbFunction) {
 			_cbFunction(_output);
 		}
@@ -101,13 +99,13 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	double startTime = ofGetElapsedTimef();
 	ofFile file(outputFilename);
 	
-	while (!foundFile && (ofGetElapsedTimef()-startTime < 10.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
+	while (!foundFile && (ofGetElapsedTimef()-startTime < 120.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
 		if (file.exists()) { foundFile = true; }
-		sleep(2000); // sleep thread for a little bit
-		ofLogVerbose("file does not exist");
+		sleep(500); // sleep thread for a little bit
 	}
 
 	if (foundFile) {
+		ofLogVerbose("MatlabThread::callMatlabOptimization", "Found file (fitResults_trial" + ofToString(input.trialID) + ") - parsing results");
 		// load xml file
 		ofXml xml;
 		xml.load(outputFilename);
@@ -116,15 +114,17 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 		_output = xml2output(xml);
 	}
 	else {
+		ofLogVerbose("MatlabThread::callMatlabOptimization","Could not find file (fitResults_trial" + ofToString(input.trialID) + ")");
 		matlabOutput tmp;
 		_output = tmp;
 	}
 }
 
+//--------------------------------------------------------------
 void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback) 
 { 
 	_cbFunction = callback; 
-	ofLogVerbose("MatlabThread::registerCBFunction");
+	ofLogVerbose("MatlabThread::registerCBFunction", "callback function registered");
 }
 
 //--------------------------------------------------------------
@@ -147,7 +147,6 @@ void MatlabThread::input2xml(matlabInput input)
 	//_XMLWrite.addValue("useX0", input.useX0[0]); (etc)
 
 	// save settings to XML file (one for the matlab script/exe, the other for our own administration/data logging
-	xml.save(matlabFunctionPath + "vpFitSettings.xml");
 	xml.save(matlabFunctionPath + "vpFitSettings_trial" + ofToString(_counterMatlabInputFile) + ".xml");
 	_counterMatlabInputFile++;
 }
@@ -156,8 +155,11 @@ void MatlabThread::input2xml(matlabInput input)
 matlabOutput MatlabThread::xml2output(ofXml xml)
 {
 	matlabOutput output;
+	ofLogVerbose("MatlabThread::xml2output","Results from the model fit:");
 
 	if (xml.exists("trialID")) output.trialID = xml.getValue<int>("trialID");
+	ofLogVerbose("trialID",ofToString(output.trialID));
+
 	// execute virtual partner
 	if (xml.exists("executeVirtualPartner")) {
 		xml.setTo("executeVirtualPartner");
@@ -169,6 +171,8 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
+	ofLogVerbose("executeVirtualPartner", ofToString(output.executeVirtualPartner));
+
 	// errors
 	if (xml.exists("error")) {
 		xml.setTo("error");
@@ -180,25 +184,30 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
+	ofLogVerbose("error", ofToString(output.error));
+
 	// model parameters
 	if (xml.exists("modelparameters")) {
 		xml.setTo("modelparameters");
 
-		int i = 0;
-		while (xml.exists("bros" + ofToString(i))) {
-			xml.setTo("bros" + ofToString(i));
-			int j = 0;
+		if (xml.setToChild(0)) { // set to first child (if it exists)
 			vector<double> tmp;
-			while (xml.exists("x" + ofToString(j))) {
-				tmp.push_back(xml.getValue<double>("x" + ofToString(j)));
-				j++;
-			}
-			output.x.push_back(tmp);
-			xml.setToParent();
-			i++;
+			do {
+				tmp.clear();
+				if (xml.setToChild(0)) {
+					do {
+						tmp.push_back(xml.getValue<double>("x" + ofToString(j)));
+					} while (xml.setToSibling());
+				}
+				xml.setToParent(); // go back to brosX
+				output.x.push_back(tmp);
+				ofLogVerbose("modelparameters."+xml.getName(), ofToString(tmp));
+			} while (xml.setToSibling());
 		}
 		xml.setToParent();
 	}
+
+	
 
 	return output;
 }

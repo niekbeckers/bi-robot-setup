@@ -5,7 +5,6 @@ simulink/experiments/base_1fm_tct/
 simulink/calibration/model_affc_tct/
 simulink/calibration/slprj/
 .DS_Store
-.m~
 simulink/calibration/transmission_estimation_tct/
 *.suo
 main-projects/calibration-models/slprj/
@@ -2367,10 +2366,6 @@ main-projects/data/bros/meas13_jolein_reaching2/data_part216.mat
 main-projects/data/bros/meas13_jolein_reaching2/data_part217.mat
 main-projects/xml-protocol-scripts/createBROSExperimentProtocol_visuomotortrial.m
 main-projects/xml-protocol-scripts/expprotocol_visuomotorreaching_jolein.xml
-=======
-
-experiments/mattia/simulink/targetposition_mattia\.m
->>>>>>> fbea8b22a7dcf420c62b038e518fda42ff557152
 experiments/mattia/data/analyse_vel.m
 experiments/mattia/data/meas01_firsttry_rotation_target.zip
 experiments/mattia/data/meas01_firsttry_rotation_target/data_part1.mat
@@ -3714,6 +3709,5 @@ main-projects/data/bros/meas55_admittance/data_part11.mat
 main-projects/data/bros/meas55_admittance/data_part10.mat
 main-projects/data/bros/meas55_admittance/data_part1.mat
 main-projects/data/bros/meas55_admittance/analyse_square.m
-
 experiments/mattia/experiment-protocol-xml/experiment_info\.mat
 *.lnk

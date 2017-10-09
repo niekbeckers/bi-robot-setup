@@ -56,7 +56,7 @@ void VirtualPartner::initialize(vector<int> vID)
 
 	// start up matlab stand-alone application for model fit
 	//std::system(ofToString(matlabFunctionPath + "matlabVirtualPartner.exe &").c_str());
-	_matlabStartup.startThread();
+	//_matlabStartup.startThread();
 }
 
 //--------------------------------------------------------------
@@ -120,9 +120,9 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 //--------------------------------------------------------------
 void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 {
+	ofLogVerbose("VirtualPartner::sendToTwinCatADS", "Setting virtual partner data in TwinCAT");
 	double d;
 	for (int i = 0; i < _activeBROSIDs.size(); i++) {
-
 		// write executeVirtualPartner
 		_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[i], &output.executeVirtualPartner[i], sizeof(output.executeVirtualPartner[i]));
 
