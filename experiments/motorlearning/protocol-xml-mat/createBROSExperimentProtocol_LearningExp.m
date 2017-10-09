@@ -75,7 +75,7 @@
 
 clear all; close all; clc;
 
-partnersNr = 3;
+partnersNr = 99;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'solo'; % solo or interaction
@@ -83,7 +83,6 @@ groupTypeNr = 0; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
 expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
-
 
 % filename
 filename = ['expprotocol_' expID];
@@ -98,6 +97,10 @@ s.experiment.trialPerformanceThreshold = 0.05;
 s.experiment.groupTypeNr = groupTypeNr;
 s.experiment.sessionNr = sessionnr;
 s.experiment.partnersNr = partnersNr;
+
+s.experiment.doVirtualPartner = 0;
+s.experiment.activeBROSID.id0 = 1;
+s.experiment.activeBROSID.id1 = 2;
 
 %% trial data
 
@@ -173,6 +176,8 @@ for ii = 1:numTrials
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
     trial{ii}.trialRandomization = trialRandomization(ii);
+    trial{ii}.fitVirtualPartner.id0 = 1;
+    trial{ii}.fitVirtualPartner.id1 = 2;
 end
 
 %% block data
