@@ -50,7 +50,13 @@ void VirtualPartner::initialize(vector<int> vID)
 		string var2 = "Object1 (ModelBROS).ModelParameters.VPModelParams_Changed_BROS" + ofToString(id);
 		char *szVar2 = strdup(var2.c_str());
 		_lHdlVar_Write_VPModelParamsChanged.push_back(_tcClient->getVariableHandle(szVar2, sizeof(szVar2)));
-	}	
+	}
+
+	ofLogVerbose("matlabVirtualPartner.exe requested");
+
+	// start up matlab stand-alone application for model fit
+	//std::system(ofToString(matlabFunctionPath + "matlabVirtualPartner.exe &").c_str());
+	_matlabStartup.startThread();
 }
 
 //--------------------------------------------------------------

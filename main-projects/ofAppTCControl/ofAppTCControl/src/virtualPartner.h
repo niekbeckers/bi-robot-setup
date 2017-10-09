@@ -3,8 +3,6 @@
 // ofx classes, addons
 #include "ofMain.h"
 #include "ofUtils.h"
-
-
 // custom classes
 #include "tcAdsClient.h"
 #include "myUtils.h"
@@ -29,11 +27,14 @@ class VirtualPartner
 		// MATLAB Thread
 		// the matlabthread is started upon construction. Don't worry, the thread does not consume any (hardly) CPU until it's actually called.
 		MatlabThread _matlabThread;
+		MatlabStartupThread _matlabStartup;
 
 		vector<int> _activeBROSIDs;
 
 		bool _runningModelFit = false;
 		bool _validVirtualPartnerFit = false;
+
+		string matlabFunctionPath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\ofAppTCControl\\ofAppTCControl\\matlab\\";
 
 	public:
 		//
@@ -53,3 +54,4 @@ class VirtualPartner
 
 		inline bool modelFitIsRunning() { return _runningModelFit; }
 };
+

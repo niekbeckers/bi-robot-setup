@@ -65,3 +65,15 @@ public:
 	bool newOutputData();
 	void registerCBFunction(std::function<void(matlabOutput)> cb);
 };
+
+class MatlabStartupThread : public ofThread {
+
+private:
+	string _matlabExePath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\ofAppTCControl\\ofAppTCControl\\matlab\\matlabVirtualPartner.exe &";
+	void threadedFunction() { std::system(_matlabExePath.c_str()); done = true; };
+public:
+	bool done = false;
+	MatlabStartupThread() {};
+	MatlabStartupThread(string p) { _matlabExePath = p; }
+	~MatlabStartupThread() { waitForThread(true); }
+};
