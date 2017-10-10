@@ -19,7 +19,8 @@ In case any MATLAB functions are called outside of the model, you can use MATLAB
 3. Install Visual Studio 2015 (community) and openFrameworks using their [setup guide](http://openframeworks.cc/setup/vs/).
 
 The openFrameworks GUI and experiment backbone talk to the TwinCAT RT model through the ADS. Since the ADS dll is only available in a 32bit version, compile only in 32bit (win32 configuration, default). If you'd like to call any MATLAB functionality (like an optimization routine), compile the DLL in MATLAB R2015B (win32). See the [wiki] for more info!
-**edit** Unfortunately the 2015b win32 version of MATLAB does not support the Parallel Computing Toolbox, so we decided to move to a MATLAB script which is running on an instance of MATLAB 2016b (win64). Communication between the experiment app and MATLAB is through XML files.
+
+**Edit** Unfortunately the 2015b win32 version of MATLAB does not support the Parallel Computing Toolbox, so we decided to move to a MATLAB script which is running on an instance of MATLAB 2016b (win64). Communication between the experiment app and MATLAB is through XML files.
 
 ### Who do I talk to? ###
 
