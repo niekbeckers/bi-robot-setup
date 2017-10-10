@@ -75,8 +75,8 @@
 
 clear all; close all; clc;
 
-partnersNr = 99;
-sessionnr = 1;
+partnersNr = 3;
+sessionnr = 2;
 selectPremadeTrialSequence = 1;
 groupType = 'solo'; % solo or interaction
 groupTypeNr = 0; % 0 = solo, 1 = interaction
@@ -98,7 +98,7 @@ s.experiment.groupTypeNr = groupTypeNr;
 s.experiment.sessionNr = sessionnr;
 s.experiment.partnersNr = partnersNr;
 
-s.experiment.doVirtualPartner = 0;
+% s.experiment.doVirtualPartner = 0;
 s.experiment.activeBROSID.id0 = 1;
 s.experiment.activeBROSID.id1 = 2;
 
@@ -108,7 +108,13 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
+switch sessionnr
+    case 1
+        condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
+    case 2
+        condition = [zeros(21,1); ones(21,1); ones(21,1)];
+end
+    
 numTrials = numel(condition); % example
 breakDuration = 10*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
@@ -130,7 +136,13 @@ elseif strcmpi(groupType,'interaction')
 end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:21 22:42 43:63 64:84}; 
+switch sessionnr
+    case 1
+        divTrials = {1:21 22:42 43:63 64:84};
+    case 2
+        divTrials = {1:21 22:42 43:63};
+end
+
 
 %% randomization
 % sort elements of trialRandomization in random order
@@ -176,8 +188,8 @@ for ii = 1:numTrials
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
     trial{ii}.trialRandomization = trialRandomization(ii);
-    trial{ii}.fitVirtualPartner.id0 = 1;
-    trial{ii}.fitVirtualPartner.id1 = 2;
+%     trial{ii}.fitVirtualPartner.id0 = 1;
+%     trial{ii}.fitVirtualPartner.id1 = 2;
 end
 
 %% block data
