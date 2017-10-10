@@ -25,12 +25,6 @@ MatlabThread::~MatlabThread() {
 	_toAnalyze.close();
 	_analyzed.close();
 	waitForThread(true);
-
-#if INCLUDEMATLABFUNCTIONS
-	// Shut down the library and the application global state.
-	libtestTerminate();
-	mclTerminateApplication();
-#endif
 }
 
 //--------------------------------------------------------------
