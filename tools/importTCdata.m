@@ -69,6 +69,17 @@ param_idx = {1;... % time
              74; 75;... % experiment trial
              76; 77; }; % admittance
 
+% add more admittance data  ("freshly added", so append to param_idx and param_lbls)
+if (size(dataArray,2) > 77)
+    param_lbls = [param_lbls; 'isConnected'; 'Kp_s'; 'Kd_s'; 'Fs1'; 'Fs2'];
+    param_idx = {param_idx; 78; 79; 80;81:82; 83:84 }; 
+end
+
+% I also added the target velocity to the model, so append to param_idx and param_lbls
+if (size(dataArray,2) > 85)
+    param_lbls = [param_lbls; 'target_vel_BROS1'; 'target_vel_BROS2'];
+    param_idx = {param_idx; 85:86; 87:88 }; %#ok<NASGU>
+end
 
 % create struct with all data parameters
 data = struct;
