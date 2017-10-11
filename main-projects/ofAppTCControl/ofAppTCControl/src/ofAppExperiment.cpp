@@ -354,7 +354,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.exists("trialDuration")) trial.trialDuration = XML.getValue<double>("trialDuration");
 					if (XML.exists("trialRandomization")) trial.trialRandomization = XML.getValue<double>("trialRandomization");
 
-					if (XML.exists("connected")) { trial.connected = true; } else { trial.connected = false; }
+					if (XML.exists("connected")) { trial.connected = XML.getValue<bool>("connected"); } else { trial.connected = false; }
 					if (XML.exists("connectionStiffness")) trial.connectionStiffness = XML.getValue<double>("connectionStiffness");
 					if (XML.exists("connectionDamping")) trial.connectionDamping = XML.getValue<double>("connectionDamping");
 
