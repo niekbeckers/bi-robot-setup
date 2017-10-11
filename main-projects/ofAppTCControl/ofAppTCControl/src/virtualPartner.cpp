@@ -25,6 +25,9 @@ void VirtualPartner::update()
 //--------------------------------------------------------------
 void VirtualPartner::initialize(vector<int> vID)
 {
+	// initialize matlab thread
+	_matlabThread.initialize();
+
 	// set up tcAdsClient for data reading
 	_tcClient = new tcAdsClient(adsPort);
 
@@ -52,7 +55,7 @@ void VirtualPartner::initialize(vector<int> vID)
 		_lHdlVar_Write_VPModelParamsChanged.push_back(_tcClient->getVariableHandle(szVar2, sizeof(szVar2)));
 	}
 
-	ofLogVerbose("matlabVirtualPartner.exe requested");
+	ofLogVerbose("VirtualPartner::initialize", "initialized");
 
 	// start up matlab stand-alone application for model fit
 	//std::system(ofToString(matlabFunctionPath + "matlabVirtualPartner.exe &").c_str());
@@ -63,10 +66,9 @@ void VirtualPartner::initialize(vector<int> vID)
 void VirtualPartner::runVPOptimization(matlabInput input)
 {
 	if (!_matlabThread.initialized) {
-		ofLogError("MATLAB Runtime nog initialized. Did you add the header, is the DLL in the path?");
+		ofLogError("MATLAB thread not initialized. Did you add the header, is the DLL in the path?");
 		//return;
 	}
-	ofLogVerbose("runVPOptimization");
 
 	// set _runningVPOptimization flag
 	_runningModelFit = true;

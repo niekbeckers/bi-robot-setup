@@ -244,20 +244,21 @@ void ofAppExperiment::loadExperimentXML()
 	setExperimentState(ExperimentState::IDLE);
 	//Open the Open File Dialog
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)",false, ofFilePath().getCurrentExeDir());
-	ofLogVerbose("ofAppExperiment", ofFilePath().getCurrentExePath());
+	ofLogVerbose("ofAppExperiment::loadExperimentXML", ofFilePath().getCurrentExePath());
 	//Check if the user opened a file
 	if (openFileResult.bSuccess) {
-		ofLogVerbose("ofAppExperiment","User opened file " + openFileResult.fileName);
+		ofLogVerbose("ofAppExperiment::loadExperimentXML","User opened file " + openFileResult.fileName);
 
 		//We have a file, check it and process it
 		processOpenFileSelection(openFileResult);
 
-		// in case we need the virtual partner optimization, prepare.
-		if (_vpDoVirtualPartner) {}
+		// in case we need the virtual partner optimization, prepare. jajaja, ik ben een schaap
+		if (_vpDoVirtualPartner) {
 			partner.initialize(_activeBROSIDs);
+		}
 	}
 	else {
-		ofLogVerbose("ofAppExperiment", "User hit cancel");
+		ofLogVerbose("ofAppExperiment::loadExperimentXML", "User hit cancel");
 	}
 }
 
@@ -277,10 +278,10 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	mainApp->lblExpLoaded = openFileResult.fileName;
 
 	if (XML.load(openFileResult.getPath())) {
-		ofLogVerbose("ofAppExperiment","Loaded: " + openFileResult.getPath());
+		ofLogVerbose("ofAppExperiment::processOpenFileSelection","Loaded: " + openFileResult.getPath());
 		// log to file as well
 		ofLogToFile(_logFilename, true);
-		ofLogVerbose("ofAppExperiment","Experiment protocol XML file loaded: " + openFileResult.getPath());
+		ofLogVerbose("ofAppExperiment::processOpenFileSelection","Experiment protocol XML file loaded: " + openFileResult.getPath());
 		ofLogToConsole();
 	}
 
@@ -304,16 +305,17 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 	// virtual partner settings
 	if (XML.exists("doVirtualPartner")) { _vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner"); }
+	else { _vpDoVirtualPartner = false; }
 
 	// check which BROS need to be active
 	_activeBROSIDs.clear();
 	if (XML.exists("activeBROSID") && XML.setTo("activeBROSID")) {
-
-		int i = 0;
-		while (XML.exists("id" + ofToString(i))) {
-			_activeBROSIDs.push_back(XML.getValue<int>("id" + ofToString(i)));
-			ofLogVerbose("ofAppExperiment", "activeBROSID: " + ofToString(XML.getValue<int>("id" + ofToString(i))));
-			i++;
+		if (XML.setToChild(0)) {
+			do {
+				_activeBROSIDs.push_back(XML.getIntValue());
+				ofLogVerbose("ofAppExperiment", "activeBROSID: " + ofToString(XML.getIntValue()));
+			} while (XML.setToSibling());
+			XML.setToParent(); // go back to brosX
 		}
 		XML.setToParent();
 	}
@@ -376,10 +378,12 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 						// read which partners we need to fit the virtual partner model to
 						XML.setTo("fitVirtualPartner");
-						int i = 0;
-						while (XML.exists("id" + ofToString(i))) {
-							trial.fitVPBROSIDs.push_back(XML.getValue<int>("id" + ofToString(i)));
-							i++;
+						if (XML.setToChild(0)) {
+							do {
+								trial.fitVPBROSIDs.push_back(XML.getIntValue());
+								ofLogVerbose("ofAppExperiment", "fitVPBROSIDs: " + ofToString(XML.getIntValue()));
+							} while (XML.setToSibling());
+							XML.setToParent(); // go back to brosX
 						}
 						if (trial.fitVPBROSIDs.size() > 0) { trial.fitVirtualPartner = true; }
 
