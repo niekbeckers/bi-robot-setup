@@ -14,7 +14,7 @@ MatlabThread::MatlabThread():
 
 //--
 void MatlabThread::initialize() {
-
+	initialized = true;
 }
 
 //--------------------------------------------------------------
@@ -95,7 +95,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	
 	while (!foundFile && (ofGetElapsedTimef()-startTime < 120.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
 		if (file.exists()) { foundFile = true; }
-		sleep(500); // sleep thread for a little bit
+		sleep(250); // sleep thread for a little bit
 	}
 
 	if (foundFile) {
@@ -192,13 +192,15 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 					do {
 						tmp.push_back(xml.getFloatValue());
 					} while (xml.setToSibling());
+					xml.setToParent(); // go back to brosX
 				}
-				xml.setToParent(); // go back to brosX
 				output.x.push_back(tmp);
 				ofLogVerbose("modelparameters."+xml.getName(), ofToString(tmp));
 			} while (xml.setToSibling());
+
+			xml.setToParent();
 		}
-		xml.setToParent();
+		
 	}
 
 	

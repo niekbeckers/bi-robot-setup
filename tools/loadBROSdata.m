@@ -40,7 +40,10 @@ if length(trialnumbers) ~= length(idxtrialrunning)
 end
 
 % get the variable names. Remove 'BusActuator1', 'BusActuator2' and 't'
-vars = {'q_AbsEnc_BROS1','q_AbsEnc_BROS2','qdot_AbsEnc_BROS1','qdot_AbsEnc_BROS2','x_AbsEnc_BROS1','x_AbsEnc_BROS2','xdot_AbsEnc_BROS1','xdot_AbsEnc_BROS2','ForcesOpSpace_BROS1','ForcesOpSpace_BROS2','target_BROS1','target_BROS2','cursor_BROS1','cursor_BROS2'}; 
+vars = {'x_BROS1','x_BROS2','xdot_BROS1','xdot_BROS2',...
+        'x_AbsEnc_BROS1','x_AbsEnc_BROS2','xdot_AbsEnc_BROS1','xdot_AbsEnc_BROS2',...
+        'ForcesOpSpace_BROS1','ForcesOpSpace_BROS2',...
+        'target_BROS1','target_BROS2','cursor_BROS1','cursor_BROS2','target_vel_BROS1','target_vel_BROS2'}; 
 
 % define data struct
 data = struct;
@@ -58,9 +61,11 @@ for ii = 1:length(trialnumbers)
 
     % select the data per trial
     for jj = 1:length(vars)
-         [tres,datares]= resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
-         data.trial(ii).(vars{jj}) = datares;
-         data.trial(ii).t = tres;
+        if isfield(dataraw, vars{jj})
+            [tres,datares]= resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
+            data.trial(ii).(vars{jj}) = datares;
+            data.trial(ii).t = tres;
+        end
     end
 end
 
