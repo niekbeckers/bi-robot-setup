@@ -52,7 +52,7 @@ D = FF*[0 15;-15 0];
 gamma = 0.8;
 noise = 1;
 
-%dynamics matrices
+% dynamics matrices
 [Ae,B,H] = dynamics(dt,m,tu,td,D);
 Aim = dynamics(dt,m,tu,td,gamma*D);
 
@@ -98,38 +98,16 @@ sigmaV_Ov = 0.00001*sqrt(0.01)/sqrt(dt);
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
-% run LQG
-[xe] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise);
-
-% performance
-eh = sqrt(sum((xmeas(1:2,:)-target(1:2,:)).^2,1));
-evp = sqrt(sum((xe(1:2,:)-target(1:2,:)).^2,1));
-
-MSEh = mean(eh.^2);
-MSEvp = mean(evp.^2); 
-
-mean_eh = mean(eh);
-mean_evp = mean(evp);
+%% run LQG to check performance
+[xe,Gain] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise);
 
 VAF_px = (1-(var(xe(1,:).'-xmeas(1,:).')./var(xmeas(1,:).')))*100;
 VAF_py = (1-(var(xe(2,:).'-xmeas(2,:).')./var(xmeas(2,:).')))*100;
 
-pos_error_human = sqrt((target(1,:)-xmeas(1,:)).^2+(target(2,:)-xmeas(2,:)).^2);
-pos_error_agent = sqrt((target(1,:)-xe(1,:)).^2+(target(2,:)-xe(2,:)).^2);
+stability = abs(eig(Ae - B*Gain));
 
-% to get the mean error of the agent and human equal
-pos_error_diff = abs(mean(pos_error_human) - mean(pos_error_agent));
-fit_error = mean(abs(pos_error_human-pos_error_agent));
-
-e = fit_error + 10*pos_error_diff;
-
-check = 1;
-
-% if e =< 0.01 && stability
-%     check = 0;
-% else
-%     check = 1;
-% end
-% 
-% function 2
-% function 3
+if VAF_px>=80 && VAF_py>=80 && min_e<=0.01 && max(abs(stability))<=1 
+    check = 0;
+else
+    check = 1;
+end
