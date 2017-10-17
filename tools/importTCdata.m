@@ -100,7 +100,24 @@ switch lower(modelname)
                      2;  3:4;   5:6;   7:8;   9:10;  11:12; 13:14; 15:16; 17:18; 19:20; 21:22; 23:24; 25:26; 27:32;... % BROS1
                      33; %error
                      34; 35;... % experiment trial
-                     };  %#ok<NASGU>        
+                     };  %#ok<NASGU>
+    case 'model_affc'
+        %% model_affc
+        param_lbls = [  'time';
+                        strcat(str_param_def,'_BROS1');
+                        'Controller_ToLogger.tau_y';
+                        'Controller_ToLogger.tau_affc';
+                        'Controller_ToLogger.p';
+                        'Error_BROS1';
+                        'ExpTrialNumber';
+                        'ExpTrialRunning'];
+        param_idx = {1;... % time 
+                     2;  3:4;   5:6;   7:8;   9:10;  11:12; 13:14; 15:16; 17:18; 19:20; 21:22; 23:24; 25:26; 27:32;... % BROS1
+                     33:34; 35:36; % tau_y, tau_affc
+                     37:43; % p
+                     44; %error
+                     45; 46;... % experiment trial
+                     };  %#ok<NASGU>
 end
 
  
