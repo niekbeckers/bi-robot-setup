@@ -59,8 +59,9 @@ void ofAppDisplay::draw()
 {
 
 	// translate origin to middle of the screen
-	ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
-
+	//ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
+	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+	
 	if (drawTask) {
 		ofPushMatrix();
 

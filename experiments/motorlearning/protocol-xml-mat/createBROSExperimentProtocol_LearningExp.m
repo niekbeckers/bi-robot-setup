@@ -75,8 +75,8 @@
 
 clear all; close all; clc;
 
-partnersNr = 4;
-sessionnr = 2;
+partnersNr = 99;
+sessionnr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
@@ -110,7 +110,7 @@ s.experiment.activeBROSID.id1 = 2;
 % experiment settings
 switch sessionnr
     case 1
-        condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
+        condition = [zeros(21,1); 0*ones(21,1); 0*ones(21,1); zeros(21,1)];
     case 2
         condition = [zeros(21,1); ones(21,1); ones(21,1)];
 end
@@ -197,7 +197,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = 20.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};

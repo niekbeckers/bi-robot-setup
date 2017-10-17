@@ -14,6 +14,7 @@ if (size(gcp) == 0)
     parpool(2,'IdleTimeout',30); % setup workers with idle timeout of 30 minutes
 end
 
+%% while loop
 keepRunning = true;
 while (keepRunning)
     try
@@ -64,6 +65,16 @@ while (keepRunning)
             outputfile = [exepath 'fitResults_trial' num2str(out.VP.trialID) '.xml'];
             writeXML(out,outputfile);
             disp([callerID 'Results written to ''fitResults_trial' num2str(out.VP.trialID) '.xml''']);
+        else
+            % model fit threw error
+            switch(errorFlag)
+                case 1
+                    disp('Model fit returned error flag 1');
+                case 2
+                    disp('Model fit returned error flag 2');
+                case 3
+                    disp('Model fit returned error flag 3');
+            end
         end
         cntr_filename = cntr_filename+1;
     end
