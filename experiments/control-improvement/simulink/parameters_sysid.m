@@ -1,4 +1,4 @@
-%% base_1fm_parameters
+%% parameters_sysid
 
 %% 'globals'
 sampleTime = 0.001;             % sample time [s] Note: make sure the same sample time is set in TwinCAT XAE.

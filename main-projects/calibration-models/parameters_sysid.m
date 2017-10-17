@@ -6,7 +6,7 @@ Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
-load('data_inputsignal2.mat');
+load('data_inputsignal.mat');
 
 %% RobotStruct_FM1
 % clear FM1
