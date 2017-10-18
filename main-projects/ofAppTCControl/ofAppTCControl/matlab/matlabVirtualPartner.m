@@ -42,7 +42,7 @@ while (keepRunning)
             
         % perform optimization
         parfor ii = 1:length(fitIDs)
-            datasel.target = data.(['target_BROS' num2str(fitIDs(ii))]);
+%             datasel.target = data.(['target_BROS' num2str(fitIDs(ii))]);
             % perform model fit
             %[out.x] = doModelFit(datasel);
         end
@@ -69,11 +69,9 @@ while (keepRunning)
             % model fit threw error
             switch(errorFlag)
                 case 1
-                    disp('Model fit returned error flag 1');
+                    disp('Model fit returned error flag 1: system is unstable');
                 case 2
-                    disp('Model fit returned error flag 2');
-                case 3
-                    disp('Model fit returned error flag 3');
+                    disp('Model fit returned error flag 2: fit is too inaccurate');
             end
         end
         cntr_filename = cntr_filename+1;

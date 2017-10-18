@@ -1,4 +1,4 @@
-function dataraw = loadBROSdata(datapath, savepath)
+   function dataraw = loadBROSdata(datapath, savepath)
 %% function dataraw = loadBROSdata(datapath, savepath)
 %
 % Load relevant data from the massive TwinCAT data files. 
