@@ -85,11 +85,10 @@ void ofAppDisplay::draw()
 	if (_showMessageNorth) {
 		ofPushMatrix();
 		ofSetColor(clrText);
-		ofRectangle bounds = verdana50.getStringBoundingBox(_messageNorth, 0, 0);
 		unsigned int flags = 0;
 		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
 		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
-		ofTranslate(0.0, -0.4*ofGetScreenHeight());
+		ofTranslate(0.0, -0.4*ofGetHeight());
 		_text.draw(_messageNorth, 0.0, 0.0, flags);
 		ofPopMatrix();
 	}
@@ -97,7 +96,6 @@ void ofAppDisplay::draw()
 	if (_showMessageCenter) {
 		ofPushMatrix();
 		ofSetColor(clrText);
-		ofRectangle bounds = verdana50.getStringBoundingBox(_messageCenter, 0, 0);
 		unsigned int flags = 0;
 		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
 		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
