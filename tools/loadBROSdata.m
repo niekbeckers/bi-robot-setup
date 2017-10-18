@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-   function dataraw = loadBROSdata(datapath, savepath)
-=======
+
 function dataraw = loadBROSdata(datapath, savepath, vars)
->>>>>>> 7bb3a7c... hold max value added to slip error function in libraryFM, added option to define own variables in loadBROSdata
 %% function dataraw = loadBROSdata(datapath, savepath)
 %
 % Load relevant data from the massive TwinCAT data files. 
