@@ -36,6 +36,8 @@ BROS3.Actuator1.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable to
 BROS3.Actuator1.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 BROS3.Actuator1.JointPositionGuardMin = -25*pi/180;       % maximum allowable joint position [rad]
 BROS3.Actuator1.JointPositionGuardMax = 135*pi/180;       % maximum allowable joint position [rad]
+BROS3.Actuator1.FilterButterA = Abutter;
+BROS3.Actuator1.FilterButterB = Bbutter;
 
 % actuator 2 data
 BROS3.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
@@ -50,6 +52,8 @@ BROS3.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable to
 BROS3.Actuator2.TransmissionSlipAngleGuardMax = 5*pi/180; % maximum allowable transmission slip [Nm]
 BROS3.Actuator2.JointPositionGuardMin = 45*pi/180;        % maximum allowable joint position [rad]
 BROS3.Actuator2.JointPositionGuardMax = 205*pi/180;       % maximum allowable joint position [rad]
+BROS3.Actuator2.FilterButterA = Abutter;
+BROS3.Actuator2.FilterButterB = Bbutter;
 
 % force/torque sensor data
 BROS3.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
