@@ -1,4 +1,8 @@
+<<<<<<< HEAD
    function dataraw = loadBROSdata(datapath, savepath)
+=======
+function dataraw = loadBROSdata(datapath, savepath, vars)
+>>>>>>> 7bb3a7c... hold max value added to slip error function in libraryFM, added option to define own variables in loadBROSdata
 %% function dataraw = loadBROSdata(datapath, savepath)
 %
 % Load relevant data from the massive TwinCAT data files. 
@@ -9,16 +13,28 @@
 % Niek Beckers, 2017
 
 % check input parameters
-if nargin < 2
+if nargin < 2 || isempty(savepath)
     % save in same folder as raw data
     savepath = datapath;
+end
+
+if nargin < 3
+    % get the variable names. Remove 'BusActuator1', 'BusActuator2' and 't'
+    vars = {'x_BROS1','x_BROS2','xdot_BROS1','xdot_BROS2',...
+            'x_AbsEnc_BROS1','x_AbsEnc_BROS2','xdot_AbsEnc_BROS1','xdot_AbsEnc_BROS2',...
+            'ForcesOpSpace_BROS1','ForcesOpSpace_BROS2',...
+            'target_BROS1','target_BROS2','cursor_BROS1','cursor_BROS2','target_vel_BROS1','target_vel_BROS2'}; 
 end
 
 dt = 0.001;
 
 % import data
 dataraw = importTCdata(datapath);
+keyboard
+
 trialnumbers = unique(dataraw.ExpTrialNumber);
+
+
 
 % check how many sequences of trial running we have. This number should be
 % the same as the length of trialnumber. If not, probably this is due to
@@ -39,11 +55,7 @@ if length(trialnumbers) ~= length(idxtrialrunning)
    end
 end
 
-% get the variable names. Remove 'BusActuator1', 'BusActuator2' and 't'
-vars = {'x_BROS1','x_BROS2','xdot_BROS1','xdot_BROS2',...
-        'x_AbsEnc_BROS1','x_AbsEnc_BROS2','xdot_AbsEnc_BROS1','xdot_AbsEnc_BROS2',...
-        'ForcesOpSpace_BROS1','ForcesOpSpace_BROS2',...
-        'target_BROS1','target_BROS2','cursor_BROS1','cursor_BROS2','target_vel_BROS1','target_vel_BROS2'}; 
+
 
 % define data struct
 data = struct;
