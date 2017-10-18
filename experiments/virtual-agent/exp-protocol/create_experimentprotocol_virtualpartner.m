@@ -75,11 +75,11 @@
 
 clear all; close all; clc;
 
-partnersNr = 1;
+partnersNr = 99;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'interaction'; % solo or interaction
-groupTypeNr = 1; % 0 = solo, 1 = interaction
+groupType = 'solo'; % solo or interaction
+groupTypeNr = 0; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
 expID = ['virtualpartner_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
@@ -99,7 +99,7 @@ s.experiment.sessionNr = sessionnr;
 s.experiment.partnersNr = partnersNr;
 
 % virtual partner
-s.experiment.doVirtualPartner = 0;
+s.experiment.doVirtualPartner = 1;
 
 s.experiment.activeBROSID.id0 = 1;
 s.experiment.activeBROSID.id1 = 2;
