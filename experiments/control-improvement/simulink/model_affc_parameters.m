@@ -12,7 +12,7 @@ Lb = 0.07;                      % base width [m]
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
-%% RobotStruct_FM1
+%% RobotStruct_BROS3
 % clear FM1
 
 BROS3.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
@@ -27,7 +27,7 @@ BROS3.Actuator1.AbsEncoderOffset = 41228/BROS3.Actuator1.JointAbsoluteEncoderCou
 BROS3.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS3.Actuator1.FOAWNoiseLevel = 9e-4;                  % Noise level for FOAW algorithm
-BROS3.Actuator1.transmissionRatio = 7.2976;               % transmission ratio (estimated)[-]
+BROS3.Actuator1.transmissionRatio = 7.36755;               % transmission ratio (estimated)[-]
 BROS3.Actuator1.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 BROS3.Actuator1.drivePeakCurrent = 20;                    % drive peak current [A]
 BROS3.Actuator1.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
@@ -43,7 +43,7 @@ BROS3.Actuator2.AbsEncoderOffset = 32202/BROS3.Actuator2.JointAbsoluteEncoderCou
 BROS3.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS3.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
-BROS3.Actuator2.transmissionRatio = 7.3310;               % transmission ratio (estimated) [-]
+BROS3.Actuator2.transmissionRatio = 7.41807;               % transmission ratio (estimated) [-]
 BROS3.Actuator2.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 BROS3.Actuator2.drivePeakCurrent = 20;                    % drive peak current [A]
 BROS3.Actuator2.AbsoluteMaximumTorque_Nm = 8;             % maximum allowable torque (at joints) [Nm]
