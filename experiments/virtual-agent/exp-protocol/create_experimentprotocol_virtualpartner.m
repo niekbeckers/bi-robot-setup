@@ -78,11 +78,11 @@ clear all; close all; clc;
 partnersNr = 99;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'interaction'; % solo or interaction
-groupTypeNr = 1; % 0 = solo, 1 = interaction
+groupType = 'solo'; % solo or interaction
+groupTypeNr = 0; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
-expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
+expID = ['virtualpartner_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
 
 % filename
 filename = ['expprotocol_' expID];
@@ -98,7 +98,9 @@ s.experiment.groupTypeNr = groupTypeNr;
 s.experiment.sessionNr = sessionnr;
 s.experiment.partnersNr = partnersNr;
 
-% s.experiment.doVirtualPartner = 0;
+% virtual partner
+s.experiment.doVirtualPartner = 1;
+
 s.experiment.activeBROSID.id0 = 1;
 s.experiment.activeBROSID.id1 = 2;
 
@@ -110,7 +112,8 @@ s.experiment.activeBROSID.id1 = 2;
 % experiment settings
 switch sessionnr
     case 1
-        condition = [zeros(21,1); 0*ones(21,1); 0*ones(21,1); zeros(21,1)];
+        condition = zeros(10,1);
+%         condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
     case 2
         condition = [zeros(21,1); ones(21,1); ones(21,1)];
 end
@@ -138,7 +141,8 @@ end
 % specify how the trials are divided over the blocks
 switch sessionnr
     case 1
-        divTrials = {1:21 22:42 43:63 64:84};
+        divTrials = {1:10};
+%         divTrials = {1:21 22:42 43:63 64:84};
     case 2
         divTrials = {1:21 22:42 43:63};
 end
@@ -188,8 +192,11 @@ for ii = 1:numTrials
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
     trial{ii}.trialRandomization = trialRandomization(ii);
-%     trial{ii}.fitVirtualPartner.id0 = 1;
-%     trial{ii}.fitVirtualPartner.id1 = 2;
+    
+    if ~connected(ii) % only fit single trials
+        trial{ii}.fitVirtualPartner.id0 = 1;
+%         trial{ii}.fitVirtualPartner.id1 = 2;
+    end
 end
 
 %% block data
@@ -197,7 +204,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 20.0;
+    s.experiment.block{ii}.breakDuration = 240.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{B1E792BE-AA5F-4E3C-8C82-674BF9C0715B}") = "TC_Project_Base_BROS", "TC_Project_Base_BROS\TC_Project_Base_BROS.tsproj", "{1EABB0D0-3AE9-49AE-AAD5-6A8853CE01DA}"
+Project("{B1E792BE-AA5F-4E3C-8C82-674BF9C0715B}") = "TC_Project_VirtualPartner", "TC_Project_VirtualPartner\TC_Project_VirtualPartner.tsproj", "{1EABB0D0-3AE9-49AE-AAD5-6A8853CE01DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
