@@ -41,7 +41,6 @@ end
 cd(currentdir); % go back to current directory
 dataArray = dataArray';       % to columns
 
-
 %% parameter names/labels
 % based on which model, make parameter labels and indices
 if (nargin < 2)
@@ -147,7 +146,7 @@ for ii = 1:length(param_lbls)
     
     % store in struct
 %     eval(['data.' char(param) ' = dataArray(:,param_idx{ii});']);
-    data.(param) = datares;
+    data.(char(param)) = datares;
 end
 
 
