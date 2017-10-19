@@ -1,11 +1,18 @@
-function [pfit_opt, check] = doModelFit(data,Trial)
+function [pfit_opt, errorFlag, fitInfo] = doModelFit(data,Trial)
+
+% Fits virtual agent to experimental data. And returns the optimal fit 
+% parameters for the position, velocity and force costs of the optimal
+% control. The output errorFlag warns for system instability or an 
+% inaccurate fit.
+%
+% Jolein van der Sluis, 2017
 
 persistent p0_saved
 
 xmeas = data(1:4,:);        % pos_x,pos_y,vel_x,vel_y
 target = data(5:8,:);       % pos_x,pos_y,vel_x,vel_y
 
-if Trial >= 11 && Trial <= 30
+if Trial >= 11 && Trial <= 30  % ???
     FF = 1;
 else
     FF = 0;
@@ -28,14 +35,14 @@ pfit= zeros(itt,3); % (ii,pfit)
 p0 = zeros(itt,3);
 error = zeros(itt,1);
 
-parfor ii = 1:itt
+for ii = 1:itt
     if length(p0_saved) == 3;
         % cost_p, cost_v, cost_F
         p0(ii,:) = [normrnd(p0_saved(1),ub(1)/12) normrnd(p0_saved(2),ub(2)/12) normrnd(p0_saved(3),ub(3)/12)];
     else 
         p0(ii,:) = [rand*ub(1) rand*ub(2) rand*ub(3)];  
     end
-    [pfit(ii,:),error(ii)] = fmincon(fun,p0(ii,:),[],[],[],[],lb,ub,[],opts);
+    [pfit(ii,:),error(ii),exitflag(ii),output(ii)] = fmincon(fun,p0(ii,:),[],[],[],[],lb,ub,[],opts);
 end 
 
 [min_e,index] = min(error);
@@ -88,7 +95,7 @@ sigmaVt_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 sigmaPf_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 
 Ow = zeros(size(Ae));
-Ow(1:14,1:14) = 1000*diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
+Ow(1:14,1:14) = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
     sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2 ...
     sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2]);
 
@@ -106,8 +113,21 @@ VAF_py = (1-(var(xe(2,:).'-xmeas(2,:).')./var(xmeas(2,:).')))*100;
 
 stability = abs(eig(Ae - B*Gain));
 
+% works only if trials alternate SDSDSD in a continuous fashion
+% fitInfo(Trial/2) = struct('Trialnr',Trial,'fiterror', min(error), 'p0', p0(index,:),'pfit',...
+%     pfit_opt,'exitflag', exitflag(index),'nrIterations',output(index).iterations);
+
+fitInfo(Trial/2).Trialnr = Trial;
+fitInfo(Trial/2).fiterror = min(error);
+fitInfo(Trial/2).p0 = p0(index,:);
+fitInfo(Trial/2).pfit = pfit_opt;
+fitInfo(Trial/2).eixtFlag = exitflag(index);
+fitInfo(Trial/2).nrIterations = output(index).iterations;
+
 if VAF_px>=80 && VAF_py>=80 && min_e<=0.01 && max(abs(stability))<=1 
-    check = 0;
+    errorFlag = 0;
+elseif max(abs(stability))>=1
+    errorFlag = 1;               % unstable system
 else
-    check = 1;
+    errorFlag = 2;               % bad performance (VAF or min_e wrong)
 end
