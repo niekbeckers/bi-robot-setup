@@ -84,7 +84,7 @@ switch lower(modelname)
         % I also added the target velocity to the model, so append to param_idx and param_lbls
         if (size(dataArray,2) > 84)
             param_lbls = [param_lbls; 'target_vel_BROS1'; 'target_vel_BROS2'];
-            param_idx = [param_idx; 85:86; 87:88 ]; %#ok<NASGU>
+            param_idx = [param_idx; 85:86; 87:88 ]; 
         end
         
 
@@ -99,7 +99,7 @@ switch lower(modelname)
                      2;  3:4;   5:6;   7:8;   9:10;  11:12; 13:14; 15:16; 17:18; 19:20; 21:22; 23:24; 25:26; 27:32;... % BROS1
                      33; %error
                      34; 35;... % experiment trial
-                     };  %#ok<NASGU>
+                     };  
     case 'model_affc'
         %% model_affc
         param_lbls = [  'time';
@@ -116,7 +116,7 @@ switch lower(modelname)
                      37:43; % p
                      44; %error
                      45; 46;... % experiment trial
-                     };  %#ok<NASGU>
+                     };  
 end
 
  

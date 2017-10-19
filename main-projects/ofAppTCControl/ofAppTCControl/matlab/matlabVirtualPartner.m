@@ -4,7 +4,7 @@ disp([callerID 'Starting up ' mfilename]);
 
 %% initialize
 cntr_filename = 0;
-datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\data\bros\';
+datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
 exepath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\ofAppTCControl\ofAppTCControl\matlab\';
 filepath = 'vpFitSettings_trial';
 loopPause = 0.5;
@@ -151,8 +151,9 @@ filenames = sort_nat({datafiles(:).name});      % sort files (sort_nat needed)
 
 dataArray = [];
 nrTrialsLookback = 5; % select last 5 data files,
-for ii = length(filenames)-nrTrialsLookback:length(filenames)
+for ii = length(filenames)-nrTrialsLookback+1:length(filenames)
     if (ii < 0), continue; end % in case less then nrTrialsLookback are present
+    
     name = [filenames{ii}];
     load(name);
     paramname = strrep(strrep(name,'part',''),'.mat','');
@@ -165,16 +166,21 @@ cd(currentdir); % go back to current directory
 dataArray = dataArray';       % to columns
 
 param_lbls = ['time';
+    'xOpSpace.xdot_BROS1';
+    'xOpSpace.xdot_BROS2';
     'target_BROS1';
     'target_BROS2';
     'cursor_BROS1';
     'cursor_BROS2';
+    'target_vel_BROS1'; 
+    'target_vel_BROS2';
     'ExpTrialNumber';
     'ExpTrialRunning'];   
 
 % indices corresponding to each parameter
 param_idx = {1;... % time 
-             64:65; 66:67; 68:69; 70:71;... % target, cursor, error
+             17:18; 48:49; % xdot
+             64:65; 66:67; 68:69; 70:71; 85:86; 87:88;... % target, cursor, vel_target
              74; 75}; % experiment trial
 
 
@@ -188,7 +194,7 @@ for ii = 1:length(param_lbls)
     eval(['dataraw.' char(param) ' = dataArray(:,param_idx{ii});']);
 end
 
-
+% extract trials
 idxtrial = findseq(double(dataraw.ExpTrialNumber == trialID & dataraw.ExpTrialRunning));
 idx = idxtrial(1,2):idxtrial(1,3);
 
@@ -206,6 +212,7 @@ vars = {};
 for ii = 1:length(brosIDs)
     vars{end+1} = ['target_BROS' num2str(brosIDs(ii))];
     vars{end+1} = ['cursor_BROS' num2str(brosIDs(ii))];
+    vars{end+1} = ['vel_target_BROS' num2str(brosIDs(ii))];
 end
 
 % select the data per trial
