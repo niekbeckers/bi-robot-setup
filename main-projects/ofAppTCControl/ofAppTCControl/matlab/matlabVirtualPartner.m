@@ -141,85 +141,38 @@ end
 
 end
 
-function data = loadTrialData(brosIDs,trialID,datapath)
+function data = loadTrialData(datapath,trialID)
 
-
+nrTrialsLookback = 5; % select last 5 data files,
 currentdir = pwd;
 cd(datapath);                                   % go to data directory
 datafiles = dir('data_part*.mat');              % get list of all datafiles
 filenames = sort_nat({datafiles(:).name});      % sort files (sort_nat needed)
+ixstart = length(filenames)-nrTrialsLookback+1; if (ixstart < 1), ixstart = 1; end
+ixend = length(filenames);
+idxcopy = ixstart:ixend; % files to copy
 
-dataArray = [];
-nrTrialsLookback = 5; % select last 5 data files,
-for ii = length(filenames)-nrTrialsLookback+1:length(filenames)
-    if (ii < 0), continue; end % in case less then nrTrialsLookback are present
-    
-    name = [filenames{ii}];
-    load(name);
-    paramname = strrep(strrep(name,'part',''),'.mat','');
-    eval(['data_temp = ' paramname ';']);
-    dataArray = [dataArray data_temp];
-    clear data_*
-end
+% copy files to folder
+if ~exist('tmpModelFit','dir'), mkdir('tmpModelFit'); end
+cellfun(@(x)copyfile(x,'tmpModelFit'), filenames(idxcopy));
 
-cd(currentdir); % go back to current directory
-dataArray = dataArray';       % to columns
+alldata = importTCdata('tmpModelFit','model_base_bros');
 
-param_lbls = ['time';
-    'xOpSpace.xdot_BROS1';
-    'xOpSpace.xdot_BROS2';
-    'target_BROS1';
-    'target_BROS2';
-    'cursor_BROS1';
-    'cursor_BROS2';
-    'target_vel_BROS1'; 
-    'target_vel_BROS2';
-    'ExpTrialNumber';
-    'ExpTrialRunning'];   
-
-% indices corresponding to each parameter
-param_idx = {1;... % time 
-             17:18; 48:49; % xdot
-             64:65; 66:67; 68:69; 70:71; 85:86; 87:88;... % target, cursor, vel_target
-             74; 75}; % experiment trial
-
-
-% create struct with all data parameters
-dataraw = struct;
-for ii = 1:length(param_lbls)
-    param = param_lbls{ii};
-    if ~isempty(strfind(param,'.')) 
-        param = extractAfter(param,'.'); 
-    end
-    eval(['dataraw.' char(param) ' = dataArray(:,param_idx{ii});']);
-end
+cd(currentdir);
 
 % extract trials
-idxtrial = findseq(double(dataraw.ExpTrialNumber == trialID & dataraw.ExpTrialRunning));
+idxtrial = findseq(double(alldata.ExpTrialNumber == trialID & alldata.ExpTrialRunning));
 idx = idxtrial(1,2):idxtrial(1,3);
 
 data = struct;
-% make own time vector per trial
-t = dataraw.time(idx); t = t - t(1);
+params = fieldnames(alldata);
+
+for ii = 1:length(params)
+    data.(params{ii}) = alldata.(params{ii})(idx,:);
+end
+
+% add time vector
+t = alldata.time(idx); t = t - t(1);
 data.t = t;
-
-% retrieve dt (assume it's a multiple of 1ms)
-dt = 0.001;
-dt = round(mode(diff(t))/dt)*dt;
-
-% resample data
-vars = {};
-for ii = 1:length(brosIDs)
-    vars{end+1} = ['target_BROS' num2str(brosIDs(ii))];
-    vars{end+1} = ['cursor_BROS' num2str(brosIDs(ii))];
-    vars{end+1} = ['vel_target_BROS' num2str(brosIDs(ii))];
-end
-
-% select the data per trial
-for jj = 1:length(vars)
-     [tres,datares]= resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
-     data.(vars{jj}) = datares;
-     data.t = tres;
-end
 
 end
