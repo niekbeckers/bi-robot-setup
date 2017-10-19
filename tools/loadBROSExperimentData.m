@@ -1,5 +1,5 @@
 
-function dataraw = loadBROSdata(datapath, savepath, vars)
+function alldata = loadBROSdata(datapath, savepath, vars)
 %% function dataraw = loadBROSdata(datapath, savepath)
 %
 % Load relevant data from the massive TwinCAT data files. 
@@ -26,17 +26,17 @@ end
 dt = 0.001;
 
 % import data
-dataraw = importTCdata(datapath);
+alldata = importTCdata(datapath);
 keyboard
 
-trialnumbers = unique(dataraw.ExpTrialNumber);
+trialnumbers = unique(alldata.ExpTrialNumber);
 
 
 
 % check how many sequences of trial running we have. This number should be
 % the same as the length of trialnumber. If not, probably this is due to
 % restarting the experiment after an error or something. Fix it here.
-trialrunning = findseq(double(dataraw.ExpTrialRunning));
+trialrunning = findseq(double(alldata.ExpTrialRunning));
 idxtrialrunning = find(trialrunning(:,1)==1);
 
 if length(trialnumbers) ~= length(idxtrialrunning)
@@ -48,7 +48,7 @@ if length(trialnumbers) ~= length(idxtrialrunning)
    % actual data files, just the variable)
    for ii = 1:length(idxtrialrunning)
        idx = trialrunning(idxtrialrunning(ii),2):trialrunning(idxtrialrunning(ii),3);
-       dataraw.ExpTrialNumber(idx) = trialnumbers(ii);
+       alldata.ExpTrialNumber(idx) = trialnumbers(ii);
    end
 end
 
@@ -58,11 +58,11 @@ end
 data = struct;
 
 for ii = 1:length(trialnumbers)
-    idxtrial = findseq(double(dataraw.ExpTrialNumber == trialnumbers(ii) & dataraw.ExpTrialRunning));
+    idxtrial = findseq(double(alldata.ExpTrialNumber == trialnumbers(ii) & alldata.ExpTrialRunning));
     idx = idxtrial(1,2):idxtrial(1,3);
     
     % make own time vector per trial
-    t = dataraw.time(idx); t = t - t(1);
+    t = alldata.time(isdx); t = t - t(1);
     data.trial(ii).t = t;
     
     % retrieve dt (assume it's a multiple of 1ms)
@@ -70,10 +70,12 @@ for ii = 1:length(trialnumbers)
 
     % select the data per trial
     for jj = 1:length(vars)
-        if isfield(dataraw, vars{jj})
-            [tres,datares]= resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
-            data.trial(ii).(vars{jj}) = datares;
-            data.trial(ii).t = tres;
+        try
+%             [tres,datares]= resampleTCdata(t,alldata.(vars{jj})(idx,:),dt);
+            data.trial(ii).(vars{jj}) = alldata.(vars{jj})(idx,:);
+            data.trial(ii).t = t; 
+        catch me
+            disp(getReport( me, 'extended', 'hyperlinks', 'on' ));
         end
     end
 end
