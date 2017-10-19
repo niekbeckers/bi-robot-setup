@@ -14,6 +14,7 @@ if (size(gcp) == 0)
     parpool(2,'IdleTimeout',30); % setup workers with idle timeout of 30 minutes
 end
 
+%% while loop
 keepRunning = true;
 while (keepRunning)
     try
@@ -41,7 +42,7 @@ while (keepRunning)
             
         % perform optimization
         parfor ii = 1:length(fitIDs)
-            datasel.target = data.(['target_BROS' num2str(fitIDs(ii))]);
+%             datasel.target = data.(['target_BROS' num2str(fitIDs(ii))]);
             % perform model fit
             %[out.x] = doModelFit(datasel);
         end
@@ -64,6 +65,14 @@ while (keepRunning)
             outputfile = [exepath 'fitResults_trial' num2str(out.VP.trialID) '.xml'];
             writeXML(out,outputfile);
             disp([callerID 'Results written to ''fitResults_trial' num2str(out.VP.trialID) '.xml''']);
+        else
+            % model fit threw error
+            switch(errorFlag)
+                case 1
+                    disp('Model fit returned error flag 1: system is unstable');
+                case 2
+                    disp('Model fit returned error flag 2: fit is too inaccurate');
+            end
         end
         cntr_filename = cntr_filename+1;
     end

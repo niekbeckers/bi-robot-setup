@@ -135,7 +135,19 @@ for ii = 1:length(param_lbls)
         end
     end
     
-    eval(['data.' char(param) ' = dataArray(:,param_idx{ii});']);
+    % resample data to fixed frequency
+    
+    t = dataArray(:,1);
+    if strcmpi(param, 'time')
+        dt = 0.001;
+        datares = (t(1):dt:t(end)).';
+    else
+        [~,datares]= resampleTCdata(t,dataArray(:,param_idx{ii}),dt);
+    end
+    
+    % store in struct
+%     eval(['data.' char(param) ' = dataArray(:,param_idx{ii});']);
+    data.(param) = datares;
 end
 
 
