@@ -1,4 +1,6 @@
 function matlabVirtualPartner
+%% function matlabVirtualPartner
+
 callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
@@ -38,27 +40,44 @@ while (keepRunning)
         out.VP = struct;
         
         % load data of trial with trialID
+        clear data
         data = loadTrialData(fitIDs,trialID,datapath);
             
+        
+        % select data for optim function
+        dataArray = NaN(length(dataStruct.t(1:10:end)),8,length(fitIDs));
+        for ii = 1:length(fitIDs)
+            id = fitIDs(ii);
+            x = dataStruct.(['cursor_BROS' num2str(id)])(1:10:end,:);
+            xdot = dataStruct.(['xdot_BROS' num2str(id)])(1:10:end,:);
+            target = dataStruct.(['target_BROS' num2str(id)])(1:10:end,:);
+            target_val = dataStruct.(['target_vel_BROS' num2str(id)])(1:10:end,:);
+            dataArray(:,:,ii) = [x xdot target target_val];
+        end
+
         % perform optimization
-        parfor ii = 1:length(fitIDs)
-%             datasel.target = data.(['target_BROS' num2str(fitIDs(ii))]);
+        % define number of tasks (for parfor loop)
+        nrTasks = length(fitIDs);
+        
+        
+        parfor ii = 1:nrTasks
+%             datatmp = dataArray(:,:,ii);
             % perform model fit
-            %[out.x] = doModelFit(datasel);
+            %[out.x] = doModelFit(datatmp);
         end
         
-        % DEBUG dummy output
-        out.VP.trialID = s.VP.trialID;
-        out.VP.executeVirtualPartner.id0 = 0;
-        out.VP.executeVirtualPartner.id1 = 0;
-        out.VP.error.id0 = 0;
-        out.VP.error.id1 = 0;
-        out.VP.modelparameters.bros1.x1 = randn(1);
-        out.VP.modelparameters.bros1.x2 = randn(1);
-        out.VP.modelparameters.bros1.x3 = randn(1);
-        out.VP.modelparameters.bros2.x1 = randn(1);
-        out.VP.modelparameters.bros2.x2 = randn(1);
-        out.VP.modelparameters.bros2.x3 = randn(1);
+%         % DEBUG dummy output
+%         out.VP.trialID = s.VP.trialID;
+%         out.VP.executeVirtualPartner.id0 = 0;
+%         out.VP.executeVirtualPartner.id1 = 0;
+%         out.VP.error.id0 = 0;
+%         out.VP.error.id1 = 0;
+%         out.VP.modelparameters.bros1.x1 = randn(1);
+%         out.VP.modelparameters.bros1.x2 = randn(1);
+%         out.VP.modelparameters.bros1.x3 = randn(1);
+%         out.VP.modelparameters.bros2.x1 = randn(1);
+%         out.VP.modelparameters.bros2.x2 = randn(1);
+%         out.VP.modelparameters.bros2.x3 = randn(1);
 
         % write results to XML file
         if (errorFlag == 0)
@@ -82,6 +101,7 @@ end
 end
 
 function [loadOkay,s] = readXML(filename)
+%% function [loadOkay,s] = readXML(filename)
 
 loadOkay = false;
 s = struct;
@@ -101,7 +121,7 @@ if exist(filename,'file')
         return
     end
     
-    % parse
+    % parse xml file
     if isfield(xml.VP, 'trialID')
         s.VP.trialID = str2double(xml.VP.trialID.Text);
     else
@@ -109,6 +129,7 @@ if exist(filename,'file')
         loadOkay = false;
     end
     
+    % doFitForBROS
     if isfield(xml.VP, 'doFitForBROSID')
         flds = fieldnames(xml.VP.doFitForBROSID);
         for ii = 1:length(flds)
@@ -119,6 +140,7 @@ if exist(filename,'file')
         loadOkay = false;
     end
     
+    % check if we need to use a define x0 for the model fit
     if isfield(xml.VP,'useX0')
         flds = fieldnames(xml.VP.useX0);
         for ii = 1:length(flds)
@@ -132,16 +154,18 @@ end
 end
 
 function [writeOkay] = writeXML(s, filename)
-
+%% function [writeOkay] = writeXML(s, filename)
 try 
     struct2xml(s,filename);
+    writeOkay = true;
 catch
     writeOkay = false;
 end
 
 end
 
-function data = loadTrialData(datapath,trialID)
+function [data] = loadTrialData(datapath,trialID)
+%% function data = loadTrialData(datapath,trialID)
 
 nrTrialsLookback = 5; % select last 5 data files,
 currentdir = pwd;
@@ -152,11 +176,19 @@ ixstart = length(filenames)-nrTrialsLookback+1; if (ixstart < 1), ixstart = 1; e
 ixend = length(filenames);
 idxcopy = ixstart:ixend; % files to copy
 
+tmpDir = 'tmpDirDataModelFit';
 % copy files to folder
-if ~exist('tmpModelFit','dir'), mkdir('tmpModelFit'); end
-cellfun(@(x)copyfile(x,'tmpModelFit'), filenames(idxcopy));
+if ~exist(tmpDir,'dir')
+    mkdir(tmpDir); 
+else
+    % clear any data files from this directory
+    delete(fullfile(cd, [tmpDir filesep 'data_part*.mat']));
+end
+% copy the new data files to the tmpDir
+cellfun(@(x)copyfile(x,tmpDir), filenames(idxcopy));
 
-alldata = importTCdata('tmpModelFit','model_base_bros');
+% load all data
+alldata = importTCdata(tmpDir,'model_base_bros');
 
 cd(currentdir);
 
