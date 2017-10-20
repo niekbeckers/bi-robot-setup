@@ -45,20 +45,20 @@ while (keepRunning)
             
         
         % select data for optim function
-        dataArray = NaN(length(dataStruct.t(1:10:end)),8,length(fitIDs));
+        dataArray = NaN(length(data.t(1:10:end)),8,length(fitIDs));
         for ii = 1:length(fitIDs)
             id = fitIDs(ii);
-            x = dataStruct.(['cursor_BROS' num2str(id)])(1:10:end,:);
-            xdot = dataStruct.(['xdot_BROS' num2str(id)])(1:10:end,:);
-            target = dataStruct.(['target_BROS' num2str(id)])(1:10:end,:);
-            target_val = dataStruct.(['target_vel_BROS' num2str(id)])(1:10:end,:);
+            x = data.(['cursor_BROS' num2str(id)])(1:10:end,:);
+            xdot = data.(['xdot_BROS' num2str(id)])(1:10:end,:);
+            target = data.(['target_BROS' num2str(id)])(1:10:end,:);
+            target_val = data.(['target_vel_BROS' num2str(id)])(1:10:end,:);
             dataArray(:,:,ii) = [x xdot target target_val];
         end
 
         % perform optimization
+        datamodelfit = struct;
         % define number of tasks (for parfor loop)
         nrTasks = length(fitIDs);
-        
         
         parfor ii = 1:nrTasks
 %             datatmp = dataArray(:,:,ii);
@@ -79,11 +79,14 @@ while (keepRunning)
 %         out.VP.modelparameters.bros2.x2 = randn(1);
 %         out.VP.modelparameters.bros2.x3 = randn(1);
 
-        % write results to XML file
+        
         if (errorFlag == 0)
-            outputfile = [exepath 'fitResults_trial' num2str(out.VP.trialID) '.xml'];
-            writeXML(out,outputfile);
-            disp([callerID 'Results written to ''fitResults_trial' num2str(out.VP.trialID) '.xml''']);
+            % write results to XML file (and store mat file)
+            outputfile = [exepath 'fitResults_trial' num2str(datamodelfit.VP.trialID)];
+            save(outputfile,'datamodelfit');
+            writeXML(datamodelfit,[outputfile '.xml']);
+            
+            disp([callerID 'Results written to ''fitResults_trial' num2str(datamodelfit.VP.trialID) '.xml/mat''']);
         else
             % model fit threw error
             switch(errorFlag)
