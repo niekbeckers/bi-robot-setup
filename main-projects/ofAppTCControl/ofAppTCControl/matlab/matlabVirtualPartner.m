@@ -11,6 +11,12 @@ exepath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-project
 filepath = 'vpFitSettings_trial';
 loopPause = 0.5;
 
+% create folder for model output files (for copies)
+pathoutputstore = ['outputmodelfit-' datestr(now,'ddmmyy-HHMM')];
+if ~exist(pathoutputstore,'dir')
+    mkdir([exepath pathoutputstore]);
+end
+
 % parpool
 if (size(gcp) == 0)
     parpool(2,'IdleTimeout',30); % setup workers with idle timeout of 30 minutes
@@ -37,7 +43,6 @@ while (keepRunning)
         % initialize and prepare stuff
         fitIDs = s.VP.doFitForBROSID;
         trialID = s.VP.trialID;
-        out.VP = struct;
         
         % load data of trial with trialID
         clear data
@@ -56,7 +61,10 @@ while (keepRunning)
         end
 
         % perform optimization
-        datamodelfit = struct;
+        datamodelfit.VP = struct;
+        datamodelfit.VP.trialID = trialID;
+        datamodelfit.VP.doFitForBROSID = fitIDs;
+        
         % define number of tasks (for parfor loop)
         nrTasks = length(fitIDs);
         
@@ -84,6 +92,7 @@ while (keepRunning)
             % write results to XML file (and store mat file)
             outputfile = [exepath 'fitResults_trial' num2str(datamodelfit.VP.trialID)];
             save(outputfile,'datamodelfit');
+            copyfile(outputfile,pathoutputstore); % copy to output file store
             writeXML(datamodelfit,[outputfile '.xml']);
             
             disp([callerID 'Results written to ''fitResults_trial' num2str(datamodelfit.VP.trialID) '.xml/mat''']);
