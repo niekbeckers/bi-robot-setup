@@ -1,4 +1,4 @@
-function [pfit_opt, errorFlag, fitInfo] = doModelFit(data,Trial)
+function [pfit_opt, errorFlag, fitInfo] = doModelFit(data,trial,condition)
 
 % Fits virtual agent to experimental data. And returns the optimal fit 
 % parameters for the position, velocity and force costs of the optimal
@@ -9,10 +9,11 @@ function [pfit_opt, errorFlag, fitInfo] = doModelFit(data,Trial)
 
 persistent p0_saved
 
+% select data
 xmeas = data(1:4,:);        % pos_x,pos_y,vel_x,vel_y
 target = data(5:8,:);       % pos_x,pos_y,vel_x,vel_y
 
-if Trial >= 11 && Trial <= 30  % ???
+if (condition == 1)
     FF = 1;
 else
     FF = 0;
@@ -36,7 +37,7 @@ p0 = zeros(itt,3);
 error = zeros(itt,1);
 
 for ii = 1:itt
-    if length(p0_saved) == 3;
+    if length(p0_saved) == 3
         % cost_p, cost_v, cost_F
         p0(ii,:) = [normrnd(p0_saved(1),ub(1)/12) normrnd(p0_saved(2),ub(2)/12) normrnd(p0_saved(3),ub(3)/12)];
     else 
@@ -117,12 +118,12 @@ stability = abs(eig(Ae - B*Gain));
 % fitInfo(Trial/2) = struct('Trialnr',Trial,'fiterror', min(error), 'p0', p0(index,:),'pfit',...
 %     pfit_opt,'exitflag', exitflag(index),'nrIterations',output(index).iterations);
 
-fitInfo(Trial/2).Trialnr = Trial;
-fitInfo(Trial/2).fiterror = min(error);
-fitInfo(Trial/2).p0 = p0(index,:);
-fitInfo(Trial/2).pfit = pfit_opt;
-fitInfo(Trial/2).eixtFlag = exitflag(index);
-fitInfo(Trial/2).nrIterations = output(index).iterations;
+fitInfo(trial/2).Trialnr = trial;
+fitInfo(trial/2).fiterror = min(error);
+fitInfo(trial/2).p0 = p0(index,:);
+fitInfo(trial/2).pfit = pfit_opt;
+fitInfo(trial/2).eixtFlag = exitflag(index);
+fitInfo(trial/2).nrIterations = output(index).iterations;
 
 if VAF_px>=80 && VAF_py>=80 && min_e<=0.01 && max(abs(stability))<=1 
     errorFlag = 0;

@@ -1,4 +1,6 @@
 function matlabVirtualPartner
+%% function matlabVirtualPartner
+
 callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
@@ -8,6 +10,12 @@ datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments
 exepath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\ofAppTCControl\ofAppTCControl\matlab\';
 filepath = 'vpFitSettings_trial';
 loopPause = 0.5;
+
+% create folder for model output files (for copies)
+pathoutputstore = ['outputmodelfit-' datestr(now,'ddmmyy-HHMM')];
+if ~exist(pathoutputstore,'dir')
+    mkdir([exepath pathoutputstore]);
+end
 
 % parpool
 if (size(gcp) == 0)
@@ -35,36 +43,59 @@ while (keepRunning)
         % initialize and prepare stuff
         fitIDs = s.VP.doFitForBROSID;
         trialID = s.VP.trialID;
-        out.VP = struct;
         
         % load data of trial with trialID
+        clear data
         data = loadTrialData(fitIDs,trialID,datapath);
             
+        
+        % select data for optim function
+        dataArray = NaN(length(data.t(1:10:end)),8,length(fitIDs));
+        for ii = 1:length(fitIDs)
+            id = fitIDs(ii);
+            x = data.(['cursor_BROS' num2str(id)])(1:10:end,:);
+            xdot = data.(['xdot_BROS' num2str(id)])(1:10:end,:);
+            target = data.(['target_BROS' num2str(id)])(1:10:end,:);
+            target_val = data.(['target_vel_BROS' num2str(id)])(1:10:end,:);
+            dataArray(:,:,ii) = [x xdot target target_val];
+        end
+
         % perform optimization
-        parfor ii = 1:length(fitIDs)
-%             datasel.target = data.(['target_BROS' num2str(fitIDs(ii))]);
+        datamodelfit.VP = struct;
+        datamodelfit.VP.trialID = trialID;
+        datamodelfit.VP.doFitForBROSID = fitIDs;
+        
+        % define number of tasks (for parfor loop)
+        nrTasks = length(fitIDs);
+        
+        parfor ii = 1:nrTasks
+%             datatmp = dataArray(:,:,ii);
             % perform model fit
-            %[out.x] = doModelFit(datasel);
+            %[out.x] = doModelFit(datatmp);
         end
         
-        % DEBUG dummy output
-        out.VP.trialID = s.VP.trialID;
-        out.VP.executeVirtualPartner.id0 = 0;
-        out.VP.executeVirtualPartner.id1 = 0;
-        out.VP.error.id0 = 0;
-        out.VP.error.id1 = 0;
-        out.VP.modelparameters.bros1.x1 = randn(1);
-        out.VP.modelparameters.bros1.x2 = randn(1);
-        out.VP.modelparameters.bros1.x3 = randn(1);
-        out.VP.modelparameters.bros2.x1 = randn(1);
-        out.VP.modelparameters.bros2.x2 = randn(1);
-        out.VP.modelparameters.bros2.x3 = randn(1);
+%         % DEBUG dummy output
+%         out.VP.trialID = s.VP.trialID;
+%         out.VP.executeVirtualPartner.id0 = 0;
+%         out.VP.executeVirtualPartner.id1 = 0;
+%         out.VP.error.id0 = 0;
+%         out.VP.error.id1 = 0;
+%         out.VP.modelparameters.bros1.x1 = randn(1);
+%         out.VP.modelparameters.bros1.x2 = randn(1);
+%         out.VP.modelparameters.bros1.x3 = randn(1);
+%         out.VP.modelparameters.bros2.x1 = randn(1);
+%         out.VP.modelparameters.bros2.x2 = randn(1);
+%         out.VP.modelparameters.bros2.x3 = randn(1);
 
-        % write results to XML file
+        
         if (errorFlag == 0)
-            outputfile = [exepath 'fitResults_trial' num2str(out.VP.trialID) '.xml'];
-            writeXML(out,outputfile);
-            disp([callerID 'Results written to ''fitResults_trial' num2str(out.VP.trialID) '.xml''']);
+            % write results to XML file (and store mat file)
+            outputfile = [exepath 'fitResults_trial' num2str(datamodelfit.VP.trialID)];
+            save(outputfile,'datamodelfit');
+            copyfile(outputfile,pathoutputstore); % copy to output file store
+            writeXML(datamodelfit,[outputfile '.xml']);
+            
+            disp([callerID 'Results written to ''fitResults_trial' num2str(datamodelfit.VP.trialID) '.xml/mat''']);
         else
             % model fit threw error
             switch(errorFlag)
@@ -82,6 +113,7 @@ end
 end
 
 function [loadOkay,s] = readXML(filename)
+%% function [loadOkay,s] = readXML(filename)
 
 loadOkay = false;
 s = struct;
@@ -101,7 +133,7 @@ if exist(filename,'file')
         return
     end
     
-    % parse
+    % parse xml file
     if isfield(xml.VP, 'trialID')
         s.VP.trialID = str2double(xml.VP.trialID.Text);
     else
@@ -109,6 +141,7 @@ if exist(filename,'file')
         loadOkay = false;
     end
     
+    % doFitForBROS
     if isfield(xml.VP, 'doFitForBROSID')
         flds = fieldnames(xml.VP.doFitForBROSID);
         for ii = 1:length(flds)
@@ -119,6 +152,7 @@ if exist(filename,'file')
         loadOkay = false;
     end
     
+    % check if we need to use a define x0 for the model fit
     if isfield(xml.VP,'useX0')
         flds = fieldnames(xml.VP.useX0);
         for ii = 1:length(flds)
@@ -132,94 +166,57 @@ end
 end
 
 function [writeOkay] = writeXML(s, filename)
-
+%% function [writeOkay] = writeXML(s, filename)
 try 
     struct2xml(s,filename);
+    writeOkay = true;
 catch
     writeOkay = false;
 end
 
 end
 
-function data = loadTrialData(brosIDs,trialID,datapath)
+function [data] = loadTrialData(datapath,trialID)
+%% function data = loadTrialData(datapath,trialID)
 
-
+nrTrialsLookback = 5; % select last 5 data files,
 currentdir = pwd;
 cd(datapath);                                   % go to data directory
 datafiles = dir('data_part*.mat');              % get list of all datafiles
 filenames = sort_nat({datafiles(:).name});      % sort files (sort_nat needed)
+ixstart = length(filenames)-nrTrialsLookback+1; if (ixstart < 1), ixstart = 1; end
+ixend = length(filenames);
+idxcopy = ixstart:ixend; % files to copy
 
-dataArray = [];
-nrTrialsLookback = 5; % select last 5 data files,
-for ii = length(filenames)-nrTrialsLookback+1:length(filenames)
-    if (ii < 0), continue; end % in case less then nrTrialsLookback are present
-    
-    name = [filenames{ii}];
-    load(name);
-    paramname = strrep(strrep(name,'part',''),'.mat','');
-    eval(['data_temp = ' paramname ';']);
-    dataArray = [dataArray data_temp];
-    clear data_*
+tmpDir = 'tmpDirDataModelFit';
+% copy files to folder
+if ~exist(tmpDir,'dir')
+    mkdir(tmpDir); 
+else
+    % clear any data files from this directory
+    delete(fullfile(cd, [tmpDir filesep 'data_part*.mat']));
 end
+% copy the new data files to the tmpDir
+cellfun(@(x)copyfile(x,tmpDir), filenames(idxcopy));
 
-cd(currentdir); % go back to current directory
-dataArray = dataArray';       % to columns
+% load all data
+alldata = importTCdata(tmpDir,'model_base_bros');
 
-param_lbls = ['time';
-    'xOpSpace.xdot_BROS1';
-    'xOpSpace.xdot_BROS2';
-    'target_BROS1';
-    'target_BROS2';
-    'cursor_BROS1';
-    'cursor_BROS2';
-    'target_vel_BROS1'; 
-    'target_vel_BROS2';
-    'ExpTrialNumber';
-    'ExpTrialRunning'];   
-
-% indices corresponding to each parameter
-param_idx = {1;... % time 
-             17:18; 48:49; % xdot
-             64:65; 66:67; 68:69; 70:71; 85:86; 87:88;... % target, cursor, vel_target
-             74; 75}; % experiment trial
-
-
-% create struct with all data parameters
-dataraw = struct;
-for ii = 1:length(param_lbls)
-    param = param_lbls{ii};
-    if ~isempty(strfind(param,'.')) 
-        param = extractAfter(param,'.'); 
-    end
-    eval(['dataraw.' char(param) ' = dataArray(:,param_idx{ii});']);
-end
+cd(currentdir);
 
 % extract trials
-idxtrial = findseq(double(dataraw.ExpTrialNumber == trialID & dataraw.ExpTrialRunning));
+idxtrial = findseq(double(alldata.ExpTrialNumber == trialID & alldata.ExpTrialRunning));
 idx = idxtrial(1,2):idxtrial(1,3);
 
 data = struct;
-% make own time vector per trial
-t = dataraw.time(idx); t = t - t(1);
+params = fieldnames(alldata);
+
+for ii = 1:length(params)
+    data.(params{ii}) = alldata.(params{ii})(idx,:);
+end
+
+% add time vector
+t = alldata.time(idx); t = t - t(1);
 data.t = t;
-
-% retrieve dt (assume it's a multiple of 1ms)
-dt = 0.001;
-dt = round(mode(diff(t))/dt)*dt;
-
-% resample data
-vars = {};
-for ii = 1:length(brosIDs)
-    vars{end+1} = ['target_BROS' num2str(brosIDs(ii))];
-    vars{end+1} = ['cursor_BROS' num2str(brosIDs(ii))];
-    vars{end+1} = ['vel_target_BROS' num2str(brosIDs(ii))];
-end
-
-% select the data per trial
-for jj = 1:length(vars)
-     [tres,datares]= resampleTCdata(t,dataraw.(vars{jj})(idx,:),dt);
-     data.(vars{jj}) = datares;
-     data.t = tres;
-end
 
 end
