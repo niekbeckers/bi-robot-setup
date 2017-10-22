@@ -1,4 +1,4 @@
-function [xe,Gain] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise)
+function [xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise)
 %% function [K,L,xe,u,y,xhat,P,xnoise] = lqg(Ae,Aim,B,H,Q,R,Ow,Ov,x0,P0,N,Nsim)
 
 % Ae        System matrix of environment (real system)

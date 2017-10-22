@@ -40,6 +40,8 @@ Ntd = round(td/dt);
 % x = [px py vx vy fx fy ptx pty vtx vty pfx pfy ptfx ptfy]
 Atmp = zeros(14,14);
 Atmp(1:10,1:10) = eye(size(Ac)) + Ac*dt;
+
+% target movement prediction
 Atmp(11,1) = 1;
 Atmp(12,2) = 1;
 Atmp(11,3) = dt+td;
@@ -57,8 +59,6 @@ Htmp = Cc;
 % see Izawa and Shadmehr, 2008
 
 % add time delay
-
-
 if Ntd > 0 
     nx = size(Atmp,1);
 
