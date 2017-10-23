@@ -125,11 +125,11 @@ while (keepRunning)
        
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
-            outputfile = [exepath 'settings_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
-            save(outputfile,'datamodelfit');
+            outputfile = [exepath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
+            writeXML(resultsmodelfit,[outputfile '.xml']); 
+            save(outputfile,'datamodelfit','dataArray');
             copyfile(outputfile,pathoutputstore); % copy to output file store
-            writeXML(resultsmodelfit,[outputfile '.xml']);
-            
+
             disp([callerID 'Results written to ''settings_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '.xml/mat''']);
         else
             % model fit threw error
