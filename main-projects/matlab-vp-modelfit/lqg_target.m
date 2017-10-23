@@ -30,8 +30,6 @@ L(:,1:14,:) = controllaw(Aim(1:14,1:14),B(1:14,:),Q(1:14,1:14),R,N);
 
 % L = controllaw(Aim,B,Q,R,N);
 
-% Gain = L(:,:,1);
-
 % forward pass
 for k = 1:N-1
     % calculate kalman gain

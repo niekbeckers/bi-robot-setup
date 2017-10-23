@@ -170,7 +170,11 @@ function [str,succes] = val2str(val)
     elseif (ischar(val))
         %do nothing
     elseif (isnumeric(val))
-        val = num2str(val);
+        if ismatrix(val) && numel(val) > 1
+            val = mat2str(val);
+        else
+            val = num2str(val);
+        end
     else
         succes = false;
     end

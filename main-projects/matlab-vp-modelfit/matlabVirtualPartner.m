@@ -90,16 +90,18 @@ while (keepRunning)
         % perform model fits
         nrTasks = length(fitIDs)*nrP0;
         pfit_all = NaN(nrFitParams,nrTasks);
+        errorFlagfit = zeros(1,nrTasks);
         parfor it = 1:nrTasks
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlag(it)] = doModelFit(dataArray(:,:,idxIDs(it)),p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),p0(:,it),condition);
         end
         
         % store all iterations
         resultsmodelfit.VP.iterations.p0 = p0;
         resultsmodelfit.VP.iterations.idxIDs = idxIDs;
         resultsmodelfit.VP.iterations.fitInfo = fitInfo;
-        resultsmodelfit.VP.iterations.errorFlag = errorFlag;
+        resultsmodelfit.VP.iterations.fvalfit = fvalfit;
+        resultsmodelfit.VP.iterations.errorFlag = errorFlagfit;
         
         % select the best fit per fitID
         pfit_opt = NaN(nrFitParams,length(fitIDs));
