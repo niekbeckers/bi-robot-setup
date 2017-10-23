@@ -88,7 +88,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 
 	//now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
-	string outputFilename = matlabFunctionPath + "fitResults_trial" + ofToString(input.trialID) + ".xml";
+	string outputFilename = matlabFunctionPath + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml";
 	bool foundFile = false;
 	double startTime = ofGetElapsedTimef();
 	ofFile file(outputFilename);
@@ -141,7 +141,7 @@ void MatlabThread::input2xml(matlabInput input)
 	//_XMLWrite.addValue("useX0", input.useX0[0]); (etc)
 
 	// save settings to XML file (one for the matlab script/exe, the other for our own administration/data logging
-	xml.save(matlabFunctionPath + "vpFitSettings_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+	xml.save(matlabFunctionPath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
 	_counterMatlabInputFile++;
 }
 
