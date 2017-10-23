@@ -1,4 +1,4 @@
-function [xe, L] = sim_lqg(target,FF)
+function [xe, L, stable] = sim_lqg(target,doFF,checkStability)
 
 
 % model parameters
@@ -6,7 +6,7 @@ dt = 0.01;
 m = diag([4 1.5]); 
 tu = 0.04;
 td = 0.100;   
-D = FF*[0 15;-15 0];
+D = doFF*[0 15;-15 0];
 gamma = 0.8;
 noise = 0;
 
@@ -59,4 +59,15 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov
 
 %% run LQG
 [xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise);
+
+
+% check stability
+stable = 1;
+if checkStability
+    for k = 1:size(L,3)
+        if any(abs(eig(Ae - B*L(:,:,k))) >= 1)
+            stable = 0;
+        end
+    end 
+end
 end

@@ -31,7 +31,7 @@ L(:,1:14,:) = L_fast;
 
 % L = controllaw_infinitehorizon(Aim,B,Q,R,N);
 
-Gain = L(:,:,1);
+% Gain = L(:,:,1);
 
 % forward pass
 for k = 1:N-1

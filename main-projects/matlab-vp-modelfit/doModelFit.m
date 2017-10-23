@@ -1,4 +1,4 @@
-function [pfit, fval, errorFlag, fitInfo] = doModelFit(data,trial,p0,condition)
+function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,p0,condition)
 
 % Fits virtual agent to experimental data. And returns the optimal fit 
 % parameters for the position, velocity and force costs of the optimal
@@ -6,6 +6,12 @@ function [pfit, fval, errorFlag, fitInfo] = doModelFit(data,trial,p0,condition)
 % inaccurate fit.
 %
 % Jolein van der Sluis, 2017
+%
+% Change log
+% 23-10-17 / NB
+% Took out iterations, now in outer loop for more efficient parallel
+% pool process scheduling. Made sim_lqg function which does the simulation
+% of the LQG (used here to assess performance and in the fit function). 
 
 % persistent p0_saved
 
@@ -13,73 +19,50 @@ function [pfit, fval, errorFlag, fitInfo] = doModelFit(data,trial,p0,condition)
 xmeas = data(1:4,:);        % pos_x,pos_y,vel_x,vel_y
 target = data(5:8,:);       % pos_x,pos_y,vel_x,vel_y
 
+% based on condition, change model (force field yes/no)
 if (condition == 1)
-    FF = 1;
+    doFF = 1;
 else
-    FF = 0;
+    doFF = 0;
 end
 
-%% resample and skip the first part
-dt = 0.01;
-N = size(xmeas,2);
-
-%% fit parameters
-fun = @(x)fitfun_invoc_mex(x,xmeas,target,FF,N);
+%% setup fit function and parameters
+% fit function
+fun = @(x)fitfun_invoc_mex(x,xmeas,target,doFF);
 
 % fmincon settings
-opts = optimoptions('fmincon','display', 'iter','MaxIterations',75);
+maxIter = 75;
+opts = optimoptions('fmincon','display','iter','MaxIterations',maxIter);
+% bounds
 ub = [10000;10;0.01];
 lb = [0;0;0];
 
-% itt = 3;
-% pfit= zeros(itt,3); % (ii,pfit)
-% p0 = zeros(itt,3);
-% error = zeros(itt,1);
-% 
-% for ii = 1:itt
-%     if length(p0_saved) == 3
-%         % cost_p, cost_v, cost_F
-%         p0(ii,:) = [normrnd(p0_saved(1),ub(1)/12) normrnd(p0_saved(2),ub(2)/12) normrnd(p0_saved(3),ub(3)/12)];
-%     else 
-%         p0(ii,:) = [rand*ub(1) rand*ub(2) rand*ub(3)];  
-%     end
-%     [pfit(ii,:),error(ii),exitflag(ii),output(ii)] = fmincon(fun,p0(ii,:),[],[],[],[],lb,ub,[],opts);
-% end 
-% 
-% [min_e,index] = min(error);
-% pfit_opt = pfit(index,:);
-% p0_saved = pfit_opt;
+% perform fit
+[pfit,fvalfit,exitflag,output] = fmincon(fun,p0,[],[],[],[],lb,ub,[],opts);
 
-[pfit,fval,exitflag,output] = fmincon(fun,p0,[],[],[],[],lb,ub,[],opts);
+% store results and settings in struct
 fitInfo = struct;
-fitInfo.trial = trial;
-fitInfo.fval = fval;
+fitInfo.pfit = pfit;
+fitInfo.fval = fvalfit;
 fitInfo.exitflag = exitflag;
 fitInfo.output = output;
+fitInfo.p0 = p0;
+fitInfo.ub = ub;
+fitInfo.lb = lb;
+fitInfo.fitfun = 'fitfun_invoc';
 
-%% simulate to evaluate goodness of fit
-[xe,L] = sim_lqg(target,FF);
 
-%% VAF, stability
-VAF_px = (1-(var(xe(1,:).'-xmeas(1,:).')./var(xmeas(1,:).')))*100;
-VAF_py = (1-(var(xe(2,:).'-xmeas(2,:).')./var(xmeas(2,:).')))*100;
+%% simulate to evaluate goodness of fit and stability
+[xe,~,stable] = sim_lqg(target,doFF, 1);
 
-stability = abs(eig(Ae - B*L));
+% VAF (percentage)
+VAF_px = (1-(var(xe(1,:)-xmeas(1,:))./var(xmeas(1,:))))*100;
+VAF_py = (1-(var(xe(2,:)-xmeas(2,:))./var(xmeas(2,:))))*100;
 
-% works only if trials alternate SDSDSD in a continuous fashion
-% fitInfo(Trial/2) = struct('Trialnr',Trial,'fiterror', min(error), 'p0', p0(index,:),'pfit',...
-%     pfit_opt,'exitflag', exitflag(index),'nrIterations',output(index).iterations);
 
-% fitInfo(trial/2).Trialnr = trial;
-% fitInfo(trial/2).fiterror = min(error);
-% fitInfo(trial/2).p0 = p0(index,:);
-% fitInfo(trial/2).pfit = pfit;
-% fitInfo(trial/2).eixtFlag = exitflag(index);
-% fitInfo(trial/2).nrIterations = output(index).iterations;
-
-if VAF_px>=80 && VAF_py>=80 && min_e<=0.01 && max(abs(stability))<=1 
+if (VAF_px >= 80) && (VAF_py >= 80) && (min_e <= 0.01) && stable 
     errorFlag = 0;
-elseif max(abs(stability))>=1
+elseif ~stable
     errorFlag = 1;               % unstable system
 else
     errorFlag = 2;               % bad performance (VAF or min_e wrong)

@@ -22,6 +22,9 @@ if (size(gcp) == 0)
     parpool(2,'IdleTimeout',30); % setup workers with idle timeout of 30 minutes
 end
 
+% preallocate 'saved p0'
+p0_saved = [];
+
 %% while loop
 keepRunning = true;
 while (keepRunning)
@@ -41,8 +44,9 @@ while (keepRunning)
         disp([callerID 'Loaded ' settings_filename num2str(cntr_filename) ', starting model fit']);
         
         % initialize and prepare stuff
-        fitIDs = s.VP.doFitForBROSID;
+        fitIDs = s.VP.doFitForBROSID(:);
         trialID = s.VP.trialID;
+        condition = s.VP.condition;
         
         % load data of trial with trialID
         clear data
@@ -60,34 +64,65 @@ while (keepRunning)
             dataArray(:,:,ii) = [x xdot target target_val];
         end
 
-        % perform optimization
+        % perform model fit
         resultsmodelfit.VP = struct;
         resultsmodelfit.VP.trialID = trialID;
         resultsmodelfit.VP.doFitForBROSID = fitIDs;
         
         % define number of tasks (for parfor loop)
-        nrTasks = length(fitIDs);
+        nrP0 = 3; % number of initial parameter estimates
+        nrFitParams = 3;
+        idxIDs = reshape(repmat(fitIDs,1,nP0).',[],1); % vector with fitIDs
+        p0 = NaN(nrFitParams,nrP0);
         
-        parfor ii = 1:nrTasks
-%             datatmp = dataArray(:,:,ii);
+        % create p0's
+        for ii = 1:numel(idxIDs)
+            % either use previous fit values (per fitID) or generate a
+            % random p0.
+            id = idxIDs(ii);
+            if ~isempty(p0_saved(:,id))
+                p0(:,ii) = [normrnd(p0_saved(1),ub(1)/12); normrnd(p0_saved(2),ub(2)/12); normrnd(p0_saved(3),ub(3)/12)];
+            else 
+                p0(:,ii) = [rand*ub(1); rand*ub(2); rand*ub(3)];  
+            end
+        end 
+
+        % perform model fits
+        nrTasks = length(fitIDs)*nrP0;
+        pfit_all = NaN(nrFitParams,nrTasks);
+        parfor it = 1:nrTasks
             % perform model fit
-            %[out.x] = doModelFit(datatmp);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlag(it)] = doModelFit(dataArray(:,:,idxIDs(it)),p0(:,it),condition);
         end
         
-%         % DEBUG dummy output
-%         out.VP.trialID = s.VP.trialID;
-%         out.VP.executeVirtualPartner.id0 = 0;
-%         out.VP.executeVirtualPartner.id1 = 0;
-%         out.VP.error.id0 = 0;
-%         out.VP.error.id1 = 0;
-%         out.VP.modelparameters.bros1.x1 = randn(1);
-%         out.VP.modelparameters.bros1.x2 = randn(1);
-%         out.VP.modelparameters.bros1.x3 = randn(1);
-%         out.VP.modelparameters.bros2.x1 = randn(1);
-%         out.VP.modelparameters.bros2.x2 = randn(1);
-%         out.VP.modelparameters.bros2.x3 = randn(1);
-
+        % store all iterations
+        resultsmodelfit.VP.iterations.p0 = p0;
+        resultsmodelfit.VP.iterations.idxIDs = idxIDs;
+        resultsmodelfit.VP.iterations.fitInfo = fitInfo;
+        resultsmodelfit.VP.iterations.errorFlag = errorFlag;
         
+        % select the best fit per fitID
+        pfit_opt = NaN(nrFitParams,length(fitIDs));
+        for ii = 1:length(fitIDs)
+            id = fitIDs(ii);
+            idx = idxIDs == id;
+            
+            % select minimum fval solution
+            [~,I] = min(fvalfit(idx));
+            
+            % errors etc
+            resultsmodelfit.VP.error.(['id' num2str(id-1)]) = errorFlag(I);
+            if errorFlag(I) == 0
+                resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 1;
+            end
+            
+            % model parameters
+            pfit_opt(:,ii) = pfit_all(:,I);
+            for jj = 1:size(pfit_opt,1)
+                resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,ii);
+            end
+        end
+       
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
             outputfile = [exepath 'settings_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];

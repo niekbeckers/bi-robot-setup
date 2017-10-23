@@ -1,15 +1,14 @@
-function sse = fitfun_invoc(params,xmeas,target,FF,N)
+function sse = fitfun_invoc(params,xmeas,target,doFF)
 
 % asserts (for mex)
 assert(isa(params,'double')); assert(all(size(params)==[1 3]));
 assert(isa(xmeas,'double')); coder.varsize('xmeas',[4, Inf],[0,1]);
 assert(isa(target,'double')); coder.varsize('target',[4, Inf],[0,1]);
-assert(isa(FF,'double')); assert(all(size(FF)==[1 1]));
-assert(isa(N,'double')); assert(all(size(N)==[1 1]));
+assert(isa(doFF,'double')); assert(all(size(doFF)==[1 1]));
 
 
 %% simulate lqg
-[xe] = sim_lqg(target,FF);
+[xe] = sim_lqg(target,doFF);
 
 %% calculate error
 
