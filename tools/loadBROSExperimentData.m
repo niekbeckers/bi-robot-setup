@@ -27,7 +27,6 @@ dt = 0.001;
 
 % import data
 alldata = importTCdata(datapath);
-keyboard
 
 trialnumbers = unique(alldata.ExpTrialNumber);
 
@@ -52,8 +51,6 @@ if length(trialnumbers) ~= length(idxtrialrunning)
    end
 end
 
-
-
 % define data struct
 data = struct;
 
@@ -62,7 +59,7 @@ for ii = 1:length(trialnumbers)
     idx = idxtrial(1,2):idxtrial(1,3);
     
     % make own time vector per trial
-    t = alldata.time(isdx); t = t - t(1);
+    t = alldata.time(idx); t = t - t(1);
     data.trial(ii).t = t;
     
     % retrieve dt (assume it's a multiple of 1ms)

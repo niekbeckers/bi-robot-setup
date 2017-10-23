@@ -31,8 +31,8 @@ for ii = 1:length(filenames)
         eval(['data_temp = ' paramname ';']);
     catch
         c = who('data_*');
-            eval(['data_temp = ' c{1} ';']);
-
+        eval(['data_temp = ' c{1} ';']);
+        keyboard
     end
     dataArray = [dataArray data_temp];
     clear data_*
@@ -141,11 +141,16 @@ for ii = 1:length(param_lbls)
         dt = 0.001;
         datares = (t(1):dt:t(end)).';
     else
-        [~,datares]= resampleTCdata(t,dataArray(:,param_idx{ii}),dt);
+        [tres,datares]= resampleTCdata(t,dataArray(:,param_idx{ii}),dt);
+        data.time = tres;
+        % round integers
+        if any(strcmpi(param,{'ExpTrialNumber','ExpTrialRunning','Error_BROS1','Error_BROS2','isConnected','SystemState_BROS1','SystemState_BROS2'}))
+            datares = round(datares);
+        end
     end
     
     % store in struct
-%     eval(['data.' char(param) ' = dataArray(:,param_idx{ii});']);
+    
     data.(char(param)) = datares;
 end
 

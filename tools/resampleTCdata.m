@@ -21,4 +21,4 @@ end
 tres = (t(1):dt:t(end)).'; % new (resampled) time vector
 
 % resample using interp1
-datares = interp1(t,data,tres,'spline','extrap');
+datares = interp1(t,data,tres,'linear','extrap');
