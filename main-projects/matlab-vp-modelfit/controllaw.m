@@ -1,8 +1,8 @@
-function L = controllaw_infinitehorizon(Ae,B,Q,R,N)
+function L = controllaw(Ae,B,Q,R,N)
 
 % initialize parameters and cost-to-go
 L = zeros(size(B,2),size(Ae,1),N-1);
-Lold = zeros(size(B,2),size(Ae,1));
+% initialize cost-to-go
 V = Q;
 
 for k = N-1:-1:1
@@ -13,13 +13,14 @@ for k = N-1:-1:1
     V = Q +Ae'*V*(Ae-B*L(:,:,k));
 
     % stop loop when gains do not change anymore
-    if (norm(L(:,:,k)-Lold) < 1e-6) && k > 10
-        break;
+    if (k < N-1)
+        if (norm(L(:,:,k)-L(:,:,k+1)) < 1e-6)
+            break;
+        end
     end
-    
-    Lold = L(:,:,k);
 end
 
 % extend gain if necessary
-L(:,:,1:k)= repmat(L(:,:,k),[1,1,k]);
+L(:,:,1:k-1)= repmat(L(:,:,k),[1,1,k]);
+
 end

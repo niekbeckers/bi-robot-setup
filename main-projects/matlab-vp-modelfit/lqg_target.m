@@ -25,11 +25,10 @@ xhatp(:,1) = x0;
 y(:,1) = H*xe(:,1);
 
 % retrieve control law
-L_fast = controllaw_infinitehorizon(Aim(1:14,1:14),B(1:14,:),Q(1:14,1:14),R,N);
 L = zeros(nU,nX,N-1);
-L(:,1:14,:) = L_fast;
+L(:,1:14,:) = controllaw(Aim(1:14,1:14),B(1:14,:),Q(1:14,1:14),R,N);
 
-% L = controllaw_infinitehorizon(Aim,B,Q,R,N);
+% L = controllaw(Aim,B,Q,R,N);
 
 % Gain = L(:,:,1);
 
