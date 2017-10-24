@@ -1,4 +1,4 @@
-function alldata = loadBROSExperimentData(datapath, savepath, vars)
+function [data,alldata] = loadBROSExperimentData(datapath, savepath, vars, savedata)
 %% function dataraw = loadBROSdata(datapath, savepath)
 %
 % Load relevant data from the massive TwinCAT data files. 
@@ -14,12 +14,15 @@ if nargin < 2 || isempty(savepath)
     savepath = datapath;
 end
 
-if nargin < 3
+if nargin < 3 || isempty(vars)
     % get the variable names. Remove 'BusActuator1', 'BusActuator2' and 't'
     vars = {'x_BROS1','x_BROS2','xdot_BROS1','xdot_BROS2',...
             'x_AbsEnc_BROS1','x_AbsEnc_BROS2','xdot_AbsEnc_BROS1','xdot_AbsEnc_BROS2',...
             'ForcesOpSpace_BROS1','ForcesOpSpace_BROS2',...
             'target_BROS1','target_BROS2','cursor_BROS1','cursor_BROS2','target_vel_BROS1','target_vel_BROS2'}; 
+end
+if nargin < 4
+    savedata = 1;
 end
 
 dt = 0.001;
@@ -74,7 +77,9 @@ for ii = 1:length(trialnumbers)
     end
 end
 
-% save data to mat file
-save([savepath filesep 'data_trials.mat'],'data');
+if savedata
+    % save data to mat file
+    save([savepath filesep 'data_trials.mat'],'data');
+end
 
 
