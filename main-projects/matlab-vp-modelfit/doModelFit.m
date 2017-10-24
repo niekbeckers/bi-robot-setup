@@ -1,4 +1,4 @@
-function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,p0,condition)
+function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,dt,p0,condition)
 
 % Fits virtual agent to experimental data. And returns the optimal fit 
 % parameters for the position, velocity and force costs of the optimal
@@ -16,11 +16,11 @@ function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,p0,condition)
 % persistent p0_saved
 
 % select data
-xmeas = data(1:4,:);        % pos_x,pos_y,vel_x,vel_y
-target = data(5:8,:);       % pos_x,pos_y,vel_x,vel_y
+xmeas = data(:,1:4).';        % pos_x,pos_y,vel_x,vel_y
+target = data(:,5:8).';       % pos_x,pos_y,vel_x,vel_y
 
 % based on condition, change model (force field yes/no)
-if (condition == 1)
+if condition
     doFF = 1;
 else
     doFF = 0;
@@ -28,11 +28,11 @@ end
 
 %% setup fit function and parameters
 % fit function
-fun = @(x)fitfun_invoc_mex(x,xmeas,target,doFF);
+fun = @(x)fitfun_invoc_mex(x,dt,xmeas,target,doFF);
 
 % fmincon settings
 maxIter = 75;
-opts = optimoptions('fmincon','display','iter','MaxIterations',maxIter);
+opts = optimoptions('fmincon','display','iter','MaxIterations',maxIter,'useparallel',false);
 % bounds
 ub = [10000;10;0.01];
 lb = [0;0;0];
@@ -53,14 +53,14 @@ fitInfo.fitfun = 'fitfun_invoc';
 
 
 %% simulate to evaluate goodness of fit and stability
-[xe,~,stable] = sim_lqg(target,doFF, 1);
+[xe,~,stable] = sim_lqg(pfit,target,dt,doFF, 1);
 
 % VAF (percentage)
 VAF_px = (1-(var(xe(1,:)-xmeas(1,:))./var(xmeas(1,:))))*100;
 VAF_py = (1-(var(xe(2,:)-xmeas(2,:))./var(xmeas(2,:))))*100;
 
 
-if (VAF_px >= 80) && (VAF_py >= 80) && (min_e <= 0.01) && stable 
+if (VAF_px >= 80) && (VAF_py >= 80) && stable 
     errorFlag = 0;
 elseif ~stable
     errorFlag = 1;               % unstable system

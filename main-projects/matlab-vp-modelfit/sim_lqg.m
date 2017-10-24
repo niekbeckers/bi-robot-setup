@@ -1,14 +1,16 @@
-function [xe, L, stable] = sim_lqg(target,doFF,checkStability)
+function [xe, L, stable] = sim_lqg(params,target,dt,doFF,checkStability)
 
+assert(isa(checkStability,'double'));
 
 % model parameters
-dt = 0.01;
 m = diag([4 1.5]); 
 tu = 0.04;
-td = 0.100;   
+td = 0.05*1;   
 D = doFF*[0 15;-15 0];
 gamma = 0.8;
 noise = 0;
+
+N = size(target,2);
 
 % dynamics matrices
 [Ae,B,H] = dynamics(dt,m,tu,td,D);

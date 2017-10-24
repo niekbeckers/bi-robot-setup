@@ -1,6 +1,9 @@
 function matlabVirtualPartner
 %% function matlabVirtualPartner
 
+
+cd(fileparts(mfilename('fullpath')));
+
 callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
@@ -44,25 +47,33 @@ while (keepRunning)
         disp([callerID 'Loaded ' settings_filename num2str(cntr_filename) ', starting model fit']);
         
         % initialize and prepare stuff
+        try
         fitIDs = s.VP.doFitForBROSID(:);
         trialID = s.VP.trialID;
         condition = s.VP.condition;
-        
+        catch me
+            disp(me)
+            keyboard
+        end
         % load data of trial with trialID
         clear data
-        data = loadTrialData(fitIDs,trialID,datapath);
-            
+        data = loadTrialData(datapath,trialID);
         
         % select data for optim function
-        dataArray = NaN(length(data.t(1:10:end)),8,length(fitIDs));
+        ds = 20;
+        dataArray = NaN(length(data.t(1:ds:end)),8,length(fitIDs));
+        t = data.t(1:ds:end,:);
+        dt = mode(diff(t));
         for ii = 1:length(fitIDs)
             id = fitIDs(ii);
-            x = data.(['cursor_BROS' num2str(id)])(1:10:end,:);
-            xdot = data.(['xdot_BROS' num2str(id)])(1:10:end,:);
-            target = data.(['target_BROS' num2str(id)])(1:10:end,:);
-            target_vel = data.(['target_vel_BROS' num2str(id)])(1:10:end,:);
+            
+            x = data.(['cursor_BROS' num2str(id)])(1:ds:end,:);
+            xdot = data.(['xdot_BROS' num2str(id)])(1:ds:end,:);
+            target = data.(['target_BROS' num2str(id)])(1:ds:end,:);
+            target_vel = data.(['target_vel_BROS' num2str(id)])(1:ds:end,:);
             dataArray(:,:,ii) = [x xdot target target_vel];
         end
+        
 
         % perform model fit
         resultsmodelfit.VP = struct;
@@ -70,19 +81,25 @@ while (keepRunning)
         resultsmodelfit.VP.doFitForBROSID = fitIDs;
         
         % define number of tasks (for parfor loop)
-        nrP0 = 3; % number of initial parameter estimates
+        nrP0 = 1; % number of initial parameter estimates
         nrFitParams = 3;
-        idxIDs = reshape(repmat(fitIDs,1,nP0).',[],1); % vector with fitIDs
+        idxIDs = reshape(repmat(fitIDs,1,nrP0).',[],1); % vector with fitIDs
         p0 = NaN(nrFitParams,nrP0);
+        
+        % upper and lower bounds
+        ub = [10^8;10;0.01];
+        lb = [0;0;0];
         
         % create p0's
         for ii = 1:numel(idxIDs)
             % either use previous fit values (per fitID) or generate a
             % random p0.
             id = idxIDs(ii);
-            if ~isempty(p0_saved(:,id))
+            if ~isempty(p0_saved)
+                
                 p0(:,ii) = [normrnd(p0_saved(1,id),ub(1)/12); normrnd(p0_saved(2,id),ub(2)/12); normrnd(p0_saved(3,id),ub(3)/12)];
             else 
+                
                 p0(:,ii) = [rand*ub(1); rand*ub(2); rand*ub(3)];  
             end
         end 
@@ -91,9 +108,9 @@ while (keepRunning)
         nrTasks = length(fitIDs)*nrP0;
         pfit_all = NaN(nrFitParams,nrTasks);
         errorFlagfit = zeros(1,nrTasks);
-        parfor it = 1:nrTasks
+        for it = 1:nrTasks
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
         end
         
         % store all iterations
@@ -102,7 +119,7 @@ while (keepRunning)
         resultsmodelfit.VP.iterations.fitInfo = fitInfo;
         resultsmodelfit.VP.iterations.fvalfit = fvalfit;
         resultsmodelfit.VP.iterations.errorFlag = errorFlagfit;
-        
+        try
         % select the best fit per fitID
         pfit_opt = NaN(nrFitParams,length(fitIDs));
         for ii = 1:length(fitIDs)
@@ -126,14 +143,19 @@ while (keepRunning)
                 resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,ii);
             end
         end
+        catch me
+            disp(me)
+            keyboard
+        end
        
         % store data in mat file (regardless of fiterror)
-        save(outputfile,'datamodelfit','dataArray'); % save to mat files
-        copyfile(outputfile,pathoutputstore); % copy to output file store
-            
+        outputfile = [exepath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
+        save(outputfile,'resultsmodelfit','dataArray'); % save to mat files
+        copyfile([outputfile '.mat'],pathoutputstore); % copy to output file store
+        
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
-            outputfile = [exepath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
+            
             writeXML(resultsmodelfit,[outputfile '.xml']); 
             
             disp([callerID 'Results written to ''settings_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '.xml/mat''']);
@@ -181,6 +203,12 @@ if exist(filename,'file')
         s.VP.trialID = [];
         loadOkay = false;
     end
+    
+    if isfield(xml.VP, 'condition')
+        s.VP.condition = str2double(xml.VP.condition.Text);
+    else
+        s.VP.condition = 0;
+    end;
     
     % doFitForBROS
     if isfield(xml.VP, 'doFitForBROSID')
@@ -242,24 +270,38 @@ end
 % copy the new data files to the tmpDir
 cellfun(@(x)copyfile(x,tmpDir), filenames(idxcopy));
 
-%% import data
-% load all data
-alldata = importTCdata(tmpDir,'model_base_bros');
+data = loadBROSExperimentData(tmpDir,tmpDir,[],0);
 
-% extract trials
-idxtrial = findseq(double(alldata.ExpTrialNumber == trialID & alldata.ExpTrialRunning));
-idx = idxtrial(1,2):idxtrial(1,3);
-
-data = struct;
-params = fieldnames(alldata);
-
-for ii = 1:length(params)
-    data.(params{ii}) = alldata.(params{ii})(idx,:);
+% select last 20 seconds of data
+fldnms = fieldnames(data.trial(end));
+for ii = 1:length(fldnms)
+    x = data.trial(end).(fldnms{ii});
+    data.trial(end).(fldnms{ii}) = x(end-20000+1:end,:);
 end
 
-% add time vector
-t = alldata.time(idx); t = t - t(1);
-data.t = t;
+% select data from last trial only
+data = data.trial(end);
+
+
+
+% %% import data
+% % load all data
+% alldata = importTCdata(tmpDir,'model_base_bros');
+% keyboard
+% % extract trials
+% idxtrial = findseq(double(alldata.ExpTrialNumber == trialID & alldata.ExpTrialRunning));
+% idx = idxtrial(1,2):idxtrial(1,3);
+% keyboard
+% data = struct;
+% params = fieldnames(alldata);
+% 
+% for ii = 1:length(params)
+%     data.(params{ii}) = alldata.(params{ii})(idx,:);
+% end
+% 
+% % add time vector
+% t = alldata.time(idx); t = t - t(1);
+% data.t = t;
 
 cd(currentdir);
 
