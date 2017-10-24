@@ -65,7 +65,7 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov
 stable = 1;
 if checkStability
     for k = 1:size(L,3)
-        if any(abs(eig(Ae - B*L(:,:,k))) >= 1)
+        if any(abs(eig(Ae - B*L(:,:,k))) > 1)
             stable = 0;
         end
     end 

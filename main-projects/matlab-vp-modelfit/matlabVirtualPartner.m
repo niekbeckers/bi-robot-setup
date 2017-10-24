@@ -60,8 +60,8 @@ while (keepRunning)
             x = data.(['cursor_BROS' num2str(id)])(1:10:end,:);
             xdot = data.(['xdot_BROS' num2str(id)])(1:10:end,:);
             target = data.(['target_BROS' num2str(id)])(1:10:end,:);
-            target_val = data.(['target_vel_BROS' num2str(id)])(1:10:end,:);
-            dataArray(:,:,ii) = [x xdot target target_val];
+            target_vel = data.(['target_vel_BROS' num2str(id)])(1:10:end,:);
+            dataArray(:,:,ii) = [x xdot target target_vel];
         end
 
         % perform model fit
@@ -81,7 +81,7 @@ while (keepRunning)
             % random p0.
             id = idxIDs(ii);
             if ~isempty(p0_saved(:,id))
-                p0(:,ii) = [normrnd(p0_saved(1),ub(1)/12); normrnd(p0_saved(2),ub(2)/12); normrnd(p0_saved(3),ub(3)/12)];
+                p0(:,ii) = [normrnd(p0_saved(1,id),ub(1)/12); normrnd(p0_saved(2,id),ub(2)/12); normrnd(p0_saved(3,id),ub(3)/12)];
             else 
                 p0(:,ii) = [rand*ub(1); rand*ub(2); rand*ub(3)];  
             end
@@ -116,6 +116,8 @@ while (keepRunning)
             resultsmodelfit.VP.error.(['id' num2str(id-1)]) = errorFlag(I);
             if errorFlag(I) == 0
                 resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 1;
+            else
+                resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 0;
             end
             
             % model parameters
@@ -125,13 +127,15 @@ while (keepRunning)
             end
         end
        
+        % store data in mat file (regardless of fiterror)
+        save(outputfile,'datamodelfit','dataArray'); % save to mat files
+        copyfile(outputfile,pathoutputstore); % copy to output file store
+            
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
             outputfile = [exepath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
             writeXML(resultsmodelfit,[outputfile '.xml']); 
-            save(outputfile,'datamodelfit','dataArray');
-            copyfile(outputfile,pathoutputstore); % copy to output file store
-
+            
             disp([callerID 'Results written to ''settings_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '.xml/mat''']);
         else
             % model fit threw error

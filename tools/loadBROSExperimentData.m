@@ -1,4 +1,3 @@
-
 function alldata = loadBROSExperimentData(datapath, savepath, vars)
 %% function dataraw = loadBROSdata(datapath, savepath)
 %

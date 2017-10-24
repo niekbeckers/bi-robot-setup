@@ -93,7 +93,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	double startTime = ofGetElapsedTimef();
 	ofFile file(outputFilename);
 	
-	while (!foundFile && (ofGetElapsedTimef()-startTime < 120.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
+	while (!foundFile && (ofGetElapsedTimef()-startTime < 240.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
 		if (file.exists()) { foundFile = true; }
 		sleep(250); // sleep thread for a little bit
 	}

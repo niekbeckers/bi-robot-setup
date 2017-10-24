@@ -749,9 +749,6 @@ void ofAppExperiment::esmCheckNextStep()
 		// new trial in block, go to trial break
 		_breakStartTime = ofGetElapsedTimef();
 		setExperimentState(ExperimentState::TRIALBREAK);
-
-		
-
 	}
 	else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
 		// end of block, determine if we proceed to the next block, or experiment is done
@@ -767,6 +764,7 @@ void ofAppExperiment::esmCheckNextStep()
 		else {
 			// all blocks are done, experiment is done
 			setExperimentState(ExperimentState::EXPERIMENTSTOP);
+			return;
 		}
 	}
 
@@ -780,7 +778,6 @@ void ofAppExperiment::esmCheckNextStep()
 		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
 		settings.trialID = _currentTrialNumber;
 		partner.runVPOptimization(settings);
-
 		_runningModelFit = true;
 	}
 }
