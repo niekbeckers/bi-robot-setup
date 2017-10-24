@@ -8,9 +8,9 @@ clear; close all; clc;
 data = [];
 
 currentdir = [fileparts(mfilename('fullpath')) filesep];
-datadir = '../data/transmission-ratio/meas-fm2-2/';
+datadir = '../data/transmission-ratio/meas-bros3-2/';
 
-str_suptitle = 'Transmission Ratio FM2';
+str_suptitle = 'Transmission Ratio BROS3';
 filename_str = 'transmission_data';
 
 cd(datadir)
