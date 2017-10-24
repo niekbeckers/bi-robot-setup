@@ -90,6 +90,8 @@ switch lower(modelname)
         
 
     case 'model_sysid'
+        
+        disp('model_sysid')
         %% model_sysid
         param_lbls = [  'time';
                         strcat(str_param_def,'_BROS1');
@@ -136,7 +138,7 @@ for ii = 1:length(param_lbls)
     end
     
     % resample data to fixed frequency
-    
+    try
     t = dataArray(:,1);
     if strcmpi(param, 'time')
         dt = 0.001;
@@ -147,7 +149,11 @@ for ii = 1:length(param_lbls)
     
     % store in struct
 %     eval(['data.' char(param) ' = dataArray(:,param_idx{ii});']);
-    data.(param) = datares;
+    data.(char(param)) = datares;
+    catch me
+        disp(me)
+        keyboard
+    end
 end
 
 
