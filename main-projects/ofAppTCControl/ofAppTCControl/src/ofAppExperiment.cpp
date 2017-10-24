@@ -777,6 +777,7 @@ void ofAppExperiment::esmCheckNextStep()
 		matlabInput settings;
 		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
 		settings.trialID = _currentTrialNumber;
+		settings.condition = _currentTrial.condition;
 		partner.runVPOptimization(settings);
 		_runningModelFit = true;
 	}

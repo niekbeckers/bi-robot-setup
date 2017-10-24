@@ -131,7 +131,7 @@ void MatlabThread::input2xml(matlabInput input)
 	xml.setTo("VP");
 
 	xml.addValue("trialID", input.trialID);
-
+	xml.addValue("condition", input.condition);
 	xml.addChild("doFitForBROSID");
 	xml.setTo("doFitForBROSID");
 	for (int i = 0; i < input.doFitForBROSIDs.size(); i++) {

@@ -20,6 +20,7 @@ struct matlabOutput {
 struct matlabInput {
 	int trialID = -1;
 	vector<int> doFitForBROSIDs;
+	int condition = 0; 
 	vector<vector<double>> x0;
 	vector<bool> useX0;
 };
@@ -51,7 +52,7 @@ public:
 	// Parameters
 	//
 	bool initialized;
-	string matlabFunctionPath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\ofAppTCControl\\ofAppTCControl\\matlab\\";
+	string matlabFunctionPath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\";
 
 
 	//
