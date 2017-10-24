@@ -21,4 +21,12 @@ end
 tres = (t(1):dt:t(end)).'; % new (resampled) time vector
 
 % resample using interp1
-datares = interp1(t,data,tres,'linear','extrap');
+try 
+    datares = interp1(t,data,tres,'linear','extrap');
+catch me
+    disp(me)
+    keyboard
+%     datares = interp1(unwrap(t),data,tres,'linear','extrap');
+end
+end
+

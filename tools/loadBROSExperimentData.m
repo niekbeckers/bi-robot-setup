@@ -30,8 +30,6 @@ alldata = importTCdata(datapath);
 
 trialnumbers = unique(alldata.ExpTrialNumber);
 
-
-
 % check how many sequences of trial running we have. This number should be
 % the same as the length of trialnumber. If not, probably this is due to
 % restarting the experiment after an error or something. Fix it here.

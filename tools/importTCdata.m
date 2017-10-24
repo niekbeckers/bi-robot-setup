@@ -32,7 +32,6 @@ for ii = 1:length(filenames)
     catch
         c = who('data_*');
         eval(['data_temp = ' c{1} ';']);
-        keyboard
     end
     dataArray = [dataArray data_temp];
     clear data_*
@@ -135,10 +134,12 @@ for ii = 1:length(param_lbls)
     end
     
     % resample data to fixed frequency
-    
+    dt = 0.001;
     t = dataArray(:,1);
+    t = fixtimejumps(t,dt);
+    
     if strcmpi(param, 'time')
-        dt = 0.001;
+        
         datares = (t(1):dt:t(end)).';
     else
         [tres,datares]= resampleTCdata(t,dataArray(:,param_idx{ii}),dt);
@@ -152,6 +153,23 @@ for ii = 1:length(param_lbls)
     % store in struct
     
     data.(char(param)) = datares;
+end
+end
+
+function t = fixtimejumps(t,dt)
+
+difft = diff(t);
+ixjump = find(abs(difft) > 5*dt);
+
+if ~isempty(ixjump)
+    for ii = 1:length(ixjump)
+        tbefore = t(ixjump(ii));
+        tafter = t(ixjump(ii)+1);
+        deltat = tbefore+dt-tafter;
+        t(ixjump(ii)+1:end) = t(ixjump(ii)+1:end)+deltat;
+    end
+end
+
 end
 
 
