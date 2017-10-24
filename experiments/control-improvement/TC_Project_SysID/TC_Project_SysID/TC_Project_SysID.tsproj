@@ -2659,9 +2659,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object2 (ModelBaseSysIDPos)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{BEAAFFDC-F9C8-47A7-ADBF-1DBFA75F561F}">
+					<TmcDesc GUID="{12A56783-AB0A-488F-8E11-F661FA87113A}">
 						<Name>ModelBaseSysIDPos</Name>
-						<CLSID ClassFactory="ModelBaseSysIDPos">{BEAAFFDC-F9C8-47A7-ADBF-1DBFA75F561F}</CLSID>
+						<CLSID ClassFactory="ModelBaseSysIDPos">{12A56783-AB0A-488F-8E11-F661FA87113A}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -7886,7 +7886,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS3.Actuator1.AbsEncoderOffset</Name>
-								<Value>4.38839575504758</Value>
+								<Value>4.39395643540367</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS3.Actuator1.MotorEncoderCounts_rev</Name>
@@ -7954,7 +7954,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS3.Actuator2.AbsEncoderOffset</Name>
-								<Value>6.17469182413218</Value>
+								<Value>6.1798690092913</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS3.Actuator2.MotorEncoderCounts_rev</Name>
@@ -9038,7 +9038,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.TorqueLimit_Value</Name>
-								<Value>2</Value>
+								<Value>8</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.One_Value_m</Name>
@@ -9054,11 +9054,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Leadintime_Value</Name>
-								<Value>3</Value>
+								<Value>0</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.ExpTrialDuration_Value</Name>
-								<Value>20</Value>
+								<Value>10</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RateLimiter1_RisingLim</Name>
@@ -9138,7 +9138,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Kp_Gain</Name>
-								<Value>750</Value>
+								<Value>1200</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Merge2_InitialOutput[0]</Name>
@@ -9150,7 +9150,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Kd_Gain</Name>
-								<Value>1.5</Value>
+								<Value>15</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Kd1_Gain</Name>
@@ -9182,7 +9182,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Kd2_Gain</Name>
-								<Value>0.5</Value>
+								<Value>5</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Gain_Gain</Name>
