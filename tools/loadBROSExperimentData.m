@@ -27,7 +27,6 @@ dt = 0.001;
 
 % import data
 alldata = importTCdata(datapath);
-keyboard
 
 trialnumbers = unique(alldata.ExpTrialNumber);
 
