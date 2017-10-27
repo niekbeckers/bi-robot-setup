@@ -72,6 +72,7 @@ void MatlabThread::threadedFunction(){
 
 		// perform optimization per BROS
 		callMatlabOptimization(input, output);
+		_output = output;
 
 #if __cplusplus>=201103
         _analyzed.send(std::move(data));
@@ -105,12 +106,15 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 		xml.load(outputFilename);
 
 		// parse xml file
-		_output = xml2output(xml);
+		output = xml2output(xml);
+		
+		xml.clear();
+		ofFile::removeFile(outputFilename);
 	}
 	else {
 		ofLogVerbose("MatlabThread::callMatlabOptimization","Could not find file (fitResults_trial" + ofToString(input.trialID) + ")");
 		matlabOutput tmp;
-		_output = tmp;
+		output = tmp;
 	}
 }
 
@@ -157,11 +161,11 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 	// execute virtual partner
 	if (xml.exists("executeVirtualPartner")) {
 		xml.setTo("executeVirtualPartner");
-
-		int i = 0;
-		while (xml.exists("id" + ofToString(i))) {
-			output.executeVirtualPartner.push_back(xml.getValue<bool>("id" + ofToString(i)));
-			i++;
+		if (xml.setToChild(0)) {
+			do {
+				output.executeVirtualPartner.push_back(xml.getBoolValue());
+			} while (xml.setToSibling());
+			xml.setToParent(); // go back to brosX
 		}
 		xml.setToParent();
 	}
@@ -170,11 +174,11 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 	// errors
 	if (xml.exists("error")) {
 		xml.setTo("error");
-
-		int i = 0;
-		while (xml.exists("id" + ofToString(i))) {
-			output.error.push_back(xml.getValue<bool>("id" + ofToString(i)));
-			i++;
+		if (xml.setToChild(0)) {
+			do {
+				output.error.push_back(xml.getIntValue());
+			} while (xml.setToSibling());
+			xml.setToParent(); // go back to brosX
 		}
 		xml.setToParent();
 	}
@@ -197,14 +201,9 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 				output.x.push_back(tmp);
 				ofLogVerbose("modelparameters."+xml.getName(), ofToString(tmp));
 			} while (xml.setToSibling());
-
 			xml.setToParent();
 		}
-		
 	}
-
-	
-
 	return output;
 }
 
