@@ -160,14 +160,15 @@ while (keepRunning)
         % store data in mat file (regardless of fiterror)
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
         save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
-        copyfile([outputfile '.mat'],resultstoragepath); % copy to output file store
+        movefile([outputfile '.mat'],resultstoragepath); % copy to output file store
         
         % move settingsfile to storage
         movefile([settingspath settings_filename num2str(cntr_filename) '.xml'],settingsstoragepath);
         
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
-            writeXML(resultsmodelfit,[outputfile '.xml']); 
+            writeXML(resultsmodelfit,[outputfile '.xml']);
+            copyfile([outputfile '.xml'],resultstoragepath);
             disp([callerID 'Results written to ''results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '.xml/mat''']);
         else
             % model fit threw error
