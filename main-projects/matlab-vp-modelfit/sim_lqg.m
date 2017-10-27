@@ -5,12 +5,12 @@ assert(isa(checkStability,'double'));
 % model parameters
 m = diag([4 1.5]); 
 tu = 0.04;
-td = 0.05*1;   
+td = 0.1*0;   
 D = doFF*[0 15;-15 0];
 gamma = 0.8;
 noise = 0;
 
-N = size(target,2);
+N = size(target,2); % number of samples
 
 % dynamics matrices
 [Ae,B,H] = dynamics(dt,m,tu,td,D);
