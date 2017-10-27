@@ -17,9 +17,13 @@ settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
 % create folder for model output files (for copies)
-pathoutputstore = [resultspath 'results-modelfit-' datestr(now,'ddmmyy-HHMM')];
-if ~exist(pathoutputstore,'dir')
-    mkdir(pathoutputstore);
+resultstoragepath = [resultspath 'results-modelfit-' datestr(now,'ddmmyy-HHMM')];
+if ~exist(resultstoragepath,'dir')
+    mkdir(resultstoragepath);
+end
+settingsstoragepath = [settingspath 'settings-modelfit-' datestr(now,'ddmmyy-HHMM')];
+if ~exist(settingsstoragepath,'dir')
+    mkdir(settingsstoragepath);
 end
 
 % parpool
@@ -156,7 +160,10 @@ while (keepRunning)
         % store data in mat file (regardless of fiterror)
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
         save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
-        copyfile([outputfile '.mat'],pathoutputstore); % copy to output file store
+        copyfile([outputfile '.mat'],resultstoragepath); % copy to output file store
+        
+        % move settingsfile to storage
+        movefile([settingspath settings_filename num2str(cntr_filename) '.xml'],settingsstoragepath);
         
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
