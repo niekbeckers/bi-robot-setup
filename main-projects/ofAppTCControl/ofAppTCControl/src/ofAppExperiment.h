@@ -167,7 +167,7 @@ class ofAppExperiment : public ofBaseApp
 
 		// every 4 trials, show instructions during the break
 		int _instructionMessageInterval = 6;
-		string _instructionMessage = "Great job so far!\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
+		string _instructionMessage = "Great job so far!\n\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
 
 		//
 		// functions

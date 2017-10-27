@@ -17,9 +17,9 @@ settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
 % create folder for model output files (for copies)
-pathoutputstore = ['results-modelfit-' datestr(now,'ddmmyy-HHMM')];
+pathoutputstore = [resultspath 'results-modelfit-' datestr(now,'ddmmyy-HHMM')];
 if ~exist(pathoutputstore,'dir')
-    mkdir([resultspath pathoutputstore]);
+    mkdir(pathoutputstore);
 end
 
 % parpool
@@ -82,7 +82,6 @@ while (keepRunning)
         resultsmodelfit.VP = struct;
         resultsmodelfit.VP.trialID = trialID;
         resultsmodelfit.VP.doFitForBROSID = fitIDs;
-        resultsmodelfit.VP.dt = dt;
         
         % define number of tasks (for parfor loop)
         nrP0 = 3; % number of initial parameter estimates
@@ -121,7 +120,7 @@ while (keepRunning)
         % store all iterations
         resultsmodelfit.VP.iterations.p0 = p0;
         resultsmodelfit.VP.iterations.idxIDs = idxIDs;
-        resultsmodelfit.VP.iterations.fitInfo = fitInfo;
+        resultsmodelfit.VP.iterations.fitInfo = num2cell(fitInfo);
         resultsmodelfit.VP.iterations.fvalfit = fvalfit;
         resultsmodelfit.VP.iterations.errorFlag = errorFlagfit;
         
@@ -156,14 +155,13 @@ while (keepRunning)
        
         % store data in mat file (regardless of fiterror)
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
-        save(outputfile,'resultsmodelfit','dataArray'); % save to mat files
+        save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
         copyfile([outputfile '.mat'],pathoutputstore); % copy to output file store
         
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
             writeXML(resultsmodelfit,[outputfile '.xml']); 
-            
-            disp([callerID 'Results written to ''settings_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '.xml/mat''']);
+            disp([callerID 'Results written to ''results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '.xml/mat''']);
         else
             % model fit threw error
             switch(errorFlag)
@@ -246,7 +244,9 @@ function [writeOkay] = writeXML(s, filename)
 try 
     struct2xml(s,filename);
     writeOkay = true;
-catch
+catch me
+    disp(me);
+    keyboard
     writeOkay = false;
 end
 

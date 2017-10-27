@@ -52,7 +52,8 @@ public:
 	// Parameters
 	//
 	bool initialized;
-	string matlabFunctionPath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\";
+	string matlabSettingsFilePath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
+	string matlabResultsFilePath  = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
 
 
 	//

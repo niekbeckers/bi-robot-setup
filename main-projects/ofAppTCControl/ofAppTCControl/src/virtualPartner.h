@@ -34,8 +34,6 @@ class VirtualPartner
 		bool _runningModelFit = false;
 		bool _validVirtualPartnerFit = false;
 
-		string matlabFunctionPath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\";
-
 	public:
 		//
 		// variables
