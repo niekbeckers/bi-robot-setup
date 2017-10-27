@@ -156,7 +156,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 	ofLogVerbose("MatlabThread::xml2output","Results from the model fit:");
 
 	if (xml.exists("trialID")) output.trialID = xml.getValue<int>("trialID");
-	ofLogVerbose("trialID",ofToString(output.trialID));
+	ofLogVerbose("MatlabThread::xml2output, trialID "+ofToString(output.trialID));
 
 	// execute virtual partner
 	if (xml.exists("executeVirtualPartner")) {
@@ -169,7 +169,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
-	ofLogVerbose("executeVirtualPartner", ofToString(output.executeVirtualPartner));
+	ofLogVerbose("MatlabThread::xml2output", "executeVirtualPartner "+ofToString(output.executeVirtualPartner));
 
 	// errors
 	if (xml.exists("error")) {
@@ -182,7 +182,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
-	ofLogVerbose("error", ofToString(output.error));
+	ofLogVerbose("MatlabThread::xml2output","error "+ofToString(output.error));
 
 	// model parameters
 	if (xml.exists("modelparameters")) {
@@ -199,7 +199,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 					xml.setToParent(); // go back to brosX
 				}
 				output.x.push_back(tmp);
-				ofLogVerbose("modelparameters."+xml.getName(), ofToString(tmp));
+				ofLogVerbose("MatlabThread::xml2output", "modelparameters."+xml.getName()+": "+ofToString(tmp));
 			} while (xml.setToSibling());
 			xml.setToParent();
 		}
