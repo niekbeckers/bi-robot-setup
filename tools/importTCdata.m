@@ -159,6 +159,7 @@ end
 end
 
 function t = fixtimejumps(t,dt)
+%% function t = fixtimejumps(t,dt)
 
 difft = diff(t);
 ixjump = find(abs(difft) > 5*dt);
@@ -172,12 +173,6 @@ if ~isempty(ixjump)
     end
 end
 
-%     eval(['data.' char(param) ' = dataArray(:,param_idx{ii});']);
-    data.(char(param)) = datares;
-    catch me
-        disp(me)
-        keyboard
-    end
 end
 
 

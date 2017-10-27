@@ -112,7 +112,7 @@ s.experiment.activeBROSID.id1 = 2;
 % experiment settings
 switch sessionnr
     case 1
-        condition = zeros(10,1);
+        condition = zeros(5,1);
 %         condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
     case 2
         condition = [zeros(21,1); ones(21,1); ones(21,1)];
@@ -141,7 +141,7 @@ end
 % specify how the trials are divided over the blocks
 switch sessionnr
     case 1
-        divTrials = {1:10};
+        divTrials = {1:5};
 %         divTrials = {1:21 22:42 43:63 64:84};
     case 2
         divTrials = {1:21 22:42 43:63};
