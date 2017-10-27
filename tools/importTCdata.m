@@ -88,6 +88,8 @@ switch lower(modelname)
         
 
     case 'model_sysid'
+        
+        disp('model_sysid')
         %% model_sysid
         param_lbls = [  'time';
                         strcat(str_param_def,'_BROS1');
@@ -170,6 +172,12 @@ if ~isempty(ixjump)
     end
 end
 
+%     eval(['data.' char(param) ' = dataArray(:,param_idx{ii});']);
+    data.(char(param)) = datares;
+    catch me
+        disp(me)
+        keyboard
+    end
 end
 
 

@@ -800,9 +800,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelTransmissionEstimation)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{8BD046F9-5162-4998-89B0-A7147B1C435C}">
+					<TmcDesc GUID="{1A2FDE71-558B-48E5-8019-474D9996544B}">
 						<Name>ModelTransmissionEstimation</Name>
-						<CLSID ClassFactory="ModelTransmissionEstimation">{8BD046F9-5162-4998-89B0-A7147B1C435C}</CLSID>
+						<CLSID ClassFactory="ModelTransmissionEstimation">{1A2FDE71-558B-48E5-8019-474D9996544B}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -2120,7 +2120,7 @@
 						<CoeProfile ProfileNo="402"/>
 					</EtherCAT>
 				</Box>
-				<Box BoxType="9099" Id="6">
+				<Box Disabled="true" BoxType="9099" Id="6">
 					<Name>Box 6 (GSV-8)</Name>
 					<ImageId>65</ImageId>
 					<EtherCAT SlaveType="2" PdiType="#x0e09" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" VendorId="#x00000270" ProductCode="#x00080000" RevisionNo="#x0001001a" InfoDataAddr="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="GSV-8" Desc="GSV-8" PortABoxInfo="#x01000005">
