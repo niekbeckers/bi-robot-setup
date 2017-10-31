@@ -91,14 +91,17 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 	for (int i = 0; i < output.error.size(); i++) {
 		if (output.error[i] > 0) {
 			noErrors = false;
+			ofLogError("VirtualPartner::onVPOptimizationDone", "errors in output, code: "+ output.error[i]);
 		}
 	}
 	// check if the output struct is valid
 	if (output.trialID == -1) { // this means that an empty matlabOutput struct is used
 		noErrors = false;
+		ofLogError("VirtualPartner::onVPOptimizationDone", "empty output");
 	}
 	if (output.x.size() == 0) {
 		noErrors = false;
+		ofLogError("VirtualPartner::onVPOptimizationDone", "output.x.size() == 0");
 	}
 
 	// send data to ADS, if no errors occurred.
@@ -129,9 +132,18 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 		_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[i], &output.executeVirtualPartner[i], sizeof(output.executeVirtualPartner[i]));
 
 		// write model parameters
-		double* mp = &output.x[i][0];
-		ofLogVerbose("mp " + ofToString(i) + " " + ofToString(mp));
-		_tcClient->write(_lHdlVar_Write_VPModelParams[i], &mp, sizeof(mp));
+		vector<double> x = output.x[i];
+		//double* mp = &x[0]; // pointer to array
+
+		ofLogVerbose("x "+ofToString(x));
+
+		double *mp = new double[3];
+		std::copy(x.begin(), x.end(), mp);
+
+		ofLogVerbose("mp " + ofToString(i) + " " + ofToString(mp) + " sizeof " + ofToString(sizeof(mp)));
+
+
+		_tcClient->write(_lHdlVar_Write_VPModelParams[i], &mp, 24); // something here is going wrong...
 		
 		d = 1.0;
 		// write pulse to model params changed (to trigger DP)

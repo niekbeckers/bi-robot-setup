@@ -147,10 +147,13 @@ while (keepRunning)
             end
             
             % model parameters
-            pfit_opt(:,ii) = pfit_all(:,I);
+            pfit_opt(:,id) = pfit_all(:,I);
             for jj = 1:size(pfit_opt,1)
-                resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,ii);
+                resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,id);
             end
+            
+            % store optimal fit as p0 for next optimization
+            p0_saved(:,id) = pfit_opt(:,id);
         end
         catch me
             disp(me)
