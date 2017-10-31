@@ -1,7 +1,6 @@
 function matlabVirtualPartner
 %% function matlabVirtualPartner
 
-
 cd(fileparts(mfilename('fullpath')));
 addpath('scripts');
 

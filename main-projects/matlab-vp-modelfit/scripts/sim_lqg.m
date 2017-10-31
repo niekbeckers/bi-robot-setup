@@ -5,7 +5,8 @@ assert(isa(checkStability,'double'));
 % model parameters
 m = diag([4 1.5]); 
 tu = 0.04;
-td = 0.1*0;   
+td = 0*0.100;
+delay = td/dt;
 D = doFF*[0 15;-15 0];
 gamma = 0.8;
 noise = 0;
@@ -48,8 +49,7 @@ sigmaPt_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 sigmaVt_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 sigmaPf_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 
-Ow = zeros(size(Ae));
-Ow(1:14,1:14) = 1000*diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
+Ow = 1000*diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
     sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2 ...
     sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2]);
 
@@ -60,7 +60,7 @@ sigmaV_Ov = 0.00001*sqrt(0.01)/sqrt(dt);
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 %% run LQG
-[xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise);
+[xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise,delay);
 
 % check stability
 stable = 1;
@@ -68,6 +68,9 @@ if checkStability
     for k = 1:size(L,3)
         if any(abs(eig(Ae - B*L(:,:,k))) > 1)
             stable = 0;
+            abs(eig(Ae - B*L(:,:,k)))
+            k
+            keyboard
         end
     end 
 end

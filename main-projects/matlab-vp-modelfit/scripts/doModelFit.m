@@ -67,3 +67,20 @@ elseif ~stable
 else
     errorFlag = 2;               % bad performance (VAF or min_e wrong)
 end
+
+    eh = sqrt(sum((xmeas(1:2,:)-target(1:2,:)).^2,1));
+    evp = sqrt(sum((xe(1:2,:)-target(1:2,:)).^2,1));
+    mean_eh = mean(eh)
+    mean_evp = mean(evp)
+    
+    MSEh = mean(eh.^2);
+    MSEvp = mean(evp.^2); 
+
+    pos_error_human = sqrt((target(1,:)-xmeas(1,:)).^2+(target(2,:)-xmeas(2,:)).^2);
+    pos_error_agent = sqrt((target(1,:)-xe(1,:)).^2+(target(2,:)-xe(2,:)).^2);
+
+    % to get the mean error of the agent and human equal
+    pos_error_diff = abs(mean(pos_error_human) - mean(pos_error_agent));
+    fit_error = mean(abs(pos_error_human-pos_error_agent));
+
+plot(xe(1,:))

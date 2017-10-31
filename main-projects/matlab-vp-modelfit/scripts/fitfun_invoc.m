@@ -16,7 +16,7 @@ error_human = sqrt((target(1,:)-xmeas(1,:)).^2+(target(2,:)-xmeas(2,:)).^2);
 error_agent = sqrt((target(1,:)-xe(1,:)).^2+(target(2,:)-xe(2,:)).^2);
 
 % to get the root-mean-squared error of the agent and human equal
-e_rms = (rms(error_human) - rms(error_agent));
+e_rms = abs((rms(error_human) - rms(error_agent)));
 
 % to get trajectories/fit to be similar (sum-squared error)
 e_fit = sum((error_human-error_agent).^2);
