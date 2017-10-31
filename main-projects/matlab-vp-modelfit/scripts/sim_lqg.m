@@ -62,7 +62,6 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov
 %% run LQG
 [xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise);
 
-
 % check stability
 stable = 1;
 if checkStability

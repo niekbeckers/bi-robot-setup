@@ -297,8 +297,6 @@ end
 % select data from last trial only
 data = data.trial(end);
 
-
-
 % %% import data
 % % load all data
 % alldata = importTCdata(tmpDir,'model_base_bros');
