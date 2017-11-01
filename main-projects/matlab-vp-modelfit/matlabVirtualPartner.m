@@ -178,7 +178,9 @@ while (keepRunning)
                 case 1
                     disp('Model fit returned error flag 1: system is unstable');
                 case 2
-                    disp('Model fit returned error flag 2: fit is too inaccurate');
+                    disp('Model fit returned error flag 2: fit is too inaccurate, error difference is too high');
+                case 3
+                    disp('Model fit returned error flag 3: fit is too inaccurate, VAF values are low');
             end
         end
         % increase cntr_filename
