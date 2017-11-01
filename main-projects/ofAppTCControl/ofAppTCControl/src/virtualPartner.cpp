@@ -133,17 +133,27 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 
 		// write model parameters
 		vector<double> x = output.x[i];
-		//double* mp = &x[0]; // pointer to array
+		ofLogVerbose("x " + ofToString(x));
+		// vector values to byte array, such that we can send the model params to TC. Note: the byte array size cannot be set dynamically (runtime), so preset.
+		// this means you'd have to adjust the byte array size in case you update the number of model parameters sent to TC.
+		// The code below is based on the example found here: 
+		// https://infosys.beckhoff.com/english.php?content=../content/1033/tcsample_webservice/html/webservice_sample_cpp.htm&id=
+		
+		BYTE *pData = new BYTE[24];
+		int nIOffs = 0;
+		int nISize = 24;
+		for (int j = 0; j < x.size(); j++) {
+			memcpy_s(&pData[nIOffs], nISize, &x[j], 8); // copy double to byte array
+			nIOffs += 8;								// writing doubles, i.e. offset with 8 bytes
+			nISize -= 8;								// decrease destination size
+		}
 
-		ofLogVerbose("x "+ofToString(x));
+		ofLogVerbose("pData BROS" + ofToString(i) + " " + ofToString(pData) + " sizeof " + ofToString(sizeof(pData)));
 
-		double *mp = new double[3];
-		std::copy(x.begin(), x.end(), mp);
+		_tcClient->write(_lHdlVar_Write_VPModelParams[i], pData, 24);
 
-		ofLogVerbose("mp " + ofToString(i) + " " + ofToString(mp) + " sizeof " + ofToString(sizeof(mp)));
-
-
-		_tcClient->write(_lHdlVar_Write_VPModelParams[i], &mp, 24); // something here is going wrong...
+		// delete array
+		delete[] pData;
 		
 		d = 1.0;
 		// write pulse to model params changed (to trigger DP)
