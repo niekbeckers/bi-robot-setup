@@ -53,7 +53,6 @@ fitInfo.fitfun = 'fitfun_invoc';
 %% simulate to evaluate goodness of fit and stability
 [xe,~,stable] = sim_lqg(pfit,target,dt,doFF, 1);
 
-
 %% evaluate performance
 % VAF (percentage)
 VAF_px = (1-(var(xe(1,:)-xmeas(1,:))./var(xmeas(1,:))))*100;
