@@ -289,36 +289,21 @@ end
 % copy the new data files to the tmpDir
 cellfun(@(x)copyfile(x,tmpDir), filenames(idxcopy));
 
-data = loadBROSExperimentData(tmpDir,tmpDir,[],0);
+alldata = loadBROSExperimentData(tmpDir,tmpDir,[],false);
+
+% select last trial only (latest/newest trial)
+data = alldata.trial(end);
 
 % select last 20 seconds of data
-fldnms = fieldnames(data.trial(end));
+Nsel = 20000;
+fldnms = fieldnames(data);
 for ii = 1:length(fldnms)
-    x = data.trial(end).(fldnms{ii});
-    data.trial(end).(fldnms{ii}) = x(end-20000+1:end,:);
+    x = data.(fldnms{ii});
+    data.(fldnms{ii}) = x(end-Nsel+1:end,:);
 end
 
 % select data from last trial only
-data = data.trial(end);
-
-% %% import data
-% % load all data
-% alldata = importTCdata(tmpDir,'model_base_bros');
-% keyboard
-% % extract trials
-% idxtrial = findseq(double(alldata.ExpTrialNumber == trialID & alldata.ExpTrialRunning));
-% idx = idxtrial(1,2):idxtrial(1,3);
-% keyboard
-% data = struct;
-% params = fieldnames(alldata);
-% 
-% for ii = 1:length(params)
-%     data.(params{ii}) = alldata.(params{ii})(idx,:);
-% end
-% 
-% % add time vector
-% t = alldata.time(idx); t = t - t(1);
-% data.t = t;
+% data = data.trial(end);
 
 cd(currentdir);
 
