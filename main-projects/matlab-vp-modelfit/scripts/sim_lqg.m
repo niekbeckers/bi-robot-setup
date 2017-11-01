@@ -5,7 +5,7 @@ assert(isa(checkStability,'double'));
 % model parameters
 m = diag([4 1.5]); 
 tu = 0.04;
-td = 0*0.100;
+td = 0.100;
 delay = td/dt;
 D = doFF*[0 15;-15 0];
 gamma = 0.8;
@@ -65,12 +65,9 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov
 % check stability
 stable = 1;
 if checkStability
-    for k = 1:size(L,3)
+    for k = 1:size(L,3)-1
         if any(abs(eig(Ae - B*L(:,:,k))) > 1)
             stable = 0;
-            abs(eig(Ae - B*L(:,:,k)))
-            k
-            keyboard
         end
     end 
 end

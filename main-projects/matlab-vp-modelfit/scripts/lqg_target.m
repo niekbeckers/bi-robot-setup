@@ -21,14 +21,7 @@ K = zeros(nX,nY,N);
 % initialize
 y(:,1) = H*xe(:,1);
 
-% % retrieve control law
-% L = zeros(nU,nX,N-1);
-% L(:,1:14,:) = controllaw_infinitehorizon(Aim,B,Q,R,N);
-
 % retrieve control law
-% L_fast = controllaw_infinitehorizon(Aim,B,Q,R,N);
-% L = zeros(nU,nX,N-1);
-% L(:,1:14,:) = L_fast;
 L = controllaw(Aim,B,Q,R,N);
 
 % forward pass

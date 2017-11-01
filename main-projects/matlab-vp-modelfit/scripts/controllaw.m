@@ -24,5 +24,4 @@ end
 
 % extend gain if necessary
 L(:,:,1:lastk)= repmat(L(:,:,lastk),[1,1,lastk]);
-
 end

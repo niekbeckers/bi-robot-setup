@@ -87,8 +87,8 @@ while (keepRunning)
         resultsmodelfit.VP.doFitForBROSID = fitIDs;
         
         % define number of tasks (for parfor loop)
-        nrP0 = 3; % number of initial parameter estimates
-        nrFitParams = 3;
+        nrP0 = 5; % number of initial parameter estimates
+        nrFitParams = 5;
         idxIDs = reshape(repmat(fitIDs,1,nrP0).',[],1); % vector with fitIDs
         p0 = NaN(nrFitParams,nrP0);
         
@@ -102,11 +102,11 @@ while (keepRunning)
             % random p0.
             id = idxIDs(ii);
             if ~isempty(p0_saved)
-                p0(:,ii) = normrnd(p0_saved(:,id), (ub-lb)/100);
+                p0(:,ii) = normrnd(p0_saved(:,id), (ub-lb)/50);
                 p0(:,ii) = min(max(p0(:,ii),lb),ub); % bound p0 by upper and lower bound
 %                 p0(:,ii) = [normrnd(p0_saved(1,id),ub(1)/12); normrnd(p0_saved(2,id),ub(2)/12); normrnd(p0_saved(3,id),ub(3)/12)];
             else 
-                p0(:,ii) = lb+rand(3,1).*(ub-lb); % [rand*ub(1); rand*ub(2); rand*ub(3)];  
+                p0(:,ii) = lb+rand(3,1).*(ub-lb);  
                 p0(:,ii) = min(max(p0(:,ii),lb),ub);
             end
         end 
