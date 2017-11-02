@@ -38,9 +38,10 @@ disp([callerID 'Running ' mfilename]);
 keepRunning = true;
 while (keepRunning)
     try
-        [loadOkay,s] = readXML([settingspath settings_filename num2str(cntr_filename) '.xml']);
-    catch
+        [loadOkay,s] = readXML([settingspath settings_filename '*.xml']);
+    catch me
         loadOkay = false;
+        keyboard
     end
     
     if loadOkay
@@ -59,7 +60,7 @@ while (keepRunning)
         
         % load data of trial with trialID
         clear data
-        data = loadTrialData(datapath,trialID);
+        data = loadTrialData(datapath);
         
         % select data for optim function
         ds = 10;
@@ -198,6 +199,10 @@ function [loadOkay,s] = readXML(filename)
 loadOkay = false;
 s = struct;
 
+% select newest filename filename with highest trial number
+f = getlatestfiles(filename);
+filename = [f(end).folder filesep f(end).name];
+
 if exist(filename,'file')
     try
         xml = xml2struct(filename);
@@ -264,7 +269,7 @@ end
 
 end
 
-function [data] = loadTrialData(datapath,trialID)
+function [data] = loadTrialData(datapath)
 %% function data = loadTrialData(datapath,trialID)
 
 nrTrialsLookback = 5; % select last 5 data files,
@@ -272,12 +277,8 @@ currentdir = pwd;
 cd(datapath);                                   % go to data directory
 
 %% copy data files to tmp folder
-datafiles = dir('data_part*.mat');              % get list of all datafiles
-filenames = sort_nat({datafiles(:).name});      % sort files (sort_nat needed)
-ixstart = length(filenames)-nrTrialsLookback+1; if (ixstart < 1), ixstart = 1; end
-ixend = length(filenames);
-idxcopy = ixstart:ixend; % files to copy
-
+datafiles = getlatestfiles('data_part*.mat',nrTrialsLookback);
+filenames = {datafiles(:).name};
 tmpDir = 'tmpDirDataModelFit';
 % copy files to folder
 if ~exist(tmpDir,'dir')
@@ -287,8 +288,9 @@ else
     delete(fullfile(cd, [tmpDir filesep 'data_part*.mat']));
 end
 % copy the new data files to the tmpDir
-cellfun(@(x)copyfile(x,tmpDir), filenames(idxcopy));
+cellfun(@(x)copyfile(x,tmpDir), filenames);
 
+% load experiment data
 alldata = loadBROSExperimentData(tmpDir,tmpDir,[],false);
 
 % select last trial only (latest/newest trial)
@@ -313,5 +315,35 @@ end
 % data = data.trial(end);
 
 cd(currentdir);
+
+end
+
+function latestfiles = getlatestfiles(directory,nrfiles)
+%This function returns the latest file from the directory passsed as input
+%argument
+
+if nargin < 2
+    nrfiles = 1;
+end
+
+%Get the directory contents
+dirc = dir(directory);
+
+%Filter out all the folders.
+dirc = dirc(~cellfun(@isdir,{dirc(:).name}));
+
+%I contains the index to the biggest number which is the latest file
+[~,I] = sort([dirc(:).datenum]);
+
+if nrfiles > length(I)
+    nrfiles = length(I);
+end
+
+% select latest nrfiles
+I = I(end-nrfiles+1:end);
+
+if ~isempty(I)
+    latestfiles = dirc(I);
+end
 
 end
