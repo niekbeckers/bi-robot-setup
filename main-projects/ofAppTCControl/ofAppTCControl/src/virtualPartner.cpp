@@ -88,87 +88,104 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 	// do soemthing with the output data
 	ofLogVerbose("VirtualPartner::onVPOptimizationDone", "callback function called");
 
-	// error check
-	bool noErrors = true;
-	for (int i = 0; i < output.error.size(); i++) {
+	for (int i = 0; i < output.doFitForBROSIDs.size(); i++) {
+		int id = output.doFitForBROSIDs[i];
+
+		// error check
+		bool noErrors = true;
 		if (output.error[i] > 0) {
 			noErrors = false;
-			ofLogError("VirtualPartner::onVPOptimizationDone", "errors in output, code: "+ output.error[i]);
+			ofLogError("VirtualPartner::onVPOptimizationDone", "Errors in output for BROS" + ofToString(id) + ", code: " + ofToString(output.error[i]));
 		}
-	}
-	// check if the output struct is valid
-	if (output.trialID == -1) { // this means that an empty matlabOutput struct is used
-		noErrors = false;
-		ofLogError("VirtualPartner::onVPOptimizationDone", "empty output");
-	}
-	if (output.x.size() == 0) {
-		noErrors = false;
-		ofLogError("VirtualPartner::onVPOptimizationDone", "output.x.size() == 0");
+		// check if the output struct is valid
+		if (output.trialID == -1) { // this means that an empty matlabOutput struct is used
+			noErrors = false;
+			ofLogError("VirtualPartner::onVPOptimizationDone", "Empty output");
+		}
+		if (output.x.size() == 0) {
+			noErrors = false;
+			ofLogError("VirtualPartner::onVPOptimizationDone", "output.x.size() == 0");
+		}
+
+		// send data to ADS, if no errors occurred.
+		if (noErrors) {
+			sendToTwinCatADS(output, id);
+			_validVirtualPartnerFit = true;
+		}
+		else {
+			// errors occurred, don't update the model parameters? Or run the virtual partner?
+			bool b = false;
+			// find idx of id in activeBROSid
+			ptrdiff_t idx = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
+			if (idx >= _activeBROSIDs.size()) {
+				ofLogError("VirtualPartner::onVPOptimizationDone", "Cannot find BROS id (" + ofToString(id) + ") in _activeBROSIDs. Skipping virtual partner parameter write");
+				continue;
+			}
+			_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx], &b, sizeof(b));
+
+			ofLogError("VirtualPartner::onVPOptimizationDone", "Error occured in virtual partner fit for BROS" + ofToString(id));
+		}
 	}
 
-	// send data to ADS, if no errors occurred.
-	if (noErrors) {
-		sendToTwinCatADS(output);
-		_validVirtualPartnerFit = true;
-	}
-	else {
-		// errors occurred, don't update the model parameters? Or run the virtual partner?
-		bool b = false;
-		for (auto l : _lHdlVar_Write_ExecuteVirtualPartner) {
-			_tcClient->write(l, &b, sizeof(b));
-		}
-		_validVirtualPartnerFit = false;
-		ofLogError("VirtualPartner::onVPOptimizationDone","Error occured in virtual partner fit");
-	}
-	
 	_runningModelFit = false;
 }
 
 //--------------------------------------------------------------
-void VirtualPartner::sendToTwinCatADS(matlabOutput output)
+void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 {
 	ofLogVerbose("VirtualPartner::sendToTwinCatADS", "Setting virtual partner data in TwinCAT");
-	double d;
-	for (int i = 0; i < output.doFitForBROSIDs.size(); i++) {
-		
 
-		try {
-
-			// write executeVirtualPartner
-			_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[i], &output.executeVirtualPartner[i], sizeof(output.executeVirtualPartner[i]));
-
-			// write model parameters
-			vector<double> x = output.x[i];
-
-			// vector values to byte array, such that we can send the model params to TC. Note: the byte array size cannot be set dynamically (runtime), so preset.
-			// this means you'd have to adjust the byte array size in case you update the number of model parameters sent to TC.
-			// The code below is based on the example found here: 
-			// https://infosys.beckhoff.com/english.php?content=../content/1033/tcsample_webservice/html/webservice_sample_cpp.htm&id=
-
-			BYTE *pData = new BYTE[24];
-			int nIOffs = 0;
-			int nISize = 24;
-			for (int j = 0; j < x.size(); j++) {
-				memcpy_s(&pData[nIOffs], nISize, &x[j], 8); // copy double to byte array
-				nIOffs += 8;								// writing doubles, i.e. offset with 8 bytes
-				nISize -= 8;								// decrease destination size
-			}
-
-			_tcClient->write(_lHdlVar_Write_VPModelParams[i], pData, 24);
-
-			// delete array
-			delete[] pData;
-
-			d = 1.0;
-			// write pulse to model params changed (to trigger DP)
-			_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[i], &d, sizeof(d));
-			d = 0.0;
-			_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[i], &d, sizeof(d));
-		}
-		catch (int e) {
-			ofLogWarning("VirtualPartner::sendToTwinCatADS", "An exception occurred. Exception Nr. " + ofToString(e));
-		}
-
-		ofLogVerbose("VirtualPartner::sendToTwinCatADS", "DONE - Setting virtual partner data in TwinCAT");
+	// find idx of id in activeBROSid
+	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
+	if (idx_active >= _activeBROSIDs.size()) {
+		ofLogError("VirtualPartner::sendToTwinCatADS", "Cannot find BROS id (" + ofToString(id) + ") in _activeBROSIDs. Skipping virtual partner parameter write");
+		return;
 	}
+	// find idx of id in fitBROSIds
+	ptrdiff_t idx_fit = find(output.doFitForBROSIDs.begin(), output.doFitForBROSIDs.end(), id) - output.doFitForBROSIDs.begin();
+	if (idx_fit >= output.doFitForBROSIDs.size()) {
+		ofLogError("VirtualPartner::sendToTwinCatADS", "Cannot find BROS id (" + ofToString(id) + ") in output.doFitForBROSIDs. Skipping virtual partner parameter write");
+		return;
+	}
+
+	double d;
+	try {
+
+		// write executeVirtualPartner
+		_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx_active], &output.executeVirtualPartner[idx_fit], sizeof(output.executeVirtualPartner[idx_fit]));
+
+		// write model parameters
+		vector<double> x = output.x[idx_fit];
+
+		// vector values to byte array, such that we can send the model params to TC. Note: the byte array size cannot be set dynamically (runtime), so preset.
+		// this means you'd have to adjust the byte array size in case you update the number of model parameters sent to TC.
+		// The code below is based on the example found here: 
+		// https://infosys.beckhoff.com/english.php?content=../content/1033/tcsample_webservice/html/webservice_sample_cpp.htm&id=
+
+		BYTE *pData = new BYTE[24];
+		int nIOffs = 0;
+		int nISize = 24;
+		for (int j = 0; j < x.size(); j++) {
+			memcpy_s(&pData[nIOffs], nISize, &x[j], 8); // copy double to byte array
+			nIOffs += 8;								// writing doubles, i.e. offset with 8 bytes
+			nISize -= 8;								// decrease destination size
+		}
+
+		_tcClient->write(_lHdlVar_Write_VPModelParams[idx_active], pData, 24);
+
+		// delete array, cleanup
+		delete[] pData;
+
+		d = 1.0;
+		// write pulse to model params changed (to trigger DP)
+		_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
+		d = 0.0;
+		_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
+	}
+	catch (int e) {
+		ofLogWarning("VirtualPartner::sendToTwinCatADS", "An exception occurred. Exception Nr. " + ofToString(e));
+	}
+
+	ofLogVerbose("VirtualPartner::sendToTwinCatADS", "DONE - Setting virtual partner data in TwinCAT");
+
 }

@@ -33,7 +33,7 @@ ULONG tcAdsClient::getVariableHandle(char* szVarIn, int numBytes)
 
 	if (nErr) {
 		cerr << "[error] Error: AdsSyncReadWriteReqEx2: " << nErr << " - variable " << szVarIn << " not found." << '\n';
-		return 0;
+		return -1;
 	} 
 	else {
 		_hVariables.push_back(lHdlVar);

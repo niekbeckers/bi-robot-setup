@@ -47,7 +47,7 @@ class VirtualPartner
 		void update();
 		void initialize(vector<int> vID);
 		void runVPOptimization(matlabInput input);
-		void sendToTwinCatADS(matlabOutput output);
+		void sendToTwinCatADS(matlabOutput output, int id);
 		void onVPOptimizationDone(matlabOutput output);
 
 		inline bool modelFitIsRunning() { return _runningModelFit; }
