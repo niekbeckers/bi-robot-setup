@@ -34,7 +34,7 @@ opts = optimoptions('fmincon','display','iter','MaxIterations',maxIter,'useparal
 % bounds
 
 lb = [0;0;0];
-ub = [10000;10;0.01];
+ub = [1e4;1e2;1e-2];
 
 % perform fit
 [pfit,fvalfit,exitflag,output] = fmincon(fun,p0,[],[],[],[],lb,ub,[],opts);
