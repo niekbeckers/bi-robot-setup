@@ -42,18 +42,20 @@ void VirtualPartner::initialize(vector<int> vID)
 	// get ADS handles
 	for (int i = 0; i < _activeBROSIDs.size(); i++) {
 		int id = _activeBROSIDs[i];
-		string var0 = "Object1 (ModelBROS).ModelParameters.VPUseVirtualPartner_BROS" + ofToString(id);
+		string var0 = "Object1 (ModelBROS).ModelParameters.VPUseVirtualPartner_BROS" + ofToString(id) + "_Value";
 		char *szVar0 = strdup(var0.c_str());
-		_lHdlVar_Write_ExecuteVirtualPartner.push_back(_tcClient->getVariableHandle(szVar0, sizeof(szVar0)));
+		_lHdlVar_Write_ExecuteVirtualPartner.push_back(_tcClient->getVariableHandle(szVar0, strlen(szVar0)));
 
-		string var1 = "Object1 (ModelBROS).ModelParameters.VPModelParams_BROS" + ofToString(id);
+		//char szVar1[] = { "Object1 (ModelBROS).ModelParameters.VPModelParams_BROS1_Value" };
+		string var1 = "Object1 (ModelBROS).ModelParameters.VPModelParams_BROS"+ ofToString(id) +"_Value";
 		char *szVar1 = strdup(var1.c_str());
-		_lHdlVar_Write_VPModelParams.push_back(_tcClient->getVariableHandle(szVar1, sizeof(szVar1)));
+		_lHdlVar_Write_VPModelParams.push_back(_tcClient->getVariableHandle(szVar1, strlen(szVar1)));
 
-		string var2 = "Object1 (ModelBROS).ModelParameters.VPModelParams_Changed_BROS" + ofToString(id);
+		string var2 = "Object1 (ModelBROS).ModelParameters.VPModelParams_Changed_BROS" + ofToString(id) + "_Value";
 		char *szVar2 = strdup(var2.c_str());
-		_lHdlVar_Write_VPModelParamsChanged.push_back(_tcClient->getVariableHandle(szVar2, sizeof(szVar2)));
+		_lHdlVar_Write_VPModelParamsChanged.push_back(_tcClient->getVariableHandle(szVar2, strlen(szVar2)));
 	}
+
 
 	ofLogVerbose("VirtualPartner::initialize", "initialized");
 
@@ -133,7 +135,7 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 
 		// write model parameters
 		vector<double> x = output.x[i];
-		ofLogVerbose("x " + ofToString(x));
+
 		// vector values to byte array, such that we can send the model params to TC. Note: the byte array size cannot be set dynamically (runtime), so preset.
 		// this means you'd have to adjust the byte array size in case you update the number of model parameters sent to TC.
 		// The code below is based on the example found here: 
@@ -147,8 +149,6 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 			nIOffs += 8;								// writing doubles, i.e. offset with 8 bytes
 			nISize -= 8;								// decrease destination size
 		}
-
-		ofLogVerbose("pData BROS" + ofToString(i) + " " + ofToString(pData) + " sizeof " + ofToString(sizeof(pData)));
 
 		_tcClient->write(_lHdlVar_Write_VPModelParams[i], pData, 24);
 
