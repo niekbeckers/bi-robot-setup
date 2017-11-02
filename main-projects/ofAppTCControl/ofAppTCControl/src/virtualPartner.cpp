@@ -143,11 +143,11 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 		
 		BYTE *pData = new BYTE[24];
 		int nIOffs = 0;
-		int nISize = 24;
+		int nISize = x.size()*sizeof(double);
 		for (int j = 0; j < x.size(); j++) {
-			memcpy_s(&pData[nIOffs], nISize, &x[j], 8); // copy double to byte array
-			nIOffs += 8;								// writing doubles, i.e. offset with 8 bytes
-			nISize -= 8;								// decrease destination size
+			memcpy_s(&pData[nIOffs], nISize, &x[j], sizeof(double)); // copy double to byte array
+			nIOffs += sizeof(double);								// writing doubles, i.e. offset with 8 bytes
+			nISize -= sizeof(double);								// decrease destination size
 		}
 
 		_tcClient->write(_lHdlVar_Write_VPModelParams[i], pData, 24);
