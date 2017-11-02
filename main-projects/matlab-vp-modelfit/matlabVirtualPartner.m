@@ -53,23 +53,19 @@ while (keepRunning)
         disp([callerID 'Loaded ' settings_filename num2str(cntr_filename) ', starting model fit']);
         
         % initialize and prepare stuff
-        try
         fitIDs = s.VP.doFitForBROSID(:);
         trialID = s.VP.trialID;
         condition = s.VP.condition;
-        catch me
-            disp(me)
-            keyboard
-        end
+        
         % load data of trial with trialID
         clear data
         data = loadTrialData(datapath,trialID);
         
         % select data for optim function
-        ds = 20;
+        ds = 10;
         dataArray = NaN(length(data.t(1:ds:end)),8,length(fitIDs));
         t = data.t(1:ds:end,:);
-        dt = mode(diff(t));
+        dt = round(mode(diff(t)),2);
         for ii = 1:length(fitIDs)
             id = fitIDs(ii);
             
@@ -84,7 +80,11 @@ while (keepRunning)
         % perform model fit
         resultsmodelfit.VP = struct;
         resultsmodelfit.VP.trialID = trialID;
-        resultsmodelfit.VP.doFitForBROSID = fitIDs;
+        % add fitIDs to output
+        for ii = 1:length(fitIDs)
+            resultsmodelfit.VP.doFitForBROSID.(['id' num2str(ii-1)]) = fitIDs(ii);
+        end
+        
         
         % define number of tasks (for parfor loop)
         nrP0 = 3; % number of initial parameter estimates

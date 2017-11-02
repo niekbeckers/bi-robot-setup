@@ -32,8 +32,9 @@ fun = @(x)fitfun_invoc_mex(x,dt,xmeas,target,doFF);
 maxIter = 75;
 opts = optimoptions('fmincon','display','iter','MaxIterations',maxIter,'useparallel',false);
 % bounds
-ub = [10000;10;0.01];
+
 lb = [0;0;0];
+ub = [10000;10;0.01];
 
 % perform fit
 [pfit,fvalfit,exitflag,output] = fmincon(fun,p0,[],[],[],[],lb,ub,[],opts);

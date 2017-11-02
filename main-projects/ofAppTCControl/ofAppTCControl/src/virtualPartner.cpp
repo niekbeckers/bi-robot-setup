@@ -129,36 +129,46 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output)
 {
 	ofLogVerbose("VirtualPartner::sendToTwinCatADS", "Setting virtual partner data in TwinCAT");
 	double d;
-	for (int i = 0; i < _activeBROSIDs.size(); i++) {
-		// write executeVirtualPartner
-		_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[i], &output.executeVirtualPartner[i], sizeof(output.executeVirtualPartner[i]));
-
-		// write model parameters
-		vector<double> x = output.x[i];
-
-		// vector values to byte array, such that we can send the model params to TC. Note: the byte array size cannot be set dynamically (runtime), so preset.
-		// this means you'd have to adjust the byte array size in case you update the number of model parameters sent to TC.
-		// The code below is based on the example found here: 
-		// https://infosys.beckhoff.com/english.php?content=../content/1033/tcsample_webservice/html/webservice_sample_cpp.htm&id=
+	for (int i = 0; i < output.doFitForBROSIDs.size(); i++) {
 		
-		BYTE *pData = new BYTE[24];
-		int nIOffs = 0;
-		int nISize = x.size()*sizeof(double);
-		for (int j = 0; j < x.size(); j++) {
-			memcpy_s(&pData[nIOffs], nISize, &x[j], sizeof(double)); // copy double to byte array
-			nIOffs += sizeof(double);								// writing doubles, i.e. offset with 8 bytes
-			nISize -= sizeof(double);								// decrease destination size
+
+		try {
+
+			// write executeVirtualPartner
+			_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[i], &output.executeVirtualPartner[i], sizeof(output.executeVirtualPartner[i]));
+
+			// write model parameters
+			vector<double> x = output.x[i];
+
+			// vector values to byte array, such that we can send the model params to TC. Note: the byte array size cannot be set dynamically (runtime), so preset.
+			// this means you'd have to adjust the byte array size in case you update the number of model parameters sent to TC.
+			// The code below is based on the example found here: 
+			// https://infosys.beckhoff.com/english.php?content=../content/1033/tcsample_webservice/html/webservice_sample_cpp.htm&id=
+
+			BYTE *pData = new BYTE[24];
+			int nIOffs = 0;
+			int nISize = 24;
+			for (int j = 0; j < x.size(); j++) {
+				memcpy_s(&pData[nIOffs], nISize, &x[j], 8); // copy double to byte array
+				nIOffs += 8;								// writing doubles, i.e. offset with 8 bytes
+				nISize -= 8;								// decrease destination size
+			}
+
+			_tcClient->write(_lHdlVar_Write_VPModelParams[i], pData, 24);
+
+			// delete array
+			delete[] pData;
+
+			d = 1.0;
+			// write pulse to model params changed (to trigger DP)
+			_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[i], &d, sizeof(d));
+			d = 0.0;
+			_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[i], &d, sizeof(d));
+		}
+		catch (int e) {
+			ofLogWarning("VirtualPartner::sendToTwinCatADS", "An exception occurred. Exception Nr. " + ofToString(e));
 		}
 
-		_tcClient->write(_lHdlVar_Write_VPModelParams[i], pData, 24);
-
-		// delete array
-		delete[] pData;
-		
-		d = 1.0;
-		// write pulse to model params changed (to trigger DP)
-		_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[i], &d, sizeof(d));
-		d = 0.0;
-		_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[i], &d, sizeof(d));
+		ofLogVerbose("VirtualPartner::sendToTwinCatADS", "DONE - Setting virtual partner data in TwinCAT");
 	}
 }

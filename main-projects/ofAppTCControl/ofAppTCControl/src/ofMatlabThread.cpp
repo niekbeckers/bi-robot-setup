@@ -171,6 +171,19 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 	}
 	ofLogVerbose("MatlabThread::xml2output", "executeVirtualPartner "+ofToString(output.executeVirtualPartner));
 
+	// doFitForBROSID
+	if (xml.exists("doFitForBROSID")) {
+		xml.setTo("doFitForBROSID");
+		if (xml.setToChild(0)) {
+			do {
+				output.doFitForBROSIDs.push_back(xml.getIntValue());
+			} while (xml.setToSibling());
+			xml.setToParent(); // go back to brosX
+		}
+		xml.setToParent();
+	}
+	ofLogVerbose("MatlabThread::xml2output", "doFitForBROSID " + ofToString(output.doFitForBROSIDs));
+
 	// errors
 	if (xml.exists("error")) {
 		xml.setTo("error");

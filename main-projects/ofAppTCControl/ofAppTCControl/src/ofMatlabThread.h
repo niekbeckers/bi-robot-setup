@@ -11,6 +11,7 @@
 #endif
 
 struct matlabOutput {
+	vector<int> doFitForBROSIDs;
 	int trialID = -1;
 	vector<vector<double>> x;
 	vector<int> error;
