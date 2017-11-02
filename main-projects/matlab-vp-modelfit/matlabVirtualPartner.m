@@ -87,8 +87,8 @@ while (keepRunning)
         resultsmodelfit.VP.doFitForBROSID = fitIDs;
         
         % define number of tasks (for parfor loop)
-        nrP0 = 5; % number of initial parameter estimates
-        nrFitParams = 5;
+        nrP0 = 3; % number of initial parameter estimates
+        nrFitParams = 3;
         idxIDs = reshape(repmat(fitIDs,1,nrP0).',[],1); % vector with fitIDs
         p0 = NaN(nrFitParams,nrP0);
         
@@ -297,6 +297,13 @@ data = alldata.trial(end);
 % select last 20 seconds of data
 Nsel = 20000;
 fldnms = fieldnames(data);
+x = data.(fldnms{1});
+if (size(x,1) < Nsel)
+    NselOld = Nsel;
+    Nsel = size(x,1);
+    warning(['size(x,1) = ' num2str(size(x,1)) ' < ' num2str(NselOld) ', setting Nsel to ' num2str(Nsel) '.']);
+end
+
 for ii = 1:length(fldnms)
     x = data.(fldnms{ii});
     data.(fldnms{ii}) = x(end-Nsel+1:end,:);
