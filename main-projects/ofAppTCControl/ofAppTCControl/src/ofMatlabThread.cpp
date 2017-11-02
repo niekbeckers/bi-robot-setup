@@ -133,7 +133,6 @@ void MatlabThread::input2xml(matlabInput input)
 
 	xml.addChild("VP");
 	xml.setTo("VP");
-
 	xml.addValue("trialID", input.trialID);
 	xml.addValue("condition", input.condition);
 	xml.addChild("doFitForBROSID");
@@ -152,6 +151,8 @@ void MatlabThread::input2xml(matlabInput input)
 //--------------------------------------------------------------
 matlabOutput MatlabThread::xml2output(ofXml xml)
 {
+	// read xml and store in matlabOutput struct
+
 	matlabOutput output;
 	ofLogVerbose("MatlabThread::xml2output","Results from the model fit:");
 

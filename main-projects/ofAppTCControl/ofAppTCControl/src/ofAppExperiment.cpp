@@ -506,7 +506,12 @@ void ofAppExperiment::esmNewBlock()
 //--------------------------------------------------------------
 void ofAppExperiment::esmNewTrial()
 {
-	if (_experimentPaused || !_experimentRunning) { return; }
+	if (!_experimentRunning) { return; }
+	if (_experimentPaused) {
+		display1->showMessageNorth(true, "EXPERIMENT PAUSED");
+		display2->showMessageNorth(true, "EXPERIMENT PAUSED"); 
+		return; 
+	}
 
 	_currentTrial = _currentBlock.trials[_currentTrialNumber];
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
@@ -645,6 +650,20 @@ void ofAppExperiment::esmTrialDone()
 	// call for homing after trial
 	mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
 	setExperimentState(ExperimentState::TRIALFEEDBACK);
+
+	// check if we need to fit the virtual partner
+	if (_currentTrial.fitVirtualPartner) {
+		// pause data logger before doing optimization
+		mainApp->stopDataLogger();
+
+		// setup optimization (settings)
+		matlabInput settings;
+		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
+		settings.trialID = _currentTrialNumber;
+		settings.condition = _currentTrial.condition;
+		partner.runVPOptimization(settings);
+		_runningModelFit = true;
+	}
 }
 
 //--------------------------------------------------------------
@@ -768,19 +787,7 @@ void ofAppExperiment::esmCheckNextStep()
 		}
 	}
 
-	// check if we need to fit the virtual partner
-	if (_currentTrial.fitVirtualPartner) {
-		// pause data logger before doing optimization
-		mainApp->stopDataLogger();
-
-		// setup optimization (settings)
-		matlabInput settings;
-		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
-		settings.trialID = _currentTrialNumber;
-		settings.condition = _currentTrial.condition;
-		partner.runVPOptimization(settings);
-		_runningModelFit = true;
-	}
+	
 }
 
 //--------------------------------------------------------------
