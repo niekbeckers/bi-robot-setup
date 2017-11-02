@@ -825,6 +825,12 @@ void ofAppExperiment::esmTrialBreak()
 
 		setExperimentState(ExperimentState::TRIALBREAKDONE);
 	}
+	else {
+		// wait a bit longer, show message
+		string msg = "Wait just a little bit longer...";
+		display1->showMessageNorth(true, msg);
+		display2->showMessageNorth(true, msg);
+	}
 }
 
 //--------------------------------------------------------------
