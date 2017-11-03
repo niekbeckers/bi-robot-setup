@@ -14804,7 +14804,7 @@
 						<SyncMan>0010800026000100010000002000c0008000001026010000</SyncMan>
 						<SyncMan>0014800022000100020000002000c0008000001422010000</SyncMan>
 						<SyncMan>001809002400010003000000000000000200001824010000</SyncMan>
-						<SyncMan>001c10002000010004000000000000000600001c20010000</SyncMan>
+						<SyncMan>001c14002000010004000000000000000600001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
@@ -14826,12 +14826,12 @@
 								<Type>INT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000">
-							<Entry Name="Following error actual value" Index="#x60f4">
-								<Type>DINT</Type>
+						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000" SyncMan="3">
+							<Entry Name="Motion Error Register" Index="#x2000">
+								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="Digital inputs" Index="#x60fd">
-								<Type>UDINT</Type>
+							<Entry Name="Detailed Error Register" Index="#x2002">
+								<Type>UINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="Transmit PDO 3 mapping parameters" Index="#x1a02" Flags="#x0000" SyncMan="3">
@@ -14889,7 +14889,7 @@
 						<SyncMan>0010800026000100010000002000c0008000001026010000</SyncMan>
 						<SyncMan>0014800022000100020000002000c0008000001422010000</SyncMan>
 						<SyncMan>001809002400010003000000000000000200001824010000</SyncMan>
-						<SyncMan>001c10002000010004000000000000000600001c20010000</SyncMan>
+						<SyncMan>001c14002000010004000000000000000600001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
@@ -14911,12 +14911,12 @@
 								<Type>INT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000">
-							<Entry Name="Following error actual value" Index="#x60f4">
-								<Type>DINT</Type>
+						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000" SyncMan="3">
+							<Entry Name="Motion Error Register" Index="#x2000">
+								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="Digital inputs" Index="#x60fd">
-								<Type>UDINT</Type>
+							<Entry Name="Detailed Error Register" Index="#x2002">
+								<Type>UINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="Transmit PDO 3 mapping parameters" Index="#x1a02" Flags="#x0000" SyncMan="3">
@@ -15091,7 +15091,7 @@
 						<SyncMan>0010800026000100010000002000c0008000001026010000</SyncMan>
 						<SyncMan>0014800022000100020000002000c0008000001422010000</SyncMan>
 						<SyncMan>001809002400010003000000000000000200001824010000</SyncMan>
-						<SyncMan>001c10002000010004000000000000000600001c20010000</SyncMan>
+						<SyncMan>001c14002000010004000000000000000600001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
@@ -15113,12 +15113,12 @@
 								<Type>INT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000">
-							<Entry Name="Following error actual value" Index="#x60f4">
-								<Type>DINT</Type>
+						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000" SyncMan="3">
+							<Entry Name="Motion Error Register" Index="#x2000">
+								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="Digital inputs" Index="#x60fd">
-								<Type>UDINT</Type>
+							<Entry Name="Detailed Error Register" Index="#x2002">
+								<Type>UINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="Transmit PDO 3 mapping parameters" Index="#x1a02" Flags="#x0000" SyncMan="3">
@@ -15176,7 +15176,7 @@
 						<SyncMan>0010800026000100010000002000c0008000001026010000</SyncMan>
 						<SyncMan>0014800022000100020000002000c0008000001422010000</SyncMan>
 						<SyncMan>001809002400010003000000000000000200001824010000</SyncMan>
-						<SyncMan>001c10002000010004000000000000000600001c20010000</SyncMan>
+						<SyncMan>001c14002000010004000000000000000600001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
@@ -15198,12 +15198,12 @@
 								<Type>INT</Type>
 							</Entry>
 						</Pdo>
-						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000">
-							<Entry Name="Following error actual value" Index="#x60f4">
-								<Type>DINT</Type>
+						<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000" SyncMan="3">
+							<Entry Name="Motion Error Register" Index="#x2000">
+								<Type>UINT</Type>
 							</Entry>
-							<Entry Name="Digital inputs" Index="#x60fd">
-								<Type>UDINT</Type>
+							<Entry Name="Detailed Error Register" Index="#x2002">
+								<Type>UINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="Transmit PDO 3 mapping parameters" Index="#x1a02" Flags="#x0000" SyncMan="3">

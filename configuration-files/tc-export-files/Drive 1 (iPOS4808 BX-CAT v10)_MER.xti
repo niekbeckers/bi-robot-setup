@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmItem" TcSmVersion="1.0" TcVersion="3.1.4020.28" ClassName="CFlbTermDef" SubType="9099">
+	<Box Id="4" BoxType="9099">
+		<Name>Drive 1 (iPOS4808 BX-CAT v10)</Name>
+		<ImageId>38</ImageId>
+		<EtherCAT SlaveType="2" PdiType="#x0e05" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" EoeType="1" FoeType="1" VendorId="#x000001a3" ProductCode="#x019f418d" RevisionNo="#x35313544" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutMailbox2="2000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="iPOS4808 BX-CAT v10" Desc="iPOS4808 BX-CAT v10">
+			<SyncMan>0010800026000100010000002000c0008000001026010000</SyncMan>
+			<SyncMan>0014800022000100020000002000c0008000001422010000</SyncMan>
+			<SyncMan>001809002400010003000000000000000200001824010000</SyncMan>
+			<SyncMan>001c14002000010004000000000000000600001c20010000</SyncMan>
+			<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
+			<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
+			<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+			<SwitchPortData>00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+			<DcData>3003000000000000000000000000000001000000000000000000000000000000</DcData>
+			<DcMode>446353796e630000000000000000000044432d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000030030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+			<DcMode>46726565000000000000000000000000444320756e7573656420286e6f2073796e632900000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
+			<MBoxUserCmdData>02000300090000001900000003000000000000000000000000000000000000002060600001000000084d6f646573206f66204f7065726174696f6e20203d2043535000</MBoxUserCmdData>
+			<MBoxUserCmdData>02000300090000000a000000030000000000000000000000000000000000000020c2600101000000014379636c652074696d6500</MBoxUserCmdData>
+			<MBoxUserCmdData>020003000900000013000000030000000000000000000000000000000000000020c2600201000000fd4379636c652074696d65206578706f6e656e7400</MBoxUserCmdData>
+			<Pdo Name="Transmit PDO 1 mapping parameters" Index="#x1a00" Flags="#x0000" SyncMan="3">
+				<Entry Name="Statusword" Index="#x6041">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Position actual value" Index="#x6064">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Torque (current) actual value" Index="#x6077">
+					<Type>INT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="Transmit PDO 2 mapping parameters" Index="#x1a01" Flags="#x0000" SyncMan="3">
+				<Entry Name="Motion Error Register" Index="#x2000">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Detailed Error Register" Index="#x2002">
+					<Type>UINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="Transmit PDO 3 mapping parameters" Index="#x1a02" Flags="#x0000" SyncMan="3">
+				<Entry Name="Velocity actual value" Index="#x606c">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Actual internal position from sensor on motor" Index="#x2088">
+					<Type>DINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="Transmit PDO 4 mapping parameters" Index="#x1a03" Flags="#x0000">
+				<Entry Name="Modes of operation display" Index="#x6061">
+					<Type>SINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="Receive PDO 1 mapping parameters" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+				<Entry Name="Controlword" Index="#x6040">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Target position" Index="#x607a">
+					<Type>DINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="Receive PDO 2 mapping parameters" Index="#x1601" InOut="1" Flags="#x0000">
+				<Entry Name="Digital outputs - Physical outputs" Index="#x60fe" Sub="#x01">
+					<Type>UDINT</Type>
+				</Entry>
+				<Entry Name="Digital outputs - Bit mask" Index="#x60fe" Sub="#x02">
+					<Type>UDINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="Receive PDO 3 mapping parameters" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
+				<Entry Name="Modes of operation" Index="#x6060">
+					<Type>SINT</Type>
+				</Entry>
+				<Entry Name="Target torque" Index="#x6071">
+					<Type>INT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="Receive PDO 4 mapping parameters" Index="#x1603" InOut="1" Flags="#x0000">
+				<Entry Name="Profile velocity" Index="#x6081">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Profile acceleration" Index="#x6083">
+					<Type>DINT</Type>
+				</Entry>
+			</Pdo>
+			<CoeProfile ProfileNo="402"/>
+		</EtherCAT>
+	</Box>
+	<Mappings>
+		<OwnerA Name="__THIS__">
+			<OwnerB Name="TIRC^TcCOM Objects^Object1 (ModelBROS)">
+				<Link VarA="Receive PDO 1 mapping parameters^Controlword" VarB="Output^ControlWord_joint1"/>
+				<Link VarA="Receive PDO 3 mapping parameters^Modes of operation" VarB="Output^ModesOfOperation_joint1"/>
+				<Link VarA="Receive PDO 3 mapping parameters^Target torque" VarB="Output^TargetCurrent_joint1"/>
+				<Link VarA="Transmit PDO 1 mapping parameters^Position actual value" VarB="Input^JointAbsEnc_joint1"/>
+				<Link VarA="Transmit PDO 1 mapping parameters^Statusword" VarB="Input^StatusWord_joint1"/>
+				<Link VarA="Transmit PDO 1 mapping parameters^Torque (current) actual value" VarB="Input^MotorCurrentAct_joint1"/>
+				<Link VarA="Transmit PDO 3 mapping parameters^Actual internal position from sensor on motor" VarB="Input^MotorEncoder_joint1"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
+</TcSmItem>
