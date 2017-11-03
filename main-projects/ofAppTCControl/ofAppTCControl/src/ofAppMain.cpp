@@ -97,7 +97,6 @@ void ofAppMain::setupTCADS()
 	char szVar0[] = { "Object1 (ModelBROS).Output.DataToADS" };
 	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
 
-
 	// set up tcAdsClient for events
 	_tcClientEvent = new tcAdsClient(adsPort);
 
@@ -176,13 +175,6 @@ void ofAppMain::setupGUI()
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
 	_guiSystem.add(_btnCalibrateForceSensor.setup("Calibrate force sensors"));
-
-	_ofGrpSys.setName("System states");
-	_ofGrpSys.add(_lblSysState[0].set("State 1", ""));
-	_ofGrpSys.add(_lblSysState[1].set("State 2", ""));
-	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
-	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
-	_guiSystem.add(_ofGrpSys);
 	
 	// request state
 	_grpReqState.setup("Request state");
@@ -200,6 +192,13 @@ void ofAppMain::setupGUI()
 	_grpDriveControl.add(_btnEnableDrive.setup("Enable drives"));
 	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
 	_guiSystem.add(&_grpDriveControl);
+
+	_ofGrpSys.setName("System states");
+	_ofGrpSys.add(_lblSysState[0].set("State 1", ""));
+	_ofGrpSys.add(_lblSysState[1].set("State 2", ""));
+	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
+	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
+	_guiSystem.add(_ofGrpSys);
 
 	// GUI experiment
 	_guiExperiment.add(_btnDebugMode.setup("Debug mode", false));
@@ -527,7 +526,7 @@ void ofAppMain::calibrateForceSensors()
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "Calibrate force sensor requested";
 	}
 	else {
-		ofLogWarning() << "(" << typeid(this).name() << ") " << "Incorrect experiment state, force sensor calibration not allowed (only during IDLE, BLOCKBREAK, EXPERIMENTDONE)";
+		ofLogWarning() << "(" << typeid(this).name() << ") " << "Incorrect experiment state, force sensor calibration only allowed in state {IDLE, BLOCKBREAK, EXPERIMENTDONE})";
 	}
 }
 
