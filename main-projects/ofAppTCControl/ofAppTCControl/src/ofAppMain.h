@@ -95,6 +95,8 @@ class ofAppMain : public ofBaseApp{
 		ofxButton _btnConnSetStiffness, _btnConnSetDamping;
 		ofxLabel _lblConnected, _lblConnStiffness, _lblConnDamping;
 		
+		vector<string> _errorDescriptions;
+
 		//
 		// custom
 		//

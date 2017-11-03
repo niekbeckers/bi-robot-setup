@@ -24,6 +24,19 @@ void ofAppMain::setup(){
 
 	_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
 	_lblSysState[1] = StringSystemStateLabel(_systemState[1]);
+
+	// read error description file (if present)
+	try {
+		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
+		for (auto line : buffer.getLines()) {
+			_errorDescriptions.push_back(line);
+		}
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << ofToString(_errorDescriptions);
+	}
+	catch (int e) {
+		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt";
+	}
+
 }
 
 //--------------------------------------------------------------
