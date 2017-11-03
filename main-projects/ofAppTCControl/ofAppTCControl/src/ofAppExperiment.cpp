@@ -813,23 +813,25 @@ void ofAppExperiment::esmTrialBreak()
 		breakDone = true;
 	}
 
-	if (breakDone && !_runningModelFit) {
-		// make sure to upause logger (if it was not running anymore)
-		mainApp->startDataLogger();
+	if (breakDone) {
+		if (!_runningModelFit) {
+			// make sure to upause logger (if it was not running anymore)
+			mainApp->startDataLogger();
 
-		// clear screen messages
-		display1->showMessageNorth(false);
-		display2->showMessageNorth(false);
-		display1->showMessageCenter(false);
-		display2->showMessageCenter(false);
+			// clear screen messages
+			display1->showMessageNorth(false);
+			display2->showMessageNorth(false);
+			display1->showMessageCenter(false);
+			display2->showMessageCenter(false);
 
-		setExperimentState(ExperimentState::TRIALBREAKDONE);
-	}
-	else {
-		// wait a bit longer, show message
-		string msg = "Wait just a little bit longer...";
-		display1->showMessageNorth(true, msg);
-		display2->showMessageNorth(true, msg);
+			setExperimentState(ExperimentState::TRIALBREAKDONE);
+		}
+		else {
+			// wait a bit longer, show message
+			string msg = "Wait just a little bit longer...";
+			display1->showMessageNorth(true, msg);
+			display2->showMessageNorth(true, msg);
+		}
 	}
 }
 
