@@ -100,7 +100,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	}
 
 	if (foundFile) {
-		ofLogVerbose("MatlabThread::callMatlabOptimization", "Found file (fitResults_trial" + ofToString(input.trialID) + ") - parsing results");
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "callMatlabOptimization " << "Found file (fitResults_trial" << input.trialID << ") - parsing results";
 		// load xml file
 		ofXml xml;
 		xml.load(outputFilename);
@@ -112,7 +112,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 		ofFile::removeFile(outputFilename);
 	}
 	else {
-		ofLogVerbose("MatlabThread::callMatlabOptimization","Could not find file (fitResults_trial" + ofToString(input.trialID) + ")");
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "callMatlabOptimization " << "Could not find file (fitResults_trial" << input.trialID << ")";
 		matlabOutput tmp;
 		output = tmp;
 	}
@@ -122,7 +122,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback) 
 { 
 	_cbFunction = callback; 
-	ofLogVerbose("MatlabThread::registerCBFunction", "callback function registered");
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "registerCBFunction " << "callback function registered";
 }
 
 //--------------------------------------------------------------
@@ -154,10 +154,10 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 	// read xml and store in matlabOutput struct
 
 	matlabOutput output;
-	ofLogVerbose("MatlabThread::xml2output","Results from the model fit:");
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "xml2output " << "Results from the model fit:";
 
 	if (xml.exists("trialID")) output.trialID = xml.getValue<int>("trialID");
-	ofLogVerbose("MatlabThread::xml2output, trialID "+ofToString(output.trialID));
+	ofLogNotice() << "Trial ID: " << output.trialID;
 
 	// execute virtual partner
 	if (xml.exists("executeVirtualPartner")) {
@@ -170,7 +170,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
-	ofLogVerbose("MatlabThread::xml2output", "executeVirtualPartner "+ofToString(output.executeVirtualPartner));
+	ofLogNotice() << "ExecuteVirtualPartner " << ofToString(output.executeVirtualPartner);
 
 	// doFitForBROSID
 	if (xml.exists("doFitForBROSID")) {
@@ -183,7 +183,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
-	ofLogVerbose("MatlabThread::xml2output", "doFitForBROSID " + ofToString(output.doFitForBROSIDs));
+	ofLogNotice() << "DoFitForBROSID " << ofToString(output.doFitForBROSIDs);
 
 	// errors
 	if (xml.exists("error")) {
@@ -196,7 +196,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 		xml.setToParent();
 	}
-	ofLogVerbose("MatlabThread::xml2output","error "+ofToString(output.error));
+	ofLogNotice() << "Error " << ofToString(output.error);
 
 	// model parameters
 	if (xml.exists("modelparameters")) {
@@ -213,7 +213,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 					xml.setToParent(); // go back to brosX
 				}
 				output.x.push_back(tmp);
-				ofLogVerbose("MatlabThread::xml2output", "modelparameters."+xml.getName()+": "+ofToString(tmp));
+				ofLogNotice() << "Modelparameters." << xml.getName() << ": " << ofToString(tmp);
 			} while (xml.setToSibling());
 			xml.setToParent();
 		}

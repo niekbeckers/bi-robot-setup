@@ -57,7 +57,7 @@ void VirtualPartner::initialize(vector<int> vID)
 	}
 
 
-	ofLogVerbose("VirtualPartner::initialize", "initialized");
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "initialized";
 
 	// start up matlab stand-alone application for model fit
 	//std::system(ofToString(matlabFunctionPath + "matlabVirtualPartner.exe &").c_str());
@@ -67,11 +67,6 @@ void VirtualPartner::initialize(vector<int> vID)
 //--------------------------------------------------------------
 void VirtualPartner::runVPOptimization(matlabInput input)
 {
-	if (!_matlabThread.initialized) {
-		ofLogError("MATLAB thread not initialized. Did you add the header, is the DLL in the path?");
-		//return;
-	}
-
 	// set _runningVPOptimization flag
 	_runningModelFit = true;
 	_validVirtualPartnerFit = false;
@@ -86,7 +81,7 @@ void VirtualPartner::runVPOptimization(matlabInput input)
 void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 {
 	// do soemthing with the output data
-	ofLogVerbose("VirtualPartner::onVPOptimizationDone", "callback function called");
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "callback function called";
 
 	for (int i = 0; i < output.doFitForBROSIDs.size(); i++) {
 		int id = output.doFitForBROSIDs[i];
@@ -95,16 +90,16 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 		bool noErrors = true;
 		if (output.error[i] > 0) {
 			noErrors = false;
-			ofLogError("VirtualPartner::onVPOptimizationDone", "Errors in output for BROS" + ofToString(id) + ", code: " + ofToString(output.error[i]));
+			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Errors in output for BROS" << id << ", code: " << output.error[i];
 		}
 		// check if the output struct is valid
 		if (output.trialID == -1) { // this means that an empty matlabOutput struct is used
 			noErrors = false;
-			ofLogError("VirtualPartner::onVPOptimizationDone", "Empty output");
+			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Empty output";
 		}
 		if (output.x.size() == 0) {
 			noErrors = false;
-			ofLogError("VirtualPartner::onVPOptimizationDone", "output.x.size() == 0");
+			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "output.x.size() == 0";
 		}
 
 		// send data to ADS, if no errors occurred.
@@ -118,12 +113,12 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 			// find idx of id in activeBROSid
 			ptrdiff_t idx = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
 			if (idx >= _activeBROSIDs.size()) {
-				ofLogError("VirtualPartner::onVPOptimizationDone", "Cannot find BROS id (" + ofToString(id) + ") in _activeBROSIDs. Skipping virtual partner parameter write");
+				ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping...";
 				continue;
 			}
 			_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx], &b, sizeof(b));
 
-			ofLogError("VirtualPartner::onVPOptimizationDone", "Error occured in virtual partner fit for BROS" + ofToString(id));
+			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Error occured in virtual partner fit for BROS" << id;
 		}
 	}
 
@@ -133,18 +128,18 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 //--------------------------------------------------------------
 void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 {
-	ofLogVerbose("VirtualPartner::sendToTwinCatADS", "Setting virtual partner data in TwinCAT");
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Setting virtual partner data in TwinCAT";
 
 	// find idx of id in activeBROSid
 	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
 	if (idx_active >= _activeBROSIDs.size()) {
-		ofLogError("VirtualPartner::sendToTwinCatADS", "Cannot find BROS id (" + ofToString(id) + ") in _activeBROSIDs. Skipping virtual partner parameter write");
+		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";
 		return;
 	}
 	// find idx of id in fitBROSIds
 	ptrdiff_t idx_fit = find(output.doFitForBROSIDs.begin(), output.doFitForBROSIDs.end(), id) - output.doFitForBROSIDs.begin();
 	if (idx_fit >= output.doFitForBROSIDs.size()) {
-		ofLogError("VirtualPartner::sendToTwinCatADS", "Cannot find BROS id (" + ofToString(id) + ") in output.doFitForBROSIDs. Skipping virtual partner parameter write");
+		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Cannot find BROS id (" << id << ") in output.doFitForBROSIDs. Skipping virtual partner parameter write";
 		return;
 	}
 
@@ -183,9 +178,9 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 		_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
 	}
 	catch (int e) {
-		ofLogWarning("VirtualPartner::sendToTwinCatADS", "An exception occurred. Exception Nr. " + ofToString(e));
+		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS" << "An exception occurred. Exception Nr: " << ofToString(e);
 	}
 
-	ofLogVerbose("VirtualPartner::sendToTwinCatADS", "DONE - Setting virtual partner data in TwinCAT");
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS" << "DONE - Setting virtual partner data in TwinCAT";
 
 }

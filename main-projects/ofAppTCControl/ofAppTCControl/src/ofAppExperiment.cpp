@@ -244,10 +244,10 @@ void ofAppExperiment::loadExperimentXML()
 	setExperimentState(ExperimentState::IDLE);
 	//Open the Open File Dialog
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)",false, ofFilePath().getCurrentExeDir());
-	ofLogVerbose("ofAppExperiment::loadExperimentXML", ofFilePath().getCurrentExePath());
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
 	//Check if the user opened a file
 	if (openFileResult.bSuccess) {
-		ofLogVerbose("ofAppExperiment::loadExperimentXML","User opened file " + openFileResult.fileName);
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "ofAppExperiment::loadExperimentXML ","User opened file " + openFileResult.fileName;
 
 		//We have a file, check it and process it
 		processOpenFileSelection(openFileResult);
@@ -258,7 +258,7 @@ void ofAppExperiment::loadExperimentXML()
 		}
 	}
 	else {
-		ofLogVerbose("ofAppExperiment::loadExperimentXML", "User hit cancel");
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << "User hit cancel";
 	}
 }
 
@@ -278,11 +278,10 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	mainApp->lblExpLoaded = openFileResult.fileName;
 
 	if (XML.load(openFileResult.getPath())) {
-		ofLogVerbose("ofAppExperiment::processOpenFileSelection","Loaded: " + openFileResult.getPath());
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Loaded: " << openFileResult.getPath();
 		// log to file as well
 		ofLogToFile(_logFilename, true);
-		ofLogVerbose("ofAppExperiment::processOpenFileSelection","Experiment protocol XML file loaded: " + openFileResult.getPath());
-		ofLogToConsole();
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Experiment protocol XML file loaded: " << openFileResult.getPath();
 	}
 
 	// experiment settings (attributes)
@@ -312,8 +311,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	if (XML.exists("activeBROSID") && XML.setTo("activeBROSID")) {
 		if (XML.setToChild(0)) {
 			do {
-				_activeBROSIDs.push_back(XML.getIntValue());
-				ofLogVerbose("ofAppExperiment", "activeBROSID: " + ofToString(XML.getIntValue()));
+				_activeBROSIDs.push_back(XML.getIntValue());	
 			} while (XML.setToSibling());
 			XML.setToParent(); // go back to brosX
 		}
@@ -324,6 +322,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 		_activeBROSIDs.push_back(1); // BROS 1
 		_activeBROSIDs.push_back(2); // BROS 2
 	}
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(XML.getIntValue());
 	
 	int trialNumber = 0;
 	int blockNumber = 0;
@@ -381,11 +380,13 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 						if (XML.setToChild(0)) {
 							do {
 								trial.fitVPBROSIDs.push_back(XML.getIntValue());
-								ofLogVerbose("ofAppExperiment", "fitVPBROSIDs: " + ofToString(XML.getIntValue()));
 							} while (XML.setToSibling());
 							XML.setToParent(); // go back to brosX
 						}
-						if (trial.fitVPBROSIDs.size() > 0) { trial.fitVirtualPartner = true; }
+						if (trial.fitVPBROSIDs.size() > 0) { 
+							trial.fitVirtualPartner = true; 
+							ofLogVerbose() << "(" << typeid(this).name() << ") " << "FitVPBROSIDs: " << ofToString(trial.fitVPBROSIDs) << " for trial " << trial.trialNumber;
+						}
 
 						XML.setToParent();
 					}
@@ -644,7 +645,7 @@ void ofAppExperiment::esmTrialDone()
 	// In case the software/pc crashes, we can backtrace where we were. 
 	// Edit the experiment XML (remove the trials that already have been done) and start experiment again.
 	ofLogToFile(_logFilename, true);
-	ofLogVerbose("ofAppExperiment", "Trial done. Trial " + ofToString(_currentTrialNumber) + " Block "+ofToString(_currentBlockNumber));
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "Trial done. Trial " << _currentTrialNumber << " Block " << _currentBlockNumber;
 	ofLogToConsole(); // log back to console
 
 	// call for homing after trial

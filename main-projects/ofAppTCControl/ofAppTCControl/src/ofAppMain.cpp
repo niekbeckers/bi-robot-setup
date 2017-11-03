@@ -24,7 +24,6 @@ void ofAppMain::setup(){
 
 	_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
 	_lblSysState[1] = StringSystemStateLabel(_systemState[1]);
-
 }
 
 //--------------------------------------------------------------
@@ -84,7 +83,6 @@ void ofAppMain::keyReleased(int key) {
 		matlabInput input;
 		input.trialID = 1;
 		input.doFitForBROSIDs.push_back(1);
-		ofLogVerbose("keyreleased");
 		experimentApp->partner.runVPOptimization(input);
 	}
 }
@@ -375,7 +373,7 @@ void ofAppMain::buttonPressed(const void * sender)
 			if (s != "") setConnectionStiffness(strtod(s.c_str(), NULL));
 		}
 		catch (exception& e) {
-			ofLogError(e.what());
+			ofLogError() << "(" << typeid(this).name() << ") " << e.what();
 		}
 		
 	}
@@ -385,11 +383,11 @@ void ofAppMain::buttonPressed(const void * sender)
 			if (s != "") setConnectionDamping(strtod(s.c_str(), NULL));
 		}
 		catch (exception& e) {
-			ofLogError(e.what());
+			ofLogError() << "(" << typeid(this).name() << ") " << e.what();
 		}
 	}
 	else {
-		ofLogError("Button " + clickedBtn + " unknown");
+		ofLogError() << "(" << typeid(this).name() << ") " << "Button " + clickedBtn + " unknown";
 	}
 }
 
@@ -453,7 +451,7 @@ void ofAppMain::setConnectionEnabled(bool & value)
 		_tcClientEvent->write(_lHdlVar_Connected, &v, sizeof(v));
 	}
 	catch (exception& e) {
-		ofLogError(e.what());
+		ofLogError() << "(" << typeid(this).name() << ") " << e.what();
 	}
 
 	// set toggle button name
@@ -526,10 +524,10 @@ void ofAppMain::calibrateForceSensors()
 		var = 0.0;
 		_tcClientEvent->write(_lHdlVar_Write_CalibrateForceSensor, &var, sizeof(var));
 
-		ofLogVerbose("Calibrate force sensor requested");
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "Calibrate force sensor requested";
 	}
 	else {
-		ofLogError("Incorrect experiment state, force sensor calibration not allowed (only during IDLE, BLOCKBREAK, EXPERIMENTDONE)");
+		ofLogWarning() << "(" << typeid(this).name() << ") " << "Incorrect experiment state, force sensor calibration not allowed (only during IDLE, BLOCKBREAK, EXPERIMENTDONE)";
 	}
 }
 
@@ -541,13 +539,13 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 	if (pNotification->hNotification == _lHdlNot_Read_OpsEnabled) {
 		bool * data = (bool *)pNotification->data;
 		sprintf(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
-		ofLogVerbose("Drive Enabled: " + ofToString(buf));
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "Drive Enabled: " << ofToString(buf);
 		_lblOpsEnabled = ofToString(buf);
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemError) {
 		double * data = (double *)pNotification->data;
 		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
-		ofLogVerbose("System Error: " + ofToString(buf));
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "System Error: " << ofToString(buf);
 		_lblSysError = ofToString(buf);
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
@@ -556,14 +554,14 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 		_systemState[1] = static_cast<SystemState>((int)data[1]);
 
 		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
-		ofLogVerbose("System State: " + ofToString(buf));
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "System State: " << ofToString(buf);
 
 		_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
 		_lblSysState[1] = StringSystemStateLabel(_systemState[1]);
 	}
 	
 	// print (to screen)) the value of the variable 
-	ofLogVerbose("ADS Notification: " + ofToString(pNotification->hNotification) + " SampleSize: " + ofToString(pNotification->cbSampleSize));
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "ADS Notification: " << ofToString(pNotification->hNotification) << " SampleSize: " << ofToString(pNotification->cbSampleSize);
 }
 
 //--------------------------------------------------------------

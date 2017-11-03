@@ -7,8 +7,8 @@ tcAdsClient::tcAdsClient(USHORT port)
 	_nPort = AdsPortOpenEx();
 	nErr = AdsGetLocalAddressEx(_nPort, _pAddr);
 	if (nErr) {
-		cerr << "[error] tcAdsClient: Error AdsGetLocalAddressEx: " << nErr << '\n';
-		cerr << "[error] tcAdsClient: TC ADS client not running, please start TwinCAT and restart this app" << '\n';
+		cerr << "[error] (class tcAdsClient) Error AdsGetLocalAddressEx: " << nErr << '\n';
+		cerr << "[error] (class tcAdsClient) TC ADS client not running, please start TwinCAT and restart this app" << '\n';
 	}
 
 	// Select Port: TwinCAT 3 PLC
@@ -32,7 +32,7 @@ ULONG tcAdsClient::getVariableHandle(char* szVarIn, int numBytes)
 				&_pcbReturn);
 
 	if (nErr) {
-		cerr << "[error] tcAdsClient: Error AdsSyncReadWriteReqEx2: " << nErr << " - variable " << szVarIn << " not found." << '\n';
+		cerr << "[error] (class tcAdsClient) Error AdsSyncReadWriteReqEx2: " << nErr << " - variable " << szVarIn << " not found." << '\n';
 		return -1;
 	} 
 	else {
@@ -53,7 +53,7 @@ void tcAdsClient::releaseVariableHandle(ULONG hVar)
 				sizeof(hVar), 
 				&hVar);
 
-	if (nErr) cerr << "[error] tcAdsClient: Error AdsSyncWriteReq: " << nErr << '\n';
+	if (nErr) cerr << "[error] (class tcAdsClient) Error AdsSyncWriteReq: " << nErr << '\n';
 	_hVariables.erase(remove(_hVariables.begin(), _hVariables.end(), hVar), _hVariables.end()); // remove _hVariables from list
 }
 
@@ -81,8 +81,8 @@ ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhVar, ULONG lhUser, PA
 				lhUser,
 				&hNotification);
 
-	if (nErr) cerr << "[error] tcAdsClient: Error AdsSyncAddDeviceNotificationReq: " << hex <<nErr << '\n';
-	cout << "[verbose] tcAdsClient: Registered notification: " << hNotification << "\n";
+	if (nErr) cerr << "[error] (class tcAdsClient) Error AdsSyncAddDeviceNotificationReq: " << hex <<nErr << '\n';
+	cout << "[verbose] (class tcAdsClient) Registered notification: " << hNotification << "\n";
 
 	_hNotifications.push_back(hNotification); // add hUser to list
 	return hNotification;
@@ -92,7 +92,7 @@ void tcAdsClient::unregisterTCAdsDeviceNotification(ULONG hNotification)
 {
 	// finish the transmission of the PLC-variable 
 	nErr = AdsSyncDelDeviceNotificationReqEx(_nPort, _pAddr, hNotification);
-	if (nErr) cerr << "[error] tcAdsClient: Error AdsSyncDelDeviceNotificationReq: " << nErr << '\n';
+	if (nErr) cerr << "[error] (class tcAdsClient) Error AdsSyncDelDeviceNotificationReq: " << nErr << '\n';
 	
 	_hNotifications.erase(remove(_hNotifications.begin(), _hNotifications.end(), hNotification), _hNotifications.end()); // remove hNotification from list
 }
@@ -143,7 +143,7 @@ void tcAdsClient::disconnect()
 
 	// close port
 	nErr = AdsPortCloseEx(_nPort);
-	if (nErr) cerr << "[error] tcAdsClient: Error AdsPortCloseEx: " << nErr << " on nPort: " << _nPort << '\n';
+	if (nErr) cerr << "[error] (class tcAdsClient) Error AdsPortCloseEx: " << nErr << " on nPort: " << _nPort << '\n';
 }
 
 
