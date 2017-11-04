@@ -92,6 +92,7 @@ class ofAppMain : public ofBaseApp{
 		ofxToggle _btnExpPauseResume, _btnDebugMode, _btnDrawTargetTail;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
+		
 
 		ofxPanel _guiAdmittance;
 		ofxToggle _btnSetConnected;
@@ -131,6 +132,7 @@ class ofAppMain : public ofBaseApp{
 		// gui
 		ofParameter<string> lblExpState, lblExpLoaded;
 		ofParameter<int> lblTrialNumber, lblBlockNumber;
+		ofParameter<string> lblTrialPerformance;
 
 		//
 		// functions

@@ -249,6 +249,7 @@ void ofAppMain::setupGUI()
 	_grpExpState.setName("Experiment state");
 	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));  // add dummy experiment
 	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10)); // add dummy experiment
+	_grpExpState.add(lblTrialPerformance.set("Trial Performance", "[,]"));
 	_guiExperiment.add(_grpExpState);
 
 	_grpConnectionControl.setup("Connection control");

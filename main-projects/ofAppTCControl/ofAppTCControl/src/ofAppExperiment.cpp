@@ -679,6 +679,7 @@ void ofAppExperiment::esmTrialFeedback()
 		string msg1 = "TRIAL DONE\n\n";
 		string msg2 = "TRIAL DONE\n\n";
 
+
 		// depending on feedback type, adjust method
 		switch (_trialFeedbackType) {
 		case TrialFeedback::RMSE:
@@ -698,6 +699,8 @@ void ofAppExperiment::esmTrialFeedback()
 			display2->showMessageNorth(true, msg2);
 			display1->drawTask = true;
 			display2->drawTask = true;
+
+			
 
 			// visual reward
 			showVisualReward();
@@ -720,6 +723,9 @@ void ofAppExperiment::esmTrialFeedback()
 				display2->showMessageNorth(true, "Too slow");
 			break;
 		}
+
+		// set trial performance in experiment leader GUI
+		mainApp->lblTrialPerformance = "[" + ofToString(_trialPerformance[0]) +", " + ofToString(_trialPerformance[1]) + "]";
 
 		// save previous trial performance
 		_trialPerformancePrev[0] = _trialPerformance[0];
