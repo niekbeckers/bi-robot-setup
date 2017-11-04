@@ -31,10 +31,10 @@ void ofAppMain::setup(){
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << ofToString(_errorDescriptions);
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Loaded error descruotions:\n" << ofToString(_errorDescriptions);
 	}
 	catch (int e) {
-		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt";
+		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt Error code: " << e;
 	}
 
 }
@@ -558,6 +558,7 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 		double * data = (double *)pNotification->data;
 		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "System Error: " << ofToString(buf);
+		ofLogNotice() << DecodeBROSError((int32_t)data[0], 1) << DecodeBROSError((int32_t)data[1], 2);
 		_lblSysError = ofToString(buf);
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
@@ -574,6 +575,24 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 	
 	// print (to screen)) the value of the variable 
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "ADS Notification: " << ofToString(pNotification->hNotification) << " SampleSize: " << ofToString(pNotification->cbSampleSize);
+}
+
+//--------------------------------------------------------------
+string ofAppMain::DecodeBROSError(int32_t e, int brosID) {
+	// decode error message
+	string s = "Errors BROS" + ofToString(brosID) + ":\n";
+	bool anyError = false;
+	for (int i = 0; i < sizeof(e)*8; ++i, e >>= 1) {
+		if (e & 0x1) {
+			s += "  " + _errorDescriptions[i] + "\n";
+			anyError = true;
+		}
+	}
+
+	if (!anyError) 
+		s += "  No errors - it's all good\n";
+
+	return s;
 }
 
 //--------------------------------------------------------------

@@ -151,4 +151,6 @@ class ofAppMain : public ofBaseApp{
 		void stopDataLogger();
 		void startDataLogger();
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
+
+		string DecodeBROSError(int32_t e, int brosID);
 };
