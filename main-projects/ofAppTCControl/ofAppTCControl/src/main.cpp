@@ -7,6 +7,10 @@
 //========================================================================
 int main( ){
 
+	// set console position
+	HWND consoleWindow = GetConsoleWindow();
+	SetWindowPos(consoleWindow, 0, 900, 50, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
 	// check number of displays/windows
 	int monitorCount = 1;
 	ofWindowMode wmode = ofWindowMode::OF_FULLSCREEN;
