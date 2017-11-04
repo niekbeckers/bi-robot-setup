@@ -1,4 +1,4 @@
-%% parameters_model_virtualpartner_bros
+%% base_1fm_parameters
 
 %% 'globals'
 sampleTime = 0.001;             % sample time [s] Note: make sure the same sample time is set in TwinCAT XAE.
