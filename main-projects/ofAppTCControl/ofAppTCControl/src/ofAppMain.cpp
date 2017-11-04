@@ -209,9 +209,11 @@ void ofAppMain::setupGUI()
 	_ofGrpSys.setName("System states");
 	_ofGrpSys.add(_lblSysState[0].set("State 1", ""));
 	_ofGrpSys.add(_lblSysState[1].set("State 2", ""));
-	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
 	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
+	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
 	_guiSystem.add(_ofGrpSys);
+
+	_lblSysError = DecodeBROSError((int32_t)1, 1) + DecodeBROSError((int32_t)4096, 2);
 
 	// GUI experiment
 	_guiExperiment.add(_btnDebugMode.setup("Debug mode", false));
@@ -556,10 +558,11 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemError) {
 		double * data = (double *)pNotification->data;
-		sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
-		ofLogNotice() << "(" << typeid(this).name() << ") " << "System Error: " << ofToString(buf);
+		//sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
+		// ofLogNotice() << "(" << typeid(this).name() << ") " << "System Error: " << ofToString(buf);
+		//_lblSysError = ofToString(buf);
+		_lblSysError = DecodeBROSError((int32_t)data[0], 1) + DecodeBROSError((int32_t)data[1], 2);
 		ofLogNotice() << DecodeBROSError((int32_t)data[0], 1) << DecodeBROSError((int32_t)data[1], 2);
-		_lblSysError = ofToString(buf);
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
 		double * data = (double *)pNotification->data;
@@ -590,7 +593,7 @@ string ofAppMain::DecodeBROSError(int32_t e, int brosID) {
 	}
 
 	if (!anyError) 
-		s += "  No errors - it's all good\n";
+		s += "  No errors\n";
 
 	return s;
 }

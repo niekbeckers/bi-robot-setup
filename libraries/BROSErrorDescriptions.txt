@@ -26,6 +26,6 @@ Act2.Overcurrent
 Act2.Following/control error
 Act2.Short circuit error
 Act2.Other drive error (see MotionErrorRegister)
-Endpoint position guard
+Endpoint position guard / bad conditioning
 Internal angle guard
 F/T sensor range exceeded
