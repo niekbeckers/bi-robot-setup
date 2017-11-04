@@ -79,8 +79,12 @@ class ofAppMain : public ofBaseApp{
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
 		ofxLabel _lblEtherCAT;
-		ofParameter<string>  _lblFRM, _lblOpsEnabled, _lblSysError, _lblSysState[2];
+		ofParameter<string>  _lblFRM, _lblOpsEnabled, _lblSysState[2];
 		ofParameterGroup _ofGrpSys;
+
+		ofTrueTypeFont _fontErrorMsg;
+		string _errorMessage;
+		ofColor _errorMessageBackgroundColor = ofColor::black;
 
 		// GUI experiment
 		ofxPanel _guiExperiment;

@@ -24,7 +24,7 @@ void ofAppExperiment::update()
 		setExperimentState(ExperimentState::SYSTEMFAULT); 
 	}
 
-	// update partner and check if partner is still fitting
+	// update virtual partner and check if partner is still fitting
 	partner.update();
 	_runningModelFit = partner.modelFitIsRunning();
 

@@ -10,6 +10,20 @@ void ofAppMain::setup(){
 	ofBackground(ofColor::blueSteel);
 	ofSetWindowTitle("Control");
 
+	// read error description file (if present)
+	try {
+		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
+		for (auto line : buffer.getLines()) {
+			_errorDescriptions.push_back(line);
+		}
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Loaded error descruotions:\n" << ofToString(_errorDescriptions);
+	}
+	catch (...) {
+		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt";
+	}
+
+	_fontErrorMsg.loadFont("verdana.ttf", 10);
+
 	// setup tcAdsClient
 	setupTCADS();
 
@@ -24,19 +38,6 @@ void ofAppMain::setup(){
 
 	_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
 	_lblSysState[1] = StringSystemStateLabel(_systemState[1]);
-
-	// read error description file (if present)
-	try {
-		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
-		for (auto line : buffer.getLines()) {
-			_errorDescriptions.push_back(line);
-		}
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Loaded error descruotions:\n" << ofToString(_errorDescriptions);
-	}
-	catch (int e) {
-		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt Error code: " << e;
-	}
-
 }
 
 //--------------------------------------------------------------
@@ -88,16 +89,31 @@ void ofAppMain::draw() {
 	_guiSystem.draw(); 
 	_guiExperiment.draw();
 	_guiAdmittance.draw();
+
+	// draw our own system error (ofxGUI doesn't allow me to properly resize ofxLabels
+	ofPushMatrix();
+		ofRectangle b = _fontErrorMsg.getStringBoundingBox(_errorMessage, 0, 0);	
+		
+		ofFill();
+		ofSetColor(_errorMessageBackgroundColor);
+		float padding = 6.0;
+		float left = _guiSystem.getPosition()[0];
+		float top = _guiSystem.getShape().getBottom()+2.0*padding;
+		ofRectangle r = ofRectangle(left + 2.0, top - padding, _guiSystem.getWidth(), b.height + 2.0*padding);
+		ofDrawRectangle(r);
+		ofNoFill();
+		ofSetColor(ofColor::gray);
+		ofSetLineWidth(2.0);
+		ofDrawRectangle(r);
+
+		ofSetColor(ofColor::white);
+		_fontErrorMsg.drawString(_errorMessage, left+padding, top-padding);
+	ofPopMatrix();
 }
 
 //--------------------------------------------------------------
 void ofAppMain::keyReleased(int key) {
-	if (key == 'o') {
-		matlabInput input;
-		input.trialID = 1;
-		input.doFitForBROSIDs.push_back(1);
-		experimentApp->partner.runVPOptimization(input);
-	}
+
 }
 
 //--------------------------------------------------------------
@@ -187,8 +203,9 @@ void ofAppMain::setupGUI()
 	//_guiSystem.add(_btnQuit.setup("Quit"));
 	_guiSystem.add(_lblEtherCAT.setup("EtherCAT/ADS", ""));
 	_guiSystem.add(_lblFRM.set("Frame rate", ""));
-	_guiSystem.add(_btnCalibrateForceSensor.setup("Calibrate force sensors"));
-	
+	//_guiSystem.add(_btnCalibrateForceSensor.setup("Calibrate force sensors"));
+	_guiSystem.loadFont("verdana.ttf", 10);
+
 	// request state
 	_grpReqState.setup("Request state");
 	_grpReqState.setName("State request");
@@ -210,13 +227,12 @@ void ofAppMain::setupGUI()
 	_ofGrpSys.add(_lblSysState[0].set("State 1", ""));
 	_ofGrpSys.add(_lblSysState[1].set("State 2", ""));
 	_ofGrpSys.add(_lblOpsEnabled.set("Drives Enabled", "[,]"));
-	_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
+	//_ofGrpSys.add(_lblSysError.set("System Error", "[,]"));
 	_guiSystem.add(_ofGrpSys);
-
-	_lblSysError = DecodeBROSError((int32_t)1, 1) + DecodeBROSError((int32_t)4096, 2);
+	//_guiSystem.add(_lblSysError.setup("System Error","[,]",width,40.0));
 
 	// GUI experiment
-	_guiExperiment.add(_btnDebugMode.setup("Debug mode", false));
+	//_guiExperiment.add(_btnDebugMode.setup("Debug mode", false));
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
@@ -249,6 +265,9 @@ void ofAppMain::setupGUI()
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
 
+	// set error message
+	_errorMessage = "\n" + DecodeBROSError((int32_t)0, 1) + DecodeBROSError((int32_t)0, 2);
+
 	// initialize GUI
 	if (twinCatRunning) { updateADSDataGUI(); }
 
@@ -256,7 +275,7 @@ void ofAppMain::setupGUI()
 	//_btnDrawTargetTail.addListener(this, &ofAppMain::drawTargetTailPressed);
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
-	_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
+	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
 }
 
@@ -558,10 +577,11 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemError) {
 		double * data = (double *)pNotification->data;
-		//sprintf(buf, "[%d, %d]", (int)data[0], (int)data[1]);
-		// ofLogNotice() << "(" << typeid(this).name() << ") " << "System Error: " << ofToString(buf);
-		//_lblSysError = ofToString(buf);
-		_lblSysError = DecodeBROSError((int32_t)data[0], 1) + DecodeBROSError((int32_t)data[1], 2);
+		_errorMessage = "\n" + DecodeBROSError((int32_t)data[0], 1) + DecodeBROSError((int32_t)data[1], 2);
+		
+		if (data[0] != 0 || data[1] != 0) _errorMessageBackgroundColor = ofColor::red;
+		else _errorMessageBackgroundColor = _guiSystem.getBackgroundColor();
+
 		ofLogNotice() << DecodeBROSError((int32_t)data[0], 1) << DecodeBROSError((int32_t)data[1], 2);
 	}
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemState) {
