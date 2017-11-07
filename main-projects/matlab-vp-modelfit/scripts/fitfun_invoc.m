@@ -15,12 +15,11 @@ assert(isa(dt,'double')); assert(all(size(dt)==[1 1]));
 error_human = sqrt((target(1,:)-xmeas(1,:)).^2+(target(2,:)-xmeas(2,:)).^2);
 error_agent = sqrt((target(1,:)-xe(1,:)).^2+(target(2,:)-xe(2,:)).^2);
 
-% to get the root-mean-squared error of the agent and human equal
-e_rms = abs((rms(error_human) - rms(error_agent)));
+% to get the tracking error of agent and human equal
+e_track = mean(abs(abs(error_human) - abs(error_agent)));
 
-% to get trajectories/fit to be similar (mean-squared error)
-% e_fit = sum((error_human-error_agent).^2);
-e_fit = mean((error_human-error_agent).^2);
+% to get trajectories to be similar
+e_fit = mean(abs(error_human-error_agent));
 
 % sse
-sse = e_fit + 10*e_rms;
+sse = e_fit + 25*e_track;
