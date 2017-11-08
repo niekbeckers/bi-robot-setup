@@ -8,23 +8,9 @@ Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
-%% virtual partner dynamics
-m = diag([4 1.5]); 
-tu = 0.04;
-td = 0.100;
-D = 0*[0 15;-15 0];
-dt = 0.001;
-gamma = 0.8;
 
-% dynamics matrices
-[Ae_vp,B_vp,H_vp] = dynamics_vp(dt,m,tu,td,D);
-Aim_vp = dynamics_vp(dt,m,tu,td,gamma*D);
 
-VP.Ae = Ae_vp;
-VP.Aim = Aim_vp;
-VP.B = B_vp;
-VP.H = H_vp;
-
+%% target data
 % load target signal data
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
@@ -34,6 +20,48 @@ FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointi
 % butterworth filter (filtering velocity signal) 
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
+
+%% virtual partner dynamics
+m = diag([4 1.5]); 
+tu = 0.04;
+td = 0.100;
+D = 0*[0 15;-15 0];
+gamma = 0.8;
+
+% number of delay steps
+VP.Ndelay = round(td/sampleTime);
+VP.x0 = zeros(14,1);
+
+% dynamics matrices
+[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m,tu,td,D);
+Aim_vp = dynamics_vp(sampleTime,m,tu,td,gamma*D);
+
+VP.Ae = Ae_vp;
+VP.Aim = Aim_vp;
+VP.B = B_vp;
+VP.H = H_vp;
+
+% process noise
+sigmaP_Ow = 0;
+sigmaV_Ow = 0;
+sigmaF_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
+sigmaPt_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
+sigmaVt_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
+sigmaPf_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
+
+Ow = 1000*diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
+    sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2 ...
+    sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2]);
+
+VP.Ow = Ow;
+
+% sensory noise
+sigmaP_Ov = 0.00001*sqrt(0.01)/sqrt(sampleTime);
+sigmaV_Ov = 0.00001*sqrt(0.01)/sqrt(sampleTime);
+
+Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
+
+VP.Ov = Ov;
 
 %% RobotStruct BROS1
 % clear BROS1
