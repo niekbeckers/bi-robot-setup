@@ -24,7 +24,7 @@ fc = 60;
 %% virtual partner dynamics
 m = diag([4 1.5]); 
 tu = 0.04;
-td = 0.100;
+td = 0.001;
 D = 0*[0 15;-15 0];
 gamma = 0.8;
 
