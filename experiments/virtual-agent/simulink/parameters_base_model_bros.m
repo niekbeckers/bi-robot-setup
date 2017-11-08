@@ -8,6 +8,22 @@ Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
+%% virtual partner dynamics
+m = diag([4 1.5]); 
+tu = 0.04;
+td = 0.100;
+D = 0*[0 15;-15 0];
+dt = 0.001;
+gamma = 0.8;
+
+% dynamics matrices
+[Ae_vp,B_vp,H_vp] = dynamics_vp(dt,m,tu,td,D);
+Aim_vp = dynamics_vp(dt,m,tu,td,gamma*D);
+
+VP.Ae = Ae_vp;
+VP.Aim = Aim_vp;
+VP.B = B_vp;
+VP.H = H_vp;
 
 % load target signal data
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
@@ -19,8 +35,8 @@ FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointi
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
-%% RobotStruct_FM1
-% clear FM1
+%% RobotStruct BROS1
+% clear BROS1
 
 BROS1.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
 BROS1.HomeLocationSize = 0.0025;
