@@ -5,7 +5,7 @@ assert(isa(checkStability,'double'));
 % model parameters
 m = diag([4 1.5]); 
 tu = 0.04;
-td = 0.100;
+td = 0*0.100;
 delay = td/dt;
 D = doFF*[0 15;-15 0];
 gamma = 0.8;
