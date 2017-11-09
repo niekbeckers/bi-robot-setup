@@ -79,7 +79,7 @@ end
 
 if p.Results.savedata
     % save data to mat file
-    save([savepath filesep 'data_trials.mat'],'data');
+    save([p.Results.saveto filesep 'data_trials.mat'],'data');
 end
 
 
