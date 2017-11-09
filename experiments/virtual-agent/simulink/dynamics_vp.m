@@ -1,4 +1,4 @@
-function [A,B,H] = dynamics_vp(dt,M,tu,td,D)
+function [A,B,H] = dynamics_vp(dt,M,tu,td,tp,D)
 %% [A,B,H] = dynamics(dt,m,tu,td,D)
 % Return discrete-time state space matrices of the environment and internal
 % model (which only accounts for a fraction of gamma of the disturbance).
@@ -43,12 +43,12 @@ A(1:10,1:10) = eye(size(Ac)) + Ac*dt;
 % target movement prediction
 A(11,1) = 1;
 A(12,2) = 1;
-A(11,3) = dt+td;
-A(12,4) = dt+td;
+A(11,3) = dt+tp;
+A(12,4) = dt+tp;
 A(13,7) = 1;
 A(14,8) = 1;
-A(13,9) = dt+td;
-A(14,10) = dt+td;
+A(13,9) = dt+tp;
+A(14,10) = dt+tp;
 
 B = dt*Bc;
 H = Cc;
