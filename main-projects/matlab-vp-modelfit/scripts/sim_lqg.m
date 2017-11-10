@@ -27,11 +27,19 @@ Q = zeros(size(Ae));
 R = zeros(size(B,2),size(B,2));
 
 % terminal cost & running cost
-Q(1:14,1:14) = diag([0 0 wv wv wf wf 0 0 0 0 wp wp wp wp]);
-Q(13,11) = -wp;
-Q(14,12) = -wp;
-Q(11,13) = -wp;
-Q(12,14) = -wp;
+% mininize distance between pf and tf
+% Q(1:14,1:14) = diag([0 0 wv wv wf wf 0 0 0 0 wp wp wp wp]);
+% Q(13,11) = -wp;
+% Q(14,12) = -wp;
+% Q(11,13) = -wp;
+% Q(12,14) = -wp;
+
+%minimise distance between p and t
+Q(1:14,1:14) = diag([wp wp wv wv wf wf wp wp 0 0 0 0 0 0]);
+Q(7,1) = -wp;
+Q(8,2) = -wp;
+Q(1,7) = -wp;
+Q(2,8) = -wp;
 
 R(1,1,:) = r;
 R(2,2,:) = r;
@@ -49,7 +57,7 @@ sigmaPt_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 sigmaVt_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 sigmaPf_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
 
-Ow = 1000*diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
+Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
     sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2 ...
     sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2]);
 
