@@ -1,4 +1,4 @@
-function [data,alldata] = loadBROSExperimentData(datapath, savepath, vars, savedata)
+function [data,alldata] = loadBROSExperimentData(datapath, varargin)
 %% function dataraw = loadBROSdata(datapath, savepath)
 %
 % Load relevant data from the massive TwinCAT data files. 
@@ -8,27 +8,27 @@ function [data,alldata] = loadBROSExperimentData(datapath, savepath, vars, saved
 %
 % Niek Beckers, 2017
 
-% check input parameters
-if nargin < 2 || isempty(savepath)
-    % save in same folder as raw data
-    savepath = datapath;
-end
+% parse inputs
+p = inputParser;
+p.addOptional('saveto','.');
+p.addOptional('savedata',1);
+p.addOptional('vars',[]);
+p.addOptional('model','model_base_bros');
+p.parse(varargin{:});
 
-if nargin < 3 || isempty(vars)
+vars = p.Results.vars;
+if isempty(p.Results.vars)
     % get the variable names. Remove 'BusActuator1', 'BusActuator2' and 't'
     vars = {'x_BROS1','x_BROS2','xdot_BROS1','xdot_BROS2',...
             'x_AbsEnc_BROS1','x_AbsEnc_BROS2','xdot_AbsEnc_BROS1','xdot_AbsEnc_BROS2',...
             'ForcesOpSpace_BROS1','ForcesOpSpace_BROS2',...
             'target_BROS1','target_BROS2','cursor_BROS1','cursor_BROS2','target_vel_BROS1','target_vel_BROS2'}; 
 end
-if nargin < 4
-    savedata = 1;
-end
 
 dt = 0.001;
 
 % import data
-alldata = importTCdata(datapath);
+alldata = importTCdata(datapath, p.Results.model);
 
 trialnumbers = unique(alldata.ExpTrialNumber);
 
@@ -77,9 +77,9 @@ for ii = 1:length(trialnumbers)
     end
 end
 
-if savedata
+if p.Results.savedata
     % save data to mat file
-    save([savepath filesep 'data_trials.mat'],'data');
+    save([p.Results.saveto filesep 'data_trials.mat'],'data');
 end
 
 
