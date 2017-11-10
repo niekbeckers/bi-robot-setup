@@ -30,7 +30,7 @@ D = 0*[0 15;-15 0];
 gamma = 0.8;
 
 % number of delay steps
-VP.Ndelay = 0;%round(td/sampleTime);
+VP.Ndelay = round(td/sampleTime);
 VP.x0 = zeros(14,1);
 
 % dynamics matrices
