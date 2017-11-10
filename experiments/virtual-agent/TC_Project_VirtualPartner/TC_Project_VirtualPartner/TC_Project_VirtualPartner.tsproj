@@ -1234,7 +1234,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{507F56B2-B857-A472-CC5A-E938E2DB4A7D}">P_model_virtualpartner_bros_T</Name>
+			<Name GUID="{09D368CD-D2B8-D8EB-80A4-2BDD2F764CC8}">P_model_virtualpartner_bros_T</Name>
 			<BitSize>89024</BitSize>
 			<SubItem>
 				<Name>VP</Name>
@@ -3547,16 +3547,22 @@
 				<BitOffs>83016</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Gain_Gain_o</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>83024</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>LatchRising_j</Name>
 				<Type GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>83024</BitOffs>
+				<BitOffs>83032</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_gc</Name>
 				<Type GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>83032</BitOffs>
+				<BitOffs>83040</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_m</Name>
@@ -3619,6 +3625,7 @@
 				<BitOffs>88768</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{507F56B2-B857-A472-CC5A-E938E2DB4A7D}"/>
 				<Hide GUID="{ED3D45F4-C1D8-E1A1-CF19-FEF5AE2C38F2}"/>
 				<Hide GUID="{FAA67E7E-B6D9-4943-A011-E51520FD6057}"/>
 				<Hide GUID="{868906D5-AAB3-6B06-C7F8-B16703A8D0BC}"/>
@@ -4906,9 +4913,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{A2B7CD6C-31D4-4B80-A002-2F17E052719E}">
+					<TmcDesc GUID="{A330F853-9857-423C-92B1-5E4763B5AA0C}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{A2B7CD6C-31D4-4B80-A002-2F17E052719E}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{A330F853-9857-423C-92B1-5E4763B5AA0C}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5030,7 +5037,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>89024</BitSize>
-								<BaseType GUID="{507F56B2-B857-A472-CC5A-E938E2DB4A7D}">P_model_virtualpartner_bros_T</BaseType>
+								<BaseType GUID="{09D368CD-D2B8-D8EB-80A4-2BDD2F764CC8}">P_model_virtualpartner_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -9304,11 +9311,18 @@
 									<BitOffs>82648224</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x829da395</PTCID>
+									<BitOffs>82648232</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x829da395</PTCID>
-									<BitOffs>82648232</BitOffs>
+									<PTCID>#x829da396</PTCID>
+									<BitOffs>82648240</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_h</Name>
@@ -12705,18 +12719,25 @@
 									<BitOffs>83016</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain_Gain_o</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x8300288a</PTCID>
+									<BitOffs>83024</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>LatchRising_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</BaseType>
-									<PTCID>#x8300288a</PTCID>
-									<BitOffs>83024</BitOffs>
+									<PTCID>#x8300288b</PTCID>
+									<BitOffs>83032</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_gc</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</BaseType>
-									<PTCID>#x8300288b</PTCID>
-									<BitOffs>83032</BitOffs>
+									<PTCID>#x8300288c</PTCID>
+									<BitOffs>83040</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_m</Name>
@@ -19333,15 +19354,15 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS1_Value[0]</Name>
-								<Value>50</Value>
+								<Value>5</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS1_Value[1]</Name>
-								<Value>1</Value>
+								<Value>0.1</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS1_Value[2]</Name>
-								<Value>0.01</Value>
+								<Value>0.001</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Manuallytriggercontrollawcalc_V</Name>
@@ -19869,15 +19890,15 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS2_Value[0]</Name>
-								<Value>1000</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.VPModelParams_BROS2_Value[1]</Name>
 								<Value>5</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.VPModelParams_BROS2_Value[2]</Name>
+								<Name>ModelParameters.VPModelParams_BROS2_Value[1]</Name>
 								<Value>0.1</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.VPModelParams_BROS2_Value[2]</Name>
+								<Value>0.001</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_Changed_BROS2_Val</Name>
@@ -20254,6 +20275,10 @@
 							<Value>
 								<Name>ModelParameters.VPUseVirtualPartner_BROS2_Value</Name>
 								<EnumText>FALSE</EnumText>
+							</Value>
+							<Value>
+								<Name>ModelParameters.Gain_Gain_o</Name>
+								<Value>128</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.LatchRising_j.Out_Y0</Name>
