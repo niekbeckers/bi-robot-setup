@@ -1,15 +1,20 @@
-function [xe, L, stable] = sim_lqg(params,target,dt,doFF,checkStability)
+function [xe, L, stable] = sim_lqg(params,target,dt,doFF,checkStability,sigma)
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%remove SIGMA!!!!!! form input
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%params$$$$$$$$$$$$$$$$$$$$$$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 assert(isa(checkStability,'double'));
 
 % model parameters
 m = diag([4 1.5]); 
 tu = 0.04;
-td = 0*0.100;
-delay = td/dt;
+td = 0.100;
+delay = round(td/dt);
 D = doFF*[0 15;-15 0];
 gamma = 0.8;
-noise = 0;
+noise = 1;
 
 N = size(target,2); % number of samples
 
@@ -40,30 +45,33 @@ Q(7,1) = -wp;
 Q(8,2) = -wp;
 Q(1,7) = -wp;
 Q(2,8) = -wp;
+Q = Q*dt;
 
 R(1,1,:) = r;
 R(2,2,:) = r;
+R = R*dt;
 
 % initial state and state uncertainty
 x0 = zeros(size(Ae,1),1);
 x0(1:2) = target(1:2,1);
 x0(7:8) = target(1:2,1);
 
+% sigma = 0.00001; %0.00001;
 % process noise
 sigmaP_Ow = 0;
 sigmaV_Ow = 0;
-sigmaF_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
-sigmaPt_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
-sigmaVt_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
-sigmaPf_Ow = 0.00001/sqrt(0.01)*sqrt(dt);
+sigmaF_Ow = sigma/sqrt(0.01)*sqrt(dt);
+sigmaPt_Ow = sigma/sqrt(0.01)*sqrt(dt);
+sigmaVt_Ow = sigma/sqrt(0.01)*sqrt(dt);
+sigmaPf_Ow = sigma/sqrt(0.01)*sqrt(dt);
 
 Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
     sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2 ...
     sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2]);
 
 % sensory noise
-sigmaP_Ov = 0.00001*sqrt(0.01)/sqrt(dt);
-sigmaV_Ov = 0.00001*sqrt(0.01)/sqrt(dt);
+sigmaP_Ov = sigma*sqrt(0.01)/sqrt(dt);
+sigmaV_Ov = sigma*sqrt(0.01)/sqrt(dt);
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
