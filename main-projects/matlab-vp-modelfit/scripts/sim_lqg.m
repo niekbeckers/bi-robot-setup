@@ -1,10 +1,4 @@
-function [xe, L, stable] = sim_lqg(params,target,dt,doFF,checkStability,sigma)
-
-%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%remove SIGMA!!!!!! form input
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%params$$$$$$$$$$$$$$$$$$$$$$
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+function [xe, L, stable] = sim_lqg(params,target,dt,doFF,checkStability)
 assert(isa(checkStability,'double'));
 
 % model parameters
@@ -56,7 +50,8 @@ x0 = zeros(size(Ae,1),1);
 x0(1:2) = target(1:2,1);
 x0(7:8) = target(1:2,1);
 
-% sigma = 0.00001; %0.00001;
+sigma = 0.0062;
+
 % process noise
 sigmaP_Ow = 0;
 sigmaV_Ow = 0;
