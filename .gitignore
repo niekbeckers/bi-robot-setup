@@ -1,0 +1,10 @@
+codegen/
+*/*_tct/
+*_tct/
+slprj/
+*.mexw64
+*.slx.original
+*.obj
+*.res
+*.cache
+*.lnk
