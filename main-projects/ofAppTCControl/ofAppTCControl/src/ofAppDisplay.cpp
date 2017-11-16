@@ -56,9 +56,11 @@ void ofAppDisplay::update()
 	target.update();
 	cursor.setPosition(ofPoint(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m));
 	cursor.update();
-	// update virtual partner
-	virtualpartner.setPosition(ofPoint(-(*pData).posVPX*dots_per_m, (*pData).posVPY*dots_per_m));
-	virtualpartner.update();
+	if (drawVirtualPartner) {
+		// update virtual partner
+		virtualpartner.setPosition(ofPoint(-(*pData).posVPX*dots_per_m, (*pData).posVPY*dots_per_m));
+		virtualpartner.update();
+	}
 }
 
 //--------------------------------------------------------------
@@ -85,6 +87,7 @@ void ofAppDisplay::draw()
 		// draw cursor
 		cursor.draw();
 
+		// draw virtual partner
 		if (drawVirtualPartner) {
 			virtualpartner.draw();
 		}

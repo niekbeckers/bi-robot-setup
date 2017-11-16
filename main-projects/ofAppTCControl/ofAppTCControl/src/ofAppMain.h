@@ -62,7 +62,8 @@ class ofAppMain : public ofBaseApp{
 
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError, _lHdlVar_Write_CalibrateForceSensor,
 			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError, _lHdlVar_Connected, _lHdlVar_ConnectionStiffness, _lHdlVar_ConnectionDamping,
-			_lHdlVar_RecordData;
+			_lHdlVar_RecordData,
+			_lHdlVar_VirtualPartnerData;
 
 		float _timeRefreshCheck = 1.0f; // 2 second refresh
 		float _timeCheck;
@@ -101,6 +102,8 @@ class ofAppMain : public ofBaseApp{
 		ofxLabel _lblConnected, _lblConnStiffness, _lblConnDamping;
 		
 		vector<string> _errorDescriptions;
+
+		double _VP1Data[4] = { 0.0,0.0,0.0,0.0 };
 
 		//
 		// custom

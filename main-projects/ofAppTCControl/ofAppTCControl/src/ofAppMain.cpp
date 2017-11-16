@@ -59,6 +59,13 @@ void ofAppMain::update(){
 	_display2Data.posTargetX = AdsData[6];
 	_display2Data.posTargetY = AdsData[7];
 
+	// virtual partner data
+	if (_lHdlVar_VirtualPartnerData != -1) {
+		_tcClientCont->read(_lHdlVar_VirtualPartnerData, &_VP1Data, sizeof(_VP1Data));
+		_display1Data.posVPX = _VP1Data[0];
+		_display1Data.posVPY = _VP1Data[1];
+	}
+
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
 		_timeCheck = ofGetElapsedTimef();
@@ -125,6 +132,9 @@ void ofAppMain::setupTCADS()
 	// get variable handles for ADS
 	char szVar0[] = { "Object1 (ModelBROS).Output.DataToADS" };
 	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
+
+	char szVar[] = { "Object1 (ModelBROS).BlockIO.xVP1" };
+	_lHdlVar_VirtualPartnerData = _tcClientCont->getVariableHandle(szVar, sizeof(szVar));
 
 	// set up tcAdsClient for events
 	_tcClientEvent = new tcAdsClient(adsPort);
