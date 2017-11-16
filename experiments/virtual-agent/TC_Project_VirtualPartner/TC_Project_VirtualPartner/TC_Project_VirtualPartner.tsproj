@@ -4923,9 +4923,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{6840A023-3F63-4F85-8EF1-58577479989E}">
+					<TmcDesc GUID="{1EBB114C-B3D1-4CAF-BDBF-DA8D4F685F9F}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{6840A023-3F63-4F85-8EF1-58577479989E}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{1EBB114C-B3D1-4CAF-BDBF-DA8D4F685F9F}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -20261,7 +20261,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.tmp1_Value</Name>
-								<EnumText>FALSE</EnumText>
+								<EnumText>TRUE</EnumText>
 							</Value>
 							<Value>
 								<Name>ModelParameters.mp2_Value</Name>
