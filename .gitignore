@@ -1,4 +1,6 @@
 codegen/
+_ModuleInstall/
+_Boot/
 */*_tct/
 *_tct/
 slprj/
@@ -8,3 +10,5 @@ slprj/
 *.res
 *.cache
 *.lnk
+*.v12.suo
+*.slx.autosave
