@@ -7,6 +7,8 @@ struct displayData {
 	double posTargetY = 0.0;		// position target Y [m]
 	double wsSemiMajor = 0.10;		// workspace semimajor axis [m]
 	double wsSemiMinor = 0.10;		// workspace semiminor axis [m]
+	double posVPX = 0.0;			// position virtual partner X [m]
+	double posVPY = 0.0;			// position virtual partner Y [m]
 };
 
 const unsigned long adsPort = 350;

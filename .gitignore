@@ -12,4 +12,4 @@ slprj/
 *.lnk
 *.v12.suo
 *.slx.autosave
-.DS_Store
+*.DS_Store

@@ -42,6 +42,10 @@ void ofAppDisplay::setup()
 	target.setColor(clrTarget);
 	target.setFillMode(OF_OUTLINE);
 	target.radius = 15.0f;
+
+	virtualpartner.setColor(ofColor::forestGreen);
+	virtualpartner.setFillMode(OF_FILLED);
+	virtualpartner.radius = 12.0f;
 }
 
 //--------------------------------------------------------------
@@ -52,6 +56,9 @@ void ofAppDisplay::update()
 	target.update();
 	cursor.setPosition(ofPoint(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m));
 	cursor.update();
+	// update virtual partner
+	virtualpartner.setPosition(ofPoint(-(*pData).posVPX*dots_per_m, (*pData).posVPY*dots_per_m));
+	virtualpartner.update();
 }
 
 //--------------------------------------------------------------
@@ -77,6 +84,10 @@ void ofAppDisplay::draw()
 
 		// draw cursor
 		cursor.draw();
+
+		if (drawVirtualPartner) {
+			virtualpartner.draw();
+		}
 
 		ofPopMatrix();
 	}
