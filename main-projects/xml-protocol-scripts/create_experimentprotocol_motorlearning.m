@@ -1,7 +1,5 @@
 %% createBROSExperimentProtocol_template
 %
-% TEMPLATE! DO NOT CHANGE (EXCEPT FOR BUG FIXES). COPY AND MAKE YOUR OWN
-% SCRIPT FOR YOUR EXPERIMENT%
 % - Niek
 %
 %
@@ -77,7 +75,14 @@
 
 clear all; close all; clc;
 
-expID = 'motorlearning_p1_s1';
+partnersNr = 1;
+sessionnr = 1;
+selectPremadeTrialSequence = 1;
+groupType = 'interaction'; % solo or interaction
+groupTypeNr = 1; % 0 = solo, 1 = interaction
+Ks = 150;
+Ds = 2;
+expID = ['motorlearning_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
 
 % filename
 filename = ['expprotocol_' expID];
@@ -89,47 +94,103 @@ s = struct;
 s.experiment.expID = expID;
 s.experiment.trialFeedback = 1;
 s.experiment.trialPerformanceThreshold = 0.05;
+s.experiment.groupTypeNr = groupTypeNr;
+s.experiment.sessionNr = sessionnr;
+s.experiment.partnersNr = partnersNr;
+
+% s.experiment.doVirtualPartner = 0;
+s.experiment.activeBROSID.id0 = 1;
+s.experiment.activeBROSID.id1 = 2;
 
 %% trial data
-numTrials = 84; % example
+
 
 % trial settings
 
 % experiment settings
-condition = [zeros(21,1); ones(21,1); ones(21,1); zeros(21,1)];
-breakDuration = 3*ones(numTrials,1);
-trialDuration = 20*ones(numTrials,1);
+switch sessionnr
+    case 1
+        condition = [zeros(3,1)];
+    case 2
+        condition = [zeros(21,1); ones(21,1); ones(21,1)];
+end
+    
+numTrials = numel(condition); % example
+breakDuration = 5*ones(numTrials,1);
+trialDuration = 10*ones(numTrials,1);
 
 % connection
-connected = false*[ones(numTrials,1)];
-connectionStiffness = 0*ones(numTrials,1);
-connectionDamping = 0*ones(numTrials,1);
+if strcmpi(groupType,'solo')
+    connected = zeros(numTrials,1);
+    connectionStiffness = zeros(numTrials,1);
+    connectionDamping = zeros(numTrials,1);
+elseif strcmpi(groupType,'interaction')
+    connected = [0;1;0];
+%     connected = zeros(21,1); connected(2:2:end) = 1;
+%     connected = repmat(connected,4,1);
+
+%     connected1 = zeros(42,1); connected1(2:2:end) = 1;
+%     connected = [connected1;connected;connected];
+    connectionStiffness = connected*Ks;
+    connectionDamping = connected*Ds;
+
+end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:20 21:40 41:60 61:80}; 
+switch sessionnr
+    case 1
+        divTrials = {1:3};
+    case 2
+        divTrials = {1:21 22:42 43:63};
+end
+
 
 %% randomization
 % sort elements of trialRandomization in random order
-NRandomizationBlocks = {[repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1], [repmat([0;1;2;3],5,1);1]};
-%mix up the order:
-nRand = [];
-for ii = 1:length(NRandomizationBlocks)
-    nRand = [nRand; NRandomizationBlocks{ii}(randperm(length(NRandomizationBlocks{ii})))];
-end
+if ~selectPremadeTrialSequence
+    imin = 0;
+    imax = 5;
+    orderPerBlock = [repmat(imin:imax,1,3) randi([imin imax],1,3)]; 
+    NRandomizationBlocks = {orderPerBlock, orderPerBlock, orderPerBlock, orderPerBlock};
 
-% randomization: four target rotations, make sure that in each block, you
-% have the same amount of trials per rotation
-trialRandomization = 20*nRand+5*rand(size(nRand));
+    % %mix up the order:
+    % nRand = [];
+    % for ii = 1:length(NRandomizationBlocks)
+    %     nRand = [nRand; NRandomizationBlocks{ii}(randperm(length(NRandomizationBlocks{ii})))];
+    % end
+
+    parfor ii = 1:4
+        noconsnumbers = 1;
+        while (noconsnumbers)
+            randomOrder = NRandomizationBlocks{ii}(randperm(length(NRandomizationBlocks{ii})));
+            if ~any(diff(randomOrder) == 0)
+                noconsnumbers = 0;
+                NRandomizationBlocks{ii} = randomOrder;
+                disp(['done ' num2str(ii)])
+            end
+        end
+    end
+    
+    % randomization: four target rotations, make sure that in each block, you
+    % have the same amount of trials per rotation
+    trialRandomization = 20*nRand+5*rand(size(nRand));
+
+else
+    load('randomizedtrialorder_motorlearning_session1.mat');
+end
 
 
 %% prepare trials
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
     trial{ii}.connectionStiffness = connectionStiffness(ii);
+    trial{ii}.connectionDamping = connectionDamping(ii);
     trial{ii}.condition = condition(ii);
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
-    trial{ii}.trialRandomization = trialRandomization(ii);
+    trial{ii}.trialRandomization = 0;%trialRandomization(ii);
+%     trial{ii}.fitVirtualPartner.id0 = 1;
+%     trial{ii}.fitVirtualPartner.id1 = 2;
 end
 
 %% block data
@@ -137,16 +198,46 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 300.0;
+    s.experiment.block{ii}.breakDuration = 20.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
     end
+    
+    expprotocol.block(ii).connected = connected(divTrials{ii});
+    expprotocol.block(ii).condition = condition(divTrials{ii});
+    expprotocol.block(ii).trialRandomization = trialRandomization(divTrials{ii});
+    expprotocol.block(ii).connectionStiffness = connectionStiffness(divTrials{ii});
+    expprotocol.block(ii).connectionDamping = connectionDamping(divTrials{ii});
 end
+
+
+
+
 
 %% save everything (in xml and mat)
 
-% write to to XML file
-struct2xml(s,[filename '.xml']);
-% save experiment struct in mat file
-save(filename, 's');
+protocolpath = 'protocols';
+
+if ~exist(protocolpath,'dir')
+    mkdir(protocolpath);
+end
+
+% check if you want to overwrite the protocol
+saveProtocol = 1;
+if exist([protocolpath filesep filename '.xml'],'file') || exist([protocolpath filesep filename],'file')
+    promptMessage = sprintf('This file already exists:\n%s\nDo you want to overwrite it?', [protocolpath filesep filename '.xml']);
+	titleBarCaption = 'Overwrite protocol?';
+	buttonText = questdlg(promptMessage, titleBarCaption, 'Yes', 'No', 'No');
+    
+    if strcmpi(buttonText,'No')
+        saveProtocol = 0;
+    end
+end
+
+if saveProtocol
+    % write to to XML file
+    struct2xml(s,[protocolpath filesep filename '.xml']);
+    % save experiment struct in mat file
+    save([protocolpath filesep filename], 's','expprotocol');
+end
