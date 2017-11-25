@@ -10,6 +10,7 @@ p = inputParser;
 p.addOptional('Tpart',5);
 p.addOptional('Nsel',20000);
 p.addOptional('dt',0.001);
+p.addOptional('AlignTrials',false);
 p.parse(varargin{:});
 
 % select inputparser results
@@ -58,13 +59,15 @@ for ii = 1:Nblocks % blocks
         target(end-length(idx)+1:end,:) = [dat.target_BROS1(idx,:) dat.target_BROS2(idx,:)];
         cursor(end-length(idx)+1:end,:) = [dat.cursor_BROS1(idx,:) dat.cursor_BROS2(idx,:)];
         
-        % shift target and cursor data such that for each trial they are
-        % the same (i.e. trialRandomization to 0)
-        Tshift = expprotocol.block(ii).trialRandomization(jj);
-        Tshift = round(Tshift/dt)*dt;
-        Nshift = round(Tshift/dt);
-        target = circshift(target,Nshift,1);
-        cursor = circshift(cursor,Nshift,1);
+        if p.Results.AlignTrials
+            % shift target and cursor data such that for each trial they are
+            % the same (i.e. trialRandomization to 0)
+            Tshift = expprotocol.block(ii).trialRandomization(jj);
+            Tshift = round(Tshift/dt)*dt;
+            Nshift = round(Tshift/dt);
+            target = circshift(target,Nshift,1);
+            cursor = circshift(cursor,Nshift,1);
+        end
         
         % calculate RMS
         [rmse1(jj,ii),rmse1_parts(jj,ii,:),idx_trials_parts] = calculate_rmse(target(:,1:2),cursor(:,1:2),idx_trials,Nparts);
@@ -73,7 +76,7 @@ for ii = 1:Nblocks % blocks
     
     % fix some errors (due to TC errors/restarts)
     [idx_connected(:,ii),idx_single(:,ii),rmse1(:,ii),rmse2(:,ii),rmse1_parts(:,ii,:),rmse2_parts(:,ii,:)] = ...
-        fixerrors(pairID,idx_connected(:,ii),idx_single(:,ii),rmse1(:,ii),rmse2(:,ii),rmse1_parts(:,ii,:),rmse2_parts(:,ii,:));
+        fixerrors(pairID,ii,idx_connected(:,ii),idx_single(:,ii),rmse1(:,ii),rmse2(:,ii),rmse1_parts(:,ii,:),rmse2_parts(:,ii,:));
     
     if ~any(idx_connected(:)==1)
         idx_connected(2:2:end,:) = true;
@@ -168,7 +171,7 @@ end
 
 end
 
-function [idx_connected,idx_single,rmse1,rmse2,rmse1_parts,rmse2_parts] = fixerrors(subjnr,idx_connected,idx_single,rmse1,rmse2,rmse1_parts,rmse2_parts)
+function [idx_connected,idx_single,rmse1,rmse2,rmse1_parts,rmse2_parts] = fixerrors(subjnr,blocknr,idx_connected,idx_single,rmse1,rmse2,rmse1_parts,rmse2_parts)
 %% function [idx_connected,idx_single,rmse1,rmse2,rmse1_parts,rmse2_parts] = fixerrors(subjnr,idx_connected,idx_single,rmse1,rmse2,rmse1_parts,rmse2_parts)
 
 % subject 1
@@ -183,6 +186,14 @@ if (subjnr == 1) && (sum(idx_connected) > 10)
     rmse1_parts = [rmse1_parts(2:end,:,:); NaN(size(rmse1_parts(end-1,:,:)))];
     rmse2_parts = [rmse2_parts(2:end,:,:); NaN(size(rmse2_parts(end-1,:,:)))];
 end
-    
+
+% pair 18: trial 1 of block 2, session 1 started before we were back at the
+% controls. Use data from trial 2, sicne this was the actual first trial.
+% (solo pair)
+if (subjnr == 18) && (blocknr == 2) && (rmse1(1) > 0.02) && (rmse2(1) > 0.02)
+    rmse1(1) = rmse1(2);
+    rmse2(1) = rmse2(2);
+end
+
 end
 

@@ -3,7 +3,8 @@ function varargout = parsedata;
 %% parsedata
 clear all; close all; clc;
 
-pairs = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20];
+% pairs = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20];
+pairs = 1:20;
 sessions = [1 2];
 % outliers = {'10B'};
 outliers = {''};
@@ -50,6 +51,7 @@ for ii = 1:length(pairs)
             alldata(ix) = alldatatmp;
             ix = ix + 1;
         catch me
+            fprintf('Caught error for pair %d, session %d\n',pair,session)
             disp(getReport(me))
             cd(currdir);
         end
