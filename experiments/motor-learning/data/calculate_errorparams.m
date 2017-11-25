@@ -157,13 +157,13 @@ function [rmse,rmse_part,idx_trialsparts] = calculate_rmse(t,x,idx_trials,Nparts
 
 % RMSe across complete trial
 e = sqrt(sum((t-x).^2,2));
-rmse = rms(e);
+rmse = mean(e);
 
 % calculate RMS across trial in equal parts
 e_parts = reshape(e,[round(length(e)/Nparts) Nparts]);
-rmse_part = rms(e_parts,1);
+rmse_part = mean(e_parts,1);
 
-% trial numbers
+% trial numbersmean
 idx_trialsparts = NaN([size(idx_trials),Nparts]);
 for ii = 1:Nparts
     idx_trialsparts(:,:,ii) = idx_trials+(ii-1)*(1/Nparts);
