@@ -35,7 +35,7 @@ for ii = 1:length(pairs)
             
             % calculate performance metrics
             clear alldatatmp
-            alldatatmp = calculate_errorparams(data, expprotocol, pair,'Tpart',10);
+            alldatatmp = calculate_parameters(data, expprotocol, pair,'Tpart',10);
             
             % remove outliers
             alldatatmp = removeoutliers(alldatatmp,pair,outliers);

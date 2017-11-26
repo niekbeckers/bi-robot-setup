@@ -1,4 +1,4 @@
-function dataout = calculate_errorparams(datain, expprotocol, pairID, varargin)
+function dataout = calculate_parameters(datain, expprotocol, pairID, varargin)
 %% calculate experiment parameters:
 %
 % Data structure
@@ -70,8 +70,8 @@ for ii = 1:Nblocks % blocks
         end
         
         % calculate RMS
-        [rmse1(jj,ii),rmse1_parts(jj,ii,:),idx_trials_parts] = calculate_rmse(target(:,1:2),cursor(:,1:2),idx_trials,Nparts);
-        [rmse2(jj,ii),rmse2_parts(jj,ii,:)]                  = calculate_rmse(target(:,3:4),cursor(:,3:4),idx_trials,Nparts);
+        [rmse1(jj,ii),rmse1_parts(jj,ii,:),idx_trials_parts] = calculate_performance(target(:,1:2),cursor(:,1:2),idx_trials,Nparts);
+        [rmse2(jj,ii),rmse2_parts(jj,ii,:)]                  = calculate_performance(target(:,3:4),cursor(:,3:4),idx_trials,Nparts);
     end
     
     % fix some errors (due to TC errors/restarts)
@@ -150,18 +150,18 @@ dataout.rmse_single_parts_improvement = repmat(rmse0,size(dataout.rmse_single_pa
 dataout.rmse_improvement = repmat(rmse0,size(dataout.rmse,1),1) - dataout.rmse;
 end
 
-function [rmse,rmse_part,idx_trialsparts] = calculate_rmse(t,x,idx_trials,Nparts)
-%% [rmse,rmse_part,idx_trialsparts] = calculate_rmse(t,x,idx_trials,Nparts)
+function [rmse,rmse_part,idx_trialsparts] = calculate_performance(t,x,idx_trials,Nparts)
+%% [rmse,rmse_part,idx_trialsparts] = calculate_performance(t,x,idx_trials,Nparts)
 % calculate root-mean-squared (RMS) of the tracking error as a performance
 % measure across the complete trial or the trial chopped into Nparts equal parts
 
 % RMSe across complete trial
 e = sqrt(sum((t-x).^2,2));
-rmse = mean(e);
+rmse = rms(e);
 
 % calculate RMS across trial in equal parts
 e_parts = reshape(e,[round(length(e)/Nparts) Nparts]);
-rmse_part = mean(e_parts,1);
+rmse_part = rms(e_parts,1);
 
 % trial numbersmean
 idx_trialsparts = NaN([size(idx_trials),Nparts]);
@@ -190,7 +190,7 @@ end
 % pair 18: trial 1 of block 2, session 1 started before we were back at the
 % controls. Use data from trial 2, sicne this was the actual first trial.
 % (solo pair)
-if (subjnr == 18) && (blocknr == 2) && (rmse1(1) > 0.02) && (rmse2(1) > 0.02)
+if (subjnr == 18) && (blocknr == 2) % && (rmse1(1) > 0.02) && (rmse2(1) > 0.02)
     rmse1(1) = rmse1(2);
     rmse2(1) = rmse2(2);
 end
