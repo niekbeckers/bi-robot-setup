@@ -160,7 +160,7 @@ e = sqrt(sum((t-x).^2,2));
 rmse = rms(e);
 
 x = sqrt(sum((x).^2,2));
-t = sqrt(sum((x).^2,2));
+t = sqrt(sum((t).^2,2));
 rmse = t\x;
 
 % calculate RMS across trial in equal parts
