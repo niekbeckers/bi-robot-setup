@@ -159,6 +159,10 @@ function [rmse,rmse_part,idx_trialsparts] = calculate_performance(t,x,idx_trials
 e = sqrt(sum((t-x).^2,2));
 rmse = rms(e);
 
+x = sqrt(sum((x).^2,2));
+t = sqrt(sum((x).^2,2));
+rmse = t\x;
+
 % calculate RMS across trial in equal parts
 e_parts = reshape(e,[round(length(e)/Nparts) Nparts]);
 rmse_part = rms(e_parts,1);
