@@ -157,7 +157,13 @@ function [rmse,rmse_part,idx_trialsparts] = calculate_performance(t,x,idx_trials
 
 % RMSe across complete trial
 e = sqrt(sum((t-x).^2,2));
-rmse = rms(e);
+
+% histogram(e); hold on
+% plot([mean(e) mean(e)],ylim,'k','linewidth',2)
+% plot([rms(e) rms(e)],ylim,'k--','linewidth',2)
+% plot([median(e) median(e)],ylim,'k:','linewidth',2)
+
+rmse = median(e);
 
 % calculate RMS across trial in equal parts
 e_parts = reshape(e,[round(length(e)/Nparts) Nparts]);
