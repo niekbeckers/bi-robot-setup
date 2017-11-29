@@ -1234,8 +1234,8 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{2BBF56CD-C7BB-EAAE-4A08-3D72105F5A9A}">P_model_virtualpartner_bros_T</Name>
-			<BitSize>89088</BitSize>
+			<Name GUID="{66871CF4-737B-8929-2018-C9A324B8498A}">P_model_virtualpartner_bros_T</Name>
+			<BitSize>89152</BitSize>
 			<SubItem>
 				<Name>VP</Name>
 				<Type GUID="{D2F8E323-7CA1-76FC-166F-85EDC4EE710A}">struct_bYGVbtrJWe1z7gDiTgVScF</Type>
@@ -3559,78 +3559,90 @@
 				<BitOffs>83112</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Gain_Gain_m</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>83120</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>LatchRising_j</Name>
 				<Type GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>83120</BitOffs>
+				<BitOffs>83128</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_gc</Name>
 				<Type GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>83128</BitOffs>
+				<BitOffs>83136</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_m</Name>
 				<Type GUID="{D5122C74-488D-8D2E-C5CD-A8380FE2A52E}">P_run_model_virtualpartner_br_T</Type>
 				<BitSize>384</BitSize>
-				<BitOffs>83136</BitOffs>
+				<BitOffs>83200</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>athome_h</Name>
 				<Type GUID="{47582581-5E08-39AB-E1E7-F00E12A9C9B7}">P_athome_model_virtualpartner_T</Type>
 				<BitSize>960</BitSize>
-				<BitOffs>83520</BitOffs>
+				<BitOffs>83584</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>homingactive_b</Name>
 				<Type GUID="{19D7D94B-70A7-B5D7-891B-BD0318F4FF4F}">P_homingactive_model_virtualp_T</Type>
 				<BitSize>1344</BitSize>
-				<BitOffs>84480</BitOffs>
+				<BitOffs>84544</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_n</Name>
 				<Type GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>85824</BitOffs>
+				<BitOffs>85888</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_g</Name>
 				<Type GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>85832</BitOffs>
+				<BitOffs>85896</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run</Name>
 				<Type GUID="{D5122C74-488D-8D2E-C5CD-A8380FE2A52E}">P_run_model_virtualpartner_br_T</Type>
 				<BitSize>384</BitSize>
-				<BitOffs>85888</BitOffs>
+				<BitOffs>85952</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>athome</Name>
 				<Type GUID="{47582581-5E08-39AB-E1E7-F00E12A9C9B7}">P_athome_model_virtualpartner_T</Type>
 				<BitSize>960</BitSize>
-				<BitOffs>86272</BitOffs>
+				<BitOffs>86336</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>homingactive</Name>
 				<Type GUID="{19D7D94B-70A7-B5D7-891B-BD0318F4FF4F}">P_homingactive_model_virtualp_T</Type>
 				<BitSize>1344</BitSize>
-				<BitOffs>87232</BitOffs>
+				<BitOffs>87296</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>HoldFirstSampleOnEnable1</Name>
 				<Type GUID="{3252DDA7-A0D0-8004-0B3D-17D31F384F57}">P_HoldFirstSampleOnEnable_mod_T</Type>
 				<BitSize>256</BitSize>
-				<BitOffs>88576</BitOffs>
+				<BitOffs>88640</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>HoldFirstSampleOnEnable</Name>
 				<Type GUID="{3252DDA7-A0D0-8004-0B3D-17D31F384F57}">P_HoldFirstSampleOnEnable_mod_T</Type>
 				<BitSize>256</BitSize>
-				<BitOffs>88832</BitOffs>
+				<BitOffs>88896</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{2BBF56CD-C7BB-EAAE-4A08-3D72105F5A9A}"/>
+				<Hide GUID="{F2B23AA3-9E1D-450C-B7D3-9437BC94855C}"/>
+				<Hide GUID="{04DC111B-A11C-6273-333B-77B93BBA05DC}"/>
+				<Hide GUID="{72F2FF7A-93A2-2631-10B6-1FFCE5BFB28B}"/>
+				<Hide GUID="{92E32DB9-1A22-4BA6-7B75-7F43537D0BA9}"/>
+				<Hide GUID="{7260845F-FBB3-B2D6-B427-3072EB80511D}"/>
 				<Hide GUID="{C77A046C-DD60-3CB3-7800-AF3A03E49A17}"/>
 				<Hide GUID="{507F56B2-B857-A472-CC5A-E938E2DB4A7D}"/>
 				<Hide GUID="{8BC860B3-8CC9-19F3-A57C-5FECC524EFE9}"/>
@@ -4923,9 +4935,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{1EBB114C-B3D1-4CAF-BDBF-DA8D4F685F9F}">
+					<TmcDesc GUID="{5D81B750-8E92-41DE-9DD1-A77626314646}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{1EBB114C-B3D1-4CAF-BDBF-DA8D4F685F9F}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{5D81B750-8E92-41DE-9DD1-A77626314646}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5046,8 +5058,8 @@
 							</Parameter>
 							<Parameter>
 								<Name>ModelParameters</Name>
-								<BitSize>89088</BitSize>
-								<BaseType GUID="{2BBF56CD-C7BB-EAAE-4A08-3D72105F5A9A}">P_model_virtualpartner_bros_T</BaseType>
+								<BitSize>89152</BitSize>
+								<BaseType GUID="{66871CF4-737B-8929-2018-C9A324B8498A}">P_model_virtualpartner_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -9335,11 +9347,18 @@
 									<BitOffs>82649248</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x829da415</PTCID>
+									<BitOffs>82649256</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x829da415</PTCID>
-									<BitOffs>82649256</BitOffs>
+									<PTCID>#x829da416</PTCID>
+									<BitOffs>82649264</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_h</Name>
@@ -10039,7 +10058,7 @@
 								<AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
 								<Name>ModelParameters</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>11136</ByteSize>
+								<ByteSize>11144</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>VP</Name>
 									<BitSize>51648</BitSize>
@@ -12750,88 +12769,95 @@
 									<BitOffs>83112</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain_Gain_m</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x83002896</PTCID>
+									<BitOffs>83120</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>LatchRising_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</BaseType>
-									<PTCID>#x83002896</PTCID>
-									<BitOffs>83120</BitOffs>
+									<PTCID>#x83002897</PTCID>
+									<BitOffs>83128</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_gc</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</BaseType>
-									<PTCID>#x83002897</PTCID>
-									<BitOffs>83128</BitOffs>
+									<PTCID>#x83002898</PTCID>
+									<BitOffs>83136</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_m</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{D5122C74-488D-8D2E-C5CD-A8380FE2A52E}">P_run_model_virtualpartner_br_T</BaseType>
-									<PTCID>#x83002898</PTCID>
-									<BitOffs>83136</BitOffs>
+									<PTCID>#x830028a0</PTCID>
+									<BitOffs>83200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>athome_h</Name>
 									<BitSize>960</BitSize>
 									<BaseType GUID="{47582581-5E08-39AB-E1E7-F00E12A9C9B7}">P_athome_model_virtualpartner_T</BaseType>
-									<PTCID>#x830028c8</PTCID>
-									<BitOffs>83520</BitOffs>
+									<PTCID>#x830028d0</PTCID>
+									<BitOffs>83584</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive_b</Name>
 									<BitSize>1344</BitSize>
 									<BaseType GUID="{19D7D94B-70A7-B5D7-891B-BD0318F4FF4F}">P_homingactive_model_virtualp_T</BaseType>
-									<PTCID>#x83002940</PTCID>
-									<BitOffs>84480</BitOffs>
+									<PTCID>#x83002948</PTCID>
+									<BitOffs>84544</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_n</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</BaseType>
-									<PTCID>#x830029e8</PTCID>
-									<BitOffs>85824</BitOffs>
+									<PTCID>#x830029f0</PTCID>
+									<BitOffs>85888</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</BaseType>
-									<PTCID>#x830029e9</PTCID>
-									<BitOffs>85832</BitOffs>
+									<PTCID>#x830029f1</PTCID>
+									<BitOffs>85896</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{D5122C74-488D-8D2E-C5CD-A8380FE2A52E}">P_run_model_virtualpartner_br_T</BaseType>
-									<PTCID>#x830029f0</PTCID>
-									<BitOffs>85888</BitOffs>
+									<PTCID>#x830029f8</PTCID>
+									<BitOffs>85952</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>athome</Name>
 									<BitSize>960</BitSize>
 									<BaseType GUID="{47582581-5E08-39AB-E1E7-F00E12A9C9B7}">P_athome_model_virtualpartner_T</BaseType>
-									<PTCID>#x83002a20</PTCID>
-									<BitOffs>86272</BitOffs>
+									<PTCID>#x83002a28</PTCID>
+									<BitOffs>86336</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>homingactive</Name>
 									<BitSize>1344</BitSize>
 									<BaseType GUID="{19D7D94B-70A7-B5D7-891B-BD0318F4FF4F}">P_homingactive_model_virtualp_T</BaseType>
-									<PTCID>#x83002a98</PTCID>
-									<BitOffs>87232</BitOffs>
+									<PTCID>#x83002aa0</PTCID>
+									<BitOffs>87296</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable1</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{3252DDA7-A0D0-8004-0B3D-17D31F384F57}">P_HoldFirstSampleOnEnable_mod_T</BaseType>
-									<PTCID>#x83002b40</PTCID>
-									<BitOffs>88576</BitOffs>
+									<PTCID>#x83002b48</PTCID>
+									<BitOffs>88640</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{3252DDA7-A0D0-8004-0B3D-17D31F384F57}">P_HoldFirstSampleOnEnable_mod_T</BaseType>
-									<PTCID>#x83002b60</PTCID>
-									<BitOffs>88832</BitOffs>
+									<PTCID>#x83002b68</PTCID>
+									<BitOffs>88896</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -19305,11 +19331,11 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.KpConnection_Value</Name>
-								<Value>125</Value>
+								<Value>0</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.KdConnection_Value</Name>
-								<Value>2.5</Value>
+								<Value>0</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.One_Value</Name>
@@ -20314,6 +20340,10 @@
 							<Value>
 								<Name>ModelParameters.VPUseVirtualPartner_BROS2_Value</Name>
 								<EnumText>FALSE</EnumText>
+							</Value>
+							<Value>
+								<Name>ModelParameters.Gain_Gain_m</Name>
+								<Value>128</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.LatchRising_j.Out_Y0</Name>
