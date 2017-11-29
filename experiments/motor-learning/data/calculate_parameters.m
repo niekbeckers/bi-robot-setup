@@ -164,7 +164,7 @@ e = sqrt(sum((t-x).^2,2));
 % plot([median(e) median(e)],ylim,'k:','linewidth',2)
 % plot([geomean(e) geomean(e)],ylim,'k.-');
 
-rmse = max(e);
+rmse = rms(e);
 
 % calculate RMS across trial in equal parts
 e_parts = reshape(e,[round(length(e)/Nparts) Nparts]);
