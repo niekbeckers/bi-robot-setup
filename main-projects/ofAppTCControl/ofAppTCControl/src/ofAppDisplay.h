@@ -47,7 +47,7 @@ class ofAppDisplay : public ofBaseApp
 		//
 		displayData *pData;
 		bool drawTask = true;
-		bool drawVirtualPartner = true;
+		bool drawVirtualPartner = false;
 
 		parentParticle cursor;
 		parentParticle target;
