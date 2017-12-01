@@ -107,6 +107,7 @@ for ii = 1:Nblocks % blocks
     idx_rows_single = idx_rows_connected + 1;
     [blocks(ii).improvement_hhi, blocks(ii).relperformance_hhi] = calculate_hhi_improvement(blocks(ii).rmse,idx_rows_connected,idx_rows_single);
     
+    % rmse_improvement
     rmse0 = blocks(ii).rmse_single(1,:);
     if ii == 3
         rmse0 = blocks(2).rmse_single(1,:);
@@ -114,6 +115,11 @@ for ii = 1:Nblocks % blocks
     blocks(ii).rmse_single_improvement = repmat(rmse0,size(blocks(ii).rmse_single,1),1) - blocks(ii).rmse_single;
     blocks(ii).rmse_single_parts_improvement = repmat(rmse0,size(blocks(ii).rmse_single_parts,1),1) - blocks(ii).rmse_single_parts;
 end
+
+% normalize, with respect to baseline end performance
+% keyboard
+% rmse_bl = nanmean(blocks(1).rmse_single(7:11,:),1);
+% rmse_0 = 
 
 % store all data
 % dataout.subjID = subjID;
