@@ -589,7 +589,7 @@ void ofAppExperiment::esmGetReadyDone()
 		display1->target.reset();
 		display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 		//display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
-		display2->target.reset();
+		display1->target.reset();
 		display1->drawTask = true;
 		display2->drawTask = true;
 		setExperimentState(ExperimentState::COUNTDOWN);
@@ -623,6 +623,8 @@ void ofAppExperiment::esmCountdownDone()
 	display2->showMessageNorth(false);
 	display1->showCountDown(false);
 	display2->showCountDown(false);
+	display1->target.doDraw = true;
+	display2->target.doDraw = true;
 	display1->drawTask = true;
 	display2->drawTask = true;
 	display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
@@ -654,6 +656,10 @@ void ofAppExperiment::esmTrialDone()
 		display1->drawTask = false;
 		display2->drawTask = false;
 	}
+
+	display1->target.doDraw = false;
+	display2->target.doDraw = false;
+
 	display1->showMessageNorth(true, "TRIAL DONE");
 	display2->showMessageNorth(true, "TRIAL DONE");
 	_trialDoneTime = ofGetElapsedTimef();

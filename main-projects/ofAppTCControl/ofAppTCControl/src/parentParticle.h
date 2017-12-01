@@ -48,7 +48,7 @@ class parentParticle {
 		
 		
 		float velExplode = 400.0f;
-
+		bool doDraw = true;
 
 
 		bool drawTail = false;

@@ -130,6 +130,9 @@ void parentParticle::update()
 //--------------------------------------------------------------
 void parentParticle::draw()
 {
+	if (!doDraw)
+		return;
+
     setFillMode(_fillMode);
     ofSetColor(_color);
     

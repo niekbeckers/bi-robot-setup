@@ -40,7 +40,7 @@ void ofAppDisplay::setup()
 	cursor.radius = 12.0f;
 
 	//target.setMode(PARENTPARTICLE_MODE_CLOUD);
-	target.setMode(PARENTPARTICLE_MODE_NORMAL);
+	//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 	target.setColor(clrTarget);
 	target.setFillMode(OF_OUTLINE);
 	target.radius = 15.0f;
