@@ -419,7 +419,14 @@ void ofAppExperiment::showVisualReward()
 	//
 	// BROS 1
 	//
-	double performanceDiff = _trialPerformance[0] - _trialPerformancePrev[0];
+	double performanceDiff = 0.0;
+	if (fabs(_trialPerformancePrev[0]) > 0) {
+		// relative improvement
+		performanceDiff = (_trialPerformance[0] - _trialPerformancePrev[0]) / _trialPerformancePrev[0];
+	}
+	else {
+		performanceDiff = (_trialPerformance[0] - _trialPerformancePrev[0]);
+	}
 
 	if (performanceDiff < -_trialPerformanceThreshold) { // better performance compared to last trial
 		display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
@@ -434,7 +441,13 @@ void ofAppExperiment::showVisualReward()
 	//
 	// BROS 2
 	//
-	performanceDiff = _trialPerformance[1] - _trialPerformancePrev[1];
+	if (fabs(_trialPerformancePrev[1]) > 0) {
+		// relative improvement
+		performanceDiff = (_trialPerformance[1] - _trialPerformancePrev[1]) / _trialPerformancePrev[1];
+	}
+	else {
+		performanceDiff = (_trialPerformance[1] - _trialPerformancePrev[1]);
+	}
 
 	if (performanceDiff < -_trialPerformanceThreshold) { // better performance compared to last trial
 		display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
@@ -572,9 +585,11 @@ void ofAppExperiment::esmGetReadyDone()
 		// start countdown
 		_cdStartTime = ofGetElapsedTimef();
 		display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
-		display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		//display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		display1->target.reset();
 		display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
-		display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		//display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		display2->target.reset();
 		display1->drawTask = true;
 		display2->drawTask = true;
 		setExperimentState(ExperimentState::COUNTDOWN);
@@ -611,9 +626,11 @@ void ofAppExperiment::esmCountdownDone()
 	display1->drawTask = true;
 	display2->drawTask = true;
 	display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
-	display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+	//display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+	display1->target.reset();
 	display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
-	display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+	//display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+	display2->target.reset();
 
 	requestStartTrialADS();
 
@@ -700,8 +717,6 @@ void ofAppExperiment::esmTrialFeedback()
 			display1->drawTask = true;
 			display2->drawTask = true;
 
-			
-
 			// visual reward
 			showVisualReward();
 
@@ -725,7 +740,7 @@ void ofAppExperiment::esmTrialFeedback()
 		}
 
 		// set trial performance in experiment leader GUI
-		mainApp->lblTrialPerformance = "[" + ofToString(_trialPerformance[0]) +", " + ofToString(_trialPerformance[1]) + "]";
+		mainApp->lblTrialPerformance = "[" + ofToString(_trialPerformance[0],4) +", " + ofToString(_trialPerformance[1],4) + "]";
 
 		// save previous trial performance
 		_trialPerformancePrev[0] = _trialPerformance[0];
@@ -733,7 +748,7 @@ void ofAppExperiment::esmTrialFeedback()
 	}
 
 	// occasionaly show instructions
-	if ((_currentTrialNumber + 1) % _instructionMessageInterval == 0) {
+	if (((_currentTrialNumber + 1) % _instructionMessageInterval == 0) && (_instructionMessage != "")) {
 		display1->showMessageCenter(true, _instructionMessage);
 		display2->showMessageCenter(true, _instructionMessage);
 	}

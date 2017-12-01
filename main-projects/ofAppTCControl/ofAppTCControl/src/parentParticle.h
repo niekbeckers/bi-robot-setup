@@ -30,8 +30,13 @@ class parentParticle {
 		int _numTailPoints = 60;
 		ofPolyline _line;
 
-		
+		int h = ofGetScreenHeight();
+		int w = ofGetScreenWidth();
+
+		float dots_per_m = sqrt((double)(h * h) + (double)(w * w)) / 27.0 * 100.0 / 2.54; //dots per meter
     
+		
+
         void resetPositions();
     public:
         parentParticle();
@@ -39,8 +44,12 @@ class parentParticle {
     
         float radius = 10.0f;
         float mean = 0.0f;
-        float stdev = 6.0f;
-        float velExplode = 400.0f;
+        float stdev = 0.5*sqrt(0.0001f) * dots_per_m; // pixels
+		
+		
+		float velExplode = 400.0f;
+
+
 
 		bool drawTail = false;
     

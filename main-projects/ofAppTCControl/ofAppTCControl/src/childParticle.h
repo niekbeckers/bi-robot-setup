@@ -18,12 +18,12 @@ class childParticle {
     private:
         float period = 1.0f;
         float phase = 0.0f;
-        float startTime = 0.0;
+        
         float uniqueVal;
         float alpha = 1.0;
         float drag;
     
-        bool doDraw = false;
+        
     
         particleDisplayMode dispMode = PARTICLE_DISPLAY_MODE_ONOFF_ALPHA;
         particleRepetitionMode repMode = PARTICLE_REPETITION_MODE_REPEAT;
@@ -51,4 +51,6 @@ class childParticle {
     
         bool addNoise = false;
         bool isActive = false;
+		bool doDraw = false;
+		float startTime = 0.0;
 };

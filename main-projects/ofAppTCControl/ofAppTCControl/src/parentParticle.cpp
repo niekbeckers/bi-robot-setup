@@ -26,14 +26,15 @@ void parentParticle::reset()
             break;
         case PARENTPARTICLE_MODE_CLOUD:
             // give all the _particles a relative position (random)
-            _particles.assign(25, childParticle());
+            _particles.assign(30, childParticle());
             _startTime = ofGetElapsedTimef();
             for(unsigned int i = 0; i < _particles.size(); i++){
                 _particles[i].reset();
+				_particles[i].color = _color;
                 _particles[i].addNoise = false;
                 _particles[i].setDisplayMode(PARTICLE_DISPLAY_MODE_ONOFF_ALPHA);
-                _particles[i].setRepetitionMode(PARTICLE_REPETITION_MODE_REPEAT);
-                _particles[i].setPeriod(1.0f + ofRandom(3.0f));
+                _particles[i].setRepetitionMode(PARTICLE_REPETITION_MODE_ONCE);
+                _particles[i].setPeriod(0.25f + ofRandom(0.75f));
                 _particles[i].setPhase(2.0*M_PI*ofRandom(0.5f));
 
                 // position (normal distribution)
@@ -91,6 +92,23 @@ void parentParticle::update()
             for(unsigned int i = 0; i < _particles.size(); i++){
                 _particles[i].parentPos = _pos;
                 _particles[i].update();
+
+				// if particle is not active (and repeat is off, resample position and activate)
+				if (!_particles[i].isActive) {
+					unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+					std::default_random_engine generator(seed);
+					std::normal_distribution<float> distribution(mean, stdev);
+					// position (normal distribution)
+					double x = distribution(generator);
+					double y = distribution(generator);
+					ofPoint p = ofPoint((float)x, (float)y);
+					_particles[i].relPos = p;
+					_particles[i].vel = ofPoint(0.0, 0.0);
+
+					_particles[i].doDraw = true;
+					_particles[i].isActive = true;
+					_particles[i].startTime = ofGetElapsedTimef();
+				}
             }
             
             // after some time, refresh (reseed)

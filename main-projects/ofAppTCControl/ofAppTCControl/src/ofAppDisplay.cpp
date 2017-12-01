@@ -39,9 +39,12 @@ void ofAppDisplay::setup()
 	cursor.setFillMode(OF_FILLED);
 	cursor.radius = 12.0f;
 
+	//target.setMode(PARENTPARTICLE_MODE_CLOUD);
+	target.setMode(PARENTPARTICLE_MODE_NORMAL);
 	target.setColor(clrTarget);
 	target.setFillMode(OF_OUTLINE);
 	target.radius = 15.0f;
+	
 
 	virtualpartner.setColor(ofColor::forestGreen);
 	virtualpartner.setFillMode(OF_FILLED);
