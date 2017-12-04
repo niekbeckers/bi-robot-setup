@@ -22,7 +22,7 @@ fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
 %% virtual partner dynamics
-m = diag([4 1.5]); 
+m_vp = diag([4 1.5]); 
 tu = 0.04;
 td = 0.1;
 tp = 0.0;
@@ -34,9 +34,9 @@ VP.Ndelay = round(td/sampleTime);
 VP.x0 = zeros(14,1);
 
 % dynamics matrices
-[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m,tu,td,tp,D);
-Aim_vp = dynamics_vp(sampleTime,m,tu,td,tp,gamma*D);
-
+[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
+Aim_vp = dynamics_vp(sampleTime,m_vp,tu,td,tp,gamma*D);
+VP.m = m_vp;
 VP.Ae = Ae_vp;
 VP.Aim = Aim_vp;
 VP.B = B_vp;
