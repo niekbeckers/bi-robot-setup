@@ -42,13 +42,16 @@ VP.Aim = Aim_vp;
 VP.B = B_vp;
 VP.H = H_vp;
 
+sigma_dyn = 0.5136;     %0.01;
+sigma_sens = 0.01;      %0.00001;
+
 % process noise
 sigmaP_Ow = 0;
 sigmaV_Ow = 0;
-sigmaF_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
-sigmaPt_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
-sigmaVt_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
-sigmaPf_Ow = 0.01/sqrt(0.01)*sqrt(sampleTime);
+sigmaF_Ow = sigma_dyn/sqrt(0.01)*sqrt(sampleTime);
+sigmaPt_Ow = sigma_dyn/sqrt(0.01)*sqrt(sampleTime);
+sigmaVt_Ow = sigma_dyn/sqrt(0.01)*sqrt(sampleTime);
+sigmaPf_Ow = 0;
 
 Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
     sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2 ...
@@ -57,8 +60,8 @@ Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
 VP.Ow = Ow;
 
 % sensory noise
-sigmaP_Ov = 0.00001*sqrt(0.01)/sqrt(sampleTime);
-sigmaV_Ov = 0.00001*sqrt(0.01)/sqrt(sampleTime);
+sigmaP_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
+sigmaV_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
