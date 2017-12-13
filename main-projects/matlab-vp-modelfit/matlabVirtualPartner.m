@@ -38,10 +38,11 @@ disp([callerID 'Running ' mfilename]);
 keepRunning = true;
 while (keepRunning)
     try
-        [loadOkay,s] = readXML([settingspath settings_filename '*.xml']);
+        f = getlatestfiles([settingspath settings_filename '*.xml']);
+        mysettingsfile = f(end).name;
+        [loadOkay,s] = readXML([settingspath mysettingsfile]);
     catch me
         loadOkay = false;
-        keyboard
     end
     
     if loadOkay
@@ -51,7 +52,7 @@ while (keepRunning)
         end
         errorFlag = 0;
         
-        disp([callerID 'Loaded ' settings_filename num2str(cntr_filename) ', starting model fit']);
+        disp([callerID 'Loaded ' mysettingsfile ', starting model fit']);
         
         % initialize and prepare stuff
         fitIDs = s.VP.doFitForBROSID(:);
@@ -166,7 +167,7 @@ while (keepRunning)
         movefile([outputfile '.mat'],resultstoragepath); % copy to output file store
         
         % move settingsfile to storage
-        movefile([settingspath settings_filename num2str(cntr_filename) '.xml'],settingsstoragepath);
+        movefile([settingspath mysettingsfile],settingsstoragepath);
         
         if (errorFlag == 0)
             % write results to XML file (and store mat file)
@@ -186,7 +187,7 @@ while (keepRunning)
         end
         % increase cntr_filename
         cntr_filename = cntr_filename+1;
-        disp([callerID 'Continuing loop, now searching for trialID ' num2str(cntr_filename)]);
+        disp([callerID 'Continuing loop, searching for the next settings file']);
     end
     pause(loopPause);
 end
@@ -291,7 +292,8 @@ end
 cellfun(@(x)copyfile(x,tmpDir), filenames);
 
 % load experiment data
-alldata = loadBROSExperimentData(tmpDir,tmpDir,[],false);
+alldata = loadBROSExperimentData(tmpDir,'savedata',false);
+
 
 % select last trial only (latest/newest trial)
 data = alldata.trial(end);

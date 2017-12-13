@@ -4929,9 +4929,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{C17510AF-3536-404F-ADC1-688B03CFA543}">
+					<TmcDesc GUID="{C97DDE09-132A-4F8F-8831-E7D05181939D}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{C17510AF-3536-404F-ADC1-688B03CFA543}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{C97DDE09-132A-4F8F-8831-E7D05181939D}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -20221,7 +20221,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Connected_Value</Name>
-								<EnumText>TRUE</EnumText>
+								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Memory_X0_k</Name>
