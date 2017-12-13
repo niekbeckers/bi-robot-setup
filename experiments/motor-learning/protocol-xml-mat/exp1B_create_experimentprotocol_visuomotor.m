@@ -178,8 +178,10 @@ for ii = 1:numTrials
     trial{ii}.trialDuration = trialDuration(ii);
     trial{ii}.breakDuration = breakDuration(ii);
     trial{ii}.trialRandomization = trialRandomization(ii);
-%     trial{ii}.fitVirtualPartner.id0 = 1;
-%     trial{ii}.fitVirtualPartner.id1 = 2;
+%     if ~connected(ii)
+%         trial{ii}.fitVirtualPartner.id0 = 1;
+% %         trial{ii}.fitVirtualPartner.id1 = 2;
+%     end
 end
 
 %% block data
