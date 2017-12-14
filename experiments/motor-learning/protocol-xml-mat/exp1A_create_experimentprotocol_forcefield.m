@@ -75,8 +75,8 @@
 
 clear all; close all; clc;
 
-partnersNr = 20;
-sessionnr = 2;
+partnersNr = 17;
+sessionnr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'solo'; % solo or interaction
 groupTypeNr = 0; % 0 = solo, 1 = interaction
@@ -175,7 +175,7 @@ if ~selectPremadeTrialSequence
     trialRandomization = 20*nRand+5*rand(size(nRand));
 
 else
-    load('randomizedtrialorder_motorlearning_session1.mat');
+    load('exp1A_randomizedtrialorder_motorlearning_session1.mat');
 end
 
 
@@ -216,7 +216,7 @@ end
 
 %% save everything (in xml and mat)
 
-protocolpath = 'protocols';
+protocolpath = 'exp1A_protocols';
 
 if ~exist(protocolpath,'dir')
     mkdir(protocolpath);
