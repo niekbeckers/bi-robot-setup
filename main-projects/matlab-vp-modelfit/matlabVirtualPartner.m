@@ -8,7 +8,6 @@ callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
 %% initialize/setup
-cntr_filename = 0;
 datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
 settingspath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit\settings\';
 resultspath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit\results\';
@@ -185,8 +184,6 @@ while (keepRunning)
                     disp('Model fit returned error flag 3: fit is too inaccurate, VAF values are low');
             end
         end
-        % increase cntr_filename
-        cntr_filename = cntr_filename+1;
         disp([callerID 'Continuing loop, searching for the next settings file']);
     end
     pause(loopPause);
