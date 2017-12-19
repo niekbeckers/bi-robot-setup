@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <experiment>
-   <expID>motorlearning_partners1_session1_type1</expID>
+   <expID>learning_pair1_session1_type1</expID>
    <trialFeedback>1</trialFeedback>
    <trialPerformanceThreshold>0.05</trialPerformanceThreshold>
    <groupTypeNr>1</groupTypeNr>
