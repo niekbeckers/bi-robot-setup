@@ -190,6 +190,7 @@ void ofAppMain::setupGUI()
 	_btnExpStop.addListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetStiffness.addListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetDamping.addListener(this, &ofAppMain::buttonPressed);
+	_btnConfirmBlockTrialNr.addListener(this, &ofAppMain::buttonPressed);
 	
 	// setup GUIs
 	float width = 300.0;
@@ -257,10 +258,11 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
+	_grpExpState.add(lblTrialPerformance.set("Trial Performance", "[,]"));
 	_grpExpState.add(lblBlockNumber.set("Block number", 2, 0, 4));  // add dummy experiment
 	_grpExpState.add(lblTrialNumber.set("Trial number", 8, 0, 10)); // add dummy experiment
-	_grpExpState.add(lblTrialPerformance.set("Trial Performance", "[,]"));
 	_guiExperiment.add(_grpExpState);
+	_guiExperiment.add(_btnConfirmBlockTrialNr.setup("Set block and trial number"));
 
 	_grpConnectionControl.setup("Connection control");
 	_grpConnectionControl.setName("Connection control");
@@ -431,6 +433,9 @@ void ofAppMain::buttonPressed(const void * sender)
 			ofLogError() << "(" << typeid(this).name() << ") " << e.what();
 		}
 	}
+	else if (clickedBtn.compare(ofToString("Set block and trial number")) == 0) {
+		setBlockTrialNumberByUser();
+	}
 	else {
 		ofLogError() << "(" << typeid(this).name() << ") " << "Button " + clickedBtn + " unknown";
 	}
@@ -544,6 +549,7 @@ void ofAppMain::exit() {
 	_btnExpStop.removeListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetStiffness.removeListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetDamping.removeListener(this, &ofAppMain::buttonPressed);
+	_btnConfirmBlockTrialNr.removeListener(this, &ofAppMain::buttonPressed);
 
 	_btnToggleRecordData = false;
 	_btnToggleRecordData.removeListener(this, &ofAppMain::recordDataTogglePressed);
@@ -610,6 +616,13 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 	
 	// print (to screen)) the value of the variable 
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "ADS Notification: " << ofToString(pNotification->hNotification) << " SampleSize: " << ofToString(pNotification->cbSampleSize);
+}
+
+//--------------------------------------------------------------
+void ofAppMain::setBlockTrialNumberByUser() {
+	// block and trial number set by user, relay this to ofAppExperiment
+	experimentApp->setCurrentTrialNumber(lblTrialNumber);
+	experimentApp->setCurrentBlockNumber(lblBlockNumber);
 }
 
 //--------------------------------------------------------------

@@ -238,5 +238,7 @@ class ofAppExperiment : public ofBaseApp
 		ExperimentState experimentState() { return _expState; };
 		inline int getCurrentTrialNumber() { return _currentTrialNumber; };
 		inline trialData getCurrentTrial() { return _currentTrial; };
+		void setCurrentTrialNumber(int nr); 
+		void setCurrentBlockNumber(int nr);
 };
 

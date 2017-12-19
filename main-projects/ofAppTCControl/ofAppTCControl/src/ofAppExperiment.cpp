@@ -265,6 +265,7 @@ void ofAppExperiment::loadExperimentXML()
 //--------------------------------------------------------------
 void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult)
 {
+	// reset current block number
 	_currentBlockNumber = 0;
 	_currentTrialNumber = 0;
 	_numTrials = 0;
@@ -410,6 +411,8 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 		// set labels in the GUI
 		mainApp->lblTrialNumber.setMax(_blocks[0].trials.size());
 		mainApp->lblBlockNumber.setMax(_blocks.size());
+		mainApp->lblTrialNumber = _currentTrialNumber + 1;
+		mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	}
 }
 
@@ -467,8 +470,8 @@ void ofAppExperiment::showVisualReward()
 //--------------------------------------------------------------
 void ofAppExperiment::esmExperimentStart()
 {
-	_currentBlockNumber = 0;
-	_currentTrialNumber = 0;
+	//_currentBlockNumber = 0;
+	//_currentTrialNumber = 0;
 	_experimentRunning = true;
 	display1->showMessageNorth(false);
 	display2->showMessageNorth(false);
@@ -895,4 +898,18 @@ void ofAppExperiment::esmBlockBreakDone()
 	// block break done, on to the next block!
 	_currentBlockNumber++;
 	setExperimentState(ExperimentState::NEWBLOCK);
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::setCurrentTrialNumber(int nr) {
+	// set current trial number (externally called by user, for instance after restart of experiment).
+	_currentTrialNumber = nr - 1;
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "_currentTrialNumber set to " << _currentTrialNumber << " by user.";
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::setCurrentBlockNumber(int nr) {
+	// set current block number (externally called by user, for instance after restart of experiment).
+	_currentBlockNumber = nr - 1;
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "_currentBlockNumber set to " << _currentBlockNumber << " by user.";
 }
