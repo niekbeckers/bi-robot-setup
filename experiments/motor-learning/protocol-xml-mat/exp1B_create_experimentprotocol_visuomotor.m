@@ -77,8 +77,8 @@ clear all; close all; clc;
 
 partnersNr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'solo'; % solo or interaction
-groupTypeNr = 0; % 0 = solo, 1 = interaction
+groupType = 'interaction'; % solo or interaction
+groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
 expID = ['motorlearning_partners' num2str(partnersNr) '_session1_type' num2str(groupTypeNr)];

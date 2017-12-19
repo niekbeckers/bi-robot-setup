@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <experiment>
-   <expID>motorlearning_partners1_session1_type0</expID>
+   <expID>motorlearning_partners1_session1_type1</expID>
    <trialFeedback>1</trialFeedback>
    <trialPerformanceThreshold>0.05</trialPerformanceThreshold>
-   <groupTypeNr>0</groupTypeNr>
+   <groupTypeNr>1</groupTypeNr>
    <sessionNr>1</sessionNr>
    <partnersNr>1</partnersNr>
    <activeBROSID>
@@ -17,16 +17,16 @@
          <connected>0</connected>
          <connectionStiffness>0</connectionStiffness>
          <connectionDamping>0</connectionDamping>
-         <condition>2</condition>
+         <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
          <trialRandomization>4.214</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
-         <condition>2</condition>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
+         <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
          <trialRandomization>84.2048</trialRandomization>
@@ -41,9 +41,9 @@
          <trialRandomization>1.9847</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -59,9 +59,9 @@
          <trialRandomization>104.933</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -77,9 +77,9 @@
          <trialRandomization>23.4939</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -95,9 +95,9 @@
          <trialRandomization>81.5531</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -113,9 +113,9 @@
          <trialRandomization>100.766</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -131,9 +131,9 @@
          <trialRandomization>104.7214</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -149,9 +149,9 @@
          <trialRandomization>64.394</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -167,9 +167,9 @@
          <trialRandomization>84.368</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -185,9 +185,9 @@
          <trialRandomization>0.44248</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>0</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -216,9 +216,9 @@
          <trialRandomization>84.726</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -234,9 +234,9 @@
          <trialRandomization>2.0448</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -252,9 +252,9 @@
          <trialRandomization>63.5922</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -270,9 +270,9 @@
          <trialRandomization>62.5564</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -288,9 +288,9 @@
          <trialRandomization>103.7323</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -306,9 +306,9 @@
          <trialRandomization>103.8304</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -324,9 +324,9 @@
          <trialRandomization>22.1663</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -342,9 +342,9 @@
          <trialRandomization>41.2854</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -360,9 +360,9 @@
          <trialRandomization>4.3766</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -378,9 +378,9 @@
          <trialRandomization>23.0876</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -409,9 +409,9 @@
          <trialRandomization>1.5841</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -427,9 +427,9 @@
          <trialRandomization>80.5355</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -445,9 +445,9 @@
          <trialRandomization>24.8428</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -463,9 +463,9 @@
          <trialRandomization>100.2007</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -481,9 +481,9 @@
          <trialRandomization>101.7011</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -499,9 +499,9 @@
          <trialRandomization>0.037216</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -517,9 +517,9 @@
          <trialRandomization>83.8002</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -535,9 +535,9 @@
          <trialRandomization>42.4299</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -553,9 +553,9 @@
          <trialRandomization>40.4149</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -571,9 +571,9 @@
          <trialRandomization>80.7657</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -602,9 +602,9 @@
          <trialRandomization>1.3625</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -620,9 +620,9 @@
          <trialRandomization>23.6419</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -638,9 +638,9 @@
          <trialRandomization>0.49467</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -656,9 +656,9 @@
          <trialRandomization>0.16459</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -674,9 +674,9 @@
          <trialRandomization>81.9235</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -692,9 +692,9 @@
          <trialRandomization>81.5001</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -710,9 +710,9 @@
          <trialRandomization>22.0366</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -728,9 +728,9 @@
          <trialRandomization>44.3685</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -746,9 +746,9 @@
          <trialRandomization>20.5019</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>
@@ -764,9 +764,9 @@
          <trialRandomization>104.5978</trialRandomization>
       </trial>
       <trial>
-         <connected>0</connected>
-         <connectionStiffness>0</connectionStiffness>
-         <connectionDamping>0</connectionDamping>
+         <connected>1</connected>
+         <connectionStiffness>150</connectionStiffness>
+         <connectionDamping>2</connectionDamping>
          <condition>2</condition>
          <trialDuration>20</trialDuration>
          <breakDuration>10</breakDuration>

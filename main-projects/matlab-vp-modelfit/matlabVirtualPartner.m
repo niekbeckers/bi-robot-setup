@@ -8,9 +8,10 @@ callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
 %% initialize/setup
+vppath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit';
 datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
-settingspath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit\settings\';
-resultspath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit\results\';
+settingspath = [vppath '\settings\'];
+resultspath = [vppath '\results\'];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
