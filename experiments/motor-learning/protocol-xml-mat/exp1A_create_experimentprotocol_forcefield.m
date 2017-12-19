@@ -76,7 +76,7 @@
 clear all; close all; clc;
 
 partnersNr = 17;
-sessionnr = 1;
+sessionnr = 2;
 selectPremadeTrialSequence = 1;
 groupType = 'solo'; % solo or interaction
 groupTypeNr = 0; % 0 = solo, 1 = interaction

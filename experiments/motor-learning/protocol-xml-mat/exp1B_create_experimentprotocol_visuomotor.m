@@ -81,11 +81,11 @@ groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
-expID = ['motorlearning_partners' num2str(partnersNr) '_session1_type' num2str(groupTypeNr)];
+expID = ['learning_pair' num2str(partnersNr) '_session1_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp1B_protocols';
-filename = ['expprotocol_' expID];
+filename = ['protocol_' expID];
 
 % create (main) struct
 s = struct;
