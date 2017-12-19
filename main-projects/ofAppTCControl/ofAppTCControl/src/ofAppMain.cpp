@@ -271,6 +271,7 @@ void ofAppMain::setupGUI()
 	_grpConnectionControl.add(_btnConnSetStiffness.setup("Connection stiffness"));
 	_grpConnectionControl.add(_lblConnDamping.setup("Connection damping Kd", ofToString(0) + " Ns/m"));
 	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
+	_grpConnectionControl.minimize(); // default is minimized
 	_guiAdmittance.add(&_grpConnectionControl);
 
 	_guiSystem.setWidthElements(width);
