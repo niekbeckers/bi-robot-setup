@@ -84,7 +84,7 @@ Ds = 2;
 expID = ['learning_pair' num2str(partnersNr) '_session1_type' num2str(groupTypeNr)];
 
 % filename
-protocolpath = 'exp1B_protocols';
+protocolpath = 'exp1b_protocols';
 filename = ['protocol_' expID];
 
 % create (main) struct
