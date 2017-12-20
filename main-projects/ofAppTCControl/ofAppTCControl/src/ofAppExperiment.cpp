@@ -8,7 +8,7 @@ void ofAppExperiment::setup()
 	setupTCADS();	// setup TwinCAT ADS
 	setExperimentState(ExperimentState::IDLE);
 
-	_logFilename = "log_" + ofToString(ofGetDay(), 0, 2, '0') + ofToString(ofGetMonth(), 0, 2, '0') + ofToString(ofGetYear()) + ".txt";
+	//_logFilename = "log_" + ofToString(ofGetDay(), 0, 2, '0') + ofToString(ofGetMonth(), 0, 2, '0') + ofToString(ofGetYear()) + ".txt";
 }
 
 //--------------------------------------------------------------
@@ -245,6 +245,7 @@ void ofAppExperiment::loadExperimentXML()
 	//Open the Open File Dialog
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)",false, ofFilePath().getCurrentExeDir());
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
+	
 	//Check if the user opened a file
 	if (openFileResult.bSuccess) {
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "ofAppExperiment::loadExperimentXML ","User opened file " + openFileResult.fileName;
