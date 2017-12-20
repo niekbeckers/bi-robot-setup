@@ -254,6 +254,7 @@ void ofAppExperiment::loadExperimentXML()
 		processOpenFileSelection(openFileResult);
 
 		// in case we need the virtual partner optimization, prepare. jajaja, ik ben een schaap
+		// TODO move this to callback/settings set function.
 		if (_vpDoVirtualPartner) {
 			partner.initialize(_activeBROSIDs);
 		}
@@ -279,12 +280,13 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	mainApp->lblExpLoaded = openFileResult.fileName;
 
+	// load XML data
 	if (XML.load(openFileResult.getPath())) {
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Loaded: " << openFileResult.getPath();
 		// log to file as well
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Experiment protocol XML file loaded: " << openFileResult.getPath();
 	}
-
+	
 	// experiment settings (attributes)
 	if (XML.exists("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
 
@@ -325,10 +327,10 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	}
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(XML.getIntValue());
 	
+	// load blocks and trials
 	int trialNumber = 0;
 	int blockNumber = 0;
 
-	// load blocks and trials
 	if (XML.exists("block")) {
 		XML.setTo("block[0]"); // set to first block
 

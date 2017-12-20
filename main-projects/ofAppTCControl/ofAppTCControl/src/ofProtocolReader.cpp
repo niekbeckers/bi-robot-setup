@@ -16,13 +16,29 @@ ofProtocolReader::~ofProtocolReader() {
 
 //--------------------------------------------------------------
 void ofProtocolReader::threadedFunction() {
-	// 
+	// this function is run when StartThread is called. Execute once.
+	//Open the Open File Dialog
+	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)", false, ofFilePath().getCurrentExeDir());
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
+
+	//Check if the user opened a file
+	if (openFileResult.bSuccess) {
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "ofAppExperiment::loadExperimentXML ", "User opened file " + openFileResult.fileName;
+
+		//We have a file, check it and process it
+		processOpenFileSelection(openFileResult);
+	}
+	else {
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << "User hit cancel";
+	}
+
+
 }
 
 
 
 //--------------------------------------------------------------
-void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult)
+void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResult)
 {
 	// clear block vector
 	_blocks.clear();
@@ -34,33 +50,33 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	}
 
 	// experiment settings (attributes)
-	if (XML.exists("countDownDuration")) _cdDuration = XML.getValue<double>("countDownDuration");
+	if (XML.exists("countDownDuration")) _settings.cdDuration = XML.getValue<double>("countDownDuration");
 
 	if (XML.exists("trialFeedback")) {
-		_trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
+		_settings.trialFeedbackType = static_cast<TrialFeedback>(XML.getValue<int>("trialFeedback"));
 		// depending on trial feedback, check if a performance metric is given in the XML
-		switch (_trialFeedbackType) {
+		switch (_settings.trialFeedbackType) {
 		case TrialFeedback::RMSE:
-			if (XML.exists("trialPerformanceThreshold")) _trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold");
+			if (XML.exists("trialPerformanceThreshold")) _settings.trialPerformanceThreshold = XML.getValue<double>("trialPerformanceThreshold");
 			break;
 		case TrialFeedback::MT:
-			if (XML.exists("trialMTRangeLower")) _trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower");
-			if (XML.exists("trialMTRangeUpper")) _trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper");
+			if (XML.exists("trialMTRangeLower")) _settings.trialMovementTimeRangeSec[0] = XML.getValue<double>("trialMTRangeLower");
+			if (XML.exists("trialMTRangeUpper")) _settings.trialMovementTimeRangeSec[1] = XML.getValue<double>("trialMTRangeUpper");
 			break;
 		}
 	}
-	else { _trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
+	else { _settings.trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
 
 													   // virtual partner settings
-	if (XML.exists("doVirtualPartner")) { _vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner"); }
-	else { _vpDoVirtualPartner = false; }
+	if (XML.exists("doVirtualPartner")) { _settings.vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner"); }
+	else { _settings.vpDoVirtualPartner = false; }
 
 	// check which BROS need to be active
-	_activeBROSIDs.clear();
+	_settings.activeBROSIDs.clear();
 	if (XML.exists("activeBROSID") && XML.setTo("activeBROSID")) {
 		if (XML.setToChild(0)) {
 			do {
-				_activeBROSIDs.push_back(XML.getIntValue());
+				_settings.activeBROSIDs.push_back(XML.getIntValue());
 			} while (XML.setToSibling());
 			XML.setToParent(); // go back to brosX
 		}
@@ -68,8 +84,8 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	}
 	else {
 		// user did not include BROSID in the XML file. Use default  (BROS1 & BROS2)
-		_activeBROSIDs.push_back(1); // BROS 1
-		_activeBROSIDs.push_back(2); // BROS 2
+		_settings.activeBROSIDs.push_back(1); // BROS 1
+		_settings.activeBROSIDs.push_back(2); // BROS 2
 	}
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(XML.getIntValue());
 
@@ -112,14 +128,14 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 					if (XML.exists("connectedTo")) {
 						XML.setTo("connectedTo");
 						// loop through active BROS IDs
-						for (auto id : _activeBROSIDs) {
+						for (auto id : _settings.activeBROSIDs) {
 							if (XML.exists("id" + ofToString(id))) { trial.connectedTo.push_back(static_cast<ConnectedToTypes>(XML.getValue<int>("id" + ofToString(id)))); }
 							else { trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); }
 						}
 						XML.setToParent();
 					}
 					else {
-						for (auto id : _activeBROSIDs) trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); // DEFAULT
+						for (auto id : _settings.activeBROSIDs) trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); // DEFAULT
 					}
 
 					// check fit virtual partner
@@ -147,7 +163,7 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 
 				block.numTrials = block.trials.size();
 
-				_numTrials += block.numTrials;
+				_settings.numTrials += block.numTrials;
 
 				_blocks.push_back(block); // add trials to vTrialsBlocks list
 

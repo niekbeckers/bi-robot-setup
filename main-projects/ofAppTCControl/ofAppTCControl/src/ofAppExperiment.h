@@ -15,11 +15,7 @@
 
 #define initializeMATLABRuntime 0
 
-enum ConnectedToTypes {
-	NOONE = 0,
-	HUMANPARTNER,
-	VIRTUALPARTNER
-};
+
 
 enum ExperimentState {
 	IDLE = 0,
@@ -50,11 +46,7 @@ enum ExperimentState {
 	BLOCKDONE
 };
 
-enum TrialFeedback {
-	NONE = 0,
-	RMSE,
-	MT
-};
+
 
 // ExperimentStateLabel: in order to print a string of the currect experimentstate
 static std::string StringExperimentStateLabel(const ExperimentState value) {
@@ -91,29 +83,6 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 	}
 
 	return strings[value];
-};
-
-// structs
-struct trialData {
-	int trialNumber = -1;
-	bool connected = false;					// default: not connected
-	vector<ConnectedToTypes> connectedTo;	// specify to which people are connected
-	bool fitVirtualPartner = false;			// specify whether model fit is performed on this trial (after trial is done)
-	vector<int> fitVPBROSIDs;				// BROS ID 
-	double connectionStiffness = 0.0;		// default: 0.0 (no connection stiffness)
-	double connectionDamping = 0.0;			// default: 0.0
-	int condition = 0;						// condition type
-	double trialDuration = -1.0;			// - 1.0 seconds: define trialDone in Simulink
-	double breakDuration = -1.0;			// pause after each trial
-	double trialRandomization = 0.0;		// random start time
-};
-
-struct blockData {
-	int blockNumber = -1;
-	int numTrials = 0;
-	double breakDuration = 4.0*60.0;	// default: 5 minute break
-	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
-	vector<trialData> trials;
 };
 
 class ofAppMain;
@@ -162,6 +131,8 @@ class ofAppExperiment : public ofBaseApp
 		double _trialPerformanceThreshold = 0.0015; // if the RMSE difference threshold (improvement, worse performance)s
 		double _trialMovementTimeSec = 0.0; 
 		double _trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
+
+		experimentSettings settings;
 
 		// log
 		string _logFilename;
