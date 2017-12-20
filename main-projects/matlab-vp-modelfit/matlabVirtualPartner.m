@@ -95,24 +95,35 @@ while (keepRunning)
         p0 = NaN(nrFitParams,nrP0);
         
         % upper and lower bounds
-        ub = [1e4;1e2;1e-2];
+        ub = [1e3;1e1;1e-2];
         lb = [0;0;0];
         
         % create p0's
-        for ii = 1:numel(idxIDs)
-            % either use previous fit values (per fitID) or generate a
-            % random p0.
-            id = idxIDs(ii);
-            if ~isempty(p0_saved)
-                p0(:,ii) = normrnd(p0_saved(:,id), (ub-lb)/10);
-                p0(:,ii) = min(max(p0(:,ii),lb),ub); % bound p0 by upper and lower bound
-%                 p0(:,ii) = [normrnd(p0_saved(1,id),ub(1)/12); normrnd(p0_saved(2,id),ub(2)/12); normrnd(p0_saved(3,id),ub(3)/12)];
-            else 
-%                 p0(:,ii) = lb+rand(3,1).*(ub-lb); 
-                p0(:,ii) = lb+rand(3,1).*(0.02*ub-lb);
-                p0(:,ii) = min(max(p0(:,ii),lb),ub);
+%         for ii = 1:numel(idxIDs)
+%             % either use previous fit values (per fitID) or generate a
+%             % random p0.
+%             if ~isempty(p0_saved)
+%                p0(:,ii) = lb+rand(3,1).*(ub-lb);
+%                p0(:,1) = p0_saved; %save only the 'best' p0 per bro. 1 AND 4 should be p0_saved
+%                p0(:,1) = min(max(p0(:,ii),lb),ub);
+% 
+% %                 p0(:,ii) = normrnd(p0_saved(:,id), (ub-lb)/10);
+% %                 p0(:,ii) = min(max(p0(:,ii),lb),ub); % bound p0 by upper and lower bound
+% %                 p0(:,ii) = [normrnd(p0_saved(1,id),ub(1)/12); normrnd(p0_saved(2,id),ub(2)/12); normrnd(p0_saved(3,id),ub(3)/12)];
+%             else 
+% %                 p0(:,ii) = lb+rand(3,1).*(ub-lb); 
+%                p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
+%             end
+        for ii = 1:numel(idxIDs)         
+            p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
+        end
+        
+        if ~isempty(p0_saved) % overwrite 1 p0 per Bro with p0_saved
+            for ii = fitIDs
+               p0(:,ii) = p0_saved(:,ii); 
+               p0(:,ii) = min(max(p0(:,ii),lb),ub);
             end
-        end 
+        end
 
         % perform model fits
         nrTasks = length(fitIDs)*nrP0;
@@ -120,7 +131,7 @@ while (keepRunning)
         errorFlagfit = zeros(1,nrTasks);
         parfor it = 1:nrTasks
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),d+t,p0(:,it),condition);
         end
         
         % store all iterations

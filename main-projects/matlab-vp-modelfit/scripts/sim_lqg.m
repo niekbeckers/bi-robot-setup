@@ -8,7 +8,7 @@ td = 0.100;
 delay = round(td/dt);
 D = doFF*[0 15;-15 0];
 gamma = 0.8;
-noise = 1;
+noise = 0;
 
 N = size(target,2); % number of samples
 
