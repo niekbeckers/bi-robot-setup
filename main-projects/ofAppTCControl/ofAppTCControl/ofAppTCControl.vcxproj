@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\childParticle.cpp" />
+    <ClCompile Include="src\ofProtocolReader.cpp" />
     <ClCompile Include="src\virtualPartner.cpp" />
     <ClCompile Include="src\ofMatlabThread.cpp" />
     <ClCompile Include="src\ofAppDisplay.cpp" />
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\childParticle.h" />
+    <ClInclude Include="src\ofProtocolReader.h" />
     <ClInclude Include="src\virtualPartner.h" />
     <ClInclude Include="src\ofMatlabThread.h" />
     <ClInclude Include="src\myUtils.h" />

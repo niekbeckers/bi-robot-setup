@@ -282,7 +282,6 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 	if (XML.load(openFileResult.getPath())) {
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Loaded: " << openFileResult.getPath();
 		// log to file as well
-		ofLogToFile(_logFilename, true);
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Experiment protocol XML file loaded: " << openFileResult.getPath();
 	}
 
