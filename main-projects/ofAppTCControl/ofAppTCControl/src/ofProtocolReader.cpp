@@ -16,11 +16,11 @@ ofProtocolReader::~ofProtocolReader() {
 
 //--------------------------------------------------------------
 void ofProtocolReader::threadedFunction() {
-	//
+	// 
 }
 
 
-/*
+
 //--------------------------------------------------------------
 void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult)
 {
@@ -156,12 +156,5 @@ void ofAppExperiment::processOpenFileSelection(ofFileDialogResult openFileResult
 		} while (XML.setToSibling()); // go to the next block
 
 		_experimentLoaded = true;
-
-		// set labels in the GUI
-		mainApp->lblTrialNumber.setMax(_blocks[0].trials.size());
-		mainApp->lblBlockNumber.setMax(_blocks.size());
-		mainApp->lblTrialNumber = _currentTrialNumber + 1;
-		mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	}
 }
-*/

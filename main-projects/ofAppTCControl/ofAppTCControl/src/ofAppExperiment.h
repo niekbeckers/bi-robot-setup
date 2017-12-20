@@ -11,6 +11,7 @@
 #include "ofUtils.h"
 #include "tcAdsClient.h"
 #include "myUtils.h"
+#include "ofProtocolReader.h"
 
 #define initializeMATLABRuntime 0
 
