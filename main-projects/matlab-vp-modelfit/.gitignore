@@ -1,4 +1,6 @@
 /codegen/
+/settings/*.xml
+/results/*.xml
 *.xml
 *.mat
 *.mexw64

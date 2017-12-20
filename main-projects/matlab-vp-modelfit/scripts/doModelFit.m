@@ -30,9 +30,11 @@ fun = @(x)fitfun_invoc_mex(x,dt,xmeas,target,doFF);
 
 % fmincon settings
 maxIter = 75;
-opts = optimoptions('fmincon','display','iter','MaxIterations',maxIter,'useparallel',false);
+opts = optimoptions('fmincon',...
+    'display','iter',...
+    'MaxIterations',maxIter,...
+    'useparallel',false); % 'Algorithm','interior-point'
 % bounds
-
 lb = [0;0;0];
 ub = [1e4;1e2;1e-2];
 
