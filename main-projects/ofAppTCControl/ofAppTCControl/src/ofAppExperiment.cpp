@@ -288,7 +288,7 @@ void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<block
 	// set labels in the GUI
 	mainApp->lblTrialNumber.setMin(1);
 	mainApp->lblTrialNumber.setMax(_blocks[0].trials.size());
-	mainApp->lblBlockNumber.setMax(1);
+	mainApp->lblBlockNumber.setMin(1);
 	mainApp->lblBlockNumber.setMax(_blocks.size());
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
