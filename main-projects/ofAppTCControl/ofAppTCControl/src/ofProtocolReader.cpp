@@ -56,10 +56,12 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 	// clear block vector
 	_blocks.clear();
 
+	// reset struct
+	_settings = {};
+
+	// load XML
 	if (XML.load(openFileResult.getPath())) {
-		//ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Loaded: " << openFileResult.getPath();
-		// log to file as well
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Experiment protocol XML file loaded: " << openFileResult.getPath();
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Experiment protocol XML file loaded: " << openFileResult.fileName;
 	}
 
 	// experiment settings (attributes)
@@ -102,10 +104,13 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 	}
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_settings.activeBROSIDs);
 
+	//
+	// load blocks and trials
+	//
+
 	int trialNumber = 0;
 	int blockNumber = 0;
 
-	// load blocks and trials
 	if (XML.exists("block")) {
 		XML.setTo("block[0]"); // set to first block
 
