@@ -247,30 +247,6 @@ void ofAppExperiment::loadExperimentXML()
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML";
 
 	_protocol.startThread();
-	/*
-	//Open the Open File Dialog
-	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)",false, ofFilePath().getCurrentExeDir());
-	ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
-	
-	//Check if the user opened a file
-	if (openFileResult.bSuccess) {
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "ofAppExperiment::loadExperimentXML ","User opened file " + openFileResult.fileName;
-
-		//We have a file, check it and process it
-		processOpenFileSelection(openFileResult);
-
-		// in case we need the virtual partner optimization, prepare. jajaja, ik ben een schaap
-		// TODO move this to callback/settings set function.
-		if (_vpDoVirtualPartner) {
-			partner.initialize(_activeBROSIDs);
-		}
-	}
-	else {
-		ofLogNotice() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << "User hit cancel";
-	}
-	*/
-
-
 }
 
 //--------------------------------------------------------------
@@ -292,6 +268,7 @@ void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<block
 	mainApp->lblBlockNumber.setMax(_blocks.size());
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
+	mainApp->lblExpLoaded = _settings.protocolname;
 
 	// virtual partner
 	if (_settings.vpDoVirtualPartner) {

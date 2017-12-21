@@ -19,8 +19,10 @@ void ofProtocolReader::threadedFunction() {
 	// this function is run when StartThread is called. Execute once.
 	//Open the Open File Dialog
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)", false, ofFilePath().getCurrentExeDir());
-	ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
-
+	//ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
+	
+	_settings.protocolname = openFileResult.fileName;
+	
 	//Check if the user opened a file
 	if (openFileResult.bSuccess) {
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "ofAppExperiment::loadExperimentXML ", "User opened file " + openFileResult.fileName;
@@ -55,7 +57,7 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 	_blocks.clear();
 
 	if (XML.load(openFileResult.getPath())) {
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Loaded: " << openFileResult.getPath();
+		//ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Loaded: " << openFileResult.getPath();
 		// log to file as well
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "processOpenFileSelection " << "Experiment protocol XML file loaded: " << openFileResult.getPath();
 	}
@@ -78,7 +80,7 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 	}
 	else { _settings.trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
 
-													   // virtual partner settings
+	// virtual partner settings
 	if (XML.exists("doVirtualPartner")) { _settings.vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner"); }
 	else { _settings.vpDoVirtualPartner = false; }
 
@@ -98,7 +100,7 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 		_settings.activeBROSIDs.push_back(1); // BROS 1
 		_settings.activeBROSIDs.push_back(2); // BROS 2
 	}
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(XML.getIntValue());
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_settings.activeBROSIDs);
 
 	int trialNumber = 0;
 	int blockNumber = 0;

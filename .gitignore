@@ -15,3 +15,4 @@ slprj/
 *.DS_Store
 *.tclrs
 *.asv
+.sync

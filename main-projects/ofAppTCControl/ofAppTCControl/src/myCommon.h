@@ -61,4 +61,5 @@ struct experimentSettings {
 	double cdDuration = 3.0;
 	double getReadyDuration = 1.0;
 	int numTrials = 0;
+	string protocolname;
 };
