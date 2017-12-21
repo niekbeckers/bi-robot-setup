@@ -7,15 +7,14 @@
 #include "ofMain.h"
 #include "ofAppMain.h"
 #include "ofAppDisplay.h"
+#include "ofProtocolReader.h"
 #include "virtualPartner.h"
 #include "ofUtils.h"
 #include "tcAdsClient.h"
-#include "myUtils.h"
-#include "ofProtocolReader.h"
+#include "myCommon.h"
+
 
 #define initializeMATLABRuntime 0
-
-
 
 enum ExperimentState {
 	IDLE = 0,
@@ -106,17 +105,11 @@ class ofAppExperiment : public ofBaseApp
 		
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
 
-		// trial feedback
-		int _trialFeedbackType = TrialFeedback::NONE;
-
 		bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
 		bool _prevTrialRunning = false, _nowTrialRunning = false;
 
 		// virtual partner fit bool
-		bool _vpDoVirtualPartner = false;
 		bool _runningModelFit = false;
-
-		vector<int> _activeBROSIDs;
 		
 		// block and trial data for current trial/block
 		blockData _currentBlock;
@@ -124,15 +117,12 @@ class ofAppExperiment : public ofBaseApp
 		vector<blockData> _blocks; // vector of vector<trials> to store all trials per block
 
 		// countdown and break parameters
-		double _cdDuration = 3.0; // -1.0 countdown means no countdown
 		double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
-		double _getReadyDuration = 1.0;
 		double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }; // approximate mean-squared error
-		double _trialPerformanceThreshold = 0.0015; // if the RMSE difference threshold (improvement, worse performance)s
 		double _trialMovementTimeSec = 0.0; 
-		double _trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
 
-		experimentSettings settings;
+		ofProtocolReader _protocol;
+		experimentSettings _settings;
 
 		// log
 		string _logFilename;
@@ -200,7 +190,7 @@ class ofAppExperiment : public ofBaseApp
 		// custom
 		void setupTCADS();
 		void loadExperimentXML();
-		void processOpenFileSelection(ofFileDialogResult openFileResult);
+		void onProtocolLoaded(experimentSettings settings, vector<blockData> blocks);
 
 		void startExperiment();
 		void stopExperiment();

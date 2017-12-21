@@ -201,7 +201,7 @@
     <ClInclude Include="src\ofProtocolReader.h" />
     <ClInclude Include="src\virtualPartner.h" />
     <ClInclude Include="src\ofMatlabThread.h" />
-    <ClInclude Include="src\myUtils.h" />
+    <ClInclude Include="src\myCommon.h" />
     <ClInclude Include="src\ofAppDisplay.h" />
     <ClInclude Include="src\ofAppExperiment.h" />
     <ClInclude Include="src\ofAppMain.h" />

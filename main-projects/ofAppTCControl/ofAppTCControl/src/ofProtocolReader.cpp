@@ -32,9 +32,20 @@ void ofProtocolReader::threadedFunction() {
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << "User hit cancel";
 	}
 
-
+	// callback function
+	if (_cbFunction) {
+		_cbFunction(_settings, _blocks);
+	}
+	ofLogVerbose() << "(" << typeid(this).name() << ") threadedFunction done";
 }
 
+
+//--------------------------------------------------------------
+void ofProtocolReader::registerCBFunction(std::function<void(experimentSettings, vector<blockData>)> callback)
+{
+	_cbFunction = callback;
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "registerCBFunction " << "callback function registered";
+}
 
 
 //--------------------------------------------------------------

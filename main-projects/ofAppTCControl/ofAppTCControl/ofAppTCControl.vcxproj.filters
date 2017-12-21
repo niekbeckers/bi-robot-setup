@@ -110,9 +110,6 @@
     <ClInclude Include="src\childParticle.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\myUtils.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\ofAppDisplay.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -174,6 +171,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ofProtocolReader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\myCommon.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
