@@ -8,6 +8,7 @@ void ofAppExperiment::setup()
 	setupTCADS();	// setup TwinCAT ADS
 	setExperimentState(ExperimentState::IDLE);
 
+	// register protocol reader callback function
 	using namespace std::placeholders;
 	_protocol.registerCBFunction(std::bind(&ofAppExperiment::onProtocolLoaded, this, _1, _2));
 }
@@ -274,6 +275,13 @@ void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<block
 	if (_settings.vpDoVirtualPartner) {
 		partner.initialize(_settings.activeBROSIDs);
 	}
+
+	/*
+	// debug
+	for (int i = 0; i < _blocks[1].trials.size(); i++) {
+		ofLogVerbose() << "trial " << i << " c " <<_blocks[1].trials[i].connected;
+	}
+	*/
 
 	_experimentLoaded = true;
 }
