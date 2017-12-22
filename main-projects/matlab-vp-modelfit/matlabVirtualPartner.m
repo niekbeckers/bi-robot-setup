@@ -302,7 +302,7 @@ end
 cellfun(@(x)copyfile(x,tmpDir), filenames);
 
 % load experiment data
-alldata = loadBROSExperimentData(tmpDir,'savedata',false);
+alldata = loadBROSExperimentData(tmpDir,'savedata',false,'model','model_virtualpartner_bros');
 
 
 % select last trial only (latest/newest trial)

@@ -87,7 +87,7 @@ switch lower(modelname)
         end
         
     case 'model_virtualpartner_bros'
-        %% model_base_bros
+        %% model_virtualpartner_bros
         param_lbls = [  'time';
                         strcat(str_param_def,'_BROS1');
                         strcat(str_param_def,'_BROS2');
