@@ -27,7 +27,7 @@ end
 
 % parpool
 if (size(gcp) == 0)
-    parpool(2,'IdleTimeout',30); % setup workers with idle timeout of 30 minutes
+    parpool(40); % setup workers with idle timeout of 30 minutes
 end
 
 % preallocate 'saved p0'
