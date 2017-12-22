@@ -57,6 +57,7 @@ struct experimentSettings {
 	double trialPerformanceThreshold = 0.05;
 	double trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
 	bool vpDoVirtualPartner = false;
+	bool vpFitOnHeRoC = false;
 	vector<int> activeBROSIDs;
 	double cdDuration = 3.0;
 	double getReadyDuration = 1.0;

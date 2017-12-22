@@ -85,7 +85,11 @@ void MatlabThread::threadedFunction(){
 //--------------------------------------------------------------
 void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &output)
 {
-	input2xml(input);
+	// call optimization by writing XML settings file
+	ofXml xml = input2xml(input);
+
+	// write settings file 
+	copySettingsAndData(xml);
 
 	//now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
@@ -118,6 +122,11 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	}
 }
 
+void MatlabThread::copySettingsAndData(ofXml xml)
+{
+	copySettingsAndData(ofXml xml)
+}
+
 //--------------------------------------------------------------
 void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback) 
 { 
@@ -126,7 +135,7 @@ void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback
 }
 
 //--------------------------------------------------------------
-void MatlabThread::input2xml(matlabInput input)
+ofXml MatlabThread::input2xml(matlabInput input)
 {
 	// write matlab input to XML, which is read by the MATLAB application
 	ofXml xml;
@@ -143,9 +152,9 @@ void MatlabThread::input2xml(matlabInput input)
 	xml.setToParent();
 	//_XMLWrite.addValue("useX0", input.useX0[0]); (etc)
 
-	// save settings to XML file (one for the matlab script/exe, the other for our own administration/data logging
-	xml.save(matlabSettingsFilePath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
 	_counterMatlabInputFile++;
+
+	return xml;
 }
 
 //--------------------------------------------------------------

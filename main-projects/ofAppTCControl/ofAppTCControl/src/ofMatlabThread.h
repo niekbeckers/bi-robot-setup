@@ -24,6 +24,7 @@ struct matlabInput {
 	int condition = 0; 
 	vector<vector<double>> x0;
 	vector<bool> useX0;
+	bool fitOnHeRoC = false;
 };
 
 class MatlabThread : public ofThread {
@@ -42,8 +43,9 @@ private:
 	//
 	void threadedFunction();
 	void callMatlabOptimization(matlabInput input, matlabOutput &output);
-	void input2xml(matlabInput input);
+	ofXml input2xml(matlabInput input);
 	matlabOutput xml2output(ofXml xml);
+	void copySettingsAndData(ofXml xml);
 
 	// callback function 
 	std::function<void(matlabOutput)> _cbFunction;

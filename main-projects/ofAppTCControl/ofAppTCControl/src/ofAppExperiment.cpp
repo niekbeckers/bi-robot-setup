@@ -558,6 +558,7 @@ void ofAppExperiment::esmTrialDone()
 		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
 		settings.trialID = _currentTrialNumber;
 		settings.condition = _currentTrial.condition;
+		settings.fitOnHeRoC = _settings.vpFitOnHeRoC;
 		partner.runVPOptimization(settings);
 		_runningModelFit = true;
 	}
