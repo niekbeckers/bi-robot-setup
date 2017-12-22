@@ -16,3 +16,4 @@ slprj/
 *.tclrs
 *.asv
 *.m~
+.sync
