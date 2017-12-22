@@ -89,7 +89,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	ofXml xml = input2xml(input);
 
 	// write settings file 
-	copySettingsAndData(xml);
+	copySettingsAndData(xml, input.fitOnHeRoC);
 
 	//now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
@@ -122,9 +122,14 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	}
 }
 
-void MatlabThread::copySettingsAndData(ofXml xml)
+void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
 {
-	copySettingsAndData(ofXml xml)
+	if (fitOnHeRoC) {
+
+	}
+	else {
+		xml.save(matlabSettingsFilePath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+	}
 }
 
 //--------------------------------------------------------------
