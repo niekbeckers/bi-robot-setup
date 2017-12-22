@@ -73,6 +73,9 @@
     <ClCompile Include="src\virtualPartner.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ofProtocolReader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -105,9 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\childParticle.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\myUtils.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ofAppDisplay.h">
@@ -168,6 +168,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\virtualPartner.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofProtocolReader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\myCommon.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

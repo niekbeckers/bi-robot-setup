@@ -7,18 +7,14 @@
 #include "ofMain.h"
 #include "ofAppMain.h"
 #include "ofAppDisplay.h"
+#include "ofProtocolReader.h"
 #include "virtualPartner.h"
 #include "ofUtils.h"
 #include "tcAdsClient.h"
-#include "myUtils.h"
+#include "myCommon.h"
+
 
 #define initializeMATLABRuntime 0
-
-enum ConnectedToTypes {
-	NOONE = 0,
-	HUMANPARTNER,
-	VIRTUALPARTNER
-};
 
 enum ExperimentState {
 	IDLE = 0,
@@ -49,11 +45,7 @@ enum ExperimentState {
 	BLOCKDONE
 };
 
-enum TrialFeedback {
-	NONE = 0,
-	RMSE,
-	MT
-};
+
 
 // ExperimentStateLabel: in order to print a string of the currect experimentstate
 static std::string StringExperimentStateLabel(const ExperimentState value) {
@@ -92,29 +84,6 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 	return strings[value];
 };
 
-// structs
-struct trialData {
-	int trialNumber = -1;
-	bool connected = false;					// default: not connected
-	vector<ConnectedToTypes> connectedTo;	// specify to which people are connected
-	bool fitVirtualPartner = false;			// specify whether model fit is performed on this trial (after trial is done)
-	vector<int> fitVPBROSIDs;				// BROS ID 
-	double connectionStiffness = 0.0;		// default: 0.0 (no connection stiffness)
-	double connectionDamping = 0.0;			// default: 0.0
-	int condition = 0;						// condition type
-	double trialDuration = -1.0;			// - 1.0 seconds: define trialDone in Simulink
-	double breakDuration = -1.0;			// pause after each trial
-	double trialRandomization = 0.0;		// random start time
-};
-
-struct blockData {
-	int blockNumber = -1;
-	int numTrials = 0;
-	double breakDuration = 4.0*60.0;	// default: 5 minute break
-	int homingType = 302;				// homing type. 301: manual homing, 302: auto homing (default)
-	vector<trialData> trials;
-};
-
 class ofAppMain;
 class VirtualPartner;
 
@@ -136,17 +105,11 @@ class ofAppExperiment : public ofBaseApp
 		
 		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
 
-		// trial feedback
-		int _trialFeedbackType = TrialFeedback::NONE;
-
 		bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
 		bool _prevTrialRunning = false, _nowTrialRunning = false;
 
 		// virtual partner fit bool
-		bool _vpDoVirtualPartner = false;
 		bool _runningModelFit = false;
-
-		vector<int> _activeBROSIDs;
 		
 		// block and trial data for current trial/block
 		blockData _currentBlock;
@@ -154,13 +117,12 @@ class ofAppExperiment : public ofBaseApp
 		vector<blockData> _blocks; // vector of vector<trials> to store all trials per block
 
 		// countdown and break parameters
-		double _cdDuration = 3.0; // -1.0 countdown means no countdown
 		double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
-		double _getReadyDuration = 1.0;
 		double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }; // approximate mean-squared error
-		double _trialPerformanceThreshold = 0.0015; // if the RMSE difference threshold (improvement, worse performance)s
 		double _trialMovementTimeSec = 0.0; 
-		double _trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
+
+		ofProtocolReader _protocol;
+		experimentSettings _settings;
 
 		// log
 		string _logFilename;
@@ -228,7 +190,7 @@ class ofAppExperiment : public ofBaseApp
 		// custom
 		void setupTCADS();
 		void loadExperimentXML();
-		void processOpenFileSelection(ofFileDialogResult openFileResult);
+		void onProtocolLoaded(experimentSettings settings, vector<blockData> blocks);
 
 		void startExperiment();
 		void stopExperiment();

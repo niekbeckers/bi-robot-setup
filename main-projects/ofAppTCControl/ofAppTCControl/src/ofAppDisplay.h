@@ -6,7 +6,7 @@
 #include "ofUtils.h"
 #include "ofxTextAlignTTF.h"
 #include "parentParticle.h"
-#include "myUtils.h"
+#include "myCommon.h"
 
 class ofAppDisplay : public ofBaseApp
 {

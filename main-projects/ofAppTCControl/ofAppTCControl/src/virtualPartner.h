@@ -5,7 +5,7 @@
 #include "ofUtils.h"
 // custom classes
 #include "tcAdsClient.h"
-#include "myUtils.h"
+#include "myCommon.h"
 #include "ofMatlabThread.h"
 
 #if defined(mclmcrrt_h)

@@ -373,6 +373,8 @@ void ofAppMain::buttonPressed(const void * sender)
 	ofxButton * button = (ofxButton*)sender;
 	string clickedBtn = button->getName();
 
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "Button pressed: " << clickedBtn;
+
 	if (clickedBtn.compare(ofToString("Reset")) == 0) {
 		requestStateChange(0);
 	} 
@@ -621,6 +623,7 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 //--------------------------------------------------------------
 void ofAppMain::setBlockTrialNumberByUser() {
 	// block and trial number set by user, relay this to ofAppExperiment
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "User set block and trial number";
 	experimentApp->setCurrentTrialNumber(lblTrialNumber);
 	experimentApp->setCurrentBlockNumber(lblBlockNumber);
 }

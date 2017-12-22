@@ -10,7 +10,7 @@
 #include "ofAppDisplay.h"
 #include "ofAppExperiment.h"
 #include "tcAdsClient.h"
-#include "myUtils.h"
+#include "myCommon.h"
 
 enum SystemState {
 	FAULT = -1,

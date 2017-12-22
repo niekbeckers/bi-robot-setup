@@ -8,6 +8,19 @@ VirtualPartner::VirtualPartner()
 	// register the callback function in the matlab thread. 
 	using namespace std::placeholders;
 	_matlabThread.registerCBFunction(std::bind(&VirtualPartner::onVPOptimizationDone, this, _1));
+
+	/*	
+	try {
+		ofLogError() << "jemoeder";
+		int i = system("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\motor-learning\\exp1b-data\\exp2_learning_pilot1_type1\\*.mat niek@130.89.65.74:/home/niek/Documents/test/");
+		ofLogError() << "en jevader";
+		ofLogError() << "system " << i;
+	
+	}
+	catch(std::exception e) {
+		ofLogError() << e.what();
+	}
+	*/
 }
 
 //--------------------------------------------------------------
