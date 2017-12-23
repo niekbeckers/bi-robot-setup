@@ -1,5 +1,9 @@
 #pragma once
 
+#include <sys/stat.h>
+#include <unistd.h>
+#include <time.h>
+
 const unsigned long adsPort = 350;
 
 struct displayData {
@@ -63,4 +67,20 @@ struct experimentSettings {
 	double getReadyDuration = 1.0;
 	int numTrials = 0;
 	string protocolname;
+};
+
+/*
+ * TODO: This class is OS-specific; you might want to use Pointer-to-Implementation
+ * Idiom to hide the OS dependency from clients
+ * Found this code here: https://stackoverflow.com/questions/7337651/file-sort-in-c-by-modification-time#7348347
+ */
+struct CompareDateModified{
+    //Returns true if and only if lhs < rhs
+    bool operator() (const std::string& lhs, const std::string& rhs){
+        struct stat attribLhs;
+        struct stat attribRhs;  //File attribute structs
+        stat( lhs.c_str(), &attribLhs);
+        stat( rhs.c_str(), &attribRhs); //Get file stats
+        return attribLhs.st_mtime < attribRhs.st_mtime; //Compare last modification dates
+    }
 };
