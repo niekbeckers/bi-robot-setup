@@ -75,7 +75,7 @@ struct experimentSettings {
  * Found this code here: https://stackoverflow.com/questions/7337651/file-sort-in-c-by-modification-time#7348347
  */
 struct CompareDateModified{
-    //Returns true if and only if lhs < rhs
+    // Returns true if and only if lhs < rhs
     bool operator() (const std::string& lhs, const std::string& rhs){
         struct stat attribLhs;
         struct stat attribRhs;  //File attribute structs

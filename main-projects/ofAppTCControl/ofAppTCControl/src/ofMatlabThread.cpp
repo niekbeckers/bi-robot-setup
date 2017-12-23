@@ -125,6 +125,18 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
 {
 	if (fitOnHeRoC) {
+        // select last 5 data files.
+        // 1) sort files on data modified
+        vector<string> vFilenames;
+        
+        
+        
+        CompareDateModified myComparator;
+        std::sort (vFilenames.begin(), vFilenames.end(), myComparator);
+        
+        
+        
+        
 		// fit on the HeRoC pc. 1) copy data 2) and copy settings xml to HeRoC
 
 	}

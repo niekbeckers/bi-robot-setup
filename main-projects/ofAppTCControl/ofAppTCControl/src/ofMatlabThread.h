@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include <functional>
+#include <algorithm>
+#include "myCommon.h"
 
 // For debugging purposes - check if any MATLAB SDK library is defined. If not, don't execute MATLAB code
 #if defined(mclmcrrt_h)
