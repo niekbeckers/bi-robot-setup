@@ -124,25 +124,52 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 
 void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
 {
+    // save xml file to local direcory. If the matlabVirtualPartner script is running on the local machine, it will trigger a fit.
+    string xmlfilename = ofToString(matlabSettingsFilePath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+    xml.save(xmlfilename);
+    
+    // if fit on HeRoC, copy mat files (data files) and settings file to HeRoC computer
 	if (fitOnHeRoC) {
         // select last 5 data files.
-        // 1) sort files on data modified
+        // list files (*.mat)
+        ofDirectory dir(dataFilePath);
+        dir.allowExt("mat");
+        int nFiles = dir.listDir();
+        
+        // populate the vector<string>
         vector<string> vFilenames;
+        for (int i = 0; i < dir.size(); i++) {
+            vFilenames.push_back(dir.getPath(i));
+        }
         
-        
-        
+        // sort files on date modified
         CompareDateModified myComparator;
         std::sort (vFilenames.begin(), vFilenames.end(), myComparator);
         
+        // select last 5 trials
+        int nrSelFiles = 5;
+        if (vFilenames.size() < 5) { nrSelFiles = vFilenames.size(); }
+        vector<string> vMatFilenames;
+        for ( int i = 0; i < nrSelFiles; i++ ) {
+            vMatFilenames.push_back(vFilenames.back());
+            vFilenames.pop_back();
+        }
         
-        
-        
-		// fit on the HeRoC pc. 1) copy data 2) and copy settings xml to HeRoC
-
-	}
-	else {
-		// local fit (MATLAB on this machine)
-		xml.save(matlabSettingsFilePath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+        // secure copy mat files to HeRoC
+        try {
+            for (int i = 0; i < vMatFilenames.size(); i++) {
+                //string cmd = ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk " + vMatFilename[i] + " niek@" + ipAddressHeRoC +":/home/niek/Documents/test/");
+                ofLogVerbose() << cmd;
+                //int i = system("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\motor-learning\\exp1b-data\\exp2_learning_pilot1_type1\\*.mat niek@130.89.65.74:/home/niek/Documents/test/");
+                ofLogVerbose() << "(" << typeid(this).name() << ") " << "system command output: " << i;
+            }
+            
+            // copy XML file to HeRoC
+            int i = system(ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk "+ xmlfilename +" niek@130.89.65.74:/home/niek/Documents/test/"));
+        }
+        catch(std::exception e) {
+            ofLogError()  << "(" << typeid(this).name() << ") " << e.what();
+        }
 	}
 }
 

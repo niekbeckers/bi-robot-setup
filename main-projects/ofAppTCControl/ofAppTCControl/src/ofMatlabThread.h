@@ -39,6 +39,7 @@ private:
 	bool _newOutput;
 	matlabOutput _output;
 	int _counterMatlabInputFile = 0;
+    string ipAddressHeRoC = "130.89.65.74";
 
 	//
 	// functions
