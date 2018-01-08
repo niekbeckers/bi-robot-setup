@@ -7,11 +7,23 @@ addpath('scripts');
 callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
-%% initialize/setup
-vppath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit';
-datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
-settingspath = [vppath '\settings\'];
-resultspath = [vppath '\results\'];
+%% setup
+% folders, paths, depending on which system the fit is performed
+if ispc % twincat pc (assumption)
+    vppath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit\';
+    datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
+elseif isunix % HeRoC (assumption)
+    vppath = '/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/';
+    datapath = '/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/';
+    if ~exist(datapath,'dir')
+        mkdir(datapath)
+    else
+        delete([datapath '*.mat']);
+    end  
+end
+    
+settingspath = [vppath 'settings' filesep];
+resultspath = [vppath 'results' filesep];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
@@ -27,8 +39,17 @@ end
 
 % parpool
 if (size(gcp) == 0)
-    parpool(40); % setup workers with idle timeout of 30 minutes
+    if ispc % twincat pc (assumption)
+        nrWorkers = 3;
+    elseif isunix % HeRoC (assumption
+        nrWorkers = 40;
+    end
+    parpool(nrWorkers); % setup workers with idle timeout of 30 minutes
 end
+
+% fit settings
+nrP0 = nrWorkers; % number of initial parameter estimates, minimum of 3
+nrFitParams = 3;
 
 % preallocate 'saved p0'
 p0_saved = [];
@@ -37,6 +58,7 @@ p0_saved = [];
 disp([callerID 'Running ' mfilename]);
 keepRunning = true;
 while (keepRunning)
+    % poll for settings files (.xml); this triggers the model fit
     try
         f = getlatestfiles([settingspath settings_filename '*.xml']);
         mysettingsfile = f(end).name;
@@ -70,7 +92,6 @@ while (keepRunning)
         dt = round(mode(diff(t)),2);
         for ii = 1:length(fitIDs)
             id = fitIDs(ii);
-            
             x = data.(['cursor_BROS' num2str(id)])(1:ds:end,:);
             xdot = data.(['xdot_BROS' num2str(id)])(1:ds:end,:);
             target = data.(['target_BROS' num2str(id)])(1:ds:end,:);
@@ -78,19 +99,15 @@ while (keepRunning)
             dataArray(:,:,ii) = [x xdot target target_vel];
         end
         
-
-        % perform model fit
+        % prepare model fit... first, create the resultsmodelfit structure.
         resultsmodelfit.VP = struct;
         resultsmodelfit.VP.trialID = trialID;
         % add fitIDs to output
         for ii = 1:length(fitIDs)
             resultsmodelfit.VP.doFitForBROSID.(['id' num2str(ii-1)]) = fitIDs(ii);
         end
-        
-        
+
         % define number of tasks (for parfor loop)
-        nrP0 = 3; % number of initial parameter estimates
-        nrFitParams = 3;
         idxIDs = reshape(repmat(fitIDs,1,nrP0).',[],1); % vector with fitIDs
         p0 = NaN(nrFitParams,nrP0);
         
@@ -99,36 +116,22 @@ while (keepRunning)
         lb = [0;0;0];
         
         % create p0's
-%         for ii = 1:numel(idxIDs)
-%             % either use previous fit values (per fitID) or generate a
-%             % random p0.
-%             if ~isempty(p0_saved)
-%                p0(:,ii) = lb+rand(3,1).*(ub-lb);
-%                p0(:,1) = p0_saved; %save only the 'best' p0 per bro. 1 AND 4 should be p0_saved
-%                p0(:,1) = min(max(p0(:,ii),lb),ub);
-% 
-% %                 p0(:,ii) = normrnd(p0_saved(:,id), (ub-lb)/10);
-% %                 p0(:,ii) = min(max(p0(:,ii),lb),ub); % bound p0 by upper and lower bound
-% %                 p0(:,ii) = [normrnd(p0_saved(1,id),ub(1)/12); normrnd(p0_saved(2,id),ub(2)/12); normrnd(p0_saved(3,id),ub(3)/12)];
-%             else 
-% %                 p0(:,ii) = lb+rand(3,1).*(ub-lb); 
-%                p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
-%             end
         for ii = 1:numel(idxIDs)         
             p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
         end
         
-        if ~isempty(p0_saved) % overwrite 1 p0 per Bro with p0_saved
+        if ~isempty(p0_saved) % overwrite 1 p0 per BRO with p0_saved
             for ii = fitIDs
                p0(:,ii) = p0_saved(:,ii); 
                p0(:,ii) = min(max(p0(:,ii),lb),ub);
             end
         end
 
-        % perform model fits
+        % PERFORM MODEL FITS
         nrTasks = length(fitIDs)*nrP0;
         pfit_all = NaN(nrFitParams,nrTasks);
         errorFlagfit = zeros(1,nrTasks);
+        
         parfor it = 1:nrTasks
             % perform model fit
             [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
@@ -142,32 +145,32 @@ while (keepRunning)
         resultsmodelfit.VP.iterations.errorFlag = errorFlagfit;
         
         try
-        % select the best fit per fitID
-        pfit_opt = NaN(nrFitParams,length(fitIDs));
-        for ii = 1:length(fitIDs)
-            id = fitIDs(ii);
-            idx = idxIDs == id;
-            
-            % select minimum fval solution
-            [~,I] = min(fvalfit(idx));
-            
-            % errors etc
-            resultsmodelfit.VP.error.(['id' num2str(id-1)]) = errorFlagfit(I);
-            if errorFlagfit(I) == 0
-                resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 1;
-            else
-                resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 0;
+            % select the best fit per fitID
+            pfit_opt = NaN(nrFitParams,length(fitIDs));
+            for ii = 1:length(fitIDs)
+                id = fitIDs(ii);
+                idx = idxIDs == id;
+
+                % select minimum fval solution
+                [~,I] = min(fvalfit(idx));
+
+                % errors etc
+                resultsmodelfit.VP.error.(['id' num2str(id-1)]) = errorFlagfit(I);
+                if errorFlagfit(I) == 0
+                    resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 1;
+                else
+                    resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 0;
+                end
+
+                % model parameters
+                pfit_opt(:,id) = pfit_all(:,I);
+                for jj = 1:size(pfit_opt,1)
+                    resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,id);
+                end
+
+                % store optimal fit as p0 for next optimization
+                p0_saved(:,id) = pfit_opt(:,id);
             end
-            
-            % model parameters
-            pfit_opt(:,id) = pfit_all(:,I);
-            for jj = 1:size(pfit_opt,1)
-                resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,id);
-            end
-            
-            % store optimal fit as p0 for next optimization
-            p0_saved(:,id) = pfit_opt(:,id);
-        end
         catch me
             disp(me)
             keyboard
@@ -177,6 +180,12 @@ while (keepRunning)
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
         save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
         movefile([outputfile '.mat'],resultstoragepath); % copy to output file store
+        % TODO: if on HeRoC; copy the output file back to the TwinCAT computer.
+    
+        % delete all the data files (*.mat)
+        if isunix % HeRoC (assumption)
+            delete([datapath '*.mat']);
+        end
         
         % move settingsfile to storage
         movefile([settingspath mysettingsfile],settingsstoragepath);
