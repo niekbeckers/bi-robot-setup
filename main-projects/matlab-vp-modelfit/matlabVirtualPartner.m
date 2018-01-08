@@ -76,10 +76,15 @@ while (keepRunning)
         
         disp([callerID 'Loaded ' mysettingsfile ', starting model fit']);
         
+        
+        
         % initialize and prepare stuff
         fitIDs = s.VP.doFitForBROSID(:);
         trialID = s.VP.trialID;
         condition = s.VP.condition;
+        
+        % move results xml file for this trial ID that are still in the results folder
+        delete([resultspath 'results_vpmodelfit_trial' num2str(trialID) '.xml']);
         
         % load data of trial with trialID
         clear data
@@ -180,7 +185,6 @@ while (keepRunning)
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
         save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
         movefile([outputfile '.mat'],resultstoragepath); % copy to output file store
-        % TODO: if on HeRoC; copy the output file back to the TwinCAT computer.
     
         % delete all the data files (*.mat)
         if isunix % HeRoC (assumption)
