@@ -125,9 +125,11 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
 {
 	if (fitOnHeRoC) {
+		// fit on the HeRoC pc. 1) copy data 2) and copy settings xml to HeRoC
 
 	}
 	else {
+		// local fit (MATLAB on this machine)
 		xml.save(matlabSettingsFilePath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
 	}
 }

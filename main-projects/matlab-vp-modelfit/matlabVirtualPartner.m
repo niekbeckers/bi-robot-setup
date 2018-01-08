@@ -131,7 +131,7 @@ while (keepRunning)
         errorFlagfit = zeros(1,nrTasks);
         parfor it = 1:nrTasks
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),d+t,p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
         end
         
         % store all iterations
