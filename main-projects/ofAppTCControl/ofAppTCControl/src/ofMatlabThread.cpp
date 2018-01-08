@@ -91,7 +91,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	// write settings file 
 	copySettingsAndData(xml, input.fitOnHeRoC);
 
-	//now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
+	// now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
 	string outputFilename = matlabResultsFilePath + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml";
 	bool foundFile = false;
@@ -132,7 +132,7 @@ void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
 	if (fitOnHeRoC) {
         // select last 5 data files.
         // list files (*.mat)
-        ofDirectory dir(dataFilePath);
+        ofDirectory dir(matlabDataFilePath);
         dir.allowExt("mat");
         int nFiles = dir.listDir();
         
@@ -158,14 +158,15 @@ void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
         // secure copy mat files to HeRoC
         try {
             for (int i = 0; i < vMatFilenames.size(); i++) {
-                //string cmd = ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk " + vMatFilename[i] + " niek@" + ipAddressHeRoC +":/home/niek/Documents/test/");
+                string cmd = ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk " + vMatFilenames[i] + " niek@" + ipAddressHeRoC + ":" + herocDataFilePath);
                 ofLogVerbose() << cmd;
                 //int i = system("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\motor-learning\\exp1b-data\\exp2_learning_pilot1_type1\\*.mat niek@130.89.65.74:/home/niek/Documents/test/");
                 ofLogVerbose() << "(" << typeid(this).name() << ") " << "system command output: " << i;
             }
             
             // copy XML file to HeRoC
-            int i = system(ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk "+ xmlfilename +" niek@130.89.65.74:/home/niek/Documents/test/"));
+			string cmd = ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk " + xmlfilename + " niek@130.89.65.74:/home/niek/Documents/test/");
+            int i = system(cmd.c_str());
         }
         catch(std::exception e) {
             ofLogError()  << "(" << typeid(this).name() << ") " << e.what();

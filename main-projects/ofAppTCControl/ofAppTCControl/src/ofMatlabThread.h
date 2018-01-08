@@ -61,6 +61,7 @@ public:
 	string matlabSettingsFilePath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
 	string matlabResultsFilePath  = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
 	string matlabDataFilePath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
+	string herocDataFilePath = "/home/niek/Desktop/vppartnerdata_tmp";
 
 	//
 	// functions
