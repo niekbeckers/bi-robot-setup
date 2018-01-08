@@ -39,7 +39,7 @@ private:
 	bool _newOutput;
 	matlabOutput _output;
 	int _counterMatlabInputFile = 0;
-    string ipAddressHeRoC = "130.89.65.74";
+    
 
 	//
 	// functions
@@ -58,10 +58,16 @@ public:
 	// Parameters
 	//
 	bool initialized;
-	string matlabSettingsFilePath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
-	string matlabResultsFilePath  = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
-	string matlabDataFilePath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
-	string herocDataFilePath = "/home/niek/Desktop/vppartnerdata_tmp";
+	string matlabSettingsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
+	string matlabResultsFilePath_TC  = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
+	string matlabDataFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
+	
+	string matlabSettingsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/settings/";
+	string matlabResultsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/results/";
+	string matlabDataFilePath_HeRoC = "/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/";
+	string ipAddressHeRoC = "130.89.65.74";
+	string userHeRoC = "niek";
+	string strSSHKey = "C:\\Users\\Labuser\\keys\\niek.ppk";
 
 	//
 	// functions
@@ -79,7 +85,7 @@ class MatlabStartupThread : public ofThread {
 
 private:
 	string _matlabExePath = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\ofAppTCControl\\ofAppTCControl\\matlab\\matlabVirtualPartner.exe &";
-	void threadedFunction() { std::system(_matlabExePath.c_str()); done = true; };
+	void threadedFunction() { std::system( _matlabExePath.c_str() ); done = true; };
 public:
 	bool done = false;
 	MatlabStartupThread() {};

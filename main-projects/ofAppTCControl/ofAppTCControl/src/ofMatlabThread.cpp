@@ -15,6 +15,8 @@ MatlabThread::MatlabThread():
 //--
 void MatlabThread::initialize() {
 	initialized = true;
+
+	
 }
 
 //--------------------------------------------------------------
@@ -87,20 +89,32 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 {
 	// call optimization by writing XML settings file
 	ofXml xml = input2xml(input);
-
+	
 	// write settings file 
 	copySettingsAndData(xml, input.fitOnHeRoC);
 
 	// now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
-	string outputFilename = matlabResultsFilePath + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml";
+	string outputFilename = matlabResultsFilePath_TC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml";
 	bool foundFile = false;
 	double startTime = ofGetElapsedTimef();
 	ofFile file(outputFilename);
 	
 	while (!foundFile && (ofGetElapsedTimef()-startTime < 240.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
-		if (file.exists()) { foundFile = true; }
-		sleep(250); // sleep thread for a little bit
+		if (file.exists()) { 
+			foundFile = true; 
+		}
+		else {
+			if (input.fitOnHeRoC) {
+				// attempt pscp results file from the HeRoC computer.
+				string cmd = "pscp -r -agent -i " + strSSHKey + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabResultsFilePath_HeRoC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml" + " " + matlabResultsFilePath_TC;
+				int i = system(cmd.c_str());
+			}
+
+			sleep(10); // sleep thread for a little bit
+		}
+
+		
 	}
 
 	if (foundFile) {
@@ -125,14 +139,14 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
 {
     // save xml file to local direcory. If the matlabVirtualPartner script is running on the local machine, it will trigger a fit.
-    string xmlfilename = ofToString(matlabSettingsFilePath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+    string xmlfilename = ofToString(matlabSettingsFilePath_TC + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
     xml.save(xmlfilename);
     
     // if fit on HeRoC, copy mat files (data files) and settings file to HeRoC computer
 	if (fitOnHeRoC) {
         // select last 5 data files.
         // list files (*.mat)
-        ofDirectory dir(matlabDataFilePath);
+        ofDirectory dir(matlabDataFilePath_TC);
         dir.allowExt("mat");
         int nFiles = dir.listDir();
         
@@ -158,14 +172,14 @@ void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
         // secure copy mat files to HeRoC
         try {
             for (int i = 0; i < vMatFilenames.size(); i++) {
-                string cmd = ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk " + vMatFilenames[i] + " niek@" + ipAddressHeRoC + ":" + herocDataFilePath);
-                ofLogVerbose() << cmd;
-                //int i = system("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\motor-learning\\exp1b-data\\exp2_learning_pilot1_type1\\*.mat niek@130.89.65.74:/home/niek/Documents/test/");
+                string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " " + vMatFilenames[i] + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabDataFilePath_HeRoC);
+                //ofLogVerbose() << cmd;
+				system(cmd.c_str());
                 ofLogVerbose() << "(" << typeid(this).name() << ") " << "system command output: " << i;
             }
             
             // copy XML file to HeRoC
-			string cmd = ofToString("\"C:\\Program Files\\PuTTY\\pscp.exe\" -r -agent -i C:\\Users\\Labuser\\keys\\niek.ppk " + xmlfilename + " niek@130.89.65.74:/home/niek/Documents/test/");
+			string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " " + xmlfilename + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
             int i = system(cmd.c_str());
         }
         catch(std::exception e) {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <sys/stat.h>
-#include <unistd.h>
 #include <time.h>
 
 const unsigned long adsPort = 350;
