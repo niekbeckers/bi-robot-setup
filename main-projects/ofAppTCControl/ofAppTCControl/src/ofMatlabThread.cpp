@@ -5,6 +5,10 @@ MatlabThread::MatlabThread():
 	_newOutput(true),
 	initialized(false),
 	_counterMatlabInputFile(0)
+
+
+
+
 {
 	// start the thread as soon as the
 	// class is created, it won't use any CPU
@@ -15,8 +19,6 @@ MatlabThread::MatlabThread():
 //--
 void MatlabThread::initialize() {
 	initialized = true;
-
-	
 }
 
 //--------------------------------------------------------------
@@ -111,7 +113,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 				int i = system(cmd.c_str());
 			}
 
-			sleep(10); // sleep thread for a little bit
+			sleep(50); // sleep thread for a little bit
 		}
 
 		
@@ -178,7 +180,7 @@ void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
                 ofLogVerbose() << "(" << typeid(this).name() << ") " << "system command output: " << i;
             }
             
-            // copy XML file to HeRoC
+            // copy XML file to HeRoC (this will trigger the model fit)
 			string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " " + xmlfilename + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
             int i = system(cmd.c_str());
         }
