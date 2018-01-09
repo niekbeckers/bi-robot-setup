@@ -31,11 +31,11 @@ Q(7,1) = -wp;
 Q(8,2) = -wp;
 Q(1,7) = -wp;
 Q(2,8) = -wp;
-Q = Q*dt;
+Q = Q; %*dt;
 
 R(1,1,:) = r;
 R(2,2,:) = r;
-R = R*dt;
+R = R; %*dt;
 
 % initial state and state uncertainty
 x0 = zeros(size(Ae,1),1);
@@ -61,8 +61,25 @@ sigmaV_Ov = sigma_sens*sqrt(0.01)/sqrt(dt);
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
+%% generate noise (not used during fitting, can't be mex-compiled)
+% rfactor = round(dt/0.001);
+% whitenoise = randn([size(target,2)*rfactor,1])*22; 
+% 
+% fs = 1000;
+% fc1 = 2; %Hz
+% [b1,a1] = butter(3,fc1/(fs/2));
+% noisef1 = filter(b1,a1,whitenoise);
+% 
+% fc2 = 0.2;
+% [b2,a2] = butter(1,fc2/(fs/2),'high');
+% noisef2 = filter(b2,a2,noisef1);
+% 
+% % resample
+% noisef2 = noisef2(rfactor,rfactor,N*rfactor);
+
+noisef2 = zeros(length(target));
 %% run LQG
-[xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,noise,delay);
+[xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,noisef2,x0,N,target,noise,delay,dt); 
 
 % check stability
 stable = 1;
