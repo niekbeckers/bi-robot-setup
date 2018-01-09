@@ -21,7 +21,7 @@ fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
 %% virtual partner dynamics
-m_vp = diag([4 1.5]); 
+m_vp = diag([0.3 0.3]); 
 tu = 0.04;
 td = 0.1;
 tp = 0.0;
@@ -30,7 +30,7 @@ gamma = 0.8;
 
 % number of delay steps
 VP.Ndelay = round(td/sampleTime);
-VP.x0 = zeros(14,1);
+VP.x0 = zeros(10,1);
 
 % dynamics matrices
 [Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
@@ -41,20 +41,18 @@ VP.Aim = Aim_vp;
 VP.B = B_vp;
 VP.H = H_vp;
 
-sigma_dyn = 0.5136;     %0.01;
-sigma_sens = 0.01;      %0.00001;
+sigma_dyn = 0.5136;    
+sigma_sens = 0.0001;     
 
 % process noise
 sigmaP_Ow = 0;
 sigmaV_Ow = 0;
-sigmaF_Ow = sigma_dyn/sqrt(0.01)*sqrt(sampleTime);
-sigmaPt_Ow = sigma_dyn/sqrt(0.01)*sqrt(sampleTime);
-sigmaVt_Ow = sigma_dyn/sqrt(0.01)*sqrt(sampleTime);
-sigmaPf_Ow = 0;
+sigmaF_Ow = sigma_dyn*sqrt(sampleTime);
+sigmaPt_Ow = 0;
+sigmaVt_Ow = 0;
 
 Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
-    sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2 ...
-    sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2 sigmaPf_Ow^2]);
+    sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2]);
 
 VP.Ow = Ow;
 
@@ -62,7 +60,7 @@ VP.Ow = Ow;
 sigmaP_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
 sigmaV_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
 
-Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
+Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 VP.Ov = Ov;
 
