@@ -1,6 +1,7 @@
 function matlabVirtualPartner
 %% function matlabVirtualPartner
 
+% make sure we're in the directory of this script
 cd(fileparts(mfilename('fullpath')));
 addpath('scripts');
 
@@ -65,15 +66,18 @@ while (keepRunning)
     
     if loadOkay
         if isfield(s.VP, 'terminate')
+            disp('Script termination requested')
             keepRunning = false;
+            
+            % remove settings file (to avoid 'automatic' shutdown)
+            delete([settingspath mysettingsfile]);
+            
             continue; % go to next iteration of while loop, skip everything below
         end
         errorFlag = 0;
         
         disp([callerID 'Loaded ' mysettingsfile ', starting model fit']);
-        
-        
-        
+
         % initialize and prepare stuff
         fitIDs = s.VP.doFitForBROSID(:);
         trialID = s.VP.trialID;
@@ -214,10 +218,14 @@ while (keepRunning)
     end
     pause(loopPause);
 end
+
 disp([callerID 'Done ' mfilename]);
 
+% if is on linux, exit matlab
 if isunix
-    
+    quit;
+end
+
 end
 
 function [loadOkay,s] = readXML(filename)

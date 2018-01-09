@@ -275,6 +275,7 @@ void ofAppMain::setupGUI()
 	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
 	_grpConnectionControl.minimize(); // default is minimized
 	_guiAdmittance.add(&_grpConnectionControl);
+	_guiAdmittance.add(_btnStartStopVPMATLAB.setup("Start VP MATLAB HEROC", false));
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
@@ -291,6 +292,7 @@ void ofAppMain::setupGUI()
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
+	_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
 }
 
 //--------------------------------------------------------------
@@ -469,6 +471,42 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 }
 
 //--------------------------------------------------------------
+void ofAppMain::startStopVPMATLAB(bool & value)
+{
+	if (value) {
+		// send request to HEROC computer
+		string cmdmatlab = "\"matlab2017 -nodisplay -nodesktop -nosplash -r \"try, run('/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/matlabVirtualPartner.m'), catch, quit, end, quit\"\"";
+		string cmd = "putty -ssh -i " + strSSHKey + " " + userHeRoC + "@" + ipAddressHeRoC + " -m " + cmdmatlab;
+		
+		int i = system(cmd.c_str());
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent:" << endl << i;
+		_btnStartStopVPMATLAB = "MATLAB VP running (press again to terminate)";
+	}
+	else {
+		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
+		ofXml xml;
+
+		xml.addChild("VP");
+		xml.setTo("VP");
+		xml.addValue("terminate", true);
+
+		string xmlfilename = "settings_terminate.xml";
+		xml.save(xmlfilename);
+
+		ofLogVerbose() << ofToDataPath(xmlfilename);
+
+		// copy to HeRoC pc
+		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw EthercatisCool " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+		system(cmd.c_str());
+
+		// clean up
+		remove(xmlfilename.c_str());
+		_btnStartStopVPMATLAB = "MATLAB VP off (press to start)";
+	}
+		
+}
+
+//--------------------------------------------------------------
 void ofAppMain::drawTargetTailPressed(bool & value)
 {
 		display1->target.drawTail = value;
@@ -558,6 +596,7 @@ void ofAppMain::exit() {
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	_btnDebugMode.removeListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.removeListener(this, &ofAppMain::setConnectionEnabled);
+	_btnStartStopVPMATLAB.removeListener(this, &ofAppMain::startStopVPMATLAB);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();

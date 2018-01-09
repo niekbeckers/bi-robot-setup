@@ -68,6 +68,7 @@ struct experimentSettings {
 	string protocolname;
 };
 
+
 /*
  * TODO: This class is OS-specific; you might want to use Pointer-to-Implementation
  * Idiom to hide the OS dependency from clients
@@ -83,3 +84,19 @@ struct CompareDateModified{
         return attribLhs.st_mtime < attribRhs.st_mtime; //Compare last modification dates
     }
 };
+
+//
+// HeRoC PC stuff
+//
+
+const string ipAddressHeRoC = "130.89.65.74";
+const string userHeRoC = "niek";
+const string strSSHKey = "C:\\Users\\Labuser\\keys\\niek.ppk";
+
+const string matlabSettingsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
+const string matlabResultsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
+const string matlabDataFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
+
+const string matlabSettingsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/settings/";
+const string matlabResultsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/results/";
+const string matlabDataFilePath_HeRoC = "/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/";

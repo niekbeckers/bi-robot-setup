@@ -58,17 +58,7 @@ public:
 	// Parameters
 	//
 	bool initialized;
-	string matlabSettingsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
-	string matlabResultsFilePath_TC  = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
-	string matlabDataFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
 	
-	string matlabSettingsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/settings/";
-	string matlabResultsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/results/";
-	string matlabDataFilePath_HeRoC = "/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/";
-	string ipAddressHeRoC = "130.89.65.74";
-	string userHeRoC = "niek";
-	string strSSHKey = "C:\\Users\\Labuser\\keys\\niek.ppk";
-
 	//
 	// functions
 	//

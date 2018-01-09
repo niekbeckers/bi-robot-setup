@@ -5,10 +5,6 @@ MatlabThread::MatlabThread():
 	_newOutput(true),
 	initialized(false),
 	_counterMatlabInputFile(0)
-
-
-
-
 {
 	// start the thread as soon as the
 	// class is created, it won't use any CPU
