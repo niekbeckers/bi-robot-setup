@@ -47,10 +47,6 @@ if (size(gcp) == 0)
     parpool(nrWorkers); % setup workers with idle timeout of 30 minutes
 end
 
-% fit settings
-nrP0 = nrWorkers; % number of initial parameter estimates, minimum of 3
-nrFitParams = 3;
-
 % preallocate 'saved p0'
 p0_saved = [];
 
@@ -111,6 +107,10 @@ while (keepRunning)
         for ii = 1:length(fitIDs)
             resultsmodelfit.VP.doFitForBROSID.(['id' num2str(ii-1)]) = fitIDs(ii);
         end
+        
+        % fit settings
+        nrP0 = max(round(nrWorkers/length(fitIDs)),3); % number of initial parameter estimates, minimum of 3
+        nrFitParams = 3;
 
         % define number of tasks (for parfor loop)
         idxIDs = reshape(repmat(fitIDs,1,nrP0).',[],1); % vector with fitIDs
@@ -215,6 +215,9 @@ while (keepRunning)
     pause(loopPause);
 end
 disp([callerID 'Done ' mfilename]);
+
+if isunix
+    
 end
 
 function [loadOkay,s] = readXML(filename)
