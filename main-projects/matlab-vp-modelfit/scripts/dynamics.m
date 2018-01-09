@@ -21,34 +21,19 @@ end
         0 0 0   0   0     0     0 0 0 0;...
         0 0 0   0   0     0     0 0 0 0];
 
-Bc = [0 0;0 0;0 0;0 0;1/tu 0;0 1/tu;0 0;0 0; 0 0; 0 0; 0 0; 0 0; 0 0; 0 0];
+Bc = [0 0;0 0;0 0;0 0;1/tu 0;0 1/tu;0 0;0 0; 0 0; 0 0];
 
-Cc = [1 0 0 0 0 0 0 0 0 0 0 0 0 0;...
-      0 1 0 0 0 0 0 0 0 0 0 0 0 0;...
-      0 0 1 0 0 0 0 0 0 0 0 0 0 0;...
-      0 0 0 1 0 0 0 0 0 0 0 0 0 0;...
-      0 0 0 0 0 0 1 0 0 0 0 0 0 0;...
-      0 0 0 0 0 0 0 1 0 0 0 0 0 0;...
-      0 0 0 0 0 0 0 0 1 0 0 0 0 0;...
-      0 0 0 0 0 0 0 0 0 1 0 0 0 0];
+Cc = [1 0 0 0 0 0 0 0 0 0;...
+      0 1 0 0 0 0 0 0 0 0;...
+      0 0 1 0 0 0 0 0 0 0;...
+      0 0 0 1 0 0 0 0 0 0];
   
 %% discretization
 % environment
 Ntd = round(td/dt);
 
-% x = [px py vx vy fx fy ptx pty vtx vty pfx pfy ptfx ptfy]
-A = zeros(14,14);
-A(1:10,1:10) = eye(size(Ac)) + Ac*dt;
-
-% target movement prediction
-A(11,1) = 1;
-A(12,2) = 1;
-A(11,3) = dt+td;
-A(12,4) = dt+td;
-A(13,7) = 1;
-A(14,8) = 1;
-A(13,9) = dt+td;
-A(14,10) = dt+td;
+% x = [px py vx vy fx fy ptx pty vtx vty]
+A = eye(size(Ac)) + Ac*dt;
 
 B = dt*Bc;
 H = Cc;

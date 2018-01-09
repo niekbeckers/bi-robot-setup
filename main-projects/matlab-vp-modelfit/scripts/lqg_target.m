@@ -37,6 +37,7 @@ for k = 1:N-1
 
         % posterior state estimate
         xhat(:,k-delay) = xhatp(:,k-delay) + K(:,:,k)*(y(:,k)-H*xhatp(:,k-delay));
+        xhat(7:10,k-delay) = target(:,k-delay);
 
         x_comp = xhat(:,k-delay);
         for s = 1:delay
@@ -51,7 +52,6 @@ for k = 1:N-1
 
         % simulate real system
         xe(:,k+1) = Ae*xe(:,k) + B*u(:,k) + noise*sqrt(Ow)*randn(nX,1);
-        xe(7:10,k+1) = target(:,k+1);
         y(:,k+1) = H*xe(:,k+1-delay) + noise*sqrt(Ov)*randn(nY,1);
     end
 end
