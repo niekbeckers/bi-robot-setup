@@ -63,7 +63,7 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 %% generate noise (not used during fitting, can't be mex-compiled)
 % rfactor = round(dt/0.001);
-% whitenoise = randn([size(target,2)*rfactor,1])*22; 
+% whitenoise = randn([N*rfactor,1])*22; 
 % 
 % fs = 1000;
 % fc1 = 2; %Hz
@@ -75,7 +75,7 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 % noisef2 = filter(b2,a2,noisef1);
 % 
 % % resample
-% noisef2 = noisef2(rfactor,rfactor,N*rfactor);
+% noisef2 = noisef2(rfactor:rfactor:N*rfactor);
 
 noisef2 = zeros(length(target));
 %% run LQG
