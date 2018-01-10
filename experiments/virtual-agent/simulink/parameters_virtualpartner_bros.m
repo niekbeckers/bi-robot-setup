@@ -20,6 +20,7 @@ FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointi
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
+
 %% virtual partner dynamics
 m_vp = diag([0.3 0.3]); 
 tu = 0.04;
