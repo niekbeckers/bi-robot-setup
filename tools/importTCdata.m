@@ -118,8 +118,8 @@ switch lower(modelname)
 
         % I also added the target velocity to the model, so append to param_idx and param_lbls
         if (size(dataArray,2) > 84)
-            param_lbls = [param_lbls; 'pos_vp1'; 'vel_vp1'; 'y_vp1'; 'xhatp_vp1'; 'pos_vp2'; 'vel_vp2'; 'target_vel_BROS1'; 'target_vel_BROS2'];
-            param_idx = [param_idx; 85:86;       87:88;     89:92; 93:102; 103:104; 105:106; 107:108; 109:110]; 
+            param_lbls = [param_lbls; 'pos_vp1'; 'vel_vp1'; 'y_vp1'; 'xhatp_vp1'; 'noise_w_vp1'; 'pos_vp2'; 'vel_vp2'; 'y_vp2'; 'xhatp_vp2'; 'noise_w_vp2'; 'target_vel_BROS1'; 'target_vel_BROS2'];
+            param_idx = [param_idx; 85:86;       87:88;     89:92;   93:102;      103:104;       105:106;   107:108;   109:112; 113:122;     123:124;       125:126;            127:128]; 
         end
 
     case 'model_sysid'
