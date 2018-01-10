@@ -30,9 +30,6 @@ resultspath = [vppath 'results' filesep];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
-% clean up terminate xml
-delete([settingspath settings_filename '_terminate.xml']);
-
 % create folder for model output files (for copies)
 resultstoragepath = [resultspath 'results-modelfit-' datestr(now,'ddmmyy-HHMM')];
 if ~exist(resultstoragepath,'dir')
@@ -42,6 +39,9 @@ settingsstoragepath = [settingspath 'settings-modelfit-' datestr(now,'ddmmyy-HHM
 if ~exist(settingsstoragepath,'dir')
     mkdir(settingsstoragepath);
 end
+
+% clean up terminate xml
+if exist([settingspath settings_filename '_terminate.xml'],'file'), delete([settingspath settings_filename '_terminate.xml']); end
 
 % parpool
 if (size(gcp) == 0)

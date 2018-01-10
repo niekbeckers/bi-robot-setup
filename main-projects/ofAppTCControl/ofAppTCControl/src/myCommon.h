@@ -101,3 +101,14 @@ const string matlabDataFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositorie
 const string matlabSettingsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/settings/";
 const string matlabResultsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/results/";
 const string matlabDataFilePath_HeRoC = "/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/";
+
+class SystemCmdThreaded : public ofThread {
+
+private:
+	string _cmd = "";
+	void threadedFunction() { std::system(_cmd.c_str()); };
+public:
+	bool done = false;
+	SystemCmdThreaded(string c) { _cmd = c; };
+	~SystemCmdThreaded() { waitForThread(true); }
+};

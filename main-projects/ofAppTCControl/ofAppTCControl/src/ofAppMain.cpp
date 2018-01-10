@@ -6,6 +6,10 @@ using namespace std;
 void ofAppMain::setup(){
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
+	// matlab thread
+	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
+	_herocMATLABThread = new SystemCmdThreaded(cmd);
+
 	// set up window
 	ofBackground(ofColor::blueSteel);
 	ofSetWindowTitle("Control");
@@ -88,6 +92,12 @@ void ofAppMain::update(){
 
 		// update GUI ADS data (in case something changed)
 		updateADSDataGUI();
+
+		// check if Heroc thread is running
+		if (!_herocMATLABThread->isThreadRunning()) {
+			if (_btnStartStopVPMATLAB)
+				_btnStartStopVPMATLAB = false;
+		}
 	}	
 }
 
@@ -475,12 +485,13 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 {
 	if (value) {
 		// send request to HEROC computer
-        string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
-		
-		int i = system(cmd.c_str());
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent:" << endl << i;
-		_btnStartStopVPMATLAB = "MATLAB VP running (press again to terminate)";
-        _btnStartStopVPMATLAB.setBackgroundColor(ofColor::darkGreen);
+		_herocMATLABThread->startThread();
+
+		//int i = system(cmd.c_str()); // BLOCKINGGGGGG
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent:";
+		_btnStartStopVPMATLAB.setName("MATLAB VP running, click to terminate");
+		//_btnStartStopVPMATLAB = "MATLAB VP running (press again to terminate)";
+        //_btnStartStopVPMATLAB.setBackgroundColor(ofColor::darkGreen);
 	}
 	else {
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
@@ -501,7 +512,7 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 
 		// clean up
 		remove(xmlfilename.c_str());
-		_btnStartStopVPMATLAB = "MATLAB VP off (press to start)";
+		_btnStartStopVPMATLAB.setName("Press to start MATLAB VP");
 	}
 		
 }
