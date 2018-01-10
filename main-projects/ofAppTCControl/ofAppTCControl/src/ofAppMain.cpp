@@ -476,6 +476,7 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 	if (value) {
 		// send request to HEROC computer
 		string cmdmatlab = "\"matlab2017 -nodisplay -nodesktop -nosplash -r \"try, run('/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/matlabVirtualPartner.m'), catch, quit, end, quit\"\"";
+		
 		string cmd = "putty -ssh -i " + strSSHKey + " " + userHeRoC + "@" + ipAddressHeRoC + " -m " + cmdmatlab;
 		
 		int i = system(cmd.c_str());
@@ -496,7 +497,7 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		ofLogVerbose() << ofToDataPath(xmlfilename);
 
 		// copy to HeRoC pc
-		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw EthercatisCool " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
 		system(cmd.c_str());
 
 		// clean up
