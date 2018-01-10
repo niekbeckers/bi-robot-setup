@@ -242,8 +242,11 @@ if exist(filename,'file')
     try
         xml = xml2struct(filename);
         loadOkay = true;
+        disp('xml2struct in readxml')
     catch
         loadOkay = false;
+        disp('error xml2struct in readxml');
+        keyboard
         return;
     end
     
