@@ -10,7 +10,7 @@ void ofAppExperiment::setup()
 
 	// register protocol reader callback function
 	using namespace std::placeholders;
-	_protocol.registerCBFunction(std::bind(&ofAppExperiment::onProtocolLoaded, this, _1, _2));
+	_protocol.registerCBFunction(std::bind(&ofAppExperiment::onProtocolLoaded, this, _1, _2, _3));
 }
 
 //--------------------------------------------------------------
@@ -251,8 +251,11 @@ void ofAppExperiment::loadExperimentXML()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<blockData> blocks) {
+void ofAppExperiment::onProtocolLoaded(bool success, experimentSettings settings, vector<blockData> blocks) {
 	
+	if (!success)
+		return;
+
 	// copy settings and blocks
 	_settings = settings;
 	_blocks = blocks;

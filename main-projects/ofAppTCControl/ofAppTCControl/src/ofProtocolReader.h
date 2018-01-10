@@ -15,7 +15,7 @@ private:
 	bool _experimentLoaded;
 
 	// callback function 
-	std::function<void(experimentSettings, vector<blockData>)> _cbFunction;
+	std::function<void(bool, experimentSettings, vector<blockData>)> _cbFunction;
 
 	void threadedFunction();
 	void processOpenFileSelection(ofFileDialogResult openFileResult);
@@ -25,7 +25,7 @@ public:
 
 	ofProtocolReader();
 	~ofProtocolReader();
-	void registerCBFunction(std::function<void(experimentSettings, vector<blockData>)> cb);
+	void registerCBFunction(std::function<void(bool, experimentSettings, vector<blockData>)> cb);
 	inline vector<blockData> blocks() { return _blocks; };
 	inline experimentSettings settings() { return _settings; };
 };

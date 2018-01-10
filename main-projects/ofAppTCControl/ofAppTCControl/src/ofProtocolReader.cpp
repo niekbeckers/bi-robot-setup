@@ -36,14 +36,14 @@ void ofProtocolReader::threadedFunction() {
 
 	// callback function
 	if (_cbFunction) {
-		_cbFunction(_settings, _blocks);
+		_cbFunction(openFileResult.bSuccess, _settings, _blocks);
 	}
 	ofLogVerbose() << "(" << typeid(this).name() << ") threadedFunction done";
 }
 
 
 //--------------------------------------------------------------
-void ofProtocolReader::registerCBFunction(std::function<void(experimentSettings, vector<blockData>)> callback)
+void ofProtocolReader::registerCBFunction(std::function<void(bool, experimentSettings, vector<blockData>)> callback)
 {
 	_cbFunction = callback;
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "registerCBFunction " << "callback function registered";

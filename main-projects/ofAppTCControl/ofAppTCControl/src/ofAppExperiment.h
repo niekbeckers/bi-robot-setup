@@ -190,7 +190,7 @@ class ofAppExperiment : public ofBaseApp
 		// custom
 		void setupTCADS();
 		void loadExperimentXML();
-		void onProtocolLoaded(experimentSettings settings, vector<blockData> blocks);
+		void onProtocolLoaded(bool success, experimentSettings settings, vector<blockData> blocks);
 
 		void startExperiment();
 		void stopExperiment();
