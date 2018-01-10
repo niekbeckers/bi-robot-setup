@@ -105,7 +105,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 		else {
 			if (input.fitOnHeRoC) {
 				// attempt pscp results file from the HeRoC computer.
-				string cmd = "pscp -r -agent -i " + strSSHKey + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabResultsFilePath_HeRoC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml" + " " + matlabResultsFilePath_TC;
+				string cmd = "pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabResultsFilePath_HeRoC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml" + " " + matlabResultsFilePath_TC;
 				int i = system(cmd.c_str());
 			}
 
@@ -170,14 +170,14 @@ void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
         // secure copy mat files to HeRoC
         try {
             for (int i = 0; i < vMatFilenames.size(); i++) {
-                string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " " + vMatFilenames[i] + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabDataFilePath_HeRoC);
+                string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + vMatFilenames[i] + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabDataFilePath_HeRoC);
                 //ofLogVerbose() << cmd;
 				system(cmd.c_str());
                 ofLogVerbose() << "(" << typeid(this).name() << ") " << "system command output: " << i;
             }
             
             // copy XML file to HeRoC (this will trigger the model fit)
-			string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " " + xmlfilename + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+			string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + xmlfilename + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
             int i = system(cmd.c_str());
         }
         catch(std::exception e) {

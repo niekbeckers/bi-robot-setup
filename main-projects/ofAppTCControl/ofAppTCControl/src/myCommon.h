@@ -92,6 +92,7 @@ struct CompareDateModified{
 const string ipAddressHeRoC = "130.89.65.74";
 const string userHeRoC = "niek";
 const string strSSHKey = "C:\\Users\\Labuser\\keys\\niek.ppk";
+const string pwKeyHeRoC = "EthercatisCool";
 
 const string matlabSettingsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
 const string matlabResultsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";

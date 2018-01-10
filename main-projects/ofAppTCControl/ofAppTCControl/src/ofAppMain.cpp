@@ -475,13 +475,12 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 {
 	if (value) {
 		// send request to HEROC computer
-		string cmdmatlab = "\"matlab2017 -nodisplay -nodesktop -nosplash -r \"try, run('/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/matlabVirtualPartner.m'), catch, quit, end, quit\"\"";
-		
-		string cmd = "putty -ssh -i " + strSSHKey + " " + userHeRoC + "@" + ipAddressHeRoC + " -m " + cmdmatlab;
+        string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
 		
 		int i = system(cmd.c_str());
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent:" << endl << i;
 		_btnStartStopVPMATLAB = "MATLAB VP running (press again to terminate)";
+        _btnStartStopVPMATLAB.setBackgroundColor(ofColor::darkGreen);
 	}
 	else {
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
@@ -491,13 +490,13 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		xml.setTo("VP");
 		xml.addValue("terminate", true);
 
-		string xmlfilename = "settings_terminate.xml";
+		string xmlfilename = "settings_vpmodelfit_trial_terminate.xml";
 		xml.save(xmlfilename);
 
 		ofLogVerbose() << ofToDataPath(xmlfilename);
 
 		// copy to HeRoC pc
-		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
 		system(cmd.c_str());
 
 		// clean up
