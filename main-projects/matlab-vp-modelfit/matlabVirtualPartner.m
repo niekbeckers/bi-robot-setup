@@ -8,6 +8,8 @@ addpath('scripts');
 callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
+
+
 %% setup
 % folders, paths, depending on which system the fit is performed
 if ispc % twincat pc (assumption)
@@ -27,6 +29,9 @@ settingspath = [vppath 'settings' filesep];
 resultspath = [vppath 'results' filesep];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
+
+% clean up terminate xml
+delete([settingspath settings_filename '_terminate.xml']);
 
 % create folder for model output files (for copies)
 resultstoragepath = [resultspath 'results-modelfit-' datestr(now,'ddmmyy-HHMM')];
