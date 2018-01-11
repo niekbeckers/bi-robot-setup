@@ -90,7 +90,7 @@ class ofAppMain : public ofBaseApp{
 		// GUI experiment
 		ofxPanel _guiExperiment;
 		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop, _btnConfirmBlockTrialNr;
-		ofxToggle _btnExpPauseResume, _btnDebugMode, _btnDrawTargetTail;
+		ofxToggle _btnExpPauseResume, _btnDebugMode, _btnDrawTargetTail, _btnStartStopVPMATLAB;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
 		
@@ -105,6 +105,8 @@ class ofAppMain : public ofBaseApp{
 
 		double _VP1Data[4] = { 0.0,0.0,0.0,0.0 };
 
+		SystemCmdThreaded *_herocMATLABThread;
+
 		//
 		// custom
 		//
@@ -115,6 +117,7 @@ class ofAppMain : public ofBaseApp{
 		void recordDataTogglePressed(bool & value);
 		void pauseExperimentTogglePressed(bool & value);
 		void experimentDebugModeTogglePressed(bool & value);
+		void startStopVPMATLAB(bool & value);
 		void drawTargetTailPressed(bool & value);
 		void calibrateForceSensors();
 		void setBlockTrialNumberByUser();

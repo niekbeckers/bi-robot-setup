@@ -10,7 +10,7 @@ void ofAppExperiment::setup()
 
 	// register protocol reader callback function
 	using namespace std::placeholders;
-	_protocol.registerCBFunction(std::bind(&ofAppExperiment::onProtocolLoaded, this, _1, _2));
+	_protocol.registerCBFunction(std::bind(&ofAppExperiment::onProtocolLoaded, this, _1, _2, _3, _4));
 }
 
 //--------------------------------------------------------------
@@ -251,8 +251,13 @@ void ofAppExperiment::loadExperimentXML()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<blockData> blocks) {
+void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, experimentSettings settings, vector<blockData> blocks) {
 	
+	mainApp->lblExpLoaded = filename;
+
+	if (!success)
+		return;
+
 	// copy settings and blocks
 	_settings = settings;
 	_blocks = blocks;
@@ -269,7 +274,9 @@ void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<block
 	mainApp->lblBlockNumber.setMax(_blocks.size());
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
-	mainApp->lblExpLoaded = _settings.protocolname;
+	
+
+	ofLogVerbose() << _settings.protocolname;
 
 	// virtual partner
 	if (_settings.vpDoVirtualPartner) {
@@ -558,6 +565,7 @@ void ofAppExperiment::esmTrialDone()
 		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
 		settings.trialID = _currentTrialNumber;
 		settings.condition = _currentTrial.condition;
+		settings.fitOnHeRoC = _settings.vpFitOnHeRoC;
 		partner.runVPOptimization(settings);
 		_runningModelFit = true;
 	}

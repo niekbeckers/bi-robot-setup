@@ -27,7 +27,6 @@ class VirtualPartner
 		// MATLAB Thread
 		// the matlabthread is started upon construction. Don't worry, the thread does not consume any (hardly) CPU until it's actually called.
 		MatlabThread _matlabThread;
-		MatlabStartupThread _matlabStartup;
 
 		vector<int> _activeBROSIDs;
 

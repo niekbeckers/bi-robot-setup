@@ -85,18 +85,34 @@ void MatlabThread::threadedFunction(){
 //--------------------------------------------------------------
 void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &output)
 {
-	input2xml(input);
+	// call optimization by writing XML settings file
+	ofXml xml = input2xml(input);
+	
+	// write settings file 
+	copySettingsAndData(xml, input.fitOnHeRoC);
 
-	//now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
+	// now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
-	string outputFilename = matlabResultsFilePath + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml";
+	string outputFilename = matlabResultsFilePath_TC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml";
 	bool foundFile = false;
 	double startTime = ofGetElapsedTimef();
 	ofFile file(outputFilename);
 	
 	while (!foundFile && (ofGetElapsedTimef()-startTime < 240.0)) { // returns false if read is not okay (i.e. file corrupted, not existing, etc).
-		if (file.exists()) { foundFile = true; }
-		sleep(250); // sleep thread for a little bit
+		if (file.exists()) { 
+			foundFile = true; 
+		}
+		else {
+			if (input.fitOnHeRoC) {
+				// attempt pscp results file from the HeRoC computer.
+				string cmd = "pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabResultsFilePath_HeRoC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml" + " " + matlabResultsFilePath_TC;
+				int i = system(cmd.c_str());
+			}
+
+			sleep(50); // sleep thread for a little bit
+		}
+
+		
 	}
 
 	if (foundFile) {
@@ -118,6 +134,58 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	}
 }
 
+void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
+{
+    // save xml file to local direcory. If the matlabVirtualPartner script is running on the local machine, it will trigger a fit.
+    string xmlfilename = ofToString(matlabSettingsFilePath_TC + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+    xml.save(xmlfilename);
+    
+    // if fit on HeRoC, copy mat files (data files) and settings file to HeRoC computer
+	if (fitOnHeRoC) {
+        // select last 5 data files.
+        // list files (*.mat)
+        ofDirectory dir(matlabDataFilePath_TC);
+        dir.allowExt("mat");
+        int nFiles = dir.listDir();
+        
+        // populate the vector<string>
+        vector<string> vFilenames;
+        for (int i = 0; i < dir.size(); i++) {
+            vFilenames.push_back(dir.getPath(i));
+        }
+        
+        // sort files on date modified
+        CompareDateModified myComparator;
+        std::sort (vFilenames.begin(), vFilenames.end(), myComparator);
+        
+        // select last 5 trials
+        int nrSelFiles = 5;
+        if (vFilenames.size() < 5) { nrSelFiles = vFilenames.size(); }
+        vector<string> vMatFilenames;
+        for ( int i = 0; i < nrSelFiles; i++ ) {
+            vMatFilenames.push_back(vFilenames.back());
+            vFilenames.pop_back();
+        }
+        
+        // secure copy mat files to HeRoC
+        try {
+            for (int i = 0; i < vMatFilenames.size(); i++) {
+                string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + vMatFilenames[i] + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabDataFilePath_HeRoC);
+                //ofLogVerbose() << cmd;
+				system(cmd.c_str());
+                ofLogVerbose() << "(" << typeid(this).name() << ") " << "system command output: " << i;
+            }
+            
+            // copy XML file to HeRoC (this will trigger the model fit)
+			string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + xmlfilename + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+            int i = system(cmd.c_str());
+        }
+        catch(std::exception e) {
+            ofLogError()  << "(" << typeid(this).name() << ") " << e.what();
+        }
+	}
+}
+
 //--------------------------------------------------------------
 void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback) 
 { 
@@ -126,7 +194,7 @@ void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback
 }
 
 //--------------------------------------------------------------
-void MatlabThread::input2xml(matlabInput input)
+ofXml MatlabThread::input2xml(matlabInput input)
 {
 	// write matlab input to XML, which is read by the MATLAB application
 	ofXml xml;
@@ -143,9 +211,9 @@ void MatlabThread::input2xml(matlabInput input)
 	xml.setToParent();
 	//_XMLWrite.addValue("useX0", input.useX0[0]); (etc)
 
-	// save settings to XML file (one for the matlab script/exe, the other for our own administration/data logging
-	xml.save(matlabSettingsFilePath + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
 	_counterMatlabInputFile++;
+
+	return xml;
 }
 
 //--------------------------------------------------------------

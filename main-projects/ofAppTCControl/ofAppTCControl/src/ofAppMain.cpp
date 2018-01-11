@@ -6,6 +6,10 @@ using namespace std;
 void ofAppMain::setup(){
 	ofSetLogLevel(OF_LOG_NOTICE);
 
+	// matlab thread
+	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
+	_herocMATLABThread = new SystemCmdThreaded(cmd);
+
 	// set up window
 	ofBackground(ofColor::blueSteel);
 	ofSetWindowTitle("Control");
@@ -88,6 +92,12 @@ void ofAppMain::update(){
 
 		// update GUI ADS data (in case something changed)
 		updateADSDataGUI();
+
+		// check if Heroc thread is running
+		if (!_herocMATLABThread->isThreadRunning()) {
+			if (_btnStartStopVPMATLAB)
+				_btnStartStopVPMATLAB = false;
+		}
 	}	
 }
 
@@ -275,6 +285,7 @@ void ofAppMain::setupGUI()
 	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
 	_grpConnectionControl.minimize(); // default is minimized
 	_guiAdmittance.add(&_grpConnectionControl);
+	_guiAdmittance.add(_btnStartStopVPMATLAB.setup("Start VP MATLAB HEROC", false));
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
@@ -291,6 +302,7 @@ void ofAppMain::setupGUI()
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
+	_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
 }
 
 //--------------------------------------------------------------
@@ -469,6 +481,42 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 }
 
 //--------------------------------------------------------------
+void ofAppMain::startStopVPMATLAB(bool & value)
+{
+	if (value) {
+		// send request to HEROC computer
+		_herocMATLABThread->startThread();
+
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent";
+
+		_btnStartStopVPMATLAB.setName("MATLAB VP running, click to terminate");
+        //_btnStartStopVPMATLAB.setBackgroundColor(ofColor::darkGreen);
+	}
+	else {
+		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
+		ofXml xml;
+
+		xml.addChild("VP");
+		xml.setTo("VP");
+		xml.addValue("terminate", true);
+
+		string xmlfilename = "settings_vpmodelfit_trial_terminate.xml";
+		xml.save(xmlfilename);
+
+		ofLogVerbose() << ofToDataPath(xmlfilename);
+
+		// copy to HeRoC pc
+		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+		system(cmd.c_str());
+
+		// clean up
+		remove(xmlfilename.c_str());
+		_btnStartStopVPMATLAB.setName("Press to start MATLAB VP");
+	}
+		
+}
+
+//--------------------------------------------------------------
 void ofAppMain::drawTargetTailPressed(bool & value)
 {
 		display1->target.drawTail = value;
@@ -558,6 +606,7 @@ void ofAppMain::exit() {
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	_btnDebugMode.removeListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.removeListener(this, &ofAppMain::setConnectionEnabled);
+	_btnStartStopVPMATLAB.removeListener(this, &ofAppMain::startStopVPMATLAB);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();

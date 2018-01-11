@@ -1,5 +1,8 @@
 #pragma once
 
+#include <sys/stat.h>
+#include <time.h>
+
 const unsigned long adsPort = 350;
 
 struct displayData {
@@ -57,9 +60,55 @@ struct experimentSettings {
 	double trialPerformanceThreshold = 0.05;
 	double trialMovementTimeRangeSec[2] = { 0.8, 1.2 };
 	bool vpDoVirtualPartner = false;
+	bool vpFitOnHeRoC = false;
 	vector<int> activeBROSIDs;
 	double cdDuration = 3.0;
 	double getReadyDuration = 1.0;
 	int numTrials = 0;
 	string protocolname;
+};
+
+
+/*
+ * TODO: This class is OS-specific; you might want to use Pointer-to-Implementation
+ * Idiom to hide the OS dependency from clients
+ * Found this code here: https://stackoverflow.com/questions/7337651/file-sort-in-c-by-modification-time#7348347
+ */
+struct CompareDateModified{
+    // Returns true if and only if lhs < rhs
+    bool operator() (const std::string& lhs, const std::string& rhs){
+        struct stat attribLhs;
+        struct stat attribRhs;  //File attribute structs
+        stat( lhs.c_str(), &attribLhs);
+        stat( rhs.c_str(), &attribRhs); //Get file stats
+        return attribLhs.st_mtime < attribRhs.st_mtime; //Compare last modification dates
+    }
+};
+
+//
+// HeRoC PC stuff
+//
+
+const string ipAddressHeRoC = "130.89.65.74";
+const string userHeRoC = "niek";
+const string strSSHKey = "C:\\Users\\Labuser\\keys\\niek.ppk";
+const string pwKeyHeRoC = "EthercatisCool";
+
+const string matlabSettingsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
+const string matlabResultsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
+const string matlabDataFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
+
+const string matlabSettingsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/settings/";
+const string matlabResultsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/results/";
+const string matlabDataFilePath_HeRoC = "/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/";
+
+class SystemCmdThreaded : public ofThread {
+
+private:
+	string _cmd = "";
+	void threadedFunction() { std::system(_cmd.c_str()); };
+public:
+	bool done = false;
+	SystemCmdThreaded(string c) { _cmd = c; };
+	~SystemCmdThreaded() { waitForThread(true); }
 };

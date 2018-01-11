@@ -1,17 +1,32 @@
 function matlabVirtualPartner
 %% function matlabVirtualPartner
 
+% make sure we're in the directory of this script
 cd(fileparts(mfilename('fullpath')));
 addpath('scripts');
 
 callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
-%% initialize/setup
-vppath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit';
-datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
-settingspath = [vppath '\settings\'];
-resultspath = [vppath '\results\'];
+
+
+%% setup
+% folders, paths, depending on which system the fit is performed
+if ispc % twincat pc (assumption)
+    vppath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\main-projects\matlab-vp-modelfit\';
+    datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
+elseif isunix % HeRoC (assumption)
+    vppath = '/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/';
+    datapath = '/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/';
+    if ~exist(datapath,'dir')
+        mkdir(datapath)
+    else
+        delete([datapath '*.mat']);
+    end  
+end
+    
+settingspath = [vppath 'settings' filesep];
+resultspath = [vppath 'results' filesep];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
@@ -25,9 +40,17 @@ if ~exist(settingsstoragepath,'dir')
     mkdir(settingsstoragepath);
 end
 
+% clean up terminate xml
+if exist([settingspath settings_filename '_terminate.xml'],'file'), delete([settingspath settings_filename '_terminate.xml']); end
+
 % parpool
 if (size(gcp) == 0)
-    parpool(40); % setup workers with idle timeout of 30 minutes
+    if ispc % twincat pc (assumption)
+        nrWorkers = 3;
+    elseif isunix % HeRoC (assumption
+        nrWorkers = 40;
+    end
+    parpool(nrWorkers); % setup workers with idle timeout of 30 minutes
 end
 
 % preallocate 'saved p0'
@@ -37,6 +60,7 @@ p0_saved = [];
 disp([callerID 'Running ' mfilename]);
 keepRunning = true;
 while (keepRunning)
+    % poll for settings files (.xml); this triggers the model fit
     try
         f = getlatestfiles([settingspath settings_filename '*.xml']);
         mysettingsfile = f(end).name;
@@ -47,17 +71,25 @@ while (keepRunning)
     
     if loadOkay
         if isfield(s.VP, 'terminate')
+            disp('Script termination requested')
             keepRunning = false;
+            
+            % remove settings file (to avoid 'automatic' shutdown)
+            delete([settingspath mysettingsfile]);
+            
             continue; % go to next iteration of while loop, skip everything below
         end
         errorFlag = 0;
         
         disp([callerID 'Loaded ' mysettingsfile ', starting model fit']);
-        
+
         % initialize and prepare stuff
         fitIDs = s.VP.doFitForBROSID(:);
         trialID = s.VP.trialID;
         condition = s.VP.condition;
+        
+        % move results xml file for this trial ID that are still in the results folder
+        delete([resultspath 'results_vpmodelfit_trial' num2str(trialID) '.xml']);
         
         % load data of trial with trialID
         clear data
@@ -70,7 +102,6 @@ while (keepRunning)
         dt = ds*0.001; %round(mode(diff(t)),2);
         for ii = 1:length(fitIDs)
             id = fitIDs(ii);
-            
             x = data.(['cursor_BROS' num2str(id)])(1:ds:end,:);
             xdot = data.(['xdot_BROS' num2str(id)])(1:ds:end,:);
             target = data.(['target_BROS' num2str(id)])(1:ds:end,:);
@@ -78,8 +109,7 @@ while (keepRunning)
             dataArray(:,:,ii) = [x xdot target target_vel];
         end
         
-
-        % perform model fit
+        % prepare model fit... first, create the resultsmodelfit structure.
         resultsmodelfit.VP = struct;
         resultsmodelfit.VP.trialID = trialID;
         % add fitIDs to output
@@ -87,10 +117,11 @@ while (keepRunning)
             resultsmodelfit.VP.doFitForBROSID.(['id' num2str(ii-1)]) = fitIDs(ii);
         end
         
-        
-        % define number of tasks (for parfor loop)
-        nrP0 = 3; % number of initial parameter estimates
+        % fit settings
+        nrP0 = max(min(round(nrWorkers/length(fitIDs)),20),3); % number of initial parameter estimates, minimum of 3, maximum of 20
         nrFitParams = 3;
+
+        % define number of tasks (for parfor loop)
         idxIDs = reshape(repmat(fitIDs,1,nrP0).',[],1); % vector with fitIDs
         p0 = NaN(nrFitParams,nrP0);
         
@@ -99,33 +130,18 @@ while (keepRunning)
         lb = [0;0;0];
         
         % create p0's
-%         for ii = 1:numel(idxIDs)
-%             % either use previous fit values (per fitID) or generate a
-%             % random p0.
-%             if ~isempty(p0_saved)
-%                p0(:,ii) = lb+rand(3,1).*(ub-lb);
-%                p0(:,1) = p0_saved; %save only the 'best' p0 per bro. 1 AND 4 should be p0_saved
-%                p0(:,1) = min(max(p0(:,ii),lb),ub);
-% 
-% %                 p0(:,ii) = normrnd(p0_saved(:,id), (ub-lb)/10);
-% %                 p0(:,ii) = min(max(p0(:,ii),lb),ub); % bound p0 by upper and lower bound
-% %                 p0(:,ii) = [normrnd(p0_saved(1,id),ub(1)/12); normrnd(p0_saved(2,id),ub(2)/12); normrnd(p0_saved(3,id),ub(3)/12)];
-%             else 
-% %                 p0(:,ii) = lb+rand(3,1).*(ub-lb); 
-%                p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
-%             end
         for ii = 1:numel(idxIDs)         
             p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
         end
         
-        if ~isempty(p0_saved) % overwrite 1 p0 per Bro with p0_saved
+        if ~isempty(p0_saved) % overwrite 1 p0 per BRO with p0_saved
             for ii = fitIDs
                p0(:,ii) = p0_saved(:,ii); 
                p0(:,ii) = min(max(p0(:,ii),lb),ub);
             end
         end
 
-        % perform model fits
+        % PERFORM MODEL FITS
         nrTasks = length(fitIDs)*nrP0;
         pfit_all = NaN(nrFitParams,nrTasks);
         errorFlagfit = zeros(1,nrTasks);
@@ -143,32 +159,32 @@ while (keepRunning)
         resultsmodelfit.VP.iterations.errorFlag = errorFlagfit;
         
         try
-        % select the best fit per fitID
-        pfit_opt = NaN(nrFitParams,length(fitIDs));
-        for ii = 1:length(fitIDs)
-            id = fitIDs(ii);
-            idx = idxIDs == id;
-            
-            % select minimum fval solution
-            [~,I] = min(fvalfit(idx));
-            
-            % errors etc
-            resultsmodelfit.VP.error.(['id' num2str(id-1)]) = errorFlagfit(I);
-            if errorFlagfit(I) == 0
-                resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 1;
-            else
-                resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 0;
+            % select the best fit per fitID
+            pfit_opt = NaN(nrFitParams,length(fitIDs));
+            for ii = 1:length(fitIDs)
+                id = fitIDs(ii);
+                idx = idxIDs == id;
+
+                % select minimum fval solution
+                [~,I] = min(fvalfit(idx));
+
+                % errors etc
+                resultsmodelfit.VP.error.(['id' num2str(id-1)]) = errorFlagfit(I);
+                if errorFlagfit(I) == 0
+                    resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 1;
+                else
+                    resultsmodelfit.VP.executeVirtualPartner.(['id' num2str(id-1)]) = 0;
+                end
+
+                % model parameters
+                pfit_opt(:,id) = pfit_all(:,I);
+                for jj = 1:size(pfit_opt,1)
+                    resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,id);
+                end
+
+                % store optimal fit as p0 for next optimization
+                p0_saved(:,id) = pfit_opt(:,id);
             end
-            
-            % model parameters
-            pfit_opt(:,id) = pfit_all(:,I);
-            for jj = 1:size(pfit_opt,1)
-                resultsmodelfit.VP.modelparameters.(['bros' num2str(id)]).(['x' num2str(jj)]) = pfit_opt(jj,id);
-            end
-            
-            % store optimal fit as p0 for next optimization
-            p0_saved(:,id) = pfit_opt(:,id);
-        end
         catch me
             disp(me)
             keyboard
@@ -178,6 +194,11 @@ while (keepRunning)
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
         save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
         movefile([outputfile '.mat'],resultstoragepath); % copy to output file store
+    
+        % delete all the data files (*.mat)
+        if isunix % HeRoC (assumption)
+            delete([datapath '*.mat']);
+        end
         
         % move settingsfile to storage
         movefile([settingspath mysettingsfile],settingsstoragepath);
@@ -202,7 +223,14 @@ while (keepRunning)
     end
     pause(loopPause);
 end
+
 disp([callerID 'Done ' mfilename]);
+
+% if is on linux, exit matlab
+if isunix
+    quit;
+end
+
 end
 
 function [loadOkay,s] = readXML(filename)
@@ -219,8 +247,11 @@ if exist(filename,'file')
     try
         xml = xml2struct(filename);
         loadOkay = true;
+        disp('xml2struct in readxml')
     catch
         loadOkay = false;
+        disp('error xml2struct in readxml');
+        keyboard
         return;
     end
     
