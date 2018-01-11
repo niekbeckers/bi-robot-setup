@@ -257,8 +257,6 @@ void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<block
 	_settings = settings;
 	_blocks = blocks;
 
-	ofLogVerbose() << ofToString(_settings.activeBROSIDs) << " " << _settings.numTrials << " " << settings.protocolname;
-
 	// reset current block number
 	_currentBlockNumber = 0;
 	_currentTrialNumber = 0;
@@ -380,7 +378,7 @@ void ofAppExperiment::esmNewBlock()
 	mainApp->startDataLogger();
 
 	_currentBlock = _blocks[_currentBlockNumber];
-	_currentTrialNumber = 0;
+	//_currentTrialNumber = 0;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	mainApp->lblTrialNumber.setMax(_currentBlock.trials.size());
 
@@ -680,6 +678,9 @@ void ofAppExperiment::esmCheckNextStep()
 
 			// switch off the data recorder
 			mainApp->stopDataLogger();
+			
+			// set _currentTrialNumber to zero here (previously at esmNewBlock), but that didn't work if the user set the trial number manually. hopefully this works..
+			_currentTrialNumber = 0;
 
 			setExperimentState(ExperimentState::BLOCKBREAK);
 		}
