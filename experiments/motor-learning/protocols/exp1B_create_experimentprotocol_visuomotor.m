@@ -75,13 +75,13 @@
 
 clear all; close all; clc;
 
-partnersNr = 1;
+pairNr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
-expID = ['learning_pair' num2str(partnersNr) '_session1_type' num2str(groupTypeNr)];
+expID = ['learning_pair' num2str(pairNr) '_session1_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp1b_protocols';
@@ -96,7 +96,7 @@ s.experiment.trialFeedback = 1;
 s.experiment.trialPerformanceThreshold = 0.05;
 s.experiment.groupTypeNr = groupTypeNr;
 s.experiment.sessionNr = 1;
-s.experiment.partnersNr = partnersNr;
+s.experiment.partnersNr = pairNr;
 
 % s.experiment.doVirtualPartner = 0;
 s.experiment.activeBROSID.id0 = 1;
