@@ -28,7 +28,7 @@ m_vp = diag([0.3 0.3]);
 tu = 0.04;
 td = 0.1;
 tp = 0.0;
-D = 0*[0 15;-15 0];
+D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
 gamma = 0.8;
 
 % number of delay steps

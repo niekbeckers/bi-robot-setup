@@ -22,10 +22,6 @@ for k = N-1:-1:1
     end
 end
 
-% % extend gain if necessary
-% Ltmp(:,:,1:lastk)= repmat(Ltmp(:,:,lastk),[1,1,lastk]);
-
 % infinite horizon gain
 L = Ltmp(:,:,lastk);
-
 end
