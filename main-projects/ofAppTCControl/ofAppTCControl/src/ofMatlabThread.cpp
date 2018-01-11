@@ -169,9 +169,10 @@ void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
         
         // secure copy mat files to HeRoC
         try {
+			ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending data files (.mat) to HeRoC";
+
             for (int i = 0; i < vMatFilenames.size(); i++) {
                 string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + vMatFilenames[i] + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabDataFilePath_HeRoC);
-                //ofLogVerbose() << cmd;
 				system(cmd.c_str());
                 ofLogVerbose() << "(" << typeid(this).name() << ") " << "system command output: " << i;
             }
@@ -179,6 +180,7 @@ void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
             // copy XML file to HeRoC (this will trigger the model fit)
 			string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + xmlfilename + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
             int i = system(cmd.c_str());
+			ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending XML settings file to HeRoC to trigger model fit" << endl << i;
         }
         catch(std::exception e) {
             ofLogError()  << "(" << typeid(this).name() << ") " << e.what();

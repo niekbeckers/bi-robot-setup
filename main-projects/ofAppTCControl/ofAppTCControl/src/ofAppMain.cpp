@@ -487,10 +487,9 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		// send request to HEROC computer
 		_herocMATLABThread->startThread();
 
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent";
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending request to start matlabVirtualPartner on HeRoC";
 
 		_btnStartStopVPMATLAB.setName("MATLAB VP running, click to terminate");
-        //_btnStartStopVPMATLAB.setBackgroundColor(ofColor::darkGreen);
 	}
 	else {
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
@@ -506,11 +505,13 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		ofLogVerbose() << ofToDataPath(xmlfilename);
 
 		// copy to HeRoC pc
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending terminate request to HeRoC";
 		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
-		system(cmd.c_str());
-
+		int i = system(cmd.c_str());
+		
 		// clean up
 		remove(xmlfilename.c_str());
+
 		_btnStartStopVPMATLAB.setName("Press to start MATLAB VP");
 	}
 		
