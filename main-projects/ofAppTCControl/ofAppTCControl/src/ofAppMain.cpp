@@ -6,7 +6,7 @@ using namespace std;
 void ofAppMain::setup(){
 	ofSetLogLevel(OF_LOG_NOTICE);
 
-	// matlab thread
+	// matlab on heroc thread
 	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
 	_herocMATLABThread = new SystemCmdThreaded(cmd);
 
@@ -257,7 +257,6 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
 	_guiExperiment.add(_btnExpLoad.setup("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
-	//_guiExperiment.add(_btnDrawTargetTail.setup("Draw target tail", false));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
 
 	_grpExpControl.setup("Experiment control");
@@ -285,7 +284,12 @@ void ofAppMain::setupGUI()
 	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
 	_grpConnectionControl.minimize(); // default is minimized
 	_guiAdmittance.add(&_grpConnectionControl);
-	_guiAdmittance.add(_btnStartStopVPMATLAB.setup("Start VP MATLAB HEROC", false));
+
+	_grpVirtualPartner.setup("Virtual partner control");
+	_grpVirtualPartner.setName("Virtual partner control");
+	_grpVirtualPartner.add(_btnDrawVirtualPartner.setup("Draw virtual partner", false));
+	_grpVirtualPartner.add(_btnStartStopVPMATLAB.setup("Press to start MATLAB VP on HEROC", false));
+	_guiAdmittance.add(&_grpVirtualPartner);
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
@@ -297,7 +301,7 @@ void ofAppMain::setupGUI()
 	if (twinCatRunning) { updateADSDataGUI(); }
 
 	// add toggle listeners
-	//_btnDrawTargetTail.addListener(this, &ofAppMain::drawTargetTailPressed);
+	_btnDrawVirtualPartner.addListener(this, &ofAppMain::drawVirtualPartnerPressed);
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
@@ -512,16 +516,16 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		// clean up
 		remove(xmlfilename.c_str());
 
-		_btnStartStopVPMATLAB.setName("Press to start MATLAB VP");
+		_btnStartStopVPMATLAB.setName("Press to start MATLAB VP on HEROC");
 	}
 		
 }
 
 //--------------------------------------------------------------
-void ofAppMain::drawTargetTailPressed(bool & value)
+void ofAppMain::drawVirtualPartnerPressed(bool & value)
 {
-		display1->target.drawTail = value;
-		display2->target.drawTail = value;
+		display1->drawVirtualPartner = value;
+		display2->drawVirtualPartner = value;
 }
 
 //--------------------------------------------------------------
@@ -608,6 +612,7 @@ void ofAppMain::exit() {
 	_btnDebugMode.removeListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.removeListener(this, &ofAppMain::setConnectionEnabled);
 	_btnStartStopVPMATLAB.removeListener(this, &ofAppMain::startStopVPMATLAB);
+	_btnDrawVirtualPartner.removeListener(this, &ofAppMain::drawVirtualPartnerPressed);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();

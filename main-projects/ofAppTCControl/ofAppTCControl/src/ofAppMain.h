@@ -90,20 +90,21 @@ class ofAppMain : public ofBaseApp{
 		// GUI experiment
 		ofxPanel _guiExperiment;
 		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop, _btnConfirmBlockTrialNr;
-		ofxToggle _btnExpPauseResume, _btnDebugMode, _btnDrawTargetTail, _btnStartStopVPMATLAB;
+		ofxToggle _btnExpPauseResume, _btnDebugMode, _btnDrawVirtualPartner, _btnStartStopVPMATLAB;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
 		
 
 		ofxPanel _guiAdmittance;
 		ofxToggle _btnSetConnected;
-		ofxGuiGroup _grpConnectionControl;
+		ofxGuiGroup _grpConnectionControl, _grpVirtualPartner;
 		ofxButton _btnConnSetStiffness, _btnConnSetDamping;
 		ofxLabel _lblConnected, _lblConnStiffness, _lblConnDamping;
 		
 		vector<string> _errorDescriptions;
 
 		double _VP1Data[4] = { 0.0,0.0,0.0,0.0 };
+		double _VP2Data[4] = { 0.0,0.0,0.0,0.0 };
 
 		SystemCmdThreaded *_herocMATLABThread;
 
@@ -118,7 +119,7 @@ class ofAppMain : public ofBaseApp{
 		void pauseExperimentTogglePressed(bool & value);
 		void experimentDebugModeTogglePressed(bool & value);
 		void startStopVPMATLAB(bool & value);
-		void drawTargetTailPressed(bool & value);
+		void drawVirtualPartnerPressed(bool & value);
 		void calibrateForceSensors();
 		void setBlockTrialNumberByUser();
 
