@@ -257,6 +257,8 @@ void ofAppExperiment::onProtocolLoaded(experimentSettings settings, vector<block
 	_settings = settings;
 	_blocks = blocks;
 
+	ofLogVerbose() << ofToString(_settings.activeBROSIDs) << " " << _settings.numTrials << " " << settings.protocolname;
+
 	// reset current block number
 	_currentBlockNumber = 0;
 	_currentTrialNumber = 0;
