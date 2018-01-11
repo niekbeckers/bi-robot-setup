@@ -21,12 +21,10 @@ void ofProtocolReader::threadedFunction() {
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)", false, ofFilePath().getCurrentExeDir());
 	//ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
 	
-	_settings.protocolname = openFileResult.fileName;
-	
 	//Check if the user opened a file
 	if (openFileResult.bSuccess) {
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "ofAppExperiment::loadExperimentXML ", "User opened file " + openFileResult.fileName;
-
+		_settings.protocolname = openFileResult.fileName;
 		//We have a file, check it and process it
 		processOpenFileSelection(openFileResult);
 	}

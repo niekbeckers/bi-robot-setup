@@ -274,6 +274,8 @@ void ofAppExperiment::onProtocolLoaded(bool success, experimentSettings settings
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 	mainApp->lblExpLoaded = _settings.protocolname;
 
+	ofLogVerbose() << _settings.protocolname;
+
 	// virtual partner
 	if (_settings.vpDoVirtualPartner) {
 		partner.initialize(_settings.activeBROSIDs);

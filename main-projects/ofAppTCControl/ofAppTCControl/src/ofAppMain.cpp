@@ -487,10 +487,9 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		// send request to HEROC computer
 		_herocMATLABThread->startThread();
 
-		//int i = system(cmd.c_str()); // BLOCKINGGGGGG
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent:";
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Request to start MATLAB on HeRoC sent";
+
 		_btnStartStopVPMATLAB.setName("MATLAB VP running, click to terminate");
-		//_btnStartStopVPMATLAB = "MATLAB VP running (press again to terminate)";
         //_btnStartStopVPMATLAB.setBackgroundColor(ofColor::darkGreen);
 	}
 	else {
