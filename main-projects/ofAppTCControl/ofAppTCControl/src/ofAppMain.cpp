@@ -4,7 +4,7 @@ using namespace std;
 
 //--------------------------------------------------------------
 void ofAppMain::setup(){
-	ofSetLogLevel(OF_LOG_VERBOSE);
+	ofSetLogLevel(OF_LOG_NOTICE);
 
 	// set up window
 	ofBackground(ofColor::blueSteel);
@@ -16,7 +16,7 @@ void ofAppMain::setup(){
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Loaded error descruotions:\n" << ofToString(_errorDescriptions);
+		ofLogVerbose() << "(" << typeid(this).name() << ") " << "Loaded error descriptions:\n" << ofToString(_errorDescriptions);
 	}
 	catch (...) {
 		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt";
@@ -623,7 +623,7 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 //--------------------------------------------------------------
 void ofAppMain::setBlockTrialNumberByUser() {
 	// block and trial number set by user, relay this to ofAppExperiment
-	ofLogVerbose() << "(" << typeid(this).name() << ") " << "User set block and trial number";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "User set block and trial number";
 	experimentApp->setCurrentTrialNumber(lblTrialNumber);
 	experimentApp->setCurrentBlockNumber(lblBlockNumber);
 }

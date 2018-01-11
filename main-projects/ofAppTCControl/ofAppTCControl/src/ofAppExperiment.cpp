@@ -777,12 +777,12 @@ void ofAppExperiment::esmBlockBreakDone()
 void ofAppExperiment::setCurrentTrialNumber(int nr) {
 	// set current trial number (externally called by user, for instance after restart of experiment).
 	_currentTrialNumber = nr - 1;
-	ofLogVerbose() << "(" << typeid(this).name() << ") " << "_currentTrialNumber set to " << _currentTrialNumber << " by user.";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "_currentTrialNumber set to " << _currentTrialNumber << " by user.";
 }
 
 //--------------------------------------------------------------
 void ofAppExperiment::setCurrentBlockNumber(int nr) {
 	// set current block number (externally called by user, for instance after restart of experiment).
 	_currentBlockNumber = nr - 1;
-	ofLogVerbose() << "(" << typeid(this).name() << ") " << "_currentBlockNumber set to " << _currentBlockNumber << " by user.";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "_currentBlockNumber set to " << _currentBlockNumber << " by user.";
 }

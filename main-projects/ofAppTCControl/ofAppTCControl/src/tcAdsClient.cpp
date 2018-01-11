@@ -82,7 +82,7 @@ ULONG tcAdsClient::registerTCAdsDeviceNotification(ULONG lhVar, ULONG lhUser, PA
 				&hNotification);
 
 	if (nErr) cerr << "[error] (class tcAdsClient) Error AdsSyncAddDeviceNotificationReq: " << hex <<nErr << '\n';
-	cout << "[verbose] (class tcAdsClient) Registered notification: " << hNotification << "\n";
+	//cout << "[verbose] (class tcAdsClient) Registered notification: " << hNotification << "\n";
 
 	_hNotifications.push_back(hNotification); // add hUser to list
 	return hNotification;

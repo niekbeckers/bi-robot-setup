@@ -100,7 +100,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	}
 
 	if (foundFile) {
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "callMatlabOptimization " << "Found file (fitResults_trial" << input.trialID << ") - parsing results";
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "callMatlabOptimization " << "Found file (fitResults_trial" << input.trialID << ") - parsing results";
 		// load xml file
 		ofXml xml;
 		xml.load(outputFilename);
@@ -112,7 +112,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 		ofFile::removeFile(outputFilename);
 	}
 	else {
-		ofLogVerbose() << "(" << typeid(this).name() << ") " << "callMatlabOptimization " << "Could not find file (fitResults_trial" << input.trialID << ")";
+		ofLogError() << "(" << typeid(this).name() << ") " << "callMatlabOptimization " << "Could not find file (fitResults_trial" << input.trialID << ")";
 		matlabOutput tmp;
 		output = tmp;
 	}
