@@ -21,27 +21,31 @@ void ofProtocolReader::threadedFunction() {
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select an experiment XML file (.xml)", false, ofFilePath().getCurrentExeDir());
 	//ofLogVerbose() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << ofFilePath().getCurrentExePath();
 	
+	string fn;
+
 	//Check if the user opened a file
 	if (openFileResult.bSuccess) {
 		ofLogVerbose() << "(" << typeid(this).name() << ") " << "ofAppExperiment::loadExperimentXML ", "User opened file " + openFileResult.fileName;
 		_settings.protocolname = openFileResult.fileName;
+		fn = openFileResult.fileName;
 		//We have a file, check it and process it
 		processOpenFileSelection(openFileResult);
 	}
 	else {
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "loadExperimentXML " << "User hit cancel";
+		fn = "No protocol loaded";
 	}
 
 	// callback function
 	if (_cbFunction) {
-		_cbFunction(openFileResult.bSuccess, _settings, _blocks);
+		_cbFunction(openFileResult.bSuccess, fn, _settings, _blocks);
 	}
 	ofLogVerbose() << "(" << typeid(this).name() << ") threadedFunction done";
 }
 
 
 //--------------------------------------------------------------
-void ofProtocolReader::registerCBFunction(std::function<void(bool, experimentSettings, vector<blockData>)> callback)
+void ofProtocolReader::registerCBFunction(std::function<void(bool, std::string, experimentSettings, vector<blockData>)> callback)
 {
 	_cbFunction = callback;
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "registerCBFunction " << "callback function registered";

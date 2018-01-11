@@ -10,7 +10,7 @@ void ofAppExperiment::setup()
 
 	// register protocol reader callback function
 	using namespace std::placeholders;
-	_protocol.registerCBFunction(std::bind(&ofAppExperiment::onProtocolLoaded, this, _1, _2, _3));
+	_protocol.registerCBFunction(std::bind(&ofAppExperiment::onProtocolLoaded, this, _1, _2, _3, _4));
 }
 
 //--------------------------------------------------------------
@@ -251,8 +251,10 @@ void ofAppExperiment::loadExperimentXML()
 }
 
 //--------------------------------------------------------------
-void ofAppExperiment::onProtocolLoaded(bool success, experimentSettings settings, vector<blockData> blocks) {
+void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, experimentSettings settings, vector<blockData> blocks) {
 	
+	mainApp->lblExpLoaded = filename;
+
 	if (!success)
 		return;
 
@@ -272,7 +274,7 @@ void ofAppExperiment::onProtocolLoaded(bool success, experimentSettings settings
 	mainApp->lblBlockNumber.setMax(_blocks.size());
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
-	mainApp->lblExpLoaded = _settings.protocolname;
+	
 
 	ofLogVerbose() << _settings.protocolname;
 
