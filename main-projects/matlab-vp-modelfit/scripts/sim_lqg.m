@@ -63,10 +63,10 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 %% generate noise (not used during fitting, can't be mex-compiled)
 % rfactor = round(dt/0.001);
-% whitenoise = randn([N*rfactor,1])*22; 
+% whitenoise = randn([N*rfactor,1])*20; 
 % 
 % fs = 1000;
-% fc1 = 2; %Hz
+% fc1 = 1.7; %Hz
 % [b1,a1] = butter(3,fc1/(fs/2));
 % noisef1 = filter(b1,a1,whitenoise);
 % 

@@ -17,8 +17,10 @@ load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointing up)
 
 % butterworth filter (filtering velocity signal) 
-fc = 60;
-[Bbutter,Abutter] = butter(2, fc/fn);
+fc1 = 1.7;
+fc2 = 0.2;
+[Bbutter1,Abutter1] = butter(3, fc1/fn);
+[Bbutter2,Abutter2] = butter(1, fc2/fn, 'high');
 
 
 %% virtual partner dynamics
