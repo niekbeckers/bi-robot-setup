@@ -118,7 +118,7 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 			}
 			_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx], &b, sizeof(b));
 
-			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Error occured in virtual partner fit for BROS" << id;
+			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Error occured in virtual partner fit for BROS" << id << " !!!FIT PARAMETERS NOT SET!!!";
 		}
 	}
 
