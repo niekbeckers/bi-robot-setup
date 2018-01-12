@@ -13,14 +13,19 @@ Lb = 0.07;                      % base width [m]
 % load target signal data
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
+
+% butterworth filter (filtering velocity signal) 
+fc = 60;
+[Bbutter,Abutter] = butter(2, fc/fn);
+
 % force field
 FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointing up)
 
 % butterworth filter (filtering velocity signal) 
 fc1 = 1.7;
 fc2 = 0.2;
-[Bbutter1,Abutter1] = butter(3, fc1/fn);
-[Bbutter2,Abutter2] = butter(1, fc2/fn, 'high');
+[NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
+[NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
 
 %% virtual partner dynamics
