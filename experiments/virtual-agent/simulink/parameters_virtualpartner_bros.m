@@ -27,11 +27,12 @@ fc2 = 0.2;
 [NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
 [NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
+load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
 
 %% virtual partner dynamics
 m_vp = diag([0.3 0.3]); 
 tu = 0.04;
-td = 0.1;
+td = 0.1; % 0.1
 tp = 0.0;
 D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
 gamma = 0.8;
@@ -39,6 +40,8 @@ gamma = 0.8;
 % number of delay steps
 VP.Ndelay = round(td/sampleTime);
 VP.x0 = zeros(10,1);
+VP.x0(1:2) = simin_target(1,[2 4]);
+VP.x0(3:4) = simin_target(1,[3 5]);
 
 % dynamics matrices
 [Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);

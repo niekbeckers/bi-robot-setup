@@ -1240,7 +1240,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{640F7C35-9925-F4E2-BDC0-FBF91363DB6E}">P_model_virtualpartner_bros_T</Name>
+			<Name GUID="{F96C0E8C-FB64-1667-10E2-5D3E92F3EA8E}">P_model_virtualpartner_bros_T</Name>
 			<BitSize>64320</BitSize>
 			<SubItem>
 				<Name>VP</Name>
@@ -1261,64 +1261,64 @@
 				<BitOffs>28416</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Abutter1</Name>
+				<Name>Ax</Name>
 				<Type GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</Type>
 				<BitSize>256</BitSize>
 				<BitOffs>31808</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Abutter2</Name>
-				<Type GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</Type>
-				<BitSize>128</BitSize>
-				<BitOffs>32064</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Ax</Name>
-				<Type GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</Type>
-				<BitSize>256</BitSize>
-				<BitOffs>32192</BitOffs>
-			</SubItem>
-			<SubItem>
 				<Name>Ay</Name>
 				<Type GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</Type>
 				<BitSize>256</BitSize>
-				<BitOffs>32448</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Bbutter1</Name>
-				<Type GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</Type>
-				<BitSize>256</BitSize>
-				<BitOffs>32704</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Bbutter2</Name>
-				<Type GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</Type>
-				<BitSize>128</BitSize>
-				<BitOffs>32960</BitOffs>
+				<BitOffs>32064</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>FFMatrix</Name>
 				<Type GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</Type>
 				<BitSize>256</BitSize>
-				<BitOffs>33088</BitOffs>
+				<BitOffs>32320</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Lb</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
-				<BitOffs>33344</BitOffs>
+				<BitOffs>32576</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Lf</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
-				<BitOffs>33408</BitOffs>
+				<BitOffs>32640</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Lu</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
-				<BitOffs>33472</BitOffs>
+				<BitOffs>32704</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NoiseFiltA1</Name>
+				<Type GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</Type>
+				<BitSize>256</BitSize>
+				<BitOffs>32768</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NoiseFiltA2</Name>
+				<Type GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</Type>
+				<BitSize>128</BitSize>
+				<BitOffs>33024</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NoiseFiltB1</Name>
+				<Type GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</Type>
+				<BitSize>256</BitSize>
+				<BitOffs>33152</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NoiseFiltB2</Name>
+				<Type GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</Type>
+				<BitSize>128</BitSize>
+				<BitOffs>33408</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>nx</Name>
@@ -3709,7 +3709,7 @@
 				<BitOffs>58312</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_h</Name>
+				<Name>Gain_Gain_g</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>58320</BitOffs>
@@ -3787,6 +3787,9 @@
 				<BitOffs>64064</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{4B12A028-EB4E-3C4E-2C5E-C88185C19C2D}"/>
+				<Hide GUID="{FF2E1061-21E5-18AB-87F8-7216C9DE2D64}"/>
+				<Hide GUID="{640F7C35-9925-F4E2-BDC0-FBF91363DB6E}"/>
 				<Hide GUID="{FE3F7741-7E5E-D9FC-E656-375B86DD04D4}"/>
 				<Hide GUID="{C8CD5A4F-FA98-AC8A-188D-937B31313C61}"/>
 				<Hide GUID="{E35928A3-2A4C-7640-35B0-5F312587638F}"/>
@@ -5118,9 +5121,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{E4CE0100-3F26-4F82-AF02-2D10F39E62E6}">
+					<TmcDesc GUID="{822F1709-02D3-4BED-8E36-F430DA72E254}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{E4CE0100-3F26-4F82-AF02-2D10F39E62E6}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{822F1709-02D3-4BED-8E36-F430DA72E254}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5242,7 +5245,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>64320</BitSize>
-								<BaseType GUID="{640F7C35-9925-F4E2-BDC0-FBF91363DB6E}">P_model_virtualpartner_bros_T</BaseType>
+								<BaseType GUID="{F96C0E8C-FB64-1667-10E2-5D3E92F3EA8E}">P_model_virtualpartner_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -9586,7 +9589,7 @@
 									<BitOffs>59027488</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_l</Name>
+									<Name>Gain_h</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x82709605</PTCID>
@@ -10320,74 +10323,74 @@
 									<BitOffs>28416</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Abutter1</Name>
+									<Name>Ax</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</BaseType>
 									<PTCID>#x83000f88</PTCID>
 									<BitOffs>31808</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Abutter2</Name>
-									<BitSize>128</BitSize>
-									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x83000fa8</PTCID>
-									<BitOffs>32064</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Ax</Name>
-									<BitSize>256</BitSize>
-									<BaseType GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</BaseType>
-									<PTCID>#x83000fb8</PTCID>
-									<BitOffs>32192</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
 									<Name>Ay</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</BaseType>
-									<PTCID>#x83000fd8</PTCID>
-									<BitOffs>32448</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Bbutter1</Name>
-									<BitSize>256</BitSize>
-									<BaseType GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</BaseType>
-									<PTCID>#x83000ff8</PTCID>
-									<BitOffs>32704</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
-									<Name>Bbutter2</Name>
-									<BitSize>128</BitSize>
-									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
-									<PTCID>#x83001018</PTCID>
-									<BitOffs>32960</BitOffs>
+									<PTCID>#x83000fa8</PTCID>
+									<BitOffs>32064</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>FFMatrix</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</BaseType>
-									<PTCID>#x83001028</PTCID>
-									<BitOffs>33088</BitOffs>
+									<PTCID>#x83000fc8</PTCID>
+									<BitOffs>32320</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Lb</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x83001048</PTCID>
-									<BitOffs>33344</BitOffs>
+									<PTCID>#x83000fe8</PTCID>
+									<BitOffs>32576</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Lf</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x83001050</PTCID>
-									<BitOffs>33408</BitOffs>
+									<PTCID>#x83000ff0</PTCID>
+									<BitOffs>32640</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Lu</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x83001058</PTCID>
-									<BitOffs>33472</BitOffs>
+									<PTCID>#x83000ff8</PTCID>
+									<BitOffs>32704</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>NoiseFiltA1</Name>
+									<BitSize>256</BitSize>
+									<BaseType GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</BaseType>
+									<PTCID>#x83001000</PTCID>
+									<BitOffs>32768</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>NoiseFiltA2</Name>
+									<BitSize>128</BitSize>
+									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
+									<PTCID>#x83001020</PTCID>
+									<BitOffs>33024</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>NoiseFiltB1</Name>
+									<BitSize>256</BitSize>
+									<BaseType GUID="{ACA8ADF6-A1F2-4B4A-9772-9C4B4D10D461}">matrix_4_real_T</BaseType>
+									<PTCID>#x83001030</PTCID>
+									<BitOffs>33152</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>NoiseFiltB2</Name>
+									<BitSize>128</BitSize>
+									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
+									<PTCID>#x83001050</PTCID>
+									<BitOffs>33408</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>nx</Name>
@@ -13176,7 +13179,7 @@
 									<BitOffs>58312</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_h</Name>
+									<Name>Gain_Gain_g</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x83001c7a</PTCID>
@@ -17172,30 +17175,6 @@
 								<Value>2</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Abutter1[0]</Name>
-								<Value>1</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Abutter1[1]</Name>
-								<Value>-2.97863727150061</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Abutter1[2]</Name>
-								<Value>2.95750211680179</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Abutter1[3]</Name>
-								<Value>-0.978863639544006</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Abutter2[0]</Name>
-								<Value>1</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Abutter2[1]</Name>
-								<Value>-0.998744151845968</Value>
-							</Value>
-							<Value>
 								<Name>ModelParameters.Ax[0]</Name>
 								<Value>0.0286583637243904</Value>
 							</Value>
@@ -17228,30 +17207,6 @@
 								<Value>0.0163904070645813</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Bbutter1[0]</Name>
-								<Value>1.50719646929698e-007</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Bbutter1[1]</Name>
-								<Value>4.52158940789094e-007</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Bbutter1[2]</Name>
-								<Value>4.52158940789094e-007</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Bbutter1[3]</Name>
-								<Value>1.50719646929698e-007</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Bbutter2[0]</Name>
-								<Value>0.999372075922984</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Bbutter2[1]</Name>
-								<Value>-0.999372075922984</Value>
-							</Value>
-							<Value>
 								<Name>ModelParameters.FFMatrix[0]</Name>
 								<Value>-0</Value>
 							</Value>
@@ -17278,6 +17233,54 @@
 							<Value>
 								<Name>ModelParameters.Lu</Name>
 								<Value>0.153</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltA1[0]</Name>
+								<Value>1</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltA1[1]</Name>
+								<Value>-2.97863727150061</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltA1[2]</Name>
+								<Value>2.95750211680179</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltA1[3]</Name>
+								<Value>-0.978863639544006</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltA2[0]</Name>
+								<Value>1</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltA2[1]</Name>
+								<Value>-0.998744151845968</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltB1[0]</Name>
+								<Value>1.50719646929698e-007</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltB1[1]</Name>
+								<Value>4.52158940789094e-007</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltB1[2]</Name>
+								<Value>4.52158940789094e-007</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltB1[3]</Name>
+								<Value>1.50719646929698e-007</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltB2[0]</Name>
+								<Value>0.999372075922984</Value>
+							</Value>
+							<Value>
+								<Name>ModelParameters.NoiseFiltB2[1]</Name>
+								<Value>-0.999372075922984</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.nx[0]</Name>
@@ -18341,7 +18344,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber_Seed</Name>
-								<Value>488609</Value>
+								<Value>890903</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Mean</Name>
@@ -18353,7 +18356,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Seed</Name>
-								<Value>474567</Value>
+								<Value>1094431</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Mean</Name>
@@ -18365,7 +18368,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Seed</Name>
-								<Value>2889266</Value>
+								<Value>447882</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Mean</Name>
@@ -18377,7 +18380,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Seed</Name>
-								<Value>2084543</Value>
+								<Value>3362869</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Merge1_InitialOutput[0]</Name>
@@ -19292,7 +19295,7 @@
 								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_h</Name>
+								<Name>ModelParameters.Gain_Gain_g</Name>
 								<Value>128</Value>
 							</Value>
 							<Value>
