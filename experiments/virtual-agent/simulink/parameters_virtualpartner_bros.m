@@ -13,7 +13,6 @@ Lb = 0.07;                      % base width [m]
 % load target signal data
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
-
 % butterworth filter (filtering velocity signal) 
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
@@ -27,53 +26,49 @@ fc2 = 0.2;
 [NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
 [NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
-load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
+%% virtual partner settings
+VP.dt = dt_vp; % the virtual partner runs at 100Hz
+VP.tp = 0.2;    % prediction horizon
+VP.td = 0.2;    % neural time delay 
 
-%% virtual partner dynamics
-m_vp = diag([0.3 0.3]); 
-tu = 0.04;
-td = 0.1; % 0.1
-tp = 0.0;
-D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
-gamma = 0.8;
-
-% number of delay steps
-VP.Ndelay = round(td/sampleTime);
 VP.x0 = zeros(10,1);
-VP.x0(1:2) = simin_target(1,[2 4]);
-VP.x0(3:4) = simin_target(1,[3 5]);
 
 % dynamics matrices
-[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
-Aim_vp = dynamics_vp(sampleTime,m_vp,tu,td,tp,gamma*D);
+tu = 0.04;
+D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
+gamma = 0.8;
+m_vp = diag([0.3 0.3]);
+[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,0,D);
+Aim_vp = dynamics_vp(sampleTime,m_vp,tu,td,0,gamma*D);
+
 VP.m = m_vp;
 VP.Ae = Ae_vp;
 VP.Aim = Aim_vp;
 VP.B = B_vp;
 VP.H = H_vp;
 
-sigma_dyn = 0.5136;    
-sigma_sens = 0.0001;     
-
 % process noise
-sigmaP_Ow = 0;
-sigmaV_Ow = 0;
-sigmaF_Ow = sigma_dyn*sqrt(sampleTime);
-sigmaPt_Ow = 0;
-sigmaVt_Ow = 0;
-
-Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
-    sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2]);
-
+sigmaU_Ov = 0.1*0.005/sqrt(0.01)*sqrt(dt);
+sigmaT_Ov = 0.1*0.005/sqrt(0.01)*sqrt(dt);
+Ow = zeros(size(Ae));
+Ow(5,5) = sigmaU_Ov^2;
+Ow(6,6) = sigmaU_Ov^2;
+Ow(7,7) = sigmaT_Ov^2;
+Ow(8,8) = sigmaT_Ov^2;
+Ow(9,9) = sigmaT_Ov^2;
+Ow(10,10) = sigmaT_Ov^2;
 VP.Ow = Ow;
 
-% sensory noise
-sigmaP_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
-sigmaV_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
-
-Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
-
+% sensory/observation noise
+sigmaP_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
+sigmaV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
+sigmaT_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
+sigmaTV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
+Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaT_Ov^2 sigmaT_Ov^2 sigmaTV_Ov^2 sigmaTV_Ov^2]);
 VP.Ov = Ov;
+
+% Initialize S0 (initial state uncertainty)
+VP.S0 = initializeS0(VP.Ae,VP.Aim,VP.H,Ow,Ov,2000);
 
 %% RobotStruct BROS1
 % clear BROS1
@@ -82,7 +77,6 @@ BROS1.HomeLocationOpSpace = [0;0.25];                     % home location (homin
 BROS1.HomeLocationSize = 0.0025;
 BROS1.NominalPositionOpSpace = [0;0.25];
 
-% FM1.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
 BROS1.DynModParams = [9.446018e-04  5.536255e-04  1.102026e-01  1.175426e-01 -6.234047e-03  1.037213e-01  3.853734e-03]';
 % actuator 1 data
 BROS1.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
