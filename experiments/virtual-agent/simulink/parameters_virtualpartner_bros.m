@@ -27,7 +27,8 @@ fc2 = 0.2;
 [NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
 %% virtual partner settings
-VP.dt = dt_vp; % the virtual partner runs at 100Hz
+dt_vp = 0.01;
+VP.dt = dt_vp;   % the virtual partner runs at 100Hz
 VP.tp = 0.2;    % prediction horizon
 VP.td = 0.2;    % neural time delay 
 
@@ -38,8 +39,9 @@ tu = 0.04;
 D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
 gamma = 0.8;
 m_vp = diag([0.3 0.3]);
-[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,0,D);
-Aim_vp = dynamics_vp(sampleTime,m_vp,tu,td,0,gamma*D);
+
+[Ae_vp,B_vp,H_vp] = dynamics_vp(dt_vp,m_vp,tu,dt_vp,0,D);
+Aim_vp            = dynamics_vp(dt_vp,m_vp,tu,dt_vp,0,gamma*D);
 
 VP.m = m_vp;
 VP.Ae = Ae_vp;
@@ -48,22 +50,23 @@ VP.B = B_vp;
 VP.H = H_vp;
 
 % process noise
-sigmaU_Ov = 0.1*0.005/sqrt(0.01)*sqrt(dt);
-sigmaT_Ov = 0.1*0.005/sqrt(0.01)*sqrt(dt);
-Ow = zeros(size(Ae));
-Ow(5,5) = sigmaU_Ov^2;
-Ow(6,6) = sigmaU_Ov^2;
-Ow(7,7) = sigmaT_Ov^2;
-Ow(8,8) = sigmaT_Ov^2;
-Ow(9,9) = sigmaT_Ov^2;
-Ow(10,10) = sigmaT_Ov^2;
+sigmaU_Ow = 0.1*0.005/sqrt(0.01)*sqrt(dt_vp);
+sigmaT_Ow = 0.1*0.005/sqrt(0.01)*sqrt(dt_vp);
+sigmaTV_Ow = 0.1*0.005/sqrt(0.01)*sqrt(dt_vp);
+Ow = zeros(size(VP.Ae));
+Ow(5,5) = sigmaU_Ow^2;
+Ow(6,6) = sigmaU_Ow^2;
+Ow(7,7) = sigmaT_Ow^2;
+Ow(8,8) = sigmaT_Ow^2;
+Ow(9,9) = sigmaTV_Ow^2;
+Ow(10,10) = sigmaTV_Ow^2;
 VP.Ow = Ow;
 
 % sensory/observation noise
-sigmaP_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
-sigmaV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
-sigmaT_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
-sigmaTV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt);
+sigmaP_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
+sigmaV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
+sigmaT_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
+sigmaTV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaT_Ov^2 sigmaT_Ov^2 sigmaTV_Ov^2 sigmaTV_Ov^2]);
 VP.Ov = Ov;
 

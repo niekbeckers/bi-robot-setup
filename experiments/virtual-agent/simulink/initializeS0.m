@@ -1,6 +1,14 @@
 function S0 = initializeS0(Ae,Aim,H,Ow,Ov,N)
+%% function S0 = initializeS0(Ae,Aim,H,Ow,Ov,N)
+% Make an initial guess of the covariance matrix
+%
+% Niek Beckers
+
+
 
 % preallocate matrices and vectors
+nX = size(Ae,1);
+nY = size(H,1);
 xhat = zeros(nX,N);
 xhatp = zeros(nX,N);
 ye = zeros(nY,N);
