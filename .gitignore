@@ -18,3 +18,4 @@ slprj/
 *.m~
 .sync
 *.slx.bak
+*_mex*
