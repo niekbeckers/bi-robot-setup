@@ -32,7 +32,7 @@ load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
 %% virtual partner dynamics
 m_vp = diag([0.3 0.3]); 
 tu = 0.04;
-td = 0.1; % 0.1
+td = 0.100; 
 tp = 0.0;
 D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
 gamma = 0.8;
