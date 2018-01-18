@@ -36,9 +36,9 @@ VP.x0 = zeros(10,1);
 
 % dynamics matrices
 tu = 0.04;
-D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
-gamma = 0.8;
-m_vp = diag([0.3 0.3]);
+D = 0*[0 15;-15 0]; % should be turned on if FF is active! >how though. this script has no inputs.
+gamma = 0.8;        % should be 0.8, but unstable with m = 0.3kg
+m_vp = diag([1 1]); % see Todorov, 2007
 
 [Ae_vp,B_vp,H_vp] = dynamics_vp(dt_vp,m_vp,tu,dt_vp,0,D);
 Aim_vp            = dynamics_vp(dt_vp,m_vp,tu,dt_vp,0,gamma*D);
@@ -50,9 +50,9 @@ VP.B = B_vp;
 VP.H = H_vp;
 
 % process noise
-sigmaU_Ow = 0.1*0.005/sqrt(0.01)*sqrt(dt_vp);
-sigmaT_Ow = 0.1*0.005/sqrt(0.01)*sqrt(dt_vp);
-sigmaTV_Ow = 0.1*0.005/sqrt(0.01)*sqrt(dt_vp);
+sigmaU_Ow = 0.002/sqrt(0.01)*sqrt(dt_vp);
+sigmaT_Ow = 0.002/sqrt(0.01)*sqrt(dt_vp);
+sigmaTV_Ow = 0.0005/sqrt(0.01)*sqrt(dt_vp);
 Ow = zeros(size(VP.Ae));
 Ow(5,5) = sigmaU_Ow^2;
 Ow(6,6) = sigmaU_Ow^2;
@@ -63,15 +63,15 @@ Ow(10,10) = sigmaTV_Ow^2;
 VP.Ow = Ow;
 
 % sensory/observation noise
-sigmaP_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
-sigmaV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
-sigmaT_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
-sigmaTV_Ov = 0.01*0.005*sqrt(0.01)/sqrt(dt_vp);
+sigmaP_Ov = 0.05*0.005/sqrt(0.01)*sqrt(dt_vp);
+sigmaV_Ov = 0.05*0.005/sqrt(0.01)*sqrt(dt_vp);
+sigmaT_Ov = 0.05*0.005/sqrt(0.01)*sqrt(dt_vp);
+sigmaTV_Ov = 0.01*0.005/sqrt(0.01)*sqrt(dt_vp);
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaT_Ov^2 sigmaT_Ov^2 sigmaTV_Ov^2 sigmaTV_Ov^2]);
 VP.Ov = Ov;
 
 % Initialize S0 (initial state uncertainty)
-VP.S0 = initializeS0(VP.Ae,VP.Aim,VP.H,Ow,Ov,2000);
+VP.S0 = initializeS0(VP.Ae,VP.Aim,VP.H,Ow,Ov,10000);
 
 %% RobotStruct BROS1
 % clear BROS1
