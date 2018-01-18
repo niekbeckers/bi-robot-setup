@@ -1,4 +1,4 @@
-function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,dt,p0,condition)
+function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,dt,p0,condition,lb,ub)
 
 % Fits virtual agent to experimental data. And returns the optimal fit 
 % parameters for the position, velocity and force costs of the optimal
@@ -14,8 +14,8 @@ function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,dt,p0,condition)
 % of the LQG (used here to assess performance and in the fit function). 
 
 % select data
-xmeas = data(:,1:4).';        % pos_x,pos_y,vel_x,vel_y
-target = data(:,5:8).';       % pos_x,pos_y,vel_x,vel_y
+xmeas = data(:,1:4)';        % pos_x,pos_y,vel_x,vel_y
+target = data(:,5:8)';       % pos_x,pos_y,vel_x,vel_y
 
 % based on condition, change model (force field yes/no)
 if condition
@@ -34,10 +34,6 @@ opts = optimoptions('fmincon',...
     'display','iter',...
     'MaxIterations',maxIter,...
     'useparallel',false); % 'Algorithm','interior-point'
-
-% bounds
-lb = [0;0;0];
-ub = [1e3;1e1;1e-2];
 
 % perform fit
 [pfit,fvalfit,exitflag,output] = fmincon(fun,p0,[],[],[],[],lb,ub,[],opts);

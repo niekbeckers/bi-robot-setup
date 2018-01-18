@@ -126,8 +126,8 @@ while (keepRunning)
         p0 = NaN(nrFitParams,nrP0);
         
         % upper and lower bounds
-        ub = [1e3;1e1;1e-2];
-        lb = [0;0;0];
+        ub = [1e3;1e1];
+        lb = [0;0];
         
         % create p0's
         for ii = 1:numel(idxIDs)         
@@ -148,7 +148,7 @@ while (keepRunning)
         
         parfor it = 1:nrTasks
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition,lb,ub);
         end
         
         % store all iterations
