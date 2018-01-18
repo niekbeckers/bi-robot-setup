@@ -3,6 +3,7 @@ _ModuleInstall/
 _Boot/
 */*_tct/
 *_tct/
+*_grt_rtw/
 slprj/
 *.mexw64
 *.slx.original
@@ -18,3 +19,4 @@ slprj/
 *.m~
 .sync
 *.slx.bak
+*.exe
