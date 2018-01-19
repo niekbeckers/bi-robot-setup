@@ -73,7 +73,7 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2 sigmaT_Ov^2 sigmaT_Ov
 VP.Ov = Ov;
 
 % Initialize S0 (initial state uncertainty)
-VP.S0 = initializeS0(VP.Ae,VP.Aim,VP.H,Ow,Ov,10000);
+VP.S0 = initializeS0(VP.Ae,VP.Aim,VP.H,Ow,Ov,1000);
 
 %% RobotStruct BROS1
 % clear BROS1
