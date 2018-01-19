@@ -58,6 +58,13 @@ if (size(gcp) == 0)
     parpool(nrWorkers); % setup workers with idle timeout of 30 minutes
 end
 
+p = gcp('nocreate');
+if isempty(p)
+    nrWorkers = 0;
+else
+    nrWorkers = p.NumWorkers;
+end
+
 % preallocate 'saved p0'
 p0_saved = [];
 
@@ -123,7 +130,7 @@ while (keepRunning)
         end
         
         % fit settings
-        nrP0 = max(min(round(nrWorkers/length(fitIDs)),20),3); % number of initial parameter estimates, minimum of 3, maximum of 20
+        nrP0 = max(min(round(nrWorkers/length(fitIDs)),10),3); % number of initial parameter estimates, minimum of 3, maximum of 20
         nrFitParams = 3;
 
         % define number of tasks (for parfor loop)
