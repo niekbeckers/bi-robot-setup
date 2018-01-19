@@ -9,7 +9,6 @@ callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
 
-
 %% setup
 % folders, paths, depending on which system the fit is performed
 if ispc % twincat pc (assumption)
