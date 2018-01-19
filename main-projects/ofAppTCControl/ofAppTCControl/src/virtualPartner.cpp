@@ -51,7 +51,7 @@ void VirtualPartner::initialize(vector<int> vID)
 		char *szVar1 = strdup(var1.c_str());
 		_lHdlVar_Write_VPModelParams.push_back(_tcClient->getVariableHandle(szVar1, strlen(szVar1)));
 
-		string var2 = "Object1 (ModelBROS).ModelParameters.VPModelParams_Changed_BROS" + ofToString(id) + "_Value";
+		string var2 = "Object1 (ModelBROS).ModelParameters.VPModelParams_Changed_BROS" + ofToString(id) + "_Val";
 		char *szVar2 = strdup(var2.c_str());
 		_lHdlVar_Write_VPModelParamsChanged.push_back(_tcClient->getVariableHandle(szVar2, strlen(szVar2)));
 	}
