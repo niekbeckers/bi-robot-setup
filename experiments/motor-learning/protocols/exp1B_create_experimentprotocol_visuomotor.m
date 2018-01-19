@@ -75,7 +75,7 @@
 
 clear all; close all; clc;
 
-pairNr = 1;
+pairNr = 8;
 selectPremadeTrialSequence = 1;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
