@@ -48,7 +48,7 @@ private:
 	void callMatlabOptimization(matlabInput input, matlabOutput &output);
 	ofXml input2xml(matlabInput input);
 	matlabOutput xml2output(ofXml xml);
-	void copySettingsAndData(ofXml xml, bool fitOnHeRoC);
+	void copySettingsAndData(ofXml xml, matlabInput input);
 
 	// callback function 
 	std::function<void(matlabOutput)> _cbFunction;

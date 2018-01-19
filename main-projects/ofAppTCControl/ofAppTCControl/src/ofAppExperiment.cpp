@@ -564,6 +564,7 @@ void ofAppExperiment::esmTrialDone()
 		matlabInput settings;
 		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
 		settings.trialID = _currentTrialNumber;
+		ofLogNotice() << "WWWWWTTTTTTFFFF" << settings.trialID;
 		settings.condition = _currentTrial.condition;
 		settings.fitOnHeRoC = _settings.vpFitOnHeRoC;
 		partner.runVPOptimization(settings);

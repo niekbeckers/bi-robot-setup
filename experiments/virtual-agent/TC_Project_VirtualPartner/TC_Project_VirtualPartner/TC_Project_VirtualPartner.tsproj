@@ -5150,9 +5150,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{4F20EA36-06A8-4551-98E7-31B999372EF3}">
+					<TmcDesc GUID="{A46B9B82-B8AF-400F-885B-F9C3A7AE165C}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{4F20EA36-06A8-4551-98E7-31B999372EF3}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{A46B9B82-B8AF-400F-885B-F9C3A7AE165C}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>

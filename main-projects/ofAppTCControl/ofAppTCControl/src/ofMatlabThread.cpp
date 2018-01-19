@@ -89,7 +89,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	ofXml xml = input2xml(input);
 	
 	// write settings file 
-	copySettingsAndData(xml, input.fitOnHeRoC);
+	copySettingsAndData(xml, input);
 
 	// now wait for the executable to finish. The exe will write it's output to a XML file with the trial ID in the filename
 	// check here if it takes longer than X seconds (error happened?)
@@ -109,7 +109,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 				int i = system(cmd.c_str());
 			}
 
-			sleep(50); // sleep thread for a little bit
+			sleep(200); // sleep thread for a little bit
 		}
 
 		
@@ -134,14 +134,14 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	}
 }
 
-void MatlabThread::copySettingsAndData(ofXml xml, bool fitOnHeRoC)
+void MatlabThread::copySettingsAndData(ofXml xml, matlabInput input)
 {
     // save xml file to local direcory. If the matlabVirtualPartner script is running on the local machine, it will trigger a fit.
-    string xmlfilename = ofToString(matlabSettingsFilePath_TC + "settings_vpmodelfit_trial" + ofToString(_counterMatlabInputFile) + ".xml");
+    string xmlfilename = ofToString(matlabSettingsFilePath_TC + "settings_vpmodelfit_trial" + ofToString(input.trialID) + ".xml");
     xml.save(xmlfilename);
     
     // if fit on HeRoC, copy mat files (data files) and settings file to HeRoC computer
-	if (fitOnHeRoC) {
+	if (input.fitOnHeRoC) {
         // select last 5 data files.
         // list files (*.mat)
         ofDirectory dir(matlabDataFilePath_TC);
