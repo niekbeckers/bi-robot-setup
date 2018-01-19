@@ -29,11 +29,17 @@ resultspath = [vppath 'results' filesep];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
+cleanupEmptyDirectories(resultspath);
+cleanupEmptyDirectories(settingspath);
+
 % create folder for model output files (for copies)
 resultstoragepath = [resultspath 'results-modelfit-' datestr(now,'ddmmyy-HHMM')];
 if ~exist(resultstoragepath,'dir')
     mkdir(resultstoragepath);
 end
+
+
+
 settingsstoragepath = [settingspath 'settings-modelfit-' datestr(now,'ddmmyy-HHMM')];
 if ~exist(settingsstoragepath,'dir')
     mkdir(settingsstoragepath);
@@ -390,4 +396,26 @@ if ~isempty(I)
     latestfiles = dirc(I);
 end
 
+end
+
+function cleanupEmptyDirectories(mypath)
+
+d = dir(mypath);
+
+d = d([d.isdir]); % only select folders
+
+for ii = 1:length(d)
+    p = d(ii).name;
+    if isdir([mypath filesep p]) && ~strcmpi(p,'.') && ~strcmpi(p,'..')
+        f = dir(p);
+        if isunix
+            if length(f) <= 2
+                % empty directory
+                disp(['clean up. removed empty folder ' p]);
+                rmdir([mypath filesep p]);
+            end
+        end
+
+    end
+end
 end
