@@ -61,6 +61,7 @@ ye(:,1) = H*xe(:,1);
 
 % retrieve control law
 L = controllaw(Aim,B,Q,R,N);
+L = repmat(L,[1 1 N]);
 
 % generate process and observation noise
 w = sqrt(Ow)*randn(nX,N-1);

@@ -15,6 +15,7 @@ if isunix
         disp([callerID 'codegen fitfun_invoc.m']);
         cd('scripts/');
         codegen fitfun_invoc.m
+        cd(currdir);
     catch me
         getReport(me);
         cd(currdir); 
@@ -32,7 +33,7 @@ elseif isunix % HeRoC (assumption)
     if ~exist(datapath,'dir')
         mkdir(datapath)
     else
-        delete([datapath '*.mat']);
+        delete([datapath 'tmpDirDataModelFit/*.mat']);
     end  
 end
     
@@ -62,6 +63,13 @@ if (size(gcp) == 0)
         nrWorkers = 40;
     end
     parpool(nrWorkers); % setup workers with idle timeout of 30 minutes
+end
+
+p = gcp('nocreate'); % If no pool, do not create new one.
+if isempty(p)
+    nrWorkers = 0;
+else
+    nrWorkers = p.NumWorkers;
 end
 
 % preallocate 'saved p0'
@@ -107,7 +115,7 @@ while (keepRunning)
         data = loadTrialData(datapath);
         
         % select data for optim function
-        ds = 1;
+        ds = 10;
         dataArray = NaN(length(data.t(1:ds:end)),8,length(fitIDs));
         t = data.t(1:ds:end,:);
         dt = ds*0.001; %round(mode(diff(t)),2);
@@ -129,8 +137,8 @@ while (keepRunning)
         end
         
         % fit settings
-        nrP0 = max(min(round(nrWorkers/length(fitIDs)),20),3); % number of initial parameter estimates, minimum of 3, maximum of 20
-        nrFitParams = 3;
+        nrP0 = max(min(round(nrWorkers/length(fitIDs)),10),3); % number of initial parameter estimates, minimum of 3, maximum of 20
+        nrFitParams = 2;
 
         % define number of tasks (for parfor loop)
         idxIDs = reshape(repmat(fitIDs,1,nrP0).',[],1); % vector with fitIDs
@@ -142,7 +150,7 @@ while (keepRunning)
         
         % create p0's
         for ii = 1:numel(idxIDs)         
-            p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
+            p0(:,ii) = lb+rand(size(ub,1),1).*(ub-lb); % no need to minmax cause this can't get oob
         end
         
         if ~isempty(p0_saved) % overwrite 1 p0 per BRO with p0_saved
