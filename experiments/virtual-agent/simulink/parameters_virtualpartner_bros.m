@@ -29,10 +29,10 @@ fc2 = 0.2;
 %% virtual partner settings
 dt_vp = 0.01;
 VP.dt = dt_vp;   % the virtual partner runs at 100Hz
-VP.tp = 0.2;    % prediction horizon
-VP.td = 0.2;    % neural time delay 
+VP.tp = 0.0;    % prediction horizon
+VP.td = 0.1;    % neural time delay 
 
-VP.x0 = zeros(10,1);
+
 
 % dynamics matrices
 tu = 0.04;
@@ -40,14 +40,16 @@ D = 0*[0 15;-15 0]; % should be turned on if FF is active! >how though. this scr
 gamma = 0.8;        % should be 0.8, but unstable with m = 0.3kg
 m_vp = diag([1 1]); % see Todorov, 2007
 
-[Ae_vp,B_vp,H_vp] = dynamics_vp(dt_vp,m_vp,tu,dt_vp,0,D);
-Aim_vp            = dynamics_vp(dt_vp,m_vp,tu,dt_vp,0,gamma*D);
+[Ae_vp,B_vp,H_vp] = dynamics_vp(dt_vp,m_vp,tu,VP.td,0,D);
+Aim_vp            = dynamics_vp(dt_vp,m_vp,tu,VP.td,0,gamma*D);
 
 VP.m = m_vp;
 VP.Ae = Ae_vp;
 VP.Aim = Aim_vp;
 VP.B = B_vp;
 VP.H = H_vp;
+
+VP.x0 = zeros(size(Ae_vp,1),1);
 
 % process noise
 sigmaU_Ow = 0.002/sqrt(0.01)*sqrt(dt_vp);
