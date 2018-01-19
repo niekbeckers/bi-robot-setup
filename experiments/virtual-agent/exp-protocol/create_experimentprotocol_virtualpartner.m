@@ -75,7 +75,7 @@
 
 clear all; close all; clc;
 
-partnersNr = 99;
+partnersNr = 999;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'solo'; % solo or interaction
@@ -83,7 +83,7 @@ groupTypeNr = 0; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
 expID = ['virtualpartner_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
-
+vpFitOnHeRoC = 1; 
 % filename
 filename = ['expprotocol_' expID];
 
@@ -100,6 +100,7 @@ s.experiment.partnersNr = partnersNr;
 
 % virtual partner
 s.experiment.doVirtualPartner = 1;
+s.experiment.vpFitOnHeRoC = vpFitOnHeRoC;
 
 s.experiment.activeBROSID.id0 = 1;
 s.experiment.activeBROSID.id1 = 2;
