@@ -21,7 +21,7 @@ elseif isunix % HeRoC (assumption)
     if ~exist(datapath,'dir')
         mkdir(datapath)
     else
-        delete([datapath '*.mat']);
+        delete([datapath 'tmpDirDataModelFit/*.mat']);
     end  
 end
     
@@ -131,7 +131,7 @@ while (keepRunning)
         
         % create p0's
         for ii = 1:numel(idxIDs)         
-            p0(:,ii) = lb+rand(3,1).*(ub-lb); % no need to minmax cause this can't get oob
+            p0(:,ii) = lb+rand(size(ub,1),1).*(ub-lb); % no need to minmax cause this can't get oob
         end
         
         if ~isempty(p0_saved) % overwrite 1 p0 per BRO with p0_saved
@@ -146,6 +146,7 @@ while (keepRunning)
         pfit_all = NaN(nrFitParams,nrTasks);
         errorFlagfit = zeros(1,nrTasks);
         
+
         parfor it = 1:nrTasks
             % perform model fit
             [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
