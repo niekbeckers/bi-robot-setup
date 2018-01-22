@@ -108,7 +108,7 @@ while (keepRunning)
         data = loadTrialData(datapath);
         
         % select data for optim function
-        ds = 1;
+        ds = 10;
         dataArray = NaN(length(data.t(1:ds:end)),8,length(fitIDs));
         t = data.t(1:ds:end,:);
         dt = ds*0.001; %round(mode(diff(t)),2);
