@@ -128,9 +128,10 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 //--------------------------------------------------------------
 void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 {
-	ofLogVerbose() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Setting virtual partner data in TwinCAT";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Setting virtual partner data in TwinCAT";
 
 	// find idx of id in activeBROSid
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_activeBROSIDs);
 	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
 	if (idx_active >= _activeBROSIDs.size()) {
 		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";

@@ -125,7 +125,7 @@ void tcAdsClient::write(ULONG lHdlVar, void *pData, int numBytes)
 				numBytes, // Size of data
 				pData);
 
-	//if (nErr) cerr << "Error: AdsSyncWriteReqEx: " << nErr << '\n';
+	if (nErr) cerr << "Error: AdsSyncWriteReqEx: " << nErr << '\n';
 }
 
 //--------------------------------------------------------------
