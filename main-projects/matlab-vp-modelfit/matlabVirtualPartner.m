@@ -161,7 +161,7 @@ while (keepRunning)
 
         parfor it = 1:nrTasks
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it), gof(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
         end
         
         % store all iterations
@@ -170,6 +170,7 @@ while (keepRunning)
         resultsmodelfit.VP.iterations.fitInfo = num2cell(fitInfo);
         resultsmodelfit.VP.iterations.fvalfit = fvalfit;
         resultsmodelfit.VP.iterations.errorFlag = errorFlagfit;
+%         resultsmodelfit.VP.iterations.gof = gof;
         
         try
             % select the best fit per fitID
@@ -197,6 +198,7 @@ while (keepRunning)
 
                 % store optimal fit as p0 for next optimization
                 p0_saved(:,id) = pfit_opt(:,id);
+                resultsmodelfit.VP.modelparameters.gof = gof(id);
             end
         catch me
             disp(me)

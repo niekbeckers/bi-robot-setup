@@ -1,4 +1,4 @@
-function [pfit, fvalfit, fitInfo, errorFlag] = doModelFit(data,dt,p0,condition)
+function [pfit, fvalfit, fitInfo, errorFlag, gof] = doModelFit(data,dt,p0,condition)
 
 % Fits virtual agent to experimental data. And returns the optimal fit 
 % parameters for the position, velocity and force costs of the optimal
@@ -53,19 +53,26 @@ fitInfo.ub = ub;
 fitInfo.lb = lb;
 fitInfo.fitfun = 'fitfun_invoc';
 
+% goodness of fit struct
+gof = struct;
 
 %% simulate to evaluate goodness of fit and stability
 [xe,~,stable] = sim_lqg(pfit,target,dt,doFF, 1);
 
+gof.stable = stable;
 %% evaluate performance
 % VAF (percentage)
 VAF_px = (1-(var(xe(1,:)-xmeas(1,:))./var(xmeas(1,:))))*100;
 VAF_py = (1-(var(xe(2,:)-xmeas(2,:))./var(xmeas(2,:))))*100;
+gof.VAF_px = VAF_px;
+gof.VAF_py = VAF_py;
 
 % difference in tracking error between human and agent
 eh = mean(sqrt(sum((xmeas(1:2,:)-target(1:2,:)).^2,1)));
 evp = mean(sqrt(sum((xe(1:2,:)-target(1:2,:)).^2,1)));
 error_diff = abs(eh-evp);
+gof.error_diff = error_diff;
+
 
 if (VAF_px >= 80) && (VAF_py >= 80) && stable && (error_diff <= 0.03)
     errorFlag = 0;
