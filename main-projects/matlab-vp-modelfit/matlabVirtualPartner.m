@@ -49,18 +49,14 @@ end
 if exist([settingspath settings_filename '_terminate.xml'],'file'), delete([settingspath settings_filename '_terminate.xml']); end
 
 % parpool
-if (size(gcp) == 0)
+p = gcp('nocreate');
+if isempty(p)
     if ispc % twincat pc (assumption)
         nrWorkers = 3;
     elseif isunix % HeRoC (assumption
         nrWorkers = 40;
     end
     parpool(nrWorkers); % setup workers with idle timeout of 30 minutes
-end
-
-p = gcp('nocreate');
-if isempty(p)
-    nrWorkers = 0;
 else
     nrWorkers = p.NumWorkers;
 end
@@ -288,7 +284,7 @@ if exist(filename,'file')
         s.VP.condition = str2double(xml.VP.condition.Text);
     else
         s.VP.condition = 0;
-    end;
+    end
     
     % doFitForBROS
     if isfield(xml.VP, 'doFitForBROSID')
@@ -378,6 +374,7 @@ cd(currentdir);
 end
 
 function latestfiles = getlatestfiles(directory,nrfiles)
+%% function latestfiles = getlatestfiles(directory,nrfiles)
 %This function returns the latest file from the directory passsed as input
 %argument
 
@@ -408,6 +405,7 @@ end
 end
 
 function cleanupEmptyDirectories(mypath)
+%% function cleanupEmptyDirectories(mypath)
 
 d = dir(mypath);
 
