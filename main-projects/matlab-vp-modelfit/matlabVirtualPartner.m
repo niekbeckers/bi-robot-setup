@@ -8,6 +8,20 @@ addpath('scripts');
 callerID = '[MATLABVIRTUALPARTNER]: ';
 disp([callerID 'Starting up ' mfilename]);
 
+%% mex fitfun_invoc.m
+if isunix
+    currdir = pwd;
+    try
+        disp([callerID 'codegen fitfun_invoc.m']);
+        cd('scripts/');
+        codegen fitfun_invoc.m
+        cd(currdir);
+    catch me
+        getReport(me);
+        cd(currdir); 
+    end
+end
+
 
 %% setup
 % folders, paths, depending on which system the fit is performed
