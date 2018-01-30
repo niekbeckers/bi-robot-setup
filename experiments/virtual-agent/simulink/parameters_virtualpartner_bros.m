@@ -13,7 +13,6 @@ Lb = 0.07;                      % base width [m]
 % load target signal data
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
-
 % butterworth filter (filtering velocity signal) 
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
@@ -34,7 +33,7 @@ m_vp = diag([0.3 0.3]);
 tu = 0.04;
 td = 0.100; 
 tp = 0.0;
-D = 0*[0 15;-15 0]; %%% should be turned on if FF is active! >how though. this script has no inputs.
+D = 0*FFMatrix; % implemented within simulink
 gamma = 0.8;
 
 % number of delay steps

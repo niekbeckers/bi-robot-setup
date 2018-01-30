@@ -1,4 +1,5 @@
 function [A,B,H] = dynamics_vp(dt,M,tu,td,tp,D)
+
 %% [A,B,H] = dynamics(dt,m,tu,td,D)
 % Return discrete-time state space matrices of the environment and internal
 % model (which only accounts for a fraction of gamma of the disturbance).
