@@ -51,6 +51,12 @@ VP.Aim = Aim_vp;
 VP.B = B_vp;
 VP.H = H_vp;
 
+% additional dynamics for oversampling integration VP
+% !!!!!!!!!!!! Make sure div_Ts matches 
+[Ae_vp_os,B_vp_os] = dynamics_vp(sampleTime/1,m_vp,tu,td,tp,D);
+VP.Ae_os = Ae_vp_os;
+VP.B_os = B_vp_os;
+
 sigma_dyn = 0.5136;    
 sigma_sens = 0.0001;     
 
