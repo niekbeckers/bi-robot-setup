@@ -39,8 +39,8 @@ gamma = 0.8;
 % number of delay steps
 VP.Ndelay = round(td/sampleTime);
 VP.x0 = zeros(10,1);
-% VP.x0(1:2) = simin_target(1,[2 4]);
-% VP.x0(3:4) = simin_target(1,[3 5]);
+VP.x0(1:2) = simin_target(1,[2 4]);
+VP.x0(3:4) = simin_target(1,[3 5]);
 
 % dynamics matrices
 [Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
@@ -53,9 +53,9 @@ VP.H = H_vp;
 
 % additional dynamics for oversampling integration VP
 % !!!!!!!!!!!! Make sure div_Ts matches 
-[Ae_vp_os,B_vp_os] = dynamics_vp(sampleTime/1,m_vp,tu,td,tp,D);
-VP.Ae_os = Ae_vp_os;
-VP.B_os = B_vp_os;
+[~,~,~,Ac,Bc] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
+VP.Ac = Ac;
+VP.Bc = Bc;
 
 sigma_dyn = 0.5136;    
 sigma_sens = 0.0001;     
