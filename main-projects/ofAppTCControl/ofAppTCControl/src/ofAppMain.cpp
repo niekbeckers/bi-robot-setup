@@ -64,10 +64,15 @@ void ofAppMain::update(){
 	_display2Data.posTargetY = AdsData[7];
 
 	// virtual partner data
-	if (_lHdlVar_VirtualPartnerData != -1) {
-		_tcClientCont->read(_lHdlVar_VirtualPartnerData, &_VP1Data, sizeof(_VP1Data));
+	if (_lHdlVar_DataVP1 != -1) {
+		_tcClientCont->read(_lHdlVar_DataVP1, &_VP1Data, sizeof(_VP1Data));
 		_display1Data.posVPX = _VP1Data[0];
 		_display1Data.posVPY = _VP1Data[1];
+	}
+	if (_lHdlVar_DataVP2 != -1) {
+		_tcClientCont->read(_lHdlVar_DataVP2, &_VP2Data, sizeof(_VP2Data));
+		_display2Data.posVPX = _VP2Data[0];
+		_display2Data.posVPY = _VP2Data[1];
 	}
 
 	// periodic check
@@ -144,7 +149,10 @@ void ofAppMain::setupTCADS()
 	_lHdlVar_Read_Data = _tcClientCont->getVariableHandle(szVar0, sizeof(szVar0));
 
 	char szVar[] = { "Object1 (ModelBROS).BlockIO.xVP1" };
-	_lHdlVar_VirtualPartnerData = _tcClientCont->getVariableHandle(szVar, sizeof(szVar));
+	_lHdlVar_DataVP1 = _tcClientCont->getVariableHandle(szVar, sizeof(szVar));
+
+	char szVar9[] = { "Object1 (ModelBROS).BlockIO.xVP2" };
+	_lHdlVar_DataVP2 = _tcClientCont->getVariableHandle(szVar9, sizeof(szVar9));
 
 	// set up tcAdsClient for events
 	_tcClientEvent = new tcAdsClient(adsPort);
