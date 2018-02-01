@@ -57,6 +57,33 @@ VP.H = H_vp;
 VP.Ac = Ac;
 VP.Bc = Bc;
 
+% w = [700 0.0013 8*10^-7];
+% 
+% % model parameters
+% wp = w(1);
+% wv = w(2);
+% wf = w(3);
+% r = 1e-8;
+% 
+% Q = zeros(size(Aim_vp));
+% R = zeros(size(B_vp,2),size(B_vp,2));
+% 
+% % terminal cost & running cost
+% Q(1:10,1:10) = diag([wp wp wv wv wf wf wp wp 0 0]);
+% Q(7,1) = -wp;
+% Q(8,2) = -wp;
+% Q(1,7) = -wp;
+% Q(2,8) = -wp;
+% 
+% R(1,1,:) = r;
+% R(2,2,:) = r;
+% 
+% N = 23000;
+% 
+% % controllaw_vp_infinitehorizon
+% L = controllaw_vp_infinitehorizon(Aim_vp,B_vp,Q,R,N);
+
+
 sigma_dyn = 0.5136;    
 sigma_sens = 0.0001;     
 
