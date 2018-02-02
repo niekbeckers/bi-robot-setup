@@ -88,8 +88,8 @@ sigma_dyn = 0.5136;
 sigma_sens = 0.0001;     
 
 % process noise
-sigmaP_Ow = 0;
-sigmaV_Ow = 0;
+sigmaP_Ow = 0.01*sqrt(sampleTime);
+sigmaV_Ow = 0.01*sqrt(sampleTime);
 sigmaF_Ow = sigma_dyn*sqrt(sampleTime);
 sigmaPt_Ow = 0;
 sigmaVt_Ow = 0;
@@ -107,6 +107,7 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 VP.Ov = Ov;
 
+VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,2000);
 %% RobotStruct BROS1
 % clear BROS1
 
