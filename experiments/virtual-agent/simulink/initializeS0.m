@@ -4,8 +4,6 @@ function S0 = initializeS0(Ae,Aim,H,Ow,Ov,N)
 %
 % Niek Beckers
 
-
-
 % preallocate matrices and vectors
 nX = size(Ae,1);
 nY = size(H,1);
