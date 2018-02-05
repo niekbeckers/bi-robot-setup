@@ -31,7 +31,7 @@ load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
 %% virtual partner dynamics
 m_vp = diag([0.3 0.3]); 
 tu = 0.04;
-td = 0.100; 
+td = 0.150; 
 tp = 0.0;
 D = 0*FFMatrix; % implemented within simulink
 gamma = 0.8;
@@ -82,7 +82,6 @@ VP.Bc = Bc;
 % 
 % % controllaw_vp_infinitehorizon
 % L = controllaw_vp_infinitehorizon(Aim_vp,B_vp,Q,R,N);
-
 
 sigma_dyn = 0.5136;    
 sigma_sens = 0.0001;     
@@ -159,7 +158,6 @@ BROS1.FTSensor.TransformationMatrixSide = 1; % 1 = transformation matrix based f
 BROS2.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
 BROS2.HomeLocationSize = 0.0025;
 BROS2.NominalPositionOpSpace = [0;0.25];
-
 
 % FM2.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
 BROS2.DynModParams = [1.117256e-03 1.224600e-03 8.800769e-02 1.073326e-01 1.462254e-03 1.416925e-01 6.135432e-03]';
