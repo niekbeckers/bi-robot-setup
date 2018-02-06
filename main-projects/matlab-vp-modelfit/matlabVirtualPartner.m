@@ -109,7 +109,7 @@ while (keepRunning)
         fitIDs = s.VP.doFitForBROSID(:);
         trialID = s.VP.trialID;
         condition = s.VP.condition;
-        
+
         % move results xml file for this trial ID that are still in the results folder
         delete([resultspath 'results_vpmodelfit_trial' num2str(trialID) '.xml']);
         
@@ -169,7 +169,7 @@ while (keepRunning)
         errorFlagfit = zeros(1,nrTasks);
         
 
-        parfor it = 1:nrTasks
+        parfor it = 1:nrTasks            
             % perform model fit
             [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it), gof(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
         end
