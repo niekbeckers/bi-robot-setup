@@ -22,7 +22,6 @@ if isunix
     end
 end
 
-
 %% setup
 % folders, paths, depending on which system the fit is performed
 if ispc % twincat pc (assumption)

@@ -51,7 +51,7 @@ for k = 1:N-1
         xhatp(:,k+1-delay) = Aim*xhat(:,k-delay) + B*u(:,k-delay);
 
         % simulate real system
-        xe(:,k+1) = Ae*xe(:,k) + B*u(:,k) + noise*noisef2(k)*dt*[0;0;0.3;0.3;0;0;0;0;0;0];
+        xe(:,k+1) = Ae*xe(:,k) + B*u(:,k) + noise*noisef2(k)*dt*[0;0;1/0.3;1/0.3;0;0;0;0;0;0];
         y(:,k+1) = H*xe(:,k+1-delay) + noise*sqrt(Ov)*randn(nY,1);
     end
 end
