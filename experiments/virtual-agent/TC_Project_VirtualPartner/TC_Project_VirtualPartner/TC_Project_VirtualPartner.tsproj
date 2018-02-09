@@ -1268,7 +1268,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{44E73086-CAEC-6C77-FCDE-64CE3DDE9F2C}">P_model_virtualpartner_bros_T</Name>
+			<Name GUID="{53063356-83F4-11FD-575B-7FD41BE1C06C}">P_model_virtualpartner_bros_T</Name>
 			<BitSize>81216</BitSize>
 			<SubItem>
 				<Name>VP</Name>
@@ -3929,16 +3929,22 @@
 				<BitOffs>72648</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Gain_Gain_nl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>72656</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>LatchRising_j</Name>
 				<Type GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>72656</BitOffs>
+				<BitOffs>72664</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_gc</Name>
 				<Type GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>72664</BitOffs>
+				<BitOffs>72672</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_m</Name>
@@ -4013,6 +4019,9 @@
 				<BitOffs>80960</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{44E73086-CAEC-6C77-FCDE-64CE3DDE9F2C}"/>
+				<Hide GUID="{790CDA91-A533-1BB9-FEE2-77AB202940E9}"/>
+				<Hide GUID="{1FF00961-74DF-4FBC-3FAC-F3A14FBB9818}"/>
 				<Hide GUID="{8279B5CC-4C8C-655E-1941-B783DDFF1B6C}"/>
 				<Hide GUID="{7795E172-D042-F798-7EF6-0C477ACEF823}"/>
 				<Hide GUID="{9806B041-83B3-6E7D-98C4-1394FB023667}"/>
@@ -5455,9 +5464,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{93666795-D34B-41D5-9207-3CBF02903E76}">
+					<TmcDesc GUID="{D6BE356C-A415-4B28-983A-CC442067F818}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{93666795-D34B-41D5-9207-3CBF02903E76}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{D6BE356C-A415-4B28-983A-CC442067F818}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5579,7 +5588,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>81216</BitSize>
-								<BaseType GUID="{44E73086-CAEC-6C77-FCDE-64CE3DDE9F2C}">P_model_virtualpartner_bros_T</BaseType>
+								<BaseType GUID="{53063356-83F4-11FD-575B-7FD41BE1C06C}">P_model_virtualpartner_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -9237,11 +9246,18 @@
 									<BitOffs>107424</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain_f</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x82003475</PTCID>
+									<BitOffs>107432</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x82003475</PTCID>
-									<BitOffs>107432</BitOffs>
+									<PTCID>#x82003476</PTCID>
+									<BitOffs>107440</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_h</Name>
@@ -13058,18 +13074,25 @@
 									<BitOffs>72648</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain_Gain_nl</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x8300237a</PTCID>
+									<BitOffs>72656</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>LatchRising_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{FF6F0982-6EC4-03E2-D1DA-FE0680294269}">P_LatchRising_model_virtual_n_T</BaseType>
-									<PTCID>#x8300237a</PTCID>
-									<BitOffs>72656</BitOffs>
+									<PTCID>#x8300237b</PTCID>
+									<BitOffs>72664</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_gc</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{75101804-EDC5-5310-8F93-86FD25317CE7}">P_LatchRising_model_virtualpa_T</BaseType>
-									<PTCID>#x8300237b</PTCID>
-									<BitOffs>72664</BitOffs>
+									<PTCID>#x8300237c</PTCID>
+									<BitOffs>72672</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_m</Name>
@@ -19175,7 +19198,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber_Seed</Name>
-								<Value>225922</Value>
+								<Value>814724</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Mean</Name>
@@ -19187,7 +19210,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Seed</Name>
-								<Value>455329</Value>
+								<Value>253974</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Mean</Name>
@@ -19199,7 +19222,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Seed</Name>
-								<Value>933307</Value>
+								<Value>1897078</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Mean</Name>
@@ -19211,7 +19234,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Seed</Name>
-								<Value>1720830</Value>
+								<Value>1113993</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber_Mean_j</Name>
@@ -19223,7 +19246,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber_Seed_j</Name>
-								<Value>4524405</Value>
+								<Value>4787534</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Mean_h</Name>
@@ -19235,7 +19258,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Seed_j</Name>
-								<Value>2633220</Value>
+								<Value>945678</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Mean_b</Name>
@@ -19247,7 +19270,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Seed_p</Name>
-								<Value>1806453</Value>
+								<Value>6700169</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Mean_l</Name>
@@ -19259,7 +19282,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Seed_f</Name>
-								<Value>4759169</Value>
+								<Value>6402244</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber4_Mean</Name>
@@ -19271,7 +19294,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber4_Seed</Name>
-								<Value>5425588</Value>
+								<Value>3795852</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber5_Mean</Name>
@@ -19283,7 +19306,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber5_Seed</Name>
-								<Value>2217467</Value>
+								<Value>7922073</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber6_Mean</Name>
@@ -19295,7 +19318,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber6_Seed</Name>
-								<Value>3263435</Value>
+								<Value>7213148</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber7_Mean</Name>
@@ -19307,7 +19330,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber7_Seed</Name>
-								<Value>5090001</Value>
+								<Value>10189552</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Merge1_InitialOutput[0]</Name>
@@ -20212,6 +20235,10 @@
 							<Value>
 								<Name>ModelParameters.VPUseVirtualPartner_BROS2_Value</Name>
 								<EnumText>FALSE</EnumText>
+							</Value>
+							<Value>
+								<Name>ModelParameters.Gain_Gain_nl</Name>
+								<Value>128</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.LatchRising_j.Out_Y0</Name>

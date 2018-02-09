@@ -147,7 +147,7 @@ while (keepRunning)
         p0 = NaN(nrFitParams,nrP0);
         
         % upper and lower bounds
-        ub = [1e3;1e1;1e-2];
+        ub = [1e2;1e1;1e-2];
         lb = [0;0;0];
         
         % create p0's

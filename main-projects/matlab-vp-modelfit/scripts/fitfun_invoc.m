@@ -22,4 +22,4 @@ e_track = mean(abs(abs(error_human) - abs(error_agent)));
 e_fit = mean(abs(error_human-error_agent));
 
 % sse
-sse = e_fit + 25*e_track;
+sse = e_fit + 50*e_track;
