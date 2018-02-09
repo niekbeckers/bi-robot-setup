@@ -72,6 +72,8 @@ eh = mean(sqrt(sum((xmeas(1:2,:)-target(1:2,:)).^2,1)));
 evp = mean(sqrt(sum((xe(1:2,:)-target(1:2,:)).^2,1)));
 error_diff = abs(eh-evp);
 gof.error_diff = error_diff;
+gof.eh = eh;
+gof.evp = evp;
 
 
 if (VAF_px >= 80) && (VAF_py >= 80) && stable && (error_diff <= 0.03)

@@ -8,7 +8,6 @@ Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
-
 %% target data
 % load target signal data
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
