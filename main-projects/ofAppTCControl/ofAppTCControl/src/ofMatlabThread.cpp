@@ -105,7 +105,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 		else {
 			if (input.fitOnHeRoC) {
 				// attempt pscp results file from the HeRoC computer.
-				string cmd = "pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabResultsFilePath_HeRoC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml" + " " + matlabResultsFilePath_TC;
+				string cmd = "pscp -q -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabResultsFilePath_HeRoC + "results_vpmodelfit_trial" + ofToString(input.trialID) + ".xml" + " " + matlabResultsFilePath_TC;
 				int i = system(cmd.c_str());
 			}
 
