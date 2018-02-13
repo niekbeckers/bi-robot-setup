@@ -90,7 +90,7 @@ struct CompareDateModified{
 // HeRoC PC stuff
 //
 
-const string ipAddressHeRoC = "130.89.65.74";
+const string ipAddressHeRoC = "130.89.64.28";
 const string userHeRoC = "niek";
 const string strSSHKey = "C:\\Users\\Labuser\\keys\\niek.ppk";
 const string pwKeyHeRoC = "EthercatisCool";
