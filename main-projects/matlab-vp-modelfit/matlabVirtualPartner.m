@@ -110,7 +110,9 @@ while (keepRunning)
         condition = s.VP.condition;
 
         % move results xml file for this trial ID that are still in the results folder
-        delete([resultspath 'results_vpmodelfit_trial' num2str(trialID) '.xml']);
+        if exist([resultspath 'results_vpmodelfit_trial' num2str(trialID) '.xml'],'file')
+            delete([resultspath 'results_vpmodelfit_trial' num2str(trialID) '.xml']);
+        end
         
         % load data of trial with trialID
         clear data
