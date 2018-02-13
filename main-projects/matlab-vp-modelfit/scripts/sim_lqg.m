@@ -20,7 +20,7 @@ Aim = dynamics(dt,m,tu,td,gamma*D);
 wp = params(1);
 wv = params(2);
 wf = params(3);
-r = 1e-2; %1e-8
+r = 1e-4; %1e-8
 
 Q = zeros(size(Ae));
 R = zeros(size(B,2),size(B,2));
