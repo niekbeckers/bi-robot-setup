@@ -419,6 +419,7 @@ end
 
 end
 
+
 function cleanupEmptyDirectories(mypath)
 %% function cleanupEmptyDirectories(mypath)
 
