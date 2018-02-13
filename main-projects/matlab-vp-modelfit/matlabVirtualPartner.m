@@ -428,13 +428,14 @@ d = d([d.isdir]); % only select folders
 
 for ii = 1:length(d)
     p = d(ii).name;
-    if isdir([mypath filesep p]) && ~strcmpi(p,'.') && ~strcmpi(p,'..')
-        f = dir([mypath filesep p]);
+    ptmp = [mypath filesep p];
+    if isdir(ptmp) && ~strcmpi(p,'.') && ~strcmpi(p,'..')
+        f = dir(ptmp);
         if isunix
             if length(f) <= 2
                 % empty directory
                 disp(['Housekeeping. Clean up. Removed empty folder ' p]);
-                rmdir([mypath filesep p]);
+                rmdir(ptmp);
             end
         end
 
