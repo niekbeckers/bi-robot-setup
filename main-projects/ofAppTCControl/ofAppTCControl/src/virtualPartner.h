@@ -33,10 +33,17 @@ class VirtualPartner
 		bool _runningModelFit = false;
 		bool _validVirtualPartnerFit = false;
 
+		//
+		// functions
+		//
+		void sendToTwinCatADS(matlabOutput output, int id);
+		void onVPOptimizationDone(matlabOutput output);
+
 	public:
 		//
 		// variables
 		//
+		bool initialized;
 
 		//
 		// functions
@@ -46,8 +53,8 @@ class VirtualPartner
 		void update();
 		void initialize(vector<int> vID);
 		void runVPOptimization(matlabInput input);
-		void sendToTwinCatADS(matlabOutput output, int id);
-		void onVPOptimizationDone(matlabOutput output);
+		void setExecuteVP(int id, bool execute);
+
 
 		inline bool modelFitIsRunning() { return _runningModelFit; }
 };

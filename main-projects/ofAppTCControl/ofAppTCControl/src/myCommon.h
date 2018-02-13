@@ -37,6 +37,7 @@ struct trialData {
 	bool connected = false;					// default: not connected
 	vector<ConnectedToTypes> connectedTo;	// specify to which people are connected
 	bool fitVirtualPartner = false;			// specify whether model fit is performed on this trial (after trial is done)
+	bool executeVirtualPartner;
 	vector<int> fitVPBROSIDs;				// BROS ID 
 	double connectionStiffness = 0.0;		// default: 0.0 (no connection stiffness)
 	double connectionDamping = 0.0;			// default: 0.0

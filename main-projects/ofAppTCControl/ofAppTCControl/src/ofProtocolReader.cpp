@@ -179,6 +179,11 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 						XML.setToParent();
 					}
 
+					// check if the virtual partner needs to run during this trial.
+					if (XML.exists("executeVirtualPartner")) {
+						trial.executeVirtualPartner = XML.getBoolValue();
+					}
+
 					block.trials.push_back(trial); // add trial to trials list
 
 				} while (XML.setToSibling()); // go the next trial		

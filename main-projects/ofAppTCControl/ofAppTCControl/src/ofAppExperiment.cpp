@@ -220,6 +220,13 @@ void ofAppExperiment::setTrialDataADS()
 
 	// trial randomization (phase set)
 	_tcClient->write(_lHdlVar_Write_TrialRandom, &_currentTrial.trialRandomization, sizeof(_currentTrial.trialRandomization));
+
+	// set virtual partner execute (for BROS 1 & 2), from XML settings/protocol
+	if (partner.initialized && !_currentTrial.executeVirtualPartner) {
+		partner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
+		partner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
+	}
+		
 }
 
 //--------------------------------------------------------------

@@ -3,7 +3,8 @@
 using namespace std;
 
 //--------------------------------------------------------------
-VirtualPartner::VirtualPartner()
+VirtualPartner::VirtualPartner():
+	initialized(false)
 {
 	// register the callback function in the matlab thread. 
 	using namespace std::placeholders;
@@ -56,12 +57,9 @@ void VirtualPartner::initialize(vector<int> vID)
 		_lHdlVar_Write_VPModelParamsChanged.push_back(_tcClient->getVariableHandle(szVar2, strlen(szVar2)));
 	}
 
+	initialized = true;
 
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "initialized";
-
-	// start up matlab stand-alone application for model fit
-	//std::system(ofToString(matlabFunctionPath + "matlabVirtualPartner.exe &").c_str());
-	//_matlabStartup.startThread();
 }
 
 //--------------------------------------------------------------
@@ -109,14 +107,7 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 		}
 		else {
 			// errors occurred, don't update the model parameters? Or run the virtual partner?
-			bool b = false;
-			// find idx of id in activeBROSid
-			ptrdiff_t idx = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
-			if (idx >= _activeBROSIDs.size()) {
-				ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping...";
-				continue;
-			}
-			_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx], &b, sizeof(b));
+			setExecuteVP(id, false);
 
 			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Error occured in virtual partner fit for BROS" << id << " !!!FIT PARAMETERS NOT SET!!!";
 		}
@@ -131,12 +122,14 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Setting virtual partner data in TwinCAT";
 
 	// find idx of id in activeBROSid
+
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_activeBROSIDs);
 	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
 	if (idx_active >= _activeBROSIDs.size()) {
 		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";
 		return;
 	}
+
 	// find idx of id in fitBROSIds
 	ptrdiff_t idx_fit = find(output.doFitForBROSIDs.begin(), output.doFitForBROSIDs.end(), id) - output.doFitForBROSIDs.begin();
 	if (idx_fit >= output.doFitForBROSIDs.size()) {
@@ -148,7 +141,8 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 	try {
 
 		// write executeVirtualPartner
-		_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx_active], &output.executeVirtualPartner[idx_fit], sizeof(output.executeVirtualPartner[idx_fit]));
+		setExecuteVP(id, output.executeVirtualPartner[idx_fit]);
+		//_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx_active], &output.executeVirtualPartner[idx_fit], sizeof(output.executeVirtualPartner[idx_fit]));
 
 		// write model parameters
 		vector<double> x = output.x[idx_fit];
@@ -184,4 +178,15 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS" << "DONE - Setting virtual partner data in TwinCAT";
 
+}
+
+void VirtualPartner::setExecuteVP(int id, bool e) {
+
+	// find the BROS id in the active BROS id list.
+	ptrdiff_t idx = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
+	if (idx >= _activeBROSIDs.size()) {
+		ofLogError() << "(" << typeid(this).name() << ") " << "setExecuteVP " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping...";
+		return;
+	}
+	_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx], &e, sizeof(e));
 }
