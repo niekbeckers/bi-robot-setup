@@ -141,7 +141,7 @@ while (keepRunning)
         end
         
         % fit settings
-        nrP0 = max(min(round(nrWorkers/length(fitIDs)),10),3); % number of initial parameter estimates, minimum of 3, maximum of 20
+        nrP0 = max(min(round(nrWorkers/length(fitIDs)),20),3); % number of initial parameter estimates, minimum of 3, maximum of 20
         nrFitParams = 3;
 
         % define number of tasks (for parfor loop)
