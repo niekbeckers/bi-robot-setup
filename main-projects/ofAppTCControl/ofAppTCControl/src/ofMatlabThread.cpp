@@ -166,8 +166,13 @@ void MatlabThread::copySettingsAndData(ofXml xml, matlabInput input)
             vMatFilenames.push_back(vFilenames.back());
             vFilenames.pop_back();
         }
+
+		// first, make sure to remove all remaining mat files in the tmpDataDir on the HEROC computer"
+		string cmd = ofToString("plink -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " rm -f " + matlabDataFilePath_HeRoC + "tmpDirDataModelFit/*.mat");
+		system(cmd.c_str());
+		
         
-        // secure copy mat files to HeRoC
+        // then, secure copy mat files to HeRoC
         try {
 			ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending data files (.mat) to HeRoC";
 
