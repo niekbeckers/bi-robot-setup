@@ -223,7 +223,7 @@ while (keepRunning)
     
         % delete all the data files (*.mat)
         if isunix % HeRoC (assumption)
-            delete([datapath '*.mat']);
+            delete([datapath 'tmpDirDataModelFit/*.mat']);
         end
         
         % move settingsfile to storage
