@@ -75,7 +75,7 @@
 
 clear all; close all; clc;
 
-partnersNr = 99;
+partnersNr = 101;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'solo'; % solo or interaction
@@ -101,6 +101,7 @@ s.experiment.partnersNr = partnersNr;
 % virtual partner
 s.experiment.doVirtualPartner = 1;
 
+% active BROS
 s.experiment.activeBROSID.id0 = 1;
 s.experiment.activeBROSID.id1 = 2;
 
@@ -193,10 +194,19 @@ for ii = 1:numTrials
     trial{ii}.breakDuration = breakDuration(ii);
     trial{ii}.trialRandomization = trialRandomization(ii);
     
-    if ~connected(ii) % only fit single trials
+    % only fit single trials
+    if ~connected(ii) 
         trial{ii}.fitVirtualPartner.id0 = 1;
 %         trial{ii}.fitVirtualPartner.id1 = 2;
     end
+    
+    % execute virtual partner only during the connected trials
+    if connected(ii) && s.experiment.doVirtualPartner
+        trial{ii}.executeVirtualPartner = 1;
+    else
+        trial{ii}.executeVirtualPartner = 0; % do not run during single trials
+    end
+
 end
 
 %% block data
