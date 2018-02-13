@@ -225,8 +225,7 @@ void ofAppExperiment::setTrialDataADS()
 	if (partner.initialized && !_currentTrial.executeVirtualPartner) {
 		partner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
 		partner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
-	}
-		
+	}	
 }
 
 //--------------------------------------------------------------
