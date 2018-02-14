@@ -71,7 +71,7 @@ struct experimentSettings {
 
 
 /*
- * TODO: This class is OS-specific; you might want to use Pointer-to-Implementation
+ * This class is OS-specific; you might want to use Pointer-to-Implementation
  * Idiom to hide the OS dependency from clients
  * Found this code here: https://stackoverflow.com/questions/7337651/file-sort-in-c-by-modification-time#7348347
  */

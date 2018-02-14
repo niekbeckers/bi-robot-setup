@@ -181,8 +181,9 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 
 					// check if the virtual partner needs to run during this trial.
 					if (XML.exists("executeVirtualPartner")) {
-						trial.executeVirtualPartner = XML.getBoolValue();
+						trial.executeVirtualPartner = XML.getValue<bool>("executeVirtualPartner");
 					}
+
 
 					block.trials.push_back(trial); // add trial to trials list
 
