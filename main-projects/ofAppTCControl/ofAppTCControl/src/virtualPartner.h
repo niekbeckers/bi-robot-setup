@@ -44,6 +44,7 @@ class VirtualPartner
 		// variables
 		//
 		bool initialized;
+		matlabOutput latestMatlabOutput;
 
 		//
 		// functions
@@ -55,7 +56,7 @@ class VirtualPartner
 		void runVPOptimization(matlabInput input);
 		void setExecuteVP(int id, bool execute);
 
-
+		inline bool validVirtualPartnerFit() { return _validVirtualPartnerFit; };
 		inline bool modelFitIsRunning() { return _runningModelFit; }
 };
 

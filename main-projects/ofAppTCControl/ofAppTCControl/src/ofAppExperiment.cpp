@@ -222,11 +222,19 @@ void ofAppExperiment::setTrialDataADS()
 	_tcClient->write(_lHdlVar_Write_TrialRandom, &_currentTrial.trialRandomization, sizeof(_currentTrial.trialRandomization));
 
 	// set virtual partner execute (for BROS 1 & 2), from XML settings/protocol
-	if (virtualpartner.initialized && !_currentTrial.executeVirtualPartner) {
-		virtualpartner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
-		virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
+	if (virtualpartner.initialized) {
+		if (!_currentTrial.executeVirtualPartner) {
+			virtualpartner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
+			virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
+		}
+		else {
+			virtualpartner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
+			//virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
+
+			// message to screen with VP settings
+			ofLogNotice() << "(" << typeid(this).name() << ") " << "Executing VirtualPartners" << "\n" << "Latest settings:\n" << "\tVP1: " << ofToString(virtualpartner.latestMatlabOutput.x[0]) << "\n\tVP2: " << ofToString(virtualpartner.latestMatlabOutput.x[1]);
+		}
 	}
-	virtualpartner.
 }
 
 //--------------------------------------------------------------

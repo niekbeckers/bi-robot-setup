@@ -104,11 +104,12 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 		if (noErrors) {
 			sendVirtualPartnerDataToTwinCAT(output, id);
 			_validVirtualPartnerFit = true;
+			latestMatlabOutput = output;
 		}
 		else {
 			// errors occurred, don't update the model parameters? Or run the virtual partner?
 			setExecuteVP(id, false);
-
+			_validVirtualPartnerFit = false;
 			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Error occured in virtual partner fit for BROS" << id << " !!!FIT PARAMETERS NOT SET!!!";
 		}
 	}
