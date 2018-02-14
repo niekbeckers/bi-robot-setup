@@ -175,7 +175,7 @@ if ~selectPremadeTrialSequence
     trialRandomization = 20*nRand+5*rand(size(nRand));
 
 else
-    load('exp1A_randomizedtrialorder_motorlearning_session1.mat');
+    load('randomizedtrialorder_motorlearning_session1.mat');
 end
 
 
@@ -216,7 +216,7 @@ end
 
 %% save everything (in xml and mat)
 
-protocolpath = 'exp1A_protocols';
+protocolpath = 'protocols';
 
 if ~exist(protocolpath,'dir')
     mkdir(protocolpath);
