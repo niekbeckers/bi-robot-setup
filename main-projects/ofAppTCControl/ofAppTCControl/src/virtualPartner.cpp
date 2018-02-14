@@ -102,7 +102,7 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 
 		// send data to ADS, if no errors occurred.
 		if (noErrors) {
-			sendToTwinCatADS(output, id);
+			sendVirtualPartnerDataToTwinCAT(output, id);
 			_validVirtualPartnerFit = true;
 		}
 		else {
@@ -117,23 +117,22 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 }
 
 //--------------------------------------------------------------
-void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
+void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id)
 {
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Setting virtual partner data in TwinCAT";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT " << "Setting virtual partner data in TwinCAT";
 
 	// find idx of id in activeBROSid
-
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_activeBROSIDs);
 	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
 	if (idx_active >= _activeBROSIDs.size()) {
-		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";
+		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";
 		return;
 	}
 
 	// find idx of id in fitBROSIds
 	ptrdiff_t idx_fit = find(output.doFitForBROSIDs.begin(), output.doFitForBROSIDs.end(), id) - output.doFitForBROSIDs.begin();
 	if (idx_fit >= output.doFitForBROSIDs.size()) {
-		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS " << "Cannot find BROS id (" << id << ") in output.doFitForBROSIDs. Skipping virtual partner parameter write";
+		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT " << "Cannot find BROS id (" << id << ") in output.doFitForBROSIDs. Skipping virtual partner parameter write";
 		return;
 	}
 
@@ -156,12 +155,12 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 		int nIOffs = 0;
 		int nISize = 24;
 		for (int j = 0; j < x.size(); j++) {
-			memcpy_s(&pData[nIOffs], nISize, &x[j], 8); // copy double to byte array
-			nIOffs += 8;								// writing doubles, i.e. offset with 8 bytes
-			nISize -= 8;								// decrease destination size
+			memcpy_s(&pData[nIOffs], nISize, &x[j], sizeof(double)); // copy double to byte array
+			nIOffs += sizeof(double);								 // writing doubles, i.e. offset with 8 bytes
+			nISize -= sizeof(double);								 // decrease destination size
 		}
 
-		_tcClient->write(_lHdlVar_Write_VPModelParams[idx_active], pData, 24);
+		_tcClient->write(_lHdlVar_Write_VPModelParams[idx_active], pData, x.size()*sizeof(double));
 
 		// delete array, cleanup
 		delete[] pData;
@@ -173,10 +172,10 @@ void VirtualPartner::sendToTwinCatADS(matlabOutput output, int id)
 		_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
 	}
 	catch (int e) {
-		ofLogError() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS" << "An exception occurred. Exception Nr: " << ofToString(e);
+		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT" << "An exception occurred. Exception Nr: " << ofToString(e);
 	}
 
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendToTwinCatADS" << "DONE - Setting virtual partner data in TwinCAT";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT" << "DONE - Setting virtual partner data in TwinCAT";
 
 }
 

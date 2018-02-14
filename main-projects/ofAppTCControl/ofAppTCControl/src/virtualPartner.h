@@ -36,7 +36,7 @@ class VirtualPartner
 		//
 		// functions
 		//
-		void sendToTwinCatADS(matlabOutput output, int id);
+		void sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id);
 		void onVPOptimizationDone(matlabOutput output);
 
 	public:

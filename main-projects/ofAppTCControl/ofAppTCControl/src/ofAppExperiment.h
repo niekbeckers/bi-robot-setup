@@ -175,7 +175,7 @@ class ofAppExperiment : public ofBaseApp
 
 		string experimentStateLabel = StringExperimentStateLabel(_expState);
 		
-		VirtualPartner partner;
+		VirtualPartner virtualpartner;
 
 		bool debugMode = false;
 		// 

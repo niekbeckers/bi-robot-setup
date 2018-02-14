@@ -27,8 +27,8 @@ void ofAppExperiment::update()
 	}
 
 	// update virtual partner and check if partner is still fitting
-	partner.update();
-	_runningModelFit = partner.modelFitIsRunning();
+	virtualpartner.update();
+	_runningModelFit = virtualpartner.modelFitIsRunning();
 
 	//
 	// experiment state machine
@@ -222,10 +222,11 @@ void ofAppExperiment::setTrialDataADS()
 	_tcClient->write(_lHdlVar_Write_TrialRandom, &_currentTrial.trialRandomization, sizeof(_currentTrial.trialRandomization));
 
 	// set virtual partner execute (for BROS 1 & 2), from XML settings/protocol
-	if (partner.initialized && !_currentTrial.executeVirtualPartner) {
-		partner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
-		partner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
-	}	
+	if (virtualpartner.initialized && !_currentTrial.executeVirtualPartner) {
+		virtualpartner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
+		virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
+	}
+	virtualpartner.
 }
 
 //--------------------------------------------------------------
@@ -286,7 +287,7 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 
 	// virtual partner
 	if (_settings.vpDoVirtualPartner) {
-		partner.initialize(_settings.activeBROSIDs);
+		virtualpartner.initialize(_settings.activeBROSIDs);
 	}
 
 	/*
@@ -572,7 +573,9 @@ void ofAppExperiment::esmTrialDone()
 		settings.trialID = _currentTrialNumber;
 		settings.condition = _currentTrial.condition;
 		settings.fitOnHeRoC = _settings.vpFitOnHeRoC;
-		partner.runVPOptimization(settings);
+
+		// request virtual partner fit
+		virtualpartner.runVPOptimization(settings);
 		_runningModelFit = true;
 	}
 }
