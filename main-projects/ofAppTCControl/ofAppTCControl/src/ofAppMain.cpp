@@ -661,7 +661,6 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 	else if (pNotification->hNotification == _lHdlNot_Read_SystemError) {
 		double * data = (double *)pNotification->data;
 		_errorMessage = "\n" + DecodeBROSError((int32_t)data[0], 1) + DecodeBROSError((int32_t)data[1], 2);
-		
 		if (data[0] != 0 || data[1] != 0) _errorMessageBackgroundColor = ofColor::red;
 		else _errorMessageBackgroundColor = _guiSystem.getBackgroundColor();
 
