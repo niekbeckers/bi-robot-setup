@@ -20,7 +20,9 @@ for ii = 1:length(pairs)
         disp(['Parsing pair ' num2str(pair) ' session ' num2str(session)]);
         try
             % load data and experiment protocol
-            f = dir(['.' filesep 'exp1_motorlearning_partners' num2str(pair) '_type*']);
+%             f = dir(['.' filesep 'exp1_motorlearning_partners' num2str(pair) '_type*']);
+            f = dir(['.' filesep 'exp1_learning_pair' num2str(pair) '_type*']);
+
             cd([f(1).folder filesep f(1).name filesep 'session' num2str(session)])
             if exist('data_trials.mat','file')
                 load('data_trials.mat');
@@ -40,7 +42,7 @@ for ii = 1:length(pairs)
             % remove outliers
             alldatatmp = removeoutliers(alldatatmp,pair,outliers);
             
-            % switch users (soem users sat behind BROS 1 for session 1 and
+            % switch users (some users sat behind BROS 1 for session 1 and
             % switched to BROS2 for session 2). 
             alldatatmp = switchbros(alldatatmp,pair,session,switchers);
             
