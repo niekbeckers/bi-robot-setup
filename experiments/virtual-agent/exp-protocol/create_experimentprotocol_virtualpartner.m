@@ -84,6 +84,9 @@ Ks = 150;
 Ds = 2;
 expID = ['virtualpartner_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
 
+% use preset virtual partner params (expert, for instance).
+usePresetParamsVP = 1;
+
 % filename
 filename = ['expprotocol_' expID];
 
@@ -203,8 +206,10 @@ for ii = 1:numTrials
     % execute virtual partner only during the connected trials
     if connected(ii) && s.experiment.doVirtualPartner
         trial{ii}.executeVirtualPartner = 1;
+        trial{ii}.VPUsePresetParams = usePresetParamsVP;
     else
         trial{ii}.executeVirtualPartner = 0; % do not run during single trials
+        trial{ii}.VPUsePresetParams = 0;
     end
 
 end
