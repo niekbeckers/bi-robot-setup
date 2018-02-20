@@ -57,6 +57,10 @@ void VirtualPartner::initialize(vector<int> vID)
 		_lHdlVar_Write_VPModelParamsChanged.push_back(_tcClient->getVariableHandle(szVar2, strlen(szVar2)));
 	}
 
+	// Use preset params (virtual partner)
+	char szVar[] = { "Object1 (ModelBROS).ModelParameters.VPUsePresetParams_Value" };
+	_lHdlVar_Write_VPUsePresetParams = _tcClient->getVariableHandle(szVar, sizeof(szVar));
+
 	initialized = true;
 
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "initialized";
@@ -180,6 +184,7 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 
 }
 
+//--------------------------------------------------------------
 void VirtualPartner::setExecuteVP(int id, bool e) {
 
 	// find the BROS id in the active BROS id list.
@@ -189,4 +194,11 @@ void VirtualPartner::setExecuteVP(int id, bool e) {
 		return;
 	}
 	_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx], &e, sizeof(e));
+}
+
+//--------------------------------------------------------------
+void VirtualPartner::setUsePresetParamsVP(bool setUse) {
+
+	// set whether we use the preset parameters for the virtual partner
+	_tcClient->write(_lHdlVar_Write_VPUsePresetParams, &setUse, sizeof(setUse));
 }

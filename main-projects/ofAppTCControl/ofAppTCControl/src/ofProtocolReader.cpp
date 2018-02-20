@@ -184,6 +184,10 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 						trial.executeVirtualPartner = XML.getValue<bool>("executeVirtualPartner");
 					}
 
+					// check if we use preset virtual partner parameter settings (e.g. for expert users)
+					if (XML.exists("VPUsePresetParams")) {
+						trial.usePresetParamsVirtualPartner = XML.getValue<bool>("VPUsePresetParams");
+					}
 
 					block.trials.push_back(trial); // add trial to trials list
 

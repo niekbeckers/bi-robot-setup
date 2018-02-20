@@ -223,6 +223,7 @@ void ofAppExperiment::setTrialDataADS()
 
 	// set virtual partner execute (for BROS 1 & 2), from XML settings/protocol
 	if (virtualpartner.initialized) {
+		// check if execute virtual partner
 		if (!_currentTrial.executeVirtualPartner) {
 			virtualpartner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
 			virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
@@ -231,9 +232,16 @@ void ofAppExperiment::setTrialDataADS()
 			virtualpartner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
 			//virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
 
+			// check if the preset virtual partner settings should be used
+			virtualpartner.setUsePresetParamsVP(_currentTrial.usePresetParamsVirtualPartner);
+
 			// message to screen with VP settings
-			ofLogNotice() << "(" << typeid(this).name() << ") " << "Executing VirtualPartners" << "\n" << "Latest settings:\n" << "\tVP1: " << ofToString(virtualpartner.latestMatlabOutput.x[0]) << "\n\tVP2: " << ofToString(virtualpartner.latestMatlabOutput.x[1]);
+			//ofLogNotice() << "(" << typeid(this).name() << ") " << "Executing VirtualPartners" << "\n" << "Latest settings:\n" << "\tVP1: " << ofToString(virtualpartner.latestMatlabOutput.x[0]) << "\n\tVP2: " << ofToString(virtualpartner.latestMatlabOutput.x[1]);
 		}
+
+		
+		
+
 	}
 }
 

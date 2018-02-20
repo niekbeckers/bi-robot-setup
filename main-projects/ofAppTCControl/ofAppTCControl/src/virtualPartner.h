@@ -23,6 +23,7 @@ class VirtualPartner
 		//
 		tcAdsClient *_tcClient;
 		vector<unsigned long> _lHdlVar_Write_ExecuteVirtualPartner, _lHdlVar_Write_VPModelParams, _lHdlVar_Write_VPModelParamsChanged;
+		unsigned long _lHdlVar_Write_VPUsePresetParams;
 
 		// MATLAB Thread
 		// the matlabthread is started upon construction. Don't worry, the thread does not consume any (hardly) CPU until it's actually called.
@@ -55,6 +56,7 @@ class VirtualPartner
 		void initialize(vector<int> vID);
 		void runVPOptimization(matlabInput input);
 		void setExecuteVP(int id, bool execute);
+		void setUsePresetParamsVP(bool setUse);
 
 		inline bool validVirtualPartnerFit() { return _validVirtualPartnerFit; };
 		inline bool modelFitIsRunning() { return _runningModelFit; }

@@ -1258,7 +1258,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{00FF103E-2508-FEF4-1F53-D532DC8DE8FD}">P_model_virtualpartner_bros_T</Name>
+			<Name GUID="{1696C647-BA9E-43C6-33F8-BB49587D6A23}">P_model_virtualpartner_bros_T</Name>
 			<BitSize>81216</BitSize>
 			<SubItem>
 				<Name>VP</Name>
@@ -3919,7 +3919,7 @@
 				<BitOffs>75192</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_bp</Name>
+				<Name>Gain_Gain_o</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>75200</BitOffs>
@@ -3997,6 +3997,9 @@
 				<BitOffs>80960</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{C0CD1774-1C63-A9B2-023D-012696963EDE}"/>
+				<Hide GUID="{00FF103E-2508-FEF4-1F53-D532DC8DE8FD}"/>
+				<Hide GUID="{5B7EAADD-AE10-259D-5A2E-8B0EAE63A725}"/>
 				<Hide GUID="{8CE4C832-E51D-1A8F-20A7-9E9E7FC2B64D}"/>
 				<Hide GUID="{C1A58983-CADB-B491-1A06-0FE7996D92F4}"/>
 				<Hide GUID="{AEB218B2-36F0-BE12-0A69-D568B3EA6C0C}"/>
@@ -5418,9 +5421,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{517834F4-56AE-4F53-9490-97D8EBE70231}">
+					<TmcDesc GUID="{4A9098FA-DFFD-42BF-BAD0-0518CC1449CE}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{517834F4-56AE-4F53-9490-97D8EBE70231}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{4A9098FA-DFFD-42BF-BAD0-0518CC1449CE}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5542,7 +5545,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>81216</BitSize>
-								<BaseType GUID="{00FF103E-2508-FEF4-1F53-D532DC8DE8FD}">P_model_virtualpartner_bros_T</BaseType>
+								<BaseType GUID="{1696C647-BA9E-43C6-33F8-BB49587D6A23}">P_model_virtualpartner_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -9998,7 +10001,7 @@
 									<BitOffs>59045104</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_k</Name>
+									<Name>Gain_o</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x82709e9f</PTCID>
@@ -13812,7 +13815,7 @@
 									<BitOffs>75192</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_bp</Name>
+									<Name>Gain_Gain_o</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x830024b8</PTCID>
@@ -20038,15 +20041,15 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS1_Value[0]</Name>
-								<Value>3.5</Value>
+								<Value>56.0046</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS1_Value[1]</Name>
-								<Value>0.75</Value>
+								<Value>6.0712</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS1_Value[2]</Name>
-								<Value>0.0088</Value>
+								<Value>0.0051</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Manuallytriggercontrollawcalc_V</Name>
@@ -20058,15 +20061,15 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS2_Value[0]</Name>
-								<Value>278.4565</Value>
+								<Value>54.7103</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS2_Value[1]</Name>
-								<Value>8.5698</Value>
+								<Value>0.6136</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_BROS2_Value[2]</Name>
-								<Value>7.1328e-006</Value>
+								<Value>0.0034</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VPModelParams_Changed_BROS2_Val</Name>
@@ -20082,7 +20085,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber_Seed</Name>
-								<Value>709365</Value>
+								<Value>318074</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Mean</Name>
@@ -20094,7 +20097,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Seed</Name>
-								<Value>552050</Value>
+								<Value>1879659</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Mean</Name>
@@ -20106,7 +20109,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Seed</Name>
-								<Value>1965294</Value>
+								<Value>1438390</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Mean</Name>
@@ -20118,7 +20121,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Seed</Name>
-								<Value>475991</Value>
+								<Value>2178864</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber_Mean_j</Name>
@@ -20130,7 +20133,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber_Seed_j</Name>
-								<Value>4798720</Value>
+								<Value>2719430</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Mean_h</Name>
@@ -20142,7 +20145,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber1_Seed_j</Name>
-								<Value>3511607</Value>
+								<Value>3134972</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Mean_b</Name>
@@ -20154,7 +20157,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber2_Seed_p</Name>
-								<Value>5258869</Value>
+								<Value>1530736</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Mean_l</Name>
@@ -20166,7 +20169,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber3_Seed_f</Name>
-								<Value>4047656</Value>
+								<Value>877580</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber4_Mean</Name>
@@ -20178,7 +20181,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber4_Seed</Name>
-								<Value>8018129</Value>
+								<Value>3641220</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber5_Mean</Name>
@@ -20190,7 +20193,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber5_Seed</Name>
-								<Value>5472155</Value>
+								<Value>3658162</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber6_Mean</Name>
@@ -20202,7 +20205,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber6_Seed</Name>
-								<Value>1642234</Value>
+								<Value>6906860</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber7_Mean</Name>
@@ -20214,7 +20217,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.RandomNumber7_Seed</Name>
-								<Value>10088607</Value>
+								<Value>11194243</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Merge1_InitialOutput[0]</Name>
@@ -21113,7 +21116,7 @@
 								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_bp</Name>
+								<Name>ModelParameters.Gain_Gain_o</Name>
 								<Value>128</Value>
 							</Value>
 							<Value>
