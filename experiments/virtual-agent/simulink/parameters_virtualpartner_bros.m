@@ -106,6 +106,12 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 VP.Ov = Ov;
 
 VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,2000);
+
+% expert params
+VP.VPPresetParams_noFF = [58.7623 6.6115 0.0050];
+VP.VPPresetParams_FF = [41.5216 0.4862 0.0029];
+
+
 %% RobotStruct BROS1
 % clear BROS1
 
