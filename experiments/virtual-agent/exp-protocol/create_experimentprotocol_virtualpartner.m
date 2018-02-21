@@ -5,20 +5,17 @@
 
 clear all; close all; clc;
 
-partnersNr = 112;
-sessionnr = 1;
+pairNr = 112;
 selectPremadeTrialSequence = 1;
 groupType = 'vp_dynamic'; % solo or interaction
 groupTypeNr = 2; % 0 = solo, 1 = interaction, 2 = vp, 3 = vp_expert
 Ks = 150;
 Ds = 2;
-expID = ['virtualpartner_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
+expID = ['vp_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
+filename = ['protocol_' expID];
 
 % use preset virtual partner params (expert, for instance).
 usePresetParamsVP = 0;
-
-% filename
-filename = ['expprotocol_' expID];
 
 % create (main) struct
 s = struct;
@@ -28,8 +25,7 @@ s.experiment.expID = expID;
 s.experiment.trialFeedback = 1;
 s.experiment.trialPerformanceThreshold = 0.05;
 s.experiment.groupTypeNr = groupTypeNr;
-s.experiment.sessionNr = sessionnr;
-s.experiment.partnersNr = partnersNr;
+s.experiment.pairNr = pairNr;
 
 % virtual partner
 s.experiment.doVirtualPartner = 1;
@@ -104,19 +100,17 @@ for ii = 1:numTrials
     trial{ii}.breakDuration = breakDuration(ii);
     trial{ii}.trialRandomization = trialRandomization(ii);
     
-    % only fit single trials
-    if ~connected(ii) && ~usePresetParamsVP
-        trial{ii}.fitVirtualPartner.id0 = 1;
-%         trial{ii}.fitVirtualPartner.id1 = 2;
-    end
-    
-    % execute virtual partner only during the connected trials
-    if connected(ii) && s.experiment.doVirtualPartner
+    if s.experiment.doVirtualPartner
+        % only fit single trials
+        if ~connected(ii) && ~usePresetParamsVP
+            trial{ii}.fitVirtualPartner.id0 = 1;
+    %         trial{ii}.fitVirtualPartner.id1 = 2;
+        end
+        % always execute VP (even during single trials)
         trial{ii}.executeVirtualPartner = 1;
+        % for every trial, set whether we are using preset parameter
+        % values.
         trial{ii}.VPUsePresetParams = usePresetParamsVP;
-    else
-        trial{ii}.executeVirtualPartner = 0; % do not run during single trials
-        trial{ii}.VPUsePresetParams = 0;
     end
 
 end
