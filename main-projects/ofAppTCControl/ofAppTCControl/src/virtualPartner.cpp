@@ -197,8 +197,20 @@ void VirtualPartner::setExecuteVP(int id, bool e) {
 }
 
 //--------------------------------------------------------------
-void VirtualPartner::setUsePresetParamsVP(bool setUse) {
+void VirtualPartner::setUsePresetParamsVP(int id, bool setUse) {
 
 	// set whether we use the preset parameters for the virtual partner
 	_tcClient->write(_lHdlVar_Write_VPUsePresetParams, &setUse, sizeof(setUse));
+
+	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
+	if (idx_active >= _activeBROSIDs.size()) {
+		ofLogError() << "(" << typeid(this).name() << ") " << "setUsePresetParamsVP " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";
+		return;
+	}
+
+	double d = 1.0;
+	// write pulse to model params changed (to trigger optimal gain calculation)
+	_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
+	d = 0.0;
+	_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
 }

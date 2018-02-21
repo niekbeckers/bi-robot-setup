@@ -56,7 +56,7 @@ class VirtualPartner
 		void initialize(vector<int> vID);
 		void runVPOptimization(matlabInput input);
 		void setExecuteVP(int id, bool execute);
-		void setUsePresetParamsVP(bool setUse);
+		void setUsePresetParamsVP(int id, bool setUse);
 
 		inline bool validVirtualPartnerFit() { return _validVirtualPartnerFit; };
 		inline bool modelFitIsRunning() { return _runningModelFit; }

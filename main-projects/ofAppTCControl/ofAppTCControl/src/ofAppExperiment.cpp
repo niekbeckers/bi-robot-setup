@@ -233,8 +233,9 @@ void ofAppExperiment::setTrialDataADS()
 			//virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
 
 			// check if the preset virtual partner settings should be used
-			virtualpartner.setUsePresetParamsVP(_currentTrial.usePresetParamsVirtualPartner);
-
+			virtualpartner.setUsePresetParamsVP(1, _currentTrial.usePresetParamsVirtualPartner);
+			//virtualpartner.setUsePresetParamsVP(2, _currentTrial.usePresetParamsVirtualPartner);
+			
 			// message to screen with VP settings
 			//ofLogNotice() << "(" << typeid(this).name() << ") " << "Executing VirtualPartners" << "\n" << "Latest settings:\n" << "\tVP1: " << ofToString(virtualpartner.latestMatlabOutput.x[0]) << "\n\tVP2: " << ofToString(virtualpartner.latestMatlabOutput.x[1]);
 		}
