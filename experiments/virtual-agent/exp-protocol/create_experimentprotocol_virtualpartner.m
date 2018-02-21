@@ -5,17 +5,17 @@
 
 clear all; close all; clc;
 
-partnersNr = 111;
+partnersNr = 112;
 sessionnr = 1;
 selectPremadeTrialSequence = 1;
-groupType = 'vp_expert'; % solo or interaction
-groupTypeNr = 3; % 0 = solo, 1 = interaction, 2 = vp, 3 = vp_expert
+groupType = 'vp_dynamic'; % solo or interaction
+groupTypeNr = 2; % 0 = solo, 1 = interaction, 2 = vp, 3 = vp_expert
 Ks = 150;
 Ds = 2;
 expID = ['virtualpartner_partners' num2str(partnersNr) '_session' num2str(sessionnr) '_type' num2str(groupTypeNr)];
 
 % use preset virtual partner params (expert, for instance).
-usePresetParamsVP = 1;
+usePresetParamsVP = 0;
 
 % filename
 filename = ['expprotocol_' expID];
