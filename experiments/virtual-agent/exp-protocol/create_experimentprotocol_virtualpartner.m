@@ -7,7 +7,7 @@ clear all; close all; clc;
 
 pairNr = 112;
 selectPremadeTrialSequence = 1;
-groupType = 'vp_dynamic'; % solo or interaction
+groupType = 'vp_peer'; % solo or interaction
 groupTypeNr = 2; % 0 = solo, 1 = interaction, 2 = vp, 3 = vp_expert
 Ks = 150;
 Ds = 2;
@@ -16,6 +16,9 @@ filename = ['protocol_' expID];
 
 % use preset virtual partner params (expert, for instance).
 usePresetParamsVP = 0;
+
+% perform fit on HEROC computer
+vpFitOnHeRoC = 1;
 
 % create (main) struct
 s = struct;
@@ -26,6 +29,7 @@ s.experiment.trialFeedback = 1;
 s.experiment.trialPerformanceThreshold = 0.05;
 s.experiment.groupTypeNr = groupTypeNr;
 s.experiment.pairNr = pairNr;
+s.experiment.vpFitOnHeRoC = vpFitOnHeRoC;
 
 % virtual partner
 s.experiment.doVirtualPartner = 1;
