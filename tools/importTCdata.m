@@ -116,11 +116,22 @@ switch lower(modelname)
             param_idx = [param_idx; 78; 79; 80;81:82; 83:84 ]; 
         end
 
-        % I also added the target velocity to the model, so append to param_idx and param_lbls
-        if (size(dataArray,2) > 84)
+        % new virtualpartner models.
+        if (size(dataArray,2) == 100)
+            disp('importTCdata: ''new model''');
+            % removed xhat and y from the data recording (23-02)
+            param_lbls = [param_lbls; 'pos_vp1'; 'vel_vp1'; 'noise_w_vp1'; 'pos_vp2'; 'vel_vp2'; 'noise_w_vp2'; 'target_vel_BROS1'; 'target_vel_BROS2'];
+            param_idx = [param_idx;   85:86;     87:88;     89:90;         91:92;      93:94;    95:96;         97:98;              99:100]; 
+
+        elseif (size(dataArray,2) > 100)
+            disp('importTCdata: ''old model''');
+            % old virtualpartner
+            % I also added the target velocity to the model, so append to param_idx and param_lbls
             param_lbls = [param_lbls; 'pos_vp1'; 'vel_vp1'; 'y_vp1'; 'xhatp_vp1'; 'noise_w_vp1'; 'pos_vp2'; 'vel_vp2'; 'y_vp2'; 'xhatp_vp2'; 'noise_w_vp2'; 'target_vel_BROS1'; 'target_vel_BROS2'];
             param_idx = [param_idx; 85:86;       87:88;     89:92;   93:102;      103:104;       105:106;   107:108;   109:112; 113:122;     123:124;       125:126;            127:128]; 
         end
+        
+        
 
     case 'model_sysid'
         
