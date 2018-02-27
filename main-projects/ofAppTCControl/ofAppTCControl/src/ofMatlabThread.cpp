@@ -227,8 +227,8 @@ ofXml MatlabThread::input2xml(matlabInput input)
 matlabOutput MatlabThread::xml2output(ofXml xml)
 {
 	// read xml and store in matlabOutput struct
-
 	matlabOutput output;
+
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "xml2output " << "Results from the model fit:";
 
 	if (xml.exists("trialID")) output.trialID = xml.getValue<int>("trialID");

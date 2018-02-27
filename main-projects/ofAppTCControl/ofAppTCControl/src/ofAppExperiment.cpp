@@ -230,11 +230,11 @@ void ofAppExperiment::setTrialDataADS()
 		}
 		else {
 			virtualpartner.setExecuteVP(1, _currentTrial.executeVirtualPartner);
-			//virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
+			virtualpartner.setExecuteVP(2, _currentTrial.executeVirtualPartner);
 
 			// check if the preset virtual partner settings should be used
 			virtualpartner.setUsePresetParamsVP(1, _currentTrial.usePresetParamsVirtualPartner);
-			//virtualpartner.setUsePresetParamsVP(2, _currentTrial.usePresetParamsVirtualPartner);
+			virtualpartner.setUsePresetParamsVP(2, _currentTrial.usePresetParamsVirtualPartner);
 			
 			// message to screen with VP settings
 			//ofLogNotice() << "(" << typeid(this).name() << ") " << "Executing VirtualPartners" << "\n" << "Latest settings:\n" << "\tVP1: " << ofToString(virtualpartner.latestMatlabOutput.x[0]) << "\n\tVP2: " << ofToString(virtualpartner.latestMatlabOutput.x[1]);
@@ -416,6 +416,40 @@ void ofAppExperiment::esmNewBlock()
 	// reset trial performance
 	_trialPerformancePrev[0] = 0.0;
 	_trialPerformancePrev[1] = 0.0;
+
+	// If using the virtual partner, check what type of block this is and set
+	// the 'latestMatlabOutput' struct to the preset params
+	if (virtualpartner.initialized) {
+		
+		vector<double> xtmp;
+		double xa[3] = {}; // 3 parameters we're fitting
+
+		switch (_currentBlock.trials[0].condition) {
+		case 0:
+			// baseline condition
+			xa[0] = 58.7623;
+			xa[1] = 6.6115;
+			xa[2] = 0.0050;
+			break;
+		case 1:
+			xa[0] = 41.5216;
+			xa[1] = 0.4862;
+			xa[2] = 0.0029;
+			break;
+		default:
+			// do nothing, xa is already initialized with zeros.
+			break;
+		}
+		xtmp.assign(xa, xa + sizeof(xa));
+
+		// add the parameters for BROS1 and BROS2
+		vector<vector<double>> x;
+		x.push_back(xtmp);
+		x.push_back(xtmp);
+
+		// set latestMatlabOutput
+		virtualpartner.setMatlabOutputX(x);
+	}
 
 	// start first trial
 	setExperimentState(ExperimentState::NEWTRIAL);

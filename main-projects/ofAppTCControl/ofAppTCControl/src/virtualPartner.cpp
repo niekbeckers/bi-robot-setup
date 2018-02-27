@@ -9,6 +9,7 @@ VirtualPartner::VirtualPartner():
 	// register the callback function in the matlab thread. 
 	using namespace std::placeholders;
 	_matlabThread.registerCBFunction(std::bind(&VirtualPartner::onVPOptimizationDone, this, _1));
+
 }
 
 //--------------------------------------------------------------
@@ -111,8 +112,9 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 			latestMatlabOutput = output;
 		}
 		else {
-			// errors occurred, don't update the model parameters? Or run the virtual partner?
-			setExecuteVP(id, false);
+			// Error(s) in model fit occurred. Execute VP, but with preset values.
+			//setExecuteVP(id, false);
+			sendVirtualPartnerDataToTwinCAT(latestMatlabOutput, id);
 			_validVirtualPartnerFit = false;
 			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Error occured in virtual partner fit for BROS" << id << " !!!FIT PARAMETERS NOT SET!!!";
 		}
@@ -128,6 +130,7 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 
 	// find idx of id in activeBROSid
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_activeBROSIDs);
+	
 	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
 	if (idx_active >= _activeBROSIDs.size()) {
 		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";
@@ -213,4 +216,14 @@ void VirtualPartner::setUsePresetParamsVP(int id, bool setUse) {
 	_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
 	d = 0.0;
 	_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
+}
+
+//--------------------------------------------------------------
+void VirtualPartner::setMatlabOutputX(vector<vector<double>> x) {
+	// function you can use to set the MATLABOUTPUT struct to model parameters x.
+	// This can be used to preset the model parameters.
+	latestMatlabOutput.doFitForBROSIDs = _activeBROSIDs;
+	latestMatlabOutput.error = vector<int>(2, 0);
+	latestMatlabOutput.executeVirtualPartner = vector<bool>(2, true);
+	latestMatlabOutput.x = x;
 }
