@@ -3,7 +3,7 @@ function varargout = parsedata;
 %% parsedata
 clear all; close all; clc;
 
-pairs = [1 2];
+pairs = [1 2 3];
 outliers = {'2B'};
 
 ix = 1;
