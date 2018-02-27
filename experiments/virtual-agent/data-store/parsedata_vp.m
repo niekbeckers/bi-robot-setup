@@ -3,9 +3,8 @@ function varargout = parsedata;
 %% parsedata
 clear all; close all; clc;
 
-pairs = [112];
-% outliers = {'10B'};
-outliers = {''};
+pairs = [1 2];
+outliers = {'2B'};
 
 ix = 1;
 currdir = [fileparts(mfilename('fullpath')) filesep];
@@ -16,7 +15,7 @@ for ii = 1:length(pairs)
     try
         % load data and experiment protocol
 %             f = dir(['.' filesep 'exp1_motorlearning_partners' num2str(pair) '_type*']);
-        f = dir(['.' filesep 'exp2_vp_pilot' num2str(pair) '_type*']);
+        f = dir(['.' filesep 'exp2_vp_pair' num2str(pair) '_type*']);
    
         cd([f(1).folder filesep f(1).name filesep 'data'])
         if exist('data_trials.mat','file')
