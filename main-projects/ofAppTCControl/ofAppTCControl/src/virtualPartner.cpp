@@ -180,10 +180,10 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 		_tcClient->write(_lHdlVar_Write_VPModelParamsChanged[idx_active], &d, sizeof(d));
 	}
 	catch (int e) {
-		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT" << "An exception occurred. Exception Nr: " << ofToString(e);
+		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << " An exception occurred. Exception Nr: " << ofToString(e);
 	}
 
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT" << "DONE - Setting virtual partner data in TwinCAT";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << " DONE - Setting virtual partner data in TwinCAT";
 
 }
 
@@ -222,8 +222,23 @@ void VirtualPartner::setUsePresetParamsVP(int id, bool setUse) {
 void VirtualPartner::setMatlabOutputX(vector<vector<double>> x) {
 	// function you can use to set the MATLABOUTPUT struct to model parameters x.
 	// This can be used to preset the model parameters.
+	latestMatlabOutput.doFitForBROSIDs.clear();
 	latestMatlabOutput.doFitForBROSIDs = _activeBROSIDs;
+
+	latestMatlabOutput.error.clear();
 	latestMatlabOutput.error = vector<int>(2, 0);
+
+	latestMatlabOutput.executeVirtualPartner.clear();
 	latestMatlabOutput.executeVirtualPartner = vector<bool>(2, true);
-	latestMatlabOutput.x = x;
+
+	latestMatlabOutput.x.clear();
+	for (int i = 0; i < x.size(); i++) {
+		latestMatlabOutput.x.push_back(x[i]);
+	}
+
+
+	// write latestMatlabOutput to TwinCAT
+	for (int i = 0; i < _activeBROSIDs.size(); i++) {
+		sendVirtualPartnerDataToTwinCAT(latestMatlabOutput, _activeBROSIDs[i]);
+	}
 }

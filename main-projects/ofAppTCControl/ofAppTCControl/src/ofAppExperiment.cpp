@@ -421,7 +421,7 @@ void ofAppExperiment::esmNewBlock()
 	// the 'latestMatlabOutput' struct to the preset params
 	if (virtualpartner.initialized) {
 		
-		vector<double> xtmp;
+		
 		double xa[3] = {}; // 3 parameters we're fitting
 
 		switch (_currentBlock.trials[0].condition) {
@@ -440,14 +440,16 @@ void ofAppExperiment::esmNewBlock()
 			// do nothing, xa is already initialized with zeros.
 			break;
 		}
-		xtmp.assign(xa, xa + sizeof(xa));
+		vector<double> xtmp(begin(xa), end(xa));
 
 		// add the parameters for BROS1 and BROS2
 		vector<vector<double>> x;
 		x.push_back(xtmp);
 		x.push_back(xtmp);
 
-		// set latestMatlabOutput
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "Virtual Partner Preset values loaded at beginning of block";
+
+		// set latestMatlabOutput (which is then written to TwinCAT)
 		virtualpartner.setMatlabOutputX(x);
 	}
 
