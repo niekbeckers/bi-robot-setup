@@ -217,9 +217,10 @@ while (keepRunning)
         end
        
         % store data in mat file (regardless of fiterror)
+        timestamp = datestr(now,'ddmmyy_HHMMSS');
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
         save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
-        movefile([outputfile '.mat'],resultstoragepath); % copy to output file store
+        copyfile([outputfile '.mat'],[resultstoragepath filesep 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '_' timestamp '.mat'] ); % copy to output file store
     
         % delete all the data files (*.mat)
         if isunix % HeRoC (assumption)
