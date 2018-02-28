@@ -90,7 +90,8 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 		int id = output.doFitForBROSIDs[i];
 
 		// error check
-		bool noErrors = true;
+		bool noErrors = true; 
+		// errors: ignore error code 1 (stability)
 		if (output.error[i] > 1) {
 			noErrors = false;
 			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Errors in output for BROS" << id << ", code: " << output.error[i];
@@ -112,7 +113,7 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 			latestMatlabOutput = output;
 		}
 		else {
-			// Error(s) in model fit occurred. Execute VP, but with preset values.
+			// error(s) in model fit occurred. Execute VP, but with preset values.
 			//setExecuteVP(id, false);
 			sendVirtualPartnerDataToTwinCAT(latestMatlabOutput, id);
 			_validVirtualPartnerFit = false;
@@ -126,10 +127,10 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 //--------------------------------------------------------------
 void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id)
 {
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT " << "Setting virtual partner data in TwinCAT";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT " << "Start...";
 
 	// find idx of id in activeBROSid
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_activeBROSIDs);
+	//ofLogNotice() << "(" << typeid(this).name() << ") " << "ActiveBROSID: " << ofToString(_activeBROSIDs);
 	
 	ptrdiff_t idx_active = find(_activeBROSIDs.begin(), _activeBROSIDs.end(), id) - _activeBROSIDs.begin();
 	if (idx_active >= _activeBROSIDs.size()) {
@@ -186,7 +187,7 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << " An exception occurred. Exception Nr: " << ofToString(e);
 	}
 
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << " DONE - Setting virtual partner data in TwinCAT";
+	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << " DONE";
 
 }
 
@@ -237,7 +238,7 @@ void VirtualPartner::setMatlabOutputX(vector<vector<double>> x) {
 	latestMatlabOutput.x.clear();
 	for (int i = 0; i < x.size(); i++) {
 		latestMatlabOutput.x.push_back(x[i]);
-		ofLogNotice() << "Set x: " << ofToString(latestMatlabOutput.x[i]);
+		ofLogNotice() << "latestMatlabOutput set x[" << i << "]: " << ofToString(latestMatlabOutput.x[i]);
 	}
 
 
@@ -245,5 +246,4 @@ void VirtualPartner::setMatlabOutputX(vector<vector<double>> x) {
 	for (int i = 0; i < _activeBROSIDs.size(); i++) {
 		sendVirtualPartnerDataToTwinCAT(latestMatlabOutput, _activeBROSIDs[i]);
 	}
-	ofLogNotice() << "Data after block sent to TC";
 }
