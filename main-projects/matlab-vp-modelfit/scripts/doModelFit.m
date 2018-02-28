@@ -30,7 +30,7 @@ fun = @(x)fitfun_invoc_mex(x,dt,xmeas,target,doFF);
 
 % fmincon settings
 if isunix
-    maxIter = 1000;
+    maxIter = 250;
 else
     maxIter = 75;
 end

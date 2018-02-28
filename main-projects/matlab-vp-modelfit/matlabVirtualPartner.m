@@ -209,7 +209,7 @@ while (keepRunning)
 
                 % store optimal fit as p0 for next optimization
                 p0_saved(:,id) = pfit_opt(:,id);
-                resultsmodelfit.VP.gof = gof(id);
+                resultsmodelfit.VP.gof.(['bros' num2str(id)]) = gof(id);
             end
         catch me
             disp(me)
