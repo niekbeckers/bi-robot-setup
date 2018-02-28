@@ -443,11 +443,11 @@ void ofAppExperiment::esmNewBlock()
 		vector<double> xtmp(begin(xa), end(xa));
 
 		// add the parameters for BROS1 and BROS2
-		vector<vector<double>> x;
-		x.push_back(xtmp);
-		x.push_back(xtmp);
+		vector<vector<double>> x(2, xtmp);
+		//x.push_back(xtmp);
+		//x.push_back(xtmp);
 
-		ofLogNotice() << "(" << typeid(this).name() << ") " << "Virtual Partner Preset values loaded at beginning of block";
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "Loaded preset values for VirtualPartner at new block";
 
 		// set latestMatlabOutput (which is then written to TwinCAT)
 		virtualpartner.setMatlabOutputX(x);
@@ -623,7 +623,8 @@ void ofAppExperiment::esmTrialDone()
 		// setup optimization (settings)
 		matlabInput settings;
 		settings.doFitForBROSIDs = _currentTrial.fitVPBROSIDs;
-		settings.trialID = _currentTrialNumber;
+		//settings.trialID = _currentTrialNumber; _currentTrialNumber resets in each block; _trial.trialNumber is absolute
+		settings.trialID = _currentTrial.trialNumber;
 		settings.condition = _currentTrial.condition;
 		settings.fitOnHeRoC = _settings.vpFitOnHeRoC;
 
