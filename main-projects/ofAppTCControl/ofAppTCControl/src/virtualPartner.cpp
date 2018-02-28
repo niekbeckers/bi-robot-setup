@@ -91,7 +91,7 @@ void VirtualPartner::onVPOptimizationDone(matlabOutput output)
 
 		// error check
 		bool noErrors = true;
-		if (output.error[i] > 0) {
+		if (output.error[i] > 1) {
 			noErrors = false;
 			ofLogError() << "(" << typeid(this).name() << ") " << "onVPOptimizationDone " << "Errors in output for BROS" << id << ", code: " << output.error[i];
 		}
@@ -136,6 +136,7 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT " << "Cannot find BROS id (" << id << ") in _activeBROSIDs. Skipping virtual partner parameter write";
 		return;
 	}
+	ofLogNotice() << "idx_active " << idx_active;
 
 	// find idx of id in fitBROSIds
 	ptrdiff_t idx_fit = find(output.doFitForBROSIDs.begin(), output.doFitForBROSIDs.end(), id) - output.doFitForBROSIDs.begin();
@@ -148,7 +149,7 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 	try {
 
 		// write executeVirtualPartner
-		setExecuteVP(id, output.executeVirtualPartner[idx_fit]);
+		//setExecuteVP(id, output.executeVirtualPartner[idx_fit]);
 		//_tcClient->write(_lHdlVar_Write_ExecuteVirtualPartner[idx_active], &output.executeVirtualPartner[idx_fit], sizeof(output.executeVirtualPartner[idx_fit]));
 
 		// write model parameters
@@ -158,6 +159,8 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 		// this means you'd have to adjust the byte array size in case you update the number of model parameters sent to TC.
 		// The code below is based on the example found here: 
 		// https://infosys.beckhoff.com/english.php?content=../content/1033/tcsample_webservice/html/webservice_sample_cpp.htm&id=
+
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << "Writing x[BROS "<< id <<"]: " << ofToString(x) << "to TC/Simulink model";
 
 		BYTE *pData = new BYTE[24];
 		int nIOffs = 0;
@@ -234,6 +237,7 @@ void VirtualPartner::setMatlabOutputX(vector<vector<double>> x) {
 	latestMatlabOutput.x.clear();
 	for (int i = 0; i < x.size(); i++) {
 		latestMatlabOutput.x.push_back(x[i]);
+		ofLogNotice() << "Set x: " << ofToString(latestMatlabOutput.x[i]);
 	}
 
 
@@ -241,4 +245,5 @@ void VirtualPartner::setMatlabOutputX(vector<vector<double>> x) {
 	for (int i = 0; i < _activeBROSIDs.size(); i++) {
 		sendVirtualPartnerDataToTwinCAT(latestMatlabOutput, _activeBROSIDs[i]);
 	}
+	ofLogNotice() << "Data after block sent to TC";
 }

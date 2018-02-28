@@ -420,7 +420,7 @@ void ofAppExperiment::esmNewBlock()
 	// If using the virtual partner, check what type of block this is and set
 	// the 'latestMatlabOutput' struct to the preset params
 	if (virtualpartner.initialized) {
-		
+	
 		
 		double xa[3] = {}; // 3 parameters we're fitting
 
