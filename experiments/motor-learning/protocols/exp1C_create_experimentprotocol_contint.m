@@ -37,8 +37,8 @@ s.experiment.activeBROSID.id1 = 2;
 % condition (per trial)
 % 1: force field
 % 2: visuomotor rotation
-condition = [zeros(21,1); 1*ones(21,1); 1*ones(21,1); 1*ones(21,1)];
-condition(15) = 1; % trial 16 is a 'catch' force field trial.
+condition = [zeros(21,1); 2*ones(21,1); 2*ones(21,1); 2*ones(21,1)];
+condition(15) = 2; % trial 16 is a 'catch' visuomotor trial.
     
 numTrials = numel(condition); % example
 breakDuration = 10*ones(numTrials,1);
@@ -51,7 +51,7 @@ if strcmpi(groupType,'solo')
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
                  % block 1    block 2      block 3         block 4
-    connected = [zeros(21,1); ones(21,1); [ones(20,1); 0]; zeros(21,1)];
+    connected = [zeros(21,1); ones(21,1);  ones(21,1);     [ones(9,1); zeros(12,1)]];
     connectionStiffness = connected*Ks;
     connectionDamping = connected*Ds;
 end
