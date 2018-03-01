@@ -1,84 +1,13 @@
 %% createBROSExperimentProtocol_template
-%
-% - Niek
-%
-%
-% For this to work, you need to download struct2xml (https://nl.mathworks.com/matlabcentral/fileexchange/28639-struct2xml)
-% The BROS GUI and experiment handler software reads a XML file with the
-% following structure:
-%
-% <?xml version="1.0" encoding="utf-8"?>
-% <experiment>
-%    <countDownDuration>3</countDownDuration> 
-%    <trialFeedback>0</trialFeedback>
-%     <trialPerformanceThreshold>0.1</trialPerformanceThreshold>
-%     or:
-%     <trialMTRangeLower>0.8</trialMTRangeLower>
-%     <trialMTRangeUpper>1.2</trialMTRangeUpper>
-%    <block>
-%       <breakDuration>300</breakDuration>
-%       <homingType>302</homingType>
-%       <trial>
-%          <connected>1</connected>
-%          <connectionStiffness>60</connectionStiffness>
-%          <condition>1</condition>
-%          <trialDuration>40</trialDuration>
-%          <breakDuration>6</breakDuration>
-%          <trialRandomization>1</trialRandomization>
-%       </trial>
-%       <trial>
-%          ...
-%       </trial>
-%    </block>
-%    <block>
-%       <breakDuration>300</breakDuration>
-%       <homingType>302</homingType>
-%       <trial>
-%          ...
-%       </trial>
-%    </block>
-% </experiment>
-%
-% Most/some of the parameters per trial are sent to the simulink model
-% through the TwinCAT ADS server.
-% The names of the parameters have to match the following:
-%
-% - Parameters
-%   - Experiment:
-%       countDownDuration:      duration of countdown [s] (default: 3s)
-%       trialFeedback:          trial performance feedback to user [-]
-%                               0: no feedback
-%                               1: Mean Squared Error
-%                               2: Movement time
-%                               Based on the performance trial feedback
-%                               type, you can set lower, upper bounds to
-%                               movement time or a MSE performance
-%                               threshold. 
-%       trialPerformanceThreshold: MSE threshold whether performance is
-%                               better or worse than previous performance.
-%       trialMTRangeLower       Movement time lower bound
-%       trialMTRangeUpper       Movement time upper bound
-%   - Trial: 
-%       connected:              physical connection between BROS1 and BROS2 (bool)
-%       connectionStiffness:    connection stiffness [N/m] (double)
-%       connectionDamping:      connection damping [Ns/m] (double)
-%       condition:              condition number, general use (int)
-%       trialDuration:          optional (double)
-%       breakDuration:          break duration (in between trial) [s] (double)
-%       trialRandomization:     integer to select the phase sets e.g. (int)
-%   - Block:
-%       breakDuration:          optional break duration between blocks [s] (double)
-%       homingType:             301: manual homing (go to home position), 302: automatic
-%
 % Niek Beckers
 % May 2017
 
 clear all; close all; clc;
 
-pairNr = 8;
+pairNr = 11;
 selectPremadeTrialSequence = 1;
-groupType = 'interaction'; % solo or interaction
-groupTypeNr = 1; % 0 = solo, 1 = interaction
+groupType = 'solo'; % solo or interaction
+groupTypeNr = 0; % 0 = solo, 1 = interaction
 Ks = 150;
 Ds = 2;
 expID = ['learning_pair' num2str(pairNr) '_session1_type' num2str(groupTypeNr)];
