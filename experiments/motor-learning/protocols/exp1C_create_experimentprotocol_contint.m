@@ -2,7 +2,7 @@
 
 clear all; close all; clc;
 
-pairNr = 5;
+pairNr = 1;
 selectPremadeTrialSequence = 1;
 groupType = 'interaction'; % solo or interaction (INTERACTION ONLY!)
 groupTypeNr = 1; % 0 = solo, 1 = interaction
@@ -38,7 +38,7 @@ s.experiment.activeBROSID.id1 = 2;
 % 1: force field
 % 2: visuomotor rotation
 condition = [zeros(21,1); 2*ones(21,1); 2*ones(21,1); 2*ones(21,1)];
-condition(15) = 2; % trial 16 is a 'catch' visuomotor trial.
+condition(13) = 2; % trial 16 is a 'catch' visuomotor trial.
     
 numTrials = numel(condition); % example
 breakDuration = 10*ones(numTrials,1);
