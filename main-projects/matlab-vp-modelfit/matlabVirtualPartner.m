@@ -22,6 +22,11 @@ if isunix
     end
 end
 
+if isunix % HeRoC (assumption)
+    delete([datapath '*.mat']);
+end
+
+
 %% setup
 % folders, paths, depending on which system the fit is performed
 if ispc % twincat pc (assumption)
@@ -224,6 +229,7 @@ while (keepRunning)
     
         % delete all the data files (*.mat)
         if isunix % HeRoC (assumption)
+            delete([datapath '*.mat']);
             delete([datapath 'tmpDirDataModelFit/*.mat']);
         end
         
