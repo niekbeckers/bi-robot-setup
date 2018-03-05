@@ -22,9 +22,7 @@ if isunix
     end
 end
 
-if isunix % HeRoC (assumption)
-    delete([datapath '*.mat']);
-end
+
 
 
 %% setup
@@ -46,6 +44,12 @@ settingspath = [vppath 'settings' filesep];
 resultspath = [vppath 'results' filesep];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
+
+
+%% housekeeping
+if isunix % HeRoC (assumption)
+    delete([datapath '*.mat']);
+end
 
 cleanupEmptyDirectories(resultspath);
 cleanupEmptyDirectories(settingspath);
