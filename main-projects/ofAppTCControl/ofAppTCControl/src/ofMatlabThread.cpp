@@ -293,6 +293,26 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 			xml.setToParent();
 		}
 	}
+
+	if (xml.exists("gof")) {
+		xml.setTo("gof");
+
+		if (xml.setToChild(0)) { // set to first child (if it exists)
+			vector<double> tmp;
+			do {
+				tmp.clear();
+				if (xml.setToChild(0)) {
+					do {
+						tmp.push_back(xml.getFloatValue());
+					} while (xml.setToSibling());
+					xml.setToParent(); // go back to brosX
+				}
+				ofLogNotice() << "GOF." << xml.getName() << ": " << ofToString(tmp);
+			} while (xml.setToSibling());
+			xml.setToParent();
+		}
+	}
+
 	return output;
 }
 
