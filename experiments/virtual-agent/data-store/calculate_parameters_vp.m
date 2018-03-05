@@ -61,7 +61,7 @@ for ii = 1:Nblocks % blocks
 
         target(end-length(idx)+1:end,:) = [dat.target_BROS1(idx,:) dat.target_BROS2(idx,:)];
         cursor(end-length(idx)+1:end,:) = [dat.cursor_BROS1(idx,:) dat.cursor_BROS2(idx,:)];
-        pos_vp(end-length(idx)+1:end,:) = [dat.pos_vp1(idx,:) dat.pos_vp2(idx,:)];
+        pos_vp(end-length(idx)+1:end,:) = [dat.pos_vp1(idx,:)      dat.pos_vp2(idx,:)];
         
         if p.Results.AlignTrials
             % shift target and cursor data such that for each trial they are
@@ -180,9 +180,10 @@ function [rmse,rmse_part,idx_trialsparts] = calculate_performance(t,x,idx_trials
 % calculate root-mean-squared (RMS) of the tracking error as a performance
 % measure across the complete trial or the trial chopped into Nparts equal parts
 
+
 % RMSe across complete trial
 e = sqrt(sum((t-x).^2,2));
-
+% e = e(1:10:end,:);
 % histogram(e); hold on
 % plot([mean(e) mean(e)],ylim,'k','linewidth',2)
 % plot([rms(e) rms(e)],ylim,'k--','linewidth',2)

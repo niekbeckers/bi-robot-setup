@@ -1,10 +1,11 @@
-function varargout = parsedata;
+function varargout = parsedata_vp;
 
 %% parsedata
 clear all; close all; clc;
 
-pairs = [1 2 3 4 5];
-outliers = {'2B','5B'};
+% pairs = [1 2 3 4 5 6];
+pairs = 6
+outliers = {'2B','5B','5A','6A'};
 
 ix = 1;
 currdir = [fileparts(mfilename('fullpath')) filesep];
@@ -43,6 +44,7 @@ for ii = 1:length(pairs)
             
         alldatatmp.areConnected = any(any([expprotocol.block(:).connected] == 1));
         alldatatmp.pair = pair;
+        
 
         alldata(ix) = alldatatmp;
         ix = ix + 1;
