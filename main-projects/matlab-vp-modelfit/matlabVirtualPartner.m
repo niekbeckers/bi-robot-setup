@@ -69,6 +69,9 @@ end
 
 % clean up terminate xml
 if exist([settingspath settings_filename '_terminate.xml'],'file'), delete([settingspath settings_filename '_terminate.xml']); end
+% unix only: remove any settings files.
+if isunix, delete([settingspath settings_filename '*.xml']); end
+
 
 % parpool
 p = gcp('nocreate');
