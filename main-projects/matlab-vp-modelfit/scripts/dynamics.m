@@ -30,8 +30,6 @@ Cc = [1 0 0 0 0 0 0 0 0 0;...
   
 %% discretization
 % environment
-Ntd = round(td/dt);
-
 % x = [px py vx vy fx fy ptx pty vtx vty]
 A = eye(size(Ac)) + Ac*dt;
 

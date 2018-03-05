@@ -375,6 +375,7 @@ if (size(x,1) < Nsel)
     NselOld = Nsel;
     Nsel = size(x,1);
     warning(['size(x,1) = ' num2str(size(x,1)) ' < ' num2str(NselOld) ', setting Nsel to ' num2str(Nsel) '.']);
+    keyboard
 end
 
 for ii = 1:length(fldnms)
