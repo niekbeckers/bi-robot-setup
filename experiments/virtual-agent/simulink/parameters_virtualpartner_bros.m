@@ -56,6 +56,12 @@ VP.H = H_vp;
 VP.Ac = Ac;
 VP.Bc = Bc;
 
+
+% muscle filter
+Hm = c2d(tf(1,[tu 1]),sampleTime);
+VP.HmNum = Hm.num{:};
+VP.HmDen = Hm.den{:};
+
 % w = [700 0.0013 8*10^-7];
 % 
 % % model parameters

@@ -43,7 +43,7 @@ x0(1:2) = target(1:2,1);
 x0(7:8) = target(1:2,1);
 
 sigma = 0.5136;
-sigma_sens = 0.001;
+sigma_sens = 0.0001;
 
 % process noise
 sigmaP_Ow = 0;
