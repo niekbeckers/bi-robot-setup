@@ -294,6 +294,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 		}
 	}
 
+	// read GOF, print it
 	if (xml.exists("gof")) {
 		xml.setTo("gof");
 
