@@ -68,7 +68,7 @@ clear alldatatmp;
 cd(currdir);
 
 % save data
-save('HHILearningData.mat','alldata');
+save('Exp1BLearningData.mat','alldata');
 
 varargout{1} = alldata;
 
