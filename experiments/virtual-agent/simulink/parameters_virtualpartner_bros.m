@@ -104,7 +104,7 @@ Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
 VP.Ow = Ow;
 
 % sensory noise
-sigmaP_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime); 
+sigmaP_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime); % *sqrt(sampleTime) ? 
 sigmaV_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
