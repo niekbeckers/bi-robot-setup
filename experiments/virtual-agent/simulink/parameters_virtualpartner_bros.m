@@ -1,4 +1,4 @@
-%% base_1fm_parameters
+%% parameters_virtualpartner_bros
 
 %% 'globals'
 sampleTime = 0.001;             % sample time [s] Note: make sure the same sample time is set in TwinCAT XAE.
@@ -19,75 +19,36 @@ fc = 60;
 % force field
 FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointing up)
 
-% butterworth filter (filtering velocity signal) 
-fc1 = 1.7;
-fc2 = 0.2;
-[NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
-[NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
-% load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
 
-%% virtual partner dynamics
-m_vp = diag([0.3 0.3]); 
+%% VP - dynamics
+% m_vp = diag([0.3 0.3]); 
+m_vp = diag([4 1.5]); % diedrichsen, 2009, shadmehr
 tu = 0.04;
 td = 0.150; 
-tp = 0.0;
 D = 0*FFMatrix; % implemented within simulink
 gamma = 0.8;
 
 % number of delay steps
 VP.Ndelay = round(td/sampleTime);
 VP.x0 = zeros(10,1);
-% VP.x0(1:2) = simin_target(1,[2 4]);
-% VP.x0(3:4) = simin_target(1,[3 5]);
 
 % dynamics matrices
-[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
-Aim_vp = dynamics_vp(sampleTime,m_vp,tu,td,tp,gamma*D);
+[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,D);
+Aim_vp = dynamics_vp(sampleTime,m_vp,tu,gamma*D);
 VP.m = m_vp;
 VP.Ae = Ae_vp;
 VP.Aim = Aim_vp;
 VP.B = B_vp;
 VP.H = H_vp;
 
-% additional dynamics for oversampling integration VP
-% !!!!!!!!!!!! Make sure div_Ts matches 
-[~,~,~,Ac,Bc] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
-VP.Ac = Ac;
-VP.Bc = Bc;
-
-
-% muscle filter
+% muscle filter (for RT simulation of VP)
 Hm = c2d(tf(1,[tu 1]),sampleTime);
 VP.HmNum = Hm.num{:};
 VP.HmDen = Hm.den{:};
 
-% w = [700 0.0013 8*10^-7];
-% 
-% % model parameters
-% wp = w(1);
-% wv = w(2);
-% wf = w(3);
-% r = 1e-8;
-% 
-% Q = zeros(size(Aim_vp));
-% R = zeros(size(B_vp,2),size(B_vp,2));
-% 
-% % terminal cost & running cost
-% Q(1:10,1:10) = diag([wp wp wv wv wf wf wp wp 0 0]);
-% Q(7,1) = -wp;
-% Q(8,2) = -wp;
-% Q(1,7) = -wp;
-% Q(2,8) = -wp;
-% 
-% R(1,1,:) = r;
-% R(2,2,:) = r;
-% 
-% N = 23000;
-% 
-% % controllaw_vp_infinitehorizon
-% L = controllaw_vp_infinitehorizon(Aim_vp,B_vp,Q,R,N);
 
+%% VP - process and sensory noise
 sigma_dyn = 0.5136;    
 sigma_sens = 0.0001;     
 
@@ -111,9 +72,16 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 VP.Ov = Ov;
 
+% initial guess of posterior covariance
 VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,2000);
 
-% expert params
+% butterworth filter (process noise filtering) 
+fc1 = 1.7;
+fc2 = 0.2;
+[NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
+[NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
+
+%% VP - preset expert parameters
 VP.VPPresetParams_noFF = [58.7623 6.6115 0.0050];
 VP.VPPresetParams_FF = [41.5216 0.4862 0.0029];
 
