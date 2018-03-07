@@ -4,7 +4,7 @@ function varargout = parsedata;
 clear all; close all; clc;
 
 % pairs = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20];
-pairs = [1:10];
+pairs = [1:5 7:11]; % pair 6 is incorrect (wrong TC model)
 sessions = [1];
 switchers = [];
 % outliers = {'10B'};
