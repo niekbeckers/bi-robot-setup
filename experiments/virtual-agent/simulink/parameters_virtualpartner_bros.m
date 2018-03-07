@@ -49,13 +49,13 @@ VP.HmDen = Hm.den{:};
 
 
 %% VP - process and sensory noise
-sigma_dyn = 0.5136;    
-sigma_sens = 0.0001;     
+% sigma_dyn = 0.5136;    
+% sigma_sens = 0.0001;     
 
 % process noise
-sigmaP_Ow = 0.01*sqrt(sampleTime);
-sigmaV_Ow = 0.01*sqrt(sampleTime);
-sigmaF_Ow = sigma_dyn*sqrt(sampleTime);
+sigmaP_Ow = 0.005*sqrt(sampleTime);
+sigmaV_Ow = 0.005*sqrt(sampleTime);
+sigmaF_Ow = 0.02*sqrt(sampleTime);
 sigmaPt_Ow = 0;
 sigmaVt_Ow = 0;
 
@@ -65,15 +65,15 @@ Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
 VP.Ow = Ow;
 
 % sensory noise
-sigmaP_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime); % *sqrt(sampleTime) ? 
-sigmaV_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
+sigmaP_Ov = 0.001*sqrt(0.01)/sqrt(sampleTime); % *sqrt(sampleTime) ? 
+sigmaV_Ov = 0.001*sqrt(0.01)/sqrt(sampleTime);
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 VP.Ov = Ov;
 
 % initial guess of posterior covariance
-VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,2000);
+VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,5000);
 
 % butterworth filter (process noise filtering) 
 fc1 = 1.7;

@@ -32,12 +32,10 @@ if ispc % twincat pc (assumption)
     datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
 elseif isunix % HeRoC (assumption)
     vppath = '/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/';
-    datapath = '/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/';
+    datapath = '/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/'; 
     if ~exist(datapath,'dir')
         mkdir(datapath)
-    else
-        delete([datapath 'tmpDirDataModelFit/*.mat']);
-    end  
+    end
 end
     
 settingspath = [vppath 'settings' filesep];
@@ -47,10 +45,14 @@ loopPause = 0.5;
 
 
 %% housekeeping
-if isunix % HeRoC (assumption)
+
+% delete any *.mat files if on HEROC PC
+if isunix
     delete([datapath '*.mat']);
+    delete([datapath 'tmpDirDataModelFit/*.mat']);
 end
 
+% cleanup empty directories
 cleanupEmptyDirectories(resultspath);
 cleanupEmptyDirectories(settingspath);
 
@@ -59,8 +61,6 @@ resultstoragepath = [resultspath 'results-modelfit-' datestr(now,'ddmmyy-HHMM')]
 if ~exist(resultstoragepath,'dir')
     mkdir(resultstoragepath);
 end
-
-
 
 settingsstoragepath = [settingspath 'settings-modelfit-' datestr(now,'ddmmyy-HHMM')];
 if ~exist(settingsstoragepath,'dir')

@@ -1,4 +1,4 @@
-function [xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,noisef2,x0,N,target,noise,delay,dt)
+function [xe, L] = lqg_target(Ae,Aim,B,H,Q,R,Ow,Ov,x0,N,target,delay)
 %% function [K,L,xe,u,y,xhat,P,xnoise] = lqg(Ae,Aim,B,H,Q,R,Ow,Ov,x0,P0,N,Nsim)
 
 % Ae        System matrix of environment (real system)
@@ -51,7 +51,7 @@ for k = 1:N-1
         xhatp(:,k+1-delay) = Aim*xhat(:,k-delay) + B*u(:,k-delay);
 
         % simulate real system
-        xe(:,k+1) = Ae*xe(:,k) + B*u(:,k) + noise*noisef2(k)*dt*[0;0;1/0.3;1/0.3;0;0;0;0;0;0];
-        y(:,k+1) = H*xe(:,k+1-delay) + noise*sqrt(Ov)*randn(nY,1);
+        xe(:,k+1) = Ae*xe(:,k) + B*u(:,k) + sqrt(Ow)*randn(nX,1);%noise*noisef2(k)*dt*[0;0;1/0.3;1/0.3;0;0;0;0;0;0];
+        y(:,k+1) = H*xe(:,k+1-delay) + sqrt(Ov)*randn(nY,1);
     end
 end

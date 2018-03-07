@@ -61,7 +61,7 @@ fitInfo.fitfun = 'fitfun_invoc';
 gof = struct;
 
 %% simulate to evaluate goodness of fit and stability
-[xe,~,stable] = sim_lqg(pfit,target,dt,doFF, 1);
+[xe,~,stable] = sim_lqg(pfit,target,dt,doFF,1);
 
 gof.stable = stable;
 %% evaluate performance
