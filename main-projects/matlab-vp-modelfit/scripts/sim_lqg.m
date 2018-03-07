@@ -8,7 +8,6 @@ td = 0.150;
 delay = round(td/dt);
 D = [0 15;-15 0];
 gamma = 0.8;
-noise = 0;
 
 N = size(target,2); % number of samples
 
@@ -45,9 +44,9 @@ x0(7:8) = target(1:2,1);
 
 
 %% noise
-sigmaP_Ow = 0.005*sqrt(sampleTime);
-sigmaV_Ow = 0.005*sqrt(sampleTime);
-sigmaF_Ow = 0.02*sqrt(sampleTime);
+sigmaP_Ow = 2.5e-4*sqrt(dt);
+sigmaV_Ow = 2.5e-4*sqrt(dt);
+sigmaF_Ow = 1.0e-3*sqrt(dt);
 sigmaPt_Ow = 0;
 sigmaVt_Ow = 0;
 
@@ -55,8 +54,8 @@ Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
     sigmaF_Ow^2 sigmaF_Ow^2 sigmaPt_Ow^2 sigmaPt_Ow^2 sigmaVt_Ow^2 sigmaVt_Ow^2]);
 
 % sensory noise
-sigmaP_Ov = 0.001*sqrt(0.01)/sqrt(sampleTime); % *sqrt(sampleTime) ? 
-sigmaV_Ov = 0.001*sqrt(0.01)/sqrt(sampleTime);
+sigmaP_Ov = 0.0005; 
+sigmaV_Ov = 0.0005;
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 

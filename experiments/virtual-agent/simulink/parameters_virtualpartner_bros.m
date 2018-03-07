@@ -53,9 +53,9 @@ VP.HmDen = Hm.den{:};
 % sigma_sens = 0.0001;     
 
 % process noise
-sigmaP_Ow = 0.005*sqrt(sampleTime);
-sigmaV_Ow = 0.005*sqrt(sampleTime);
-sigmaF_Ow = 0.02*sqrt(sampleTime);
+sigmaP_Ow = 2.5e-4*sqrt(sampleTime);
+sigmaV_Ow = 2.5e-4*sqrt(sampleTime);
+sigmaF_Ow = 1.0e-3*sqrt(sampleTime);
 sigmaPt_Ow = 0;
 sigmaVt_Ow = 0;
 
@@ -65,8 +65,8 @@ Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
 VP.Ow = Ow;
 
 % sensory noise
-sigmaP_Ov = 0.001*sqrt(0.01)/sqrt(sampleTime); % *sqrt(sampleTime) ? 
-sigmaV_Ov = 0.001*sqrt(0.01)/sqrt(sampleTime);
+sigmaP_Ov = 0.0005; 
+sigmaV_Ov = 0.0005;
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
@@ -82,9 +82,10 @@ fc2 = 0.2;
 [NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
 %% VP - preset expert parameters
-VP.VPPresetParams_noFF = [58.7623 6.6115 0.0050];
-VP.VPPresetParams_FF = [41.5216 0.4862 0.0029];
-
+% VP.VPPresetParams_noFF = [58.7623 6.6115 0.0050];
+% VP.VPPresetParams_FF = [41.5216 0.4862 0.0029];
+VP.VPPresetParams_noFF = [280 6.6115 0.0050];
+VP.VPPresetParams_FF = [200 0.4862 0.0029];
 
 %% RobotStruct BROS1
 % clear BROS1
