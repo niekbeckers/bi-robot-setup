@@ -159,8 +159,8 @@ void MatlabThread::copySettingsAndData(ofXml xml, matlabInput input)
         std::sort (vFilenames.begin(), vFilenames.end(), myComparator);
         
         // select last 5 trials
-        int nrSelFiles = 5;
-        if (vFilenames.size() < 5) { nrSelFiles = vFilenames.size(); }
+        int nrSelFiles = 3;
+        if (vFilenames.size() < 3) { nrSelFiles = vFilenames.size(); }
         vector<string> vMatFilenames;
         for ( int i = 0; i < nrSelFiles; i++ ) {
             vMatFilenames.push_back(vFilenames.back());
@@ -292,6 +292,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 			} while (xml.setToSibling());
 			xml.setToParent();
 		}
+		xml.setToParent();
 	}
 
 	// read GOF, print it
@@ -312,6 +313,7 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 			} while (xml.setToSibling());
 			xml.setToParent();
 		}
+		xml.setToParent();
 	}
 
 	return output;

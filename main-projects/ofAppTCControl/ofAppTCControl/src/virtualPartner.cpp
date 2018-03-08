@@ -161,7 +161,7 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 		// The code below is based on the example found here: 
 		// https://infosys.beckhoff.com/english.php?content=../content/1033/tcsample_webservice/html/webservice_sample_cpp.htm&id=
 
-		ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << "Writing x[BROS "<< id <<"]: " << ofToString(x) << "to TC/Simulink model";
+		ofLogNotice() << "(" << typeid(this).name() << ") " << "Writing x[BROS "<< id <<"]: " << ofToString(x);
 
 		BYTE *pData = new BYTE[24];
 		int nIOffs = 0;
@@ -187,7 +187,7 @@ void VirtualPartner::sendVirtualPartnerDataToTwinCAT(matlabOutput output, int id
 		ofLogError() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << " An exception occurred. Exception Nr: " << ofToString(e);
 	}
 
-	ofLogNotice() << "(" << typeid(this).name() << ") " << "sendVirtualPartnerDataToTwinCAT:" << " DONE";
+	ofLogNotice() << "(" << typeid(this).name() << ") "  << " Done";
 
 }
 
