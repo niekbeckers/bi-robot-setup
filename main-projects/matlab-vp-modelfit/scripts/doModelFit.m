@@ -74,8 +74,11 @@ gof.VAF_py = VAF_py;
 error_human = sqrt((target(1,:)-xmeas(1,:)).^2+(target(2,:)-xmeas(2,:)).^2);
 error_agent = sqrt((target(1,:)-xe(1,:)).^2+(target(2,:)-xe(2,:)).^2);
 
+eh = median(error_human);
+evp = median(error_agent);
+
 % to get the tracking error of agent and human equal
-error_diff = abs(median(error_human) - median(error_agent));
+error_diff = abs(eh - evp);
 
 % to get trajectories to be similar
 % e_fit = mean(abs(error_human-error_agent));
