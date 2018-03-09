@@ -25,11 +25,9 @@ Q = zeros(size(Ae));
 R = zeros(size(B,2),size(B,2));
 
 %minimise distance between p and t
-Q(1:10,1:10) = diag([wp wp wv wv wf wf wp wp 0 0]);
-Q(7,1) = -wp;
-Q(8,2) = -wp;
-Q(1,7) = -wp;
-Q(2,8) = -wp;
+Q(1:10,1:10) = diag([wp wp wv wv wf wf wp wp wv wv]);
+Q(7:10,1:4) = diag([-wp -wp -wv -wv]);
+Q(1:4,7:10) = diag([-wp -wp -wv -wv]);
 % Q = Q; %*dt;
 
 

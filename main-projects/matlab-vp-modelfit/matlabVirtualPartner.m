@@ -131,7 +131,7 @@ while (keepRunning)
         data = loadTrialData(datapath);
         
         % select data for optim function
-        ds = 1;
+        ds = 5;
         dataArray = NaN(length(data.t(1:ds:end)),8,length(fitIDs));
         t = data.t(1:ds:end,:);
         dt = ds*0.001; %round(mode(diff(t)),2);
@@ -143,6 +143,8 @@ while (keepRunning)
             target_vel = data.(['target_vel_BROS' num2str(id)])(1:ds:end,:);
             dataArray(:,:,ii) = [x xdot target target_vel];
         end
+        
+        fitdata.dataraw = dataArray;
         
         % prepare model fit... first, create the resultsmodelfit structure.
         resultsmodelfit.VP = struct;
@@ -184,7 +186,7 @@ while (keepRunning)
 
         parfor it = 1:nrTasks            
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it), gof(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it), gof(it), eh{it}, evp{it}, xvp{it}] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
         end
         
         % store all iterations
@@ -222,6 +224,10 @@ while (keepRunning)
                 % store optimal fit as p0 for next optimization
                 p0_saved(:,id) = pfit_opt(:,id);
                 resultsmodelfit.VP.gof.(['bros' num2str(id)]) = gof(id);
+                
+                fitdata.eh = eh{id};
+                fitdata.evp = evp{id};
+                fitdata.xvp = xvp{it};
             end
         catch me
             disp(me)
@@ -231,7 +237,7 @@ while (keepRunning)
         % store data in mat file (regardless of fiterror)
         timestamp = datestr(now,'ddmmyy_HHMMSS');
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
-        save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
+        save([outputfile '.mat'],'resultsmodelfit','fitdata'); % save to mat files
         copyfile([outputfile '.mat'],[resultstoragepath filesep 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '_' timestamp '.mat'] ); % copy to output file store
     
         % delete all the data files (*.mat)

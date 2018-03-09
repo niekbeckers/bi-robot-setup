@@ -73,7 +73,7 @@ Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 VP.Ov = Ov;
 
 % initial guess of posterior covariance
-VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,5000);
+VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,VP.Ndelay);
 
 % butterworth filter (process noise filtering) 
 fc1 = 1.7;
