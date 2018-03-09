@@ -227,7 +227,7 @@ while (keepRunning)
                 
                 fitdata.eh = eh{id};
                 fitdata.evp = evp{id};
-                fitdata.xvp = xvp{it};
+                fitdata.xvp = xvp{id};
             end
         catch me
             disp(me)
