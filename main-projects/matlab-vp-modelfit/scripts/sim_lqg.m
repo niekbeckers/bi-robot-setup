@@ -7,7 +7,7 @@ tu = 0.04;
 td = 0.150;
 delay = round(td/dt);
 D = [0 15;-15 0];
-gamma = 0.8;
+gamma = 1;
 
 N = size(target,2); % number of samples
 

@@ -27,7 +27,7 @@ m_vp = diag([4 1.5]); % diedrichsen, 2009, shadmehr
 tu = 0.04;
 td = 0.150; 
 D = 0*FFMatrix; % implemented within simulink
-gamma = 0.8;
+gamma = 1;%0.8;
 
 % number of delay steps
 VP.Ndelay = round(td/sampleTime);
