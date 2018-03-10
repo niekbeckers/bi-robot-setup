@@ -1,5 +1,3 @@
 *.mat
 */results/
-/data_pilot2/
-/pilot_1000Hz/
-/pilot_1000Hz_FF/
+*pilot*/
