@@ -21,3 +21,4 @@ slprj/
 *.slx.bak
 *.exe
 *_mex.*
+data-store/
