@@ -19,6 +19,7 @@ FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointi
 fc = 60;
 [Bbutter,Abutter] = butter(2, fc/fn);
 
+
 %% RobotStruct_FM1
 % clear FM1
 
@@ -63,6 +64,7 @@ BROS1.Actuator2.FilterButterB = Bbutter;
 % force/torque sensor data
 BROS1.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 BROS1.FTSensor.TransformationMatrixSide = 1; % 1 = transformation matrix based from q1, 2 = transformation from q5.
+BROS1.FTSensor.ThresholdDiffForceSensorSpike = 0.05*2; % 0.05 is based on diff (between two steps) of exp1c (learning) data.
 
 %% RobotStruct_FM2
 % clear FM2
@@ -110,3 +112,4 @@ BROS2.Actuator2.FilterButterB = Bbutter;
 % force/torque sensor data
 BROS2.FTSensor.MaxAllowableForcesTorqueSensor = 0.8*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 BROS2.FTSensor.TransformationMatrixSide = 2; % 1 = transformation matrix based from q1, 2 = transformation from q5.
+BROS2.FTSensor.ThresholdDiffForceSensorSpike = 0.05*2; % 0.05 is based on diff (between two steps) of exp1c (learning) data.
