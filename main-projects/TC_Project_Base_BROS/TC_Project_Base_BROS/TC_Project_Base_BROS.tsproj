@@ -3691,6 +3691,26 @@
 			</SubItem>
 		</DataType>
 		<DataType>
+			<Name GUID="{7C9A5B3A-9274-58F6-92E1-C40749CCCA0B}">B_MATLABFunction_model_base_b_T</Name>
+			<BitSize>448</BitSize>
+			<SubItem>
+				<Name>e</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>TmpSignalConversionAtSFunctionI</Name>
+				<Type GUID="{8B5DF355-5EB4-B508-EC23-ADB8BAA6A633}">matrix_6_real_T</Type>
+				<BitSize>384</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{B3AECDFA-E45D-7AF1-DE9F-D94DA5F0ACFC}"/>
+				<Hide GUID="{CEF0FDCA-BAB7-CBF6-7EAA-4D5D5E50E3A7}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{001F055D-5469-0B1F-0E00-719078AB708B}">B_LatchRising_model_base_bros_T</Name>
 			<BitSize>8</BitSize>
 			<SubItem>
@@ -4686,9 +4706,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{F6187254-BB05-44E4-A7EB-D92C0425182A}">
+					<TmcDesc GUID="{618C817B-7118-44A1-9923-7F82B056FD3D}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{F6187254-BB05-44E4-A7EB-D92C0425182A}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{618C817B-7118-44A1-9923-7F82B056FD3D}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -8125,6 +8145,13 @@
 									<BitOffs>41152</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>sf_MATLABFunction_a2</Name>
+									<BitSize>448</BitSize>
+									<BaseType GUID="{7C9A5B3A-9274-58F6-92E1-C40749CCCA0B}">B_MATLABFunction_model_base_b_T</BaseType>
+									<PTCID>#x82001420</PTCID>
+									<BitOffs>41216</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>LatchRising_gc</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{001F055D-5469-0B1F-0E00-719078AB708B}">B_LatchRising_model_base_bros_T</BaseType>
@@ -8494,6 +8521,13 @@
 									<BaseType GUID="{5762CD75-4EBB-A6A6-1A52-86E39D663423}">B_MATLABFunction_model_base_n_T</BaseType>
 									<PTCID>#x820018a0</PTCID>
 									<BitOffs>50432</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
+									<Name>sf_MATLABFunction_f</Name>
+									<BitSize>448</BitSize>
+									<BaseType GUID="{7C9A5B3A-9274-58F6-92E1-C40749CCCA0B}">B_MATLABFunction_model_base_b_T</BaseType>
+									<PTCID>#x820018a8</PTCID>
+									<BitOffs>50496</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_g</Name>

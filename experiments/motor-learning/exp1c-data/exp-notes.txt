@@ -1,0 +1,6 @@
+Experiment 1C
+Notes (trial errors, restarts etc)
+
+Pair 2, exclude block 2, trial 64 
+
+Pair 3, block 2, trial 2 & datapart 10, deel 2 folder.
