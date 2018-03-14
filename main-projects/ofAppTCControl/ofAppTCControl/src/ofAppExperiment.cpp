@@ -427,14 +427,14 @@ void ofAppExperiment::esmNewBlock()
 		switch (_currentBlock.trials[0].condition) {
 		case 0:
 			// baseline condition
-			xa[0] = 58.7623;
-			xa[1] = 6.6115;
-			xa[2] = 0.0050;
+			xa[0] = 262.7037;
+			xa[1] = 1.0901;
+			xa[2] = 0.0012;
 			break;
 		case 1:
-			xa[0] = 41.5216;
-			xa[1] = 0.4862;
-			xa[2] = 0.0029;
+			xa[0] = 224.8633;
+			xa[1] = 5.9289;
+			xa[2] = 0.000039407;
 			break;
 		default:
 			// do nothing, xa is already initialized with zeros.

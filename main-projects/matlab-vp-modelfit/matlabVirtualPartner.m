@@ -132,7 +132,7 @@ while (keepRunning)
         
         % select data for optim function
         ds = 5;
-        dataArray = NaN(length(data.t(1:ds:end)),8,length(fitIDs));
+        dataArray = NaN(length(data.t(1:ds:end)),8,max(fitIDs));
         t = data.t(1:ds:end,:);
         dt = ds*0.001; %round(mode(diff(t)),2);
         for ii = 1:length(fitIDs)
@@ -141,7 +141,7 @@ while (keepRunning)
             xdot = data.(['xdot_BROS' num2str(id)])(1:ds:end,:);
             target = data.(['target_BROS' num2str(id)])(1:ds:end,:);
             target_vel = data.(['target_vel_BROS' num2str(id)])(1:ds:end,:);
-            dataArray(:,:,ii) = [x xdot target target_vel];
+            dataArray(:,:,id) = [x xdot target target_vel];
         end
         
         fitdata.dataraw = dataArray;

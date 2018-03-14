@@ -84,8 +84,10 @@ fc2 = 0.2;
 %% VP - preset expert parameters
 % VP.VPPresetParams_noFF = [58.7623 6.6115 0.0050];
 % VP.VPPresetParams_FF = [41.5216 0.4862 0.0029];
-VP.VPPresetParams_noFF = [280 6.6115 0.0050];
-VP.VPPresetParams_FF = [200 0.4862 0.0029];
+% VP.VPPresetParams_noFF = [280 6.6115 0.0050];
+% VP.VPPresetParams_FF = [200 0.4862 0.0029];
+VP.VPPresetParams_noFF = [262.7037 1.0901 0.0012];
+VP.VPPresetParams_FF = [224.8633 5.9289 3.9407e-5];
 
 %% RobotStruct BROS1
 % clear BROS1
