@@ -32,6 +32,7 @@ BROS1.DynModParams = [9.446018e-04  5.536255e-04  1.102026e-01  1.175426e-01 -6.
 % actuator 1 data
 BROS1.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
 BROS1.Actuator1.AbsEncoderOffset = 54769/BROS1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
+% BROS1.Actuator1.AbsEncoderOffset = 32348/BROS1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);
 BROS1.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS1.Actuator1.FOAWNoiseLevel = 9e-4;                  % Noise level for FOAW algorithm
@@ -48,6 +49,7 @@ BROS1.Actuator1.FilterButterB = Bbutter;
 % actuator 2 data
 BROS1.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
 BROS1.Actuator2.AbsEncoderOffset = 44338/BROS1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
+% BROS1.Actuator2.AbsEncoderOffset = 14054/BROS1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);
 BROS1.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS1.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
@@ -64,7 +66,7 @@ BROS1.Actuator2.FilterButterB = Bbutter;
 % force/torque sensor data
 BROS1.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 BROS1.FTSensor.TransformationMatrixSide = 1; % 1 = transformation matrix based from q1, 2 = transformation from q5.
-BROS1.FTSensor.ThresholdDiffForceSensorSpike = 0.05*2; % 0.05 is based on diff (between two steps) of exp1c (learning) data.
+BROS1.FTSensor.ThresholdDiffForceSensorSpike = 5;%0.05*4; % 0.05 is based on diff (between two steps) of exp1c (learning) data.
 
 %% RobotStruct_FM2
 % clear FM2
@@ -79,7 +81,7 @@ BROS2.DynModParams = [1.117256e-03 1.224600e-03 8.800769e-02 1.073326e-01 1.4622
 
 % actuator 1 data
 BROS2.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-BROS2.Actuator1.AbsEncoderOffset = 33205/BROS2.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
+BROS2.Actuator1.AbsEncoderOffset = 32348/BROS2.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % 33205 offset absolute encoder [rad]
 BROS2.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM2.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS2.Actuator1.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
@@ -95,7 +97,7 @@ BROS2.Actuator1.FilterButterB = Bbutter;
 
 % actuator 2 data
 BROS2.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-BROS2.Actuator2.AbsEncoderOffset = 14143/BROS2.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
+BROS2.Actuator2.AbsEncoderOffset = 14054/BROS2.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % 14143offset absolute encoder [rad]
 BROS2.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM2.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS2.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
@@ -112,4 +114,4 @@ BROS2.Actuator2.FilterButterB = Bbutter;
 % force/torque sensor data
 BROS2.FTSensor.MaxAllowableForcesTorqueSensor = 0.8*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 BROS2.FTSensor.TransformationMatrixSide = 2; % 1 = transformation matrix based from q1, 2 = transformation from q5.
-BROS2.FTSensor.ThresholdDiffForceSensorSpike = 0.05*2; % 0.05 is based on diff (between two steps) of exp1c (learning) data.
+BROS2.FTSensor.ThresholdDiffForceSensorSpike = 5;%0.05*4; % 0.05 is based on diff (between two steps) of exp1c (learning) data.
