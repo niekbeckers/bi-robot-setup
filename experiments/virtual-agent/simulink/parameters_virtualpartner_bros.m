@@ -53,9 +53,9 @@ VP.HmDen = Hm.den{:};
 % sigma_sens = 0.0001;     
 
 % process noise
-sigmaP_Ow = 2.5e-4*sqrt(sampleTime);
-sigmaV_Ow = 2.5e-4*sqrt(sampleTime);
-sigmaF_Ow = 1.0e-3*sqrt(sampleTime);
+sigmaP_Ow = 2.0e-4*sqrt(sampleTime); %2.5e-4
+sigmaV_Ow = 2.0e-4*sqrt(sampleTime); %2.5e-4
+sigmaF_Ow = 0.5e-3*sqrt(sampleTime); %1e-3
 sigmaPt_Ow = 0;
 sigmaVt_Ow = 0;
 

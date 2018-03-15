@@ -5,20 +5,20 @@
 
 clear all; close all; clc;
 
-pairNr = 10;
+pairNr = 11;
 selectPremadeTrialSequence = 1;
 groupType = 'vp_expert'; % solo or interaction
-groupTypeNr = 2; % 0 = solo, 1 = interaction, 2 = vp_peer, 3 = vp_expert
+groupTypeNr = 3; % 0 = solo, 1 = interaction, 2 = vp_peer, 3 = vp_expert
 Ks = 150;
 Ds = 2;
 expID = ['vp_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 filename = ['protocol_' expID];
 
 % use preset virtual partner params (expert, for instance).
-usePresetParamsVP = 0;
+usePresetParamsVP = 1;
 
 % perform fit on HEROC computer
-vpFitOnHeRoC = 1;
+vpFitOnHeRoC = 0;
 
 % create (main) struct
 s = struct;
@@ -92,6 +92,15 @@ else
     load('randomizedtrialorder_motorlearning_session1.mat');
 end
 
+% not force field, don't change orientation.
+% trialRandomization(1:21) = rem(trialRandomization(1:21),20) + 80;
+% trialRandomization(22:63) = rem(trialRandomization(22:63),20) + 60;
+
+% make sure each single trial after connected has the same
+% trialRandomization
+trialRandomization(3:2:21) = trialRandomization(2:2:20);
+trialRandomization(24:2:42) = trialRandomization(23:2:41);
+trialRandomization(45:2:63) = trialRandomization(44:2:62);
 
 %% prepare trials
 for ii = 1:numTrials

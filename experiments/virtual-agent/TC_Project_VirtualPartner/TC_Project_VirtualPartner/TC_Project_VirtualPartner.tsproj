@@ -1347,7 +1347,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{15262C21-142A-8747-6430-D8159DA4A90A}">P_model_virtualpartner_bros_T</Name>
+			<Name GUID="{05786833-83D2-0EF5-ED2B-E717958F6B2F}">P_model_virtualpartner_bros_T</Name>
 			<BitSize>72896</BitSize>
 			<SubItem>
 				<Name>VP</Name>
@@ -3846,7 +3846,7 @@
 				<BitOffs>66880</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_g</Name>
+				<Name>Gain_Gain_i</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>66888</BitOffs>
@@ -3924,6 +3924,8 @@
 				<BitOffs>72640</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{EE091042-90D3-C8B1-54D6-91D5EBCB2284}"/>
+				<Hide GUID="{15262C21-142A-8747-6430-D8159DA4A90A}"/>
 				<Hide GUID="{2DAF8CBE-6855-1A61-5900-4F6AB50BF322}"/>
 				<Hide GUID="{8D197856-75BE-6868-FD3C-E788C091453A}"/>
 				<Hide GUID="{3464937D-6A02-F996-050F-923E55561A64}"/>
@@ -5321,9 +5323,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{0399FC46-F1DF-44CE-923B-1EF7E493C93E}">
+					<TmcDesc GUID="{C9C96544-23EE-48C1-89B7-1801F87A2097}">
 						<Name>ModelVirtualPartner</Name>
-						<CLSID ClassFactory="ModelVirtualPartner">{0399FC46-F1DF-44CE-923B-1EF7E493C93E}</CLSID>
+						<CLSID ClassFactory="ModelVirtualPartner">{C9C96544-23EE-48C1-89B7-1801F87A2097}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5445,7 +5447,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>72896</BitSize>
-								<BaseType GUID="{15262C21-142A-8747-6430-D8159DA4A90A}">P_model_virtualpartner_bros_T</BaseType>
+								<BaseType GUID="{05786833-83D2-0EF5-ED2B-E717958F6B2F}">P_model_virtualpartner_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -10083,7 +10085,7 @@
 									<BitOffs>59052400</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_i</Name>
+									<Name>Gain_k</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x8270a22f</PTCID>
@@ -13694,7 +13696,7 @@
 									<BitOffs>66880</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_g</Name>
+									<Name>Gain_Gain_i</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x830020a9</PTCID>
@@ -16994,7 +16996,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[0]</Name>
-								<Value>6.25e-011</Value>
+								<Value>4e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[1]</Name>
@@ -17038,7 +17040,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[11]</Name>
-								<Value>6.25e-011</Value>
+								<Value>4e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[12]</Name>
@@ -17082,7 +17084,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[22]</Name>
-								<Value>6.25e-011</Value>
+								<Value>4e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[23]</Name>
@@ -17126,7 +17128,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[33]</Name>
-								<Value>6.25e-011</Value>
+								<Value>4e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[34]</Name>
@@ -17170,7 +17172,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[44]</Name>
-								<Value>1e-009</Value>
+								<Value>2.5e-010</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[45]</Name>
@@ -17214,7 +17216,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[55]</Name>
-								<Value>1e-009</Value>
+								<Value>2.5e-010</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.Ow[56]</Name>
@@ -17458,7 +17460,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[0]</Name>
-								<Value>3.91826636910549e-009</Value>
+								<Value>3.044271634981e-009</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[1]</Name>
@@ -17466,7 +17468,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[2]</Name>
-								<Value>1.21360650060853e-010</Value>
+								<Value>1.14389118798436e-010</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[3]</Name>
@@ -17474,7 +17476,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[4]</Name>
-								<Value>1.61771409430409e-012</Value>
+								<Value>5.19436452844362e-013</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[5]</Name>
@@ -17502,7 +17504,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[11]</Name>
-								<Value>3.91827548053163e-009</Value>
+								<Value>3.04427646376103e-009</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[12]</Name>
@@ -17510,7 +17512,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[13]</Name>
-								<Value>1.21644289242287e-010</Value>
+								<Value>1.14510856922721e-010</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[14]</Name>
@@ -17518,7 +17520,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[15]</Name>
-								<Value>4.30024739418042e-012</Value>
+								<Value>1.38359676694059e-012</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[16]</Name>
@@ -17538,7 +17540,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[20]</Name>
-								<Value>1.21360650060853e-010</Value>
+								<Value>1.14389118798436e-010</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[21]</Name>
@@ -17546,7 +17548,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[22]</Name>
-								<Value>3.91313116614927e-009</Value>
+								<Value>3.03715195390588e-009</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[23]</Name>
@@ -17554,7 +17556,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[24]</Name>
-								<Value>1.23525777532064e-010</Value>
+								<Value>3.37424791261724e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[25]</Name>
@@ -17582,7 +17584,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[31]</Name>
-								<Value>1.21644289242287e-010</Value>
+								<Value>1.14510856922721e-010</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[32]</Name>
@@ -17590,7 +17592,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[33]</Name>
-								<Value>3.92534650008963e-009</Value>
+								<Value>3.04133453703031e-009</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[34]</Name>
@@ -17598,7 +17600,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[35]</Name>
-								<Value>3.28934380146367e-010</Value>
+								<Value>8.99357818568572e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[36]</Name>
@@ -17618,7 +17620,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[40]</Name>
-								<Value>1.61771409430409e-012</Value>
+								<Value>5.19436452844362e-013</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[41]</Name>
@@ -17626,7 +17628,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[42]</Name>
-								<Value>1.23525777532064e-010</Value>
+								<Value>3.37424791261724e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[43]</Name>
@@ -17634,7 +17636,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[44]</Name>
-								<Value>2.02413129238219e-008</Value>
+								<Value>5.06052801872474e-009</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[45]</Name>
@@ -17662,7 +17664,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[51]</Name>
-								<Value>4.30024739418042e-012</Value>
+								<Value>1.38359676694059e-012</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[52]</Name>
@@ -17670,7 +17672,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[53]</Name>
-								<Value>3.28934380146367e-010</Value>
+								<Value>8.99357818568572e-011</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[54]</Name>
@@ -17678,7 +17680,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[55]</Name>
-								<Value>2.02343693724695e-008</Value>
+								<Value>5.06000828866705e-009</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.VP.S0[56]</Name>
@@ -20521,7 +20523,7 @@
 								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_g</Name>
+								<Name>ModelParameters.Gain_Gain_i</Name>
 								<Value>128</Value>
 							</Value>
 							<Value>
