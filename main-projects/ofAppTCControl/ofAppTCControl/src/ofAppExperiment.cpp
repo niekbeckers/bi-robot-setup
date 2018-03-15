@@ -662,6 +662,11 @@ void ofAppExperiment::esmTrialFeedback()
 				msg2 += "\nYou improved! Keep up the good work!";
 			}
 
+			// add reminder not to squeeze the ball too hard
+			msg1 += "\n\n Remember not to squeeze the ball too hard.";
+			msg2 += "\n\n Remember not to squeeze the ball too hard.";
+
+			// display
 			display1->showMessageNorth(true, msg1);
 			display2->showMessageNorth(true, msg2);
 			display1->drawTask = true;
