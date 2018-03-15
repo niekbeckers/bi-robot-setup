@@ -5,7 +5,7 @@
 
 clear all; close all; clc;
 
-pairNr = 6;
+pairNr = 10;
 selectPremadeTrialSequence = 1;
 groupType = 'vp_expert'; % solo or interaction
 groupTypeNr = 2; % 0 = solo, 1 = interaction, 2 = vp_peer, 3 = vp_expert
@@ -106,7 +106,7 @@ for ii = 1:numTrials
     if s.experiment.doVirtualPartner
         % only fit single trials
         if ~connected(ii) && ~usePresetParamsVP
-            trial{ii}.fitVirtualPartner.id0 = 1;
+%             trial{ii}.fitVirtualPartner.id0 = 1;
             trial{ii}.fitVirtualPartner.id1 = 2;
         end
         % always execute VP (even during single trials)

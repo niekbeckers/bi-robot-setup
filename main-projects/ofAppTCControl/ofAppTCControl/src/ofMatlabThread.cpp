@@ -159,8 +159,8 @@ void MatlabThread::copySettingsAndData(ofXml xml, matlabInput input)
         std::sort (vFilenames.begin(), vFilenames.end(), myComparator);
         
         // select last 5 trials
-        int nrSelFiles = 5;
-        if (vFilenames.size() < 5) { nrSelFiles = vFilenames.size(); }
+        int nrSelFiles = 4;
+        if (vFilenames.size() < 4) { nrSelFiles = vFilenames.size(); }
         vector<string> vMatFilenames;
         for ( int i = 0; i < nrSelFiles; i++ ) {
             vMatFilenames.push_back(vFilenames.back());
@@ -292,7 +292,30 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 			} while (xml.setToSibling());
 			xml.setToParent();
 		}
+		xml.setToParent();
 	}
+
+	// read GOF, print it
+	if (xml.exists("gof")) {
+		xml.setTo("gof");
+
+		if (xml.setToChild(0)) { // set to first child (if it exists)
+			vector<double> tmp;
+			do {
+				tmp.clear();
+				if (xml.setToChild(0)) {
+					do {
+						tmp.push_back(xml.getFloatValue());
+					} while (xml.setToSibling());
+					xml.setToParent(); // go back to brosX
+				}
+				ofLogNotice() << "GOF." << xml.getName() << ": " << ofToString(tmp);
+			} while (xml.setToSibling());
+			xml.setToParent();
+		}
+		xml.setToParent();
+	}
+
 	return output;
 }
 

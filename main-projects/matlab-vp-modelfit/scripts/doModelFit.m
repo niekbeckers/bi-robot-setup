@@ -1,4 +1,4 @@
-function [pfit, fvalfit, fitInfo, errorFlag, gof] = doModelFit(data,dt,p0,condition)
+function [pfit, fvalfit, fitInfo, errorFlag, gof, eh, evp, xvp] = doModelFit(data,dt,p0,condition)
 
 % Fits virtual agent to experimental data. And returns the optimal fit 
 % parameters for the position, velocity and force costs of the optimal
@@ -35,7 +35,7 @@ else
     maxIter = 75;
 end
 opts = optimoptions('fmincon',...
-    'display','iter',...
+    'display','final-detailed',...
     'MaxIterations',maxIter,...
     'useparallel',false); % 'Algorithm','interior-point'
 
@@ -61,26 +61,34 @@ fitInfo.fitfun = 'fitfun_invoc';
 gof = struct;
 
 %% simulate to evaluate goodness of fit and stability
-[xe,~,stable] = sim_lqg(pfit,target,dt,doFF, 1);
+[xvp,~,stable] = sim_lqg(pfit,target,dt,doFF,1);
 
 gof.stable = stable;
 %% evaluate performance
 % VAF (percentage)
-VAF_px = (1-(var(xe(1,:)-xmeas(1,:))./var(xmeas(1,:))))*100;
-VAF_py = (1-(var(xe(2,:)-xmeas(2,:))./var(xmeas(2,:))))*100;
+VAF_px = (1-(var(xvp(1,:)-xmeas(1,:))./var(xmeas(1,:))))*100;
+VAF_py = (1-(var(xvp(2,:)-xmeas(2,:))./var(xmeas(2,:))))*100;
 gof.VAF_px = VAF_px;
 gof.VAF_py = VAF_py;
 
-% difference in tracking error between human and agent
-eh = mean(sqrt(sum((xmeas(1:2,:)-target(1:2,:)).^2,1)));
-evp = mean(sqrt(sum((xe(1:2,:)-target(1:2,:)).^2,1)));
-error_diff = abs(eh-evp);
-gof.error_diff = error_diff;
-gof.eh = eh;
-gof.evp = evp;
+eh = sqrt((target(1,:)-xmeas(1,:)).^2+(target(2,:)-xmeas(2,:)).^2);
+evp = sqrt((target(1,:)-xvp(1,:)).^2+(target(2,:)-xvp(2,:)).^2);
+
+Eh = mean(eh);
+Evp = mean(evp);
+
+% to get the tracking error of agent and human equal
+E_diff = abs(Eh - Evp);
+
+% to get trajectories to be similar
+% e_fit = mean(abs(error_human-error_agent));
+
+gof.E_diff = E_diff;
+gof.Eh = Eh;
+gof.Evp = Evp;
 
 
-if (VAF_px >= 80) && (VAF_py >= 80) && stable && (error_diff <= 0.03)
+if (VAF_px >= 80) && (VAF_py >= 80) && stable && (E_diff <= 0.03)
     errorFlag = 0;
 elseif ~stable
     errorFlag = 1;                  % unstable system

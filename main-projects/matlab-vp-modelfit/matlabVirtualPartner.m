@@ -22,6 +22,9 @@ if isunix
     end
 end
 
+
+
+
 %% setup
 % folders, paths, depending on which system the fit is performed
 if ispc % twincat pc (assumption)
@@ -29,12 +32,10 @@ if ispc % twincat pc (assumption)
     datapath = 'C:\Users\Labuser\Documents\repositories\bros_experiments\experiments\virtual-agent\data\';
 elseif isunix % HeRoC (assumption)
     vppath = '/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/';
-    datapath = '/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/';
+    datapath = '/home/niek/repositories/bros_experiments/experiments/virtual-agent/data/'; 
     if ~exist(datapath,'dir')
         mkdir(datapath)
-    else
-        delete([datapath 'tmpDirDataModelFit/*.mat']);
-    end  
+    end
 end
     
 settingspath = [vppath 'settings' filesep];
@@ -42,6 +43,16 @@ resultspath = [vppath 'results' filesep];
 settings_filename = 'settings_vpmodelfit_trial';
 loopPause = 0.5;
 
+
+%% housekeeping
+
+% delete any *.mat files if on HEROC PC
+if isunix
+    delete([datapath '*.mat']);
+    delete([datapath 'tmpDirDataModelFit/*.mat']);
+end
+
+% cleanup empty directories
 cleanupEmptyDirectories(resultspath);
 cleanupEmptyDirectories(settingspath);
 
@@ -51,8 +62,6 @@ if ~exist(resultstoragepath,'dir')
     mkdir(resultstoragepath);
 end
 
-
-
 settingsstoragepath = [settingspath 'settings-modelfit-' datestr(now,'ddmmyy-HHMM')];
 if ~exist(settingsstoragepath,'dir')
     mkdir(settingsstoragepath);
@@ -60,6 +69,9 @@ end
 
 % clean up terminate xml
 if exist([settingspath settings_filename '_terminate.xml'],'file'), delete([settingspath settings_filename '_terminate.xml']); end
+% unix only: remove any settings files.
+if isunix, delete([settingspath settings_filename '*.xml']); end
+
 
 % parpool
 p = gcp('nocreate');
@@ -119,8 +131,8 @@ while (keepRunning)
         data = loadTrialData(datapath);
         
         % select data for optim function
-        ds = 10;
-        dataArray = NaN(length(data.t(1:ds:end)),8,length(fitIDs));
+        ds = 5;
+        dataArray = NaN(length(data.t(1:ds:end)),8,max(fitIDs));
         t = data.t(1:ds:end,:);
         dt = ds*0.001; %round(mode(diff(t)),2);
         for ii = 1:length(fitIDs)
@@ -129,8 +141,10 @@ while (keepRunning)
             xdot = data.(['xdot_BROS' num2str(id)])(1:ds:end,:);
             target = data.(['target_BROS' num2str(id)])(1:ds:end,:);
             target_vel = data.(['target_vel_BROS' num2str(id)])(1:ds:end,:);
-            dataArray(:,:,ii) = [x xdot target target_vel];
+            dataArray(:,:,id) = [x xdot target target_vel];
         end
+        
+        fitdata.dataraw = dataArray;
         
         % prepare model fit... first, create the resultsmodelfit structure.
         resultsmodelfit.VP = struct;
@@ -172,7 +186,7 @@ while (keepRunning)
 
         parfor it = 1:nrTasks            
             % perform model fit
-            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it), gof(it)] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
+            [pfit_all(:,it), fvalfit(it), fitInfo(it), errorFlagfit(it), gof(it), eh{it}, evp{it}, xvp{it}] = doModelFit(dataArray(:,:,idxIDs(it)),dt,p0(:,it),condition);
         end
         
         % store all iterations
@@ -210,6 +224,10 @@ while (keepRunning)
                 % store optimal fit as p0 for next optimization
                 p0_saved(:,id) = pfit_opt(:,id);
                 resultsmodelfit.VP.gof.(['bros' num2str(id)]) = gof(id);
+                
+                fitdata.eh = eh{id};
+                fitdata.evp = evp{id};
+                fitdata.xvp = xvp{id};
             end
         catch me
             disp(me)
@@ -219,11 +237,12 @@ while (keepRunning)
         % store data in mat file (regardless of fiterror)
         timestamp = datestr(now,'ddmmyy_HHMMSS');
         outputfile = [resultspath 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID)];
-        save([outputfile '.mat'],'resultsmodelfit','dataArray'); % save to mat files
+        save([outputfile '.mat'],'resultsmodelfit','fitdata'); % save to mat files
         copyfile([outputfile '.mat'],[resultstoragepath filesep 'results_vpmodelfit_trial' num2str(resultsmodelfit.VP.trialID) '_' timestamp '.mat'] ); % copy to output file store
     
         % delete all the data files (*.mat)
         if isunix % HeRoC (assumption)
+            delete([datapath '*.mat']);
             delete([datapath 'tmpDirDataModelFit/*.mat']);
         end
         
@@ -375,6 +394,7 @@ if (size(x,1) < Nsel)
     NselOld = Nsel;
     Nsel = size(x,1);
     warning(['size(x,1) = ' num2str(size(x,1)) ' < ' num2str(NselOld) ', setting Nsel to ' num2str(Nsel) '.']);
+    keyboard
 end
 
 for ii = 1:length(fldnms)

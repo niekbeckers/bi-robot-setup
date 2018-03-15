@@ -24,4 +24,5 @@ end
 
 % infinite horizon gain
 L = Ltmp(:,:,lastk);
+
 end

@@ -4,6 +4,9 @@ using namespace std;
 
 //--------------------------------------------------------------
 void ofAppMain::setup(){
+
+	ofSetFrameRate(120);
+
 	ofSetLogLevel(OF_LOG_NOTICE);
 
 	// matlab on heroc thread

@@ -1,4 +1,4 @@
-%% base_1fm_parameters
+%% parameters_virtualpartner_bros
 
 %% 'globals'
 sampleTime = 0.001;             % sample time [s] Note: make sure the same sample time is set in TwinCAT XAE.
@@ -19,76 +19,43 @@ fc = 60;
 % force field
 FFMatrix = -[0 -15; 15 0]; % added minus due to coordinate system flip (y pointing up)
 
-% butterworth filter (filtering velocity signal) 
-fc1 = 1.7;
-fc2 = 0.2;
-[NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
-[NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
-% load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
 
-%% virtual partner dynamics
-m_vp = diag([0.3 0.3]); 
+%% VP - dynamics
+% m_vp = diag([0.3 0.3]); 
+m_vp = diag([4 1.5]); % diedrichsen, 2009, shadmehr
 tu = 0.04;
 td = 0.150; 
-tp = 0.0;
 D = 0*FFMatrix; % implemented within simulink
-gamma = 0.8;
+gamma = 1;%0.8;
 
 % number of delay steps
 VP.Ndelay = round(td/sampleTime);
 VP.x0 = zeros(10,1);
-% VP.x0(1:2) = simin_target(1,[2 4]);
-% VP.x0(3:4) = simin_target(1,[3 5]);
 
 % dynamics matrices
-[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
-Aim_vp = dynamics_vp(sampleTime,m_vp,tu,td,tp,gamma*D);
+[Ae_vp,B_vp,H_vp] = dynamics_vp(sampleTime,m_vp,tu,D);
+Aim_vp = dynamics_vp(sampleTime,m_vp,tu,gamma*D);
 VP.m = m_vp;
 VP.Ae = Ae_vp;
 VP.Aim = Aim_vp;
 VP.B = B_vp;
 VP.H = H_vp;
 
-% additional dynamics for oversampling integration VP
-% !!!!!!!!!!!! Make sure div_Ts matches 
-[~,~,~,Ac,Bc] = dynamics_vp(sampleTime,m_vp,tu,td,tp,D);
-VP.Ac = Ac;
-VP.Bc = Bc;
+% muscle filter (for RT simulation of VP)
+Hm = c2d(tf(1,[tu 1]),sampleTime);
+VP.HmNum = Hm.num{:};
+VP.HmDen = Hm.den{:};
 
-% w = [700 0.0013 8*10^-7];
-% 
-% % model parameters
-% wp = w(1);
-% wv = w(2);
-% wf = w(3);
-% r = 1e-8;
-% 
-% Q = zeros(size(Aim_vp));
-% R = zeros(size(B_vp,2),size(B_vp,2));
-% 
-% % terminal cost & running cost
-% Q(1:10,1:10) = diag([wp wp wv wv wf wf wp wp 0 0]);
-% Q(7,1) = -wp;
-% Q(8,2) = -wp;
-% Q(1,7) = -wp;
-% Q(2,8) = -wp;
-% 
-% R(1,1,:) = r;
-% R(2,2,:) = r;
-% 
-% N = 23000;
-% 
-% % controllaw_vp_infinitehorizon
-% L = controllaw_vp_infinitehorizon(Aim_vp,B_vp,Q,R,N);
 
-sigma_dyn = 0.5136;    
-sigma_sens = 0.0001;     
+%% VP - process and sensory noise
+% sigma_dyn = 0.5136;    
+% sigma_sens = 0.0001;     
 
 % process noise
-sigmaP_Ow = 0.01*sqrt(sampleTime);
-sigmaV_Ow = 0.01*sqrt(sampleTime);
-sigmaF_Ow = sigma_dyn*sqrt(sampleTime);
+sigmaP_Ow = 2.5e-4*sqrt(sampleTime);
+sigmaV_Ow = 2.5e-4*sqrt(sampleTime);
+sigmaF_Ow = 1.0e-3*sqrt(sampleTime);
 sigmaPt_Ow = 0;
 sigmaVt_Ow = 0;
 
@@ -98,19 +65,29 @@ Ow = diag([sigmaP_Ow^2 sigmaP_Ow^2 sigmaV_Ow^2 sigmaV_Ow^2 ...
 VP.Ow = Ow;
 
 % sensory noise
-sigmaP_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
-sigmaV_Ov = sigma_sens*sqrt(0.01)/sqrt(sampleTime);
+sigmaP_Ov = 0.0005; 
+sigmaV_Ov = 0.0005;
 
 Ov = diag([sigmaP_Ov^2 sigmaP_Ov^2 sigmaV_Ov^2 sigmaV_Ov^2]);
 
 VP.Ov = Ov;
 
-VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,2000);
+% initial guess of posterior covariance
+VP.S0 = initializeS0(Ae_vp,Aim_vp,H_vp,Ow,Ov,VP.Ndelay);
 
-% expert params
-VP.VPPresetParams_noFF = [58.7623 6.6115 0.0050];
-VP.VPPresetParams_FF = [41.5216 0.4862 0.0029];
+% butterworth filter (process noise filtering) 
+fc1 = 1.7;
+fc2 = 0.2;
+[NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
+[NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
+%% VP - preset expert parameters
+% VP.VPPresetParams_noFF = [58.7623 6.6115 0.0050];
+% VP.VPPresetParams_FF = [41.5216 0.4862 0.0029];
+% VP.VPPresetParams_noFF = [280 6.6115 0.0050];
+% VP.VPPresetParams_FF = [200 0.4862 0.0029];
+VP.VPPresetParams_noFF = [262.7037 1.0901 0.0012];
+VP.VPPresetParams_FF = [224.8633 5.9289 3.9407e-5];
 
 %% RobotStruct BROS1
 % clear BROS1
@@ -156,6 +133,7 @@ BROS1.Actuator2.FilterButterB = Bbutter;
 % force/torque sensor data
 BROS1.FTSensor.MaxAllowableForcesTorqueSensor = 0.7*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 BROS1.FTSensor.TransformationMatrixSide = 1; % 1 = transformation matrix based from q1, 2 = transformation from q5.
+BROS2.FTSensor.ThresholdDiffForceSensorSpike = 5;
 
 %% RobotStruct_FM2
 % clear FM2
@@ -169,7 +147,7 @@ BROS2.DynModParams = [1.117256e-03 1.224600e-03 8.800769e-02 1.073326e-01 1.4622
 
 % actuator 1 data
 BROS2.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-BROS2.Actuator1.AbsEncoderOffset = 33205/BROS2.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
+BROS2.Actuator1.AbsEncoderOffset = 32348/BROS2.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % 33205offset absolute encoder [rad]
 BROS2.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM2.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS2.Actuator1.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
@@ -185,7 +163,7 @@ BROS2.Actuator1.FilterButterB = Bbutter;
 
 % actuator 2 data
 BROS2.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-BROS2.Actuator2.AbsEncoderOffset = 14143/BROS2.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
+BROS2.Actuator2.AbsEncoderOffset = 14054/BROS2.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % 14143offset absolute encoder [rad]
 BROS2.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM2.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS2.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
@@ -202,3 +180,4 @@ BROS2.Actuator2.FilterButterB = Bbutter;
 % force/torque sensor data
 BROS2.FTSensor.MaxAllowableForcesTorqueSensor = 0.8*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 BROS2.FTSensor.TransformationMatrixSide = 2; % 1 = transformation matrix based from q1, 2 = transformation from q5.
+BROS2.FTSensor.ThresholdDiffForceSensorSpike = 5;

@@ -16,10 +16,11 @@ error_human = sqrt((target(1,:)-xmeas(1,:)).^2+(target(2,:)-xmeas(2,:)).^2);
 error_agent = sqrt((target(1,:)-xe(1,:)).^2+(target(2,:)-xe(2,:)).^2);
 
 % to get the tracking error of agent and human equal
-e_track = mean(abs(abs(error_human) - abs(error_agent)));
+% e_track = mean(abs(abs(error_human) - abs(error_agent)));
+e_track = abs(mean(error_human) - mean(error_agent));
 
 % to get trajectories to be similar
 e_fit = mean(abs(error_human-error_agent));
 
 % sse
-sse = e_fit + 50*e_track;
+sse = e_fit + 1e2*e_track;
