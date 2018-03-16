@@ -663,8 +663,8 @@ void ofAppExperiment::esmTrialFeedback()
 			}
 
 			// add reminder not to squeeze the ball too hard
-			msg1 += "\n\n Remember not to squeeze the ball too hard.";
-			msg2 += "\n\n Remember not to squeeze the ball too hard.";
+			msg1 += "\nRemember not to squeeze the ball too hard.";
+			msg2 += "\nRemember not to squeeze the ball too hard.";
 
 			// display
 			display1->showMessageNorth(true, msg1);

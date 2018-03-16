@@ -3,9 +3,8 @@ function varargout = parsedata_vp;
 %% parsedata
 clear all; close all; clc;
 
-% pairs = [1 2 3 4 5 6];
-pairs = 6
-outliers = {'2B','5B','5A','6A'};
+pairs = 11;
+outliers = {};
 
 ix = 1;
 currdir = [fileparts(mfilename('fullpath')) filesep];
