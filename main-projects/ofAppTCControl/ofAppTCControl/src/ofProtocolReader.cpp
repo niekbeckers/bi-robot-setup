@@ -88,7 +88,14 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 	if (XML.exists("doVirtualPartner")) { _settings.vpDoVirtualPartner = XML.getValue<bool>("doVirtualPartner"); }
 	else { _settings.vpDoVirtualPartner = false; }
 
+	// set fit on Heroc pc
 	if (XML.exists("vpFitOnHeRoC")) { _settings.vpFitOnHeRoC = XML.getValue<bool>("vpFitOnHeRoC"); }
+
+	// set target type
+	if (XML.exists("targetDisplayType")) { 
+		_settings.targetDisplayType = XML.getValue<int>("targetDisplayType");
+
+	}
 
 	// check which BROS need to be active
 	_settings.activeBROSIDs.clear();

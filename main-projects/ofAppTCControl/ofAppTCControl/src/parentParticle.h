@@ -22,7 +22,7 @@ class parentParticle {
         float _startTime;
         ofFillFlag _fillMode = OF_OUTLINE;
 
-		float _tickPeriod = 1.0f / 60.0f; // 1 second refresh
+		float _tickPeriod = 1.0f / 120.0f; // 1 second refresh
 		float _timeTick;
     
         vector<childParticle> _particles;

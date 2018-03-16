@@ -67,6 +67,7 @@ struct experimentSettings {
 	double getReadyDuration = 1.0;
 	int numTrials = 0;
 	string protocolname;
+	int targetDisplayType = 0; // 0 = circle/normal, 1 = point cloud
 };
 
 
