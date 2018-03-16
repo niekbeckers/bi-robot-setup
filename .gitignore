@@ -22,3 +22,4 @@ slprj/
 *.exe
 *_mex.*
 data-store/
+debug/ft*
