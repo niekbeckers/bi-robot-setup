@@ -21,6 +21,8 @@ try
     if any(idx_connected(:)) % connected trial
         improvement = [1-rmse_connected(:,1)./rmse_single(:,1) 1-rmse_connected(:,2)./rmse_single(:,2)];
         improvement_vp = [1-rmse_connected_vp(:,1)./rmse_single_vp(:,1) 1-rmse_connected_vp(:,2)./rmse_single_vp(:,2)];
+%         improvement = [rmse_single(:,1)-rmse_connected(:,1) rmse_single(:,2)-rmse_connected(:,2)];
+%         improvement_vp = [rmse_single_vp(:,1)-rmse_connected_vp(:,1) rmse_single_vp(:,2)-rmse_connected_vp(:,2)];
     else % no connected trials found, set improvement to NaN's
         improvement = NaN(numel(idx_single),2);
         improvement_vp = NaN(numel(idx_single),2);
@@ -32,6 +34,8 @@ try
 
     relperformance = [1-rmse_single_vp(:,1)./rmse_single(:,1) 1-rmse_single_vp(:,2)./rmse_single(:,2)]; 
     relperformance_vp = [1-rmse_single(:,1)./rmse_single_vp(:,1) 1-rmse_single(:,2)./rmse_single_vp(:,2)]; 
+%     relperformance = [rmse_single(:,1)-rmse_single_vp(:,1) rmse_single(:,2)-rmse_single_vp(:,2)]; 
+%     relperformance_vp = [rmse_single(:,1)-rmse_single_vp(:,1) rmse_single(:,2)-rmse_single_vp(:,2)]; 
 
     relperformance = [relperformance relperformance_vp];
 catch e
