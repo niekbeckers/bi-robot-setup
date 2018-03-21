@@ -5,20 +5,20 @@
 
 clear all; close all; clc;
 
-pairNr = 11;
+pairNr = 15;
 selectPremadeTrialSequence = 1;
-groupType = 'vp_expert'; % solo or interaction
-groupTypeNr = 3; % 0 = solo, 1 = interaction, 2 = vp_peer, 3 = vp_expert
+groupType = 'vp_peer'; % solo or interaction
+groupTypeNr = 2; % 0 = solo, 1 = interaction, 2 = vp_peer, 3 = vp_expert
 Ks = 150;
 Ds = 2;
 expID = ['vp_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 filename = ['protocol_' expID];
 
 % use preset virtual partner params (expert, for instance).
-usePresetParamsVP = 1;
+usePresetParamsVP = 0;
 
 % perform fit on HEROC computer
-vpFitOnHeRoC = 0;
+vpFitOnHeRoC = 1;
 
 % create (main) struct
 s = struct;
@@ -115,7 +115,7 @@ for ii = 1:numTrials
     if s.experiment.doVirtualPartner
         % only fit single trials
         if ~connected(ii) && ~usePresetParamsVP
-%             trial{ii}.fitVirtualPartner.id0 = 1;
+            trial{ii}.fitVirtualPartner.id0 = 1;
             trial{ii}.fitVirtualPartner.id1 = 2;
         end
         % always execute VP (even during single trials)

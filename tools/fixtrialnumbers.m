@@ -6,9 +6,10 @@
 % Niek Beckers
 
 % absolute paths (or copy this function to the parent folder in question.
-fromfolders = {'session2_1';'session2_2'};
+% fromfolders = {'session2_1';'session2_2'};
+fromfolders = {'part_1';'part_2'}
+tofolder = 'combineddata';
 
-tofolder = 'session2';
 if ~exist(tofolder,'dir')
     mkdir(tofolder);
 end
