@@ -5,7 +5,7 @@
 
 clear all; close all; clc;
 
-pairNr = 15;
+pairNr = 16;
 selectPremadeTrialSequence = 1;
 groupType = 'vp_peer'; % solo or interaction
 groupTypeNr = 2; % 0 = solo, 1 = interaction, 2 = vp_peer, 3 = vp_expert

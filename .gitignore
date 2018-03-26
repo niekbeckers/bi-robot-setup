@@ -22,3 +22,4 @@ slprj/
 *.exe
 *_mex.*
 debug/ft*
+ftsensordebug.m
