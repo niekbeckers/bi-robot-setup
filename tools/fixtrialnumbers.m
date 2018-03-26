@@ -6,10 +6,10 @@
 % Niek Beckers
 
 % absolute paths (or copy this function to the parent folder in question.
-fromfolders = {'session2_1';'session2_2'};
+fromfolders = {'part1';'part2'};
 
-tofolder = 'session2';
-if ~exist(tofolder,'dir')
+tofolder = '.';
+if ~strcmpi(tofolder,'.') && ~exist(tofolder,'dir')
     mkdir(tofolder);
 end
 
