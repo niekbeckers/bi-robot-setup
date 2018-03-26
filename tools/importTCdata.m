@@ -179,7 +179,12 @@ for ii = 1:length(param_lbls)
         
         datares = (t(1):dt:t(end)).';
     else
+        try
         [tres,datares]= resampleTCdata(t,dataArray(:,param_idx{ii}),dt);
+        catch me
+            getReport(me)
+            keyboard
+        end
         data.time = tres;
         % round integers
         if any(strcmpi(param,{'ExpTrialNumber','ExpTrialRunning','Error_BROS1','Error_BROS2','isConnected','SystemState_BROS1','SystemState_BROS2'}))

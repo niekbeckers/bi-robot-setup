@@ -24,7 +24,7 @@ for ii = 1:length(pairs)
                 load('data_trials.mat');
             else 
                 disp('data_trials.mat not found, calling loadBROSExperimentData');
-                data = loadBROSExperimentData('.','model','model_virtualpartner_bros');
+                data = loadBROSExperimentData('.');
             end
 
             f = dir(['.' filesep '..' filesep 'protocol_learning_pair' num2str(pair) '*.mat']);
@@ -49,7 +49,7 @@ for ii = 1:length(pairs)
             alldata(ix) = alldatatmp;
             ix = ix + 1;
         catch me
-            fprintf('Caught error for pair %d, session %d\n',pair)
+            fprintf('Caught error for pair %d\n',pair)
             disp(getReport(me))
             cd(currdir);
         end
