@@ -37,10 +37,7 @@ for ii = 1:length(pairs)
             
             % remove outliers
             alldatatmp = removeoutliers(alldatatmp,pair,outliers);
-            
-            % switch users (some users sat behind BROS 1 for session 1 and
-            % switched to BROS2 for session 2). 
-            alldatatmp = switchbros(alldatatmp,pair,session,switchers);
+         
             
             alldatatmp.areConnected = any(any([expprotocol.block(:).connected] == 1));
             alldatatmp.pair = pair;
@@ -100,38 +97,6 @@ for jj = 1:length(fldnms)
             end
         end
         data.(fldnms{jj}) = tmp;
-    end
-end
-
-end
-
-function data = switchbros(data,pair,session,switchers)
-%% function data = removeoutliers(data,pair,outliers)
-% set data of outlier to NaN
-
-if ismember(pair, switchers) && (session==2)
-    disp(['switchbros: data for ' num2str(pair) ' switched BROS1 and BROS2 for session ' num2str(session)]);
-    data = switchBROS1and2(data); % switch BROS1 and BROS2
-end
-
-end
-
-function data = switchBROS1and2(data)
-fldsdonotswitch = {'idx_partner','idx_blocks','idx_trials'};
-fldnms = fieldnames(data);
-for ii = 1:length(fldnms)
-    if ~ismember(fldnms{ii}, fldsdonotswitch)
-        fld = data.(fldnms{ii});
-        if isstruct(fld)
-            for jj = 1:length(fld)
-                newdata(jj) = switchBROS1and2(fld(jj));
-            end
-        else
-            newdata = NaN(size(fld));
-            newdata(:,1:2:end) = fld(:,2:2:end);
-            newdata(:,2:2:end) = fld(:,1:2:end);
-        end
-        data.(fldnms{ii}) = newdata;
     end
 end
 

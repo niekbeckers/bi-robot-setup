@@ -22,6 +22,8 @@ tres = (t(1):dt:t(end)).'; % new (resampled) time vector
 
 % resample using interp1
 try 
+    [t,idx] = unique(t);
+    data = data(idx,:);
     datares = interp1(t,data,tres,'linear','extrap');
 catch me
     disp(me)

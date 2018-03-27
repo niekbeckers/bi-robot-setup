@@ -103,22 +103,22 @@ for ii = 1:Nblocks % blocks
     blocks(ii).idx_connected = repelem(idx_connected(:,ii),1,2);
     blocks(ii).idx_single = repelem(idx_single(:,ii),1,2);
 
-    rmse_parts_tmp = cat(3,permute(rmse1_parts(:,ii,:),[3 1 2]),permute(rmse2_parts(:,ii,:),[3 1 2]));
-    blocks(ii).rmse_parts = reshape(rmse_parts_tmp,[],2);
-    blocks(ii).rmse_connected_parts = reshape(rmse_parts_tmp(:,idx_connected(:,ii),:),[],2);
-    blocks(ii).rmse_single_parts = reshape(rmse_parts_tmp(:,idx_single(:,ii),:),[],2);
-    idx_trials_parts_tmp = permute(idx_trials_parts(:,ii,:),[3 1 2]);
-    blocks(ii).idx_trials_parts = repmat(reshape(idx_trials_parts_tmp,[],1),1,2);
-    blocks(ii).idx_trials_connected_parts = repmat(reshape(idx_trials_parts_tmp(:,idx_connected(:,ii),:),[],1),1,2);
-    blocks(ii).idx_trials_single_parts = repmat(reshape(idx_trials_parts_tmp(:,idx_single(:,ii),:),[],1),1,2);
+%     rmse_parts_tmp = cat(3,permute(rmse1_parts(:,ii,:),[3 1 2]),permute(rmse2_parts(:,ii,:),[3 1 2]));
+%     blocks(ii).rmse_parts = reshape(rmse_parts_tmp,[],2);
+%     blocks(ii).rmse_connected_parts = reshape(rmse_parts_tmp(:,idx_connected(:,ii),:),[],2);
+%     blocks(ii).rmse_single_parts = reshape(rmse_parts_tmp(:,idx_single(:,ii),:),[],2);
+%     idx_trials_parts_tmp = permute(idx_trials_parts(:,ii,:),[3 1 2]);
+%     blocks(ii).idx_trials_parts = repmat(reshape(idx_trials_parts_tmp,[],1),1,2);
+%     blocks(ii).idx_trials_connected_parts = repmat(reshape(idx_trials_parts_tmp(:,idx_connected(:,ii),:),[],1),1,2);
+%     blocks(ii).idx_trials_single_parts = repmat(reshape(idx_trials_parts_tmp(:,idx_single(:,ii),:),[],1),1,2);
 
     % calculate HHI improvement and relative performance
 %     idx_rows_connected = blocks(ii).idx_trials_connected(:,1) - blocks(ii).idx_trials(1) + 1;
 %     idx_rows_single = idx_rows_connected + 1;
 %     [blocks(ii).improvement_hhi, blocks(ii).relperformance_hhi] = calculate_hhi_improvement(blocks(ii).rmse,idx_rows_connected,idx_rows_single);
     
-    blocks(ii).improvement_hhi = NaN(10,2);
-    blocks(ii).improvement_hhi = NaN(10,2);
+%     blocks(ii).improvement_hhi = NaN(10,2);
+%     blocks(ii).improvement_hhi = NaN(10,2);
     
     
 %     % rmse_improvement
@@ -149,25 +149,25 @@ dataout.idx_single = repelem(idx_single,1,2);
 dataout.idx_blocks = repelem(repmat(1:Nblocks,size(connected,1),1),1,2);
 dataout.idx_partner = repmat(repmat(1:2,size(connected,1),1),1,Nblocks);
 
-% parts
-dataout.rmse_parts = [blocks(:).rmse_parts];
-dataout.rmse_connected_parts = [blocks(:).rmse_connected_parts];
-dataout.rmse_single_parts = [blocks(:).rmse_single_parts];
-dataout.idx_trials_parts = [blocks(:).idx_trials_parts];
-dataout.idx_trials_connected_parts = [blocks(:).idx_trials_connected_parts];
-dataout.idx_trials_single_parts = [blocks(:).idx_trials_single_parts];
+% % parts
+% dataout.rmse_parts = [blocks(:).rmse_parts];
+% dataout.rmse_connected_parts = [blocks(:).rmse_connected_parts];
+% dataout.rmse_single_parts = [blocks(:).rmse_single_parts];
+% dataout.idx_trials_parts = [blocks(:).idx_trials_parts];
+% dataout.idx_trials_connected_parts = [blocks(:).idx_trials_connected_parts];
+% dataout.idx_trials_single_parts = [blocks(:).idx_trials_single_parts];
 
-% improvement (all, force field (blocks 2 & 3), baseline (block 1), washout (block 4)
-dataout.improvement_hhi = [blocks(:).improvement_hhi];
-dataout.relperformance_hhi = [blocks(:).relperformance_hhi];
+% % improvement (all, force field (blocks 2 & 3), baseline (block 1), washout (block 4)
+% dataout.improvement_hhi = [blocks(:).improvement_hhi];
+% dataout.relperformance_hhi = [blocks(:).relperformance_hhi];
 
-% improvement learning
-% subtract the initial performance for baseline, force field and washout
-rmse0 = dataout.rmse_single(1,:);
-rmse0(5:6) = rmse0(3:4);
-dataout.rmse_single_improvement = repmat(rmse0,size(dataout.rmse_single,1),1) - dataout.rmse_single;
-dataout.rmse_single_parts_improvement = repmat(rmse0,size(dataout.rmse_single_parts,1),1) - dataout.rmse_single_parts;
-dataout.rmse_improvement = repmat(rmse0,size(dataout.rmse,1),1) - dataout.rmse;
+% % improvement learning
+% % subtract the initial performance for baseline, force field and washout
+% rmse0 = dataout.rmse_single(1,:);
+% rmse0(5:6) = rmse0(3:4);
+% dataout.rmse_single_improvement = repmat(rmse0,size(dataout.rmse_single,1),1) - dataout.rmse_single;
+% dataout.rmse_single_parts_improvement = repmat(rmse0,size(dataout.rmse_single_parts,1),1) - dataout.rmse_single_parts;
+% dataout.rmse_improvement = repmat(rmse0,size(dataout.rmse,1),1) - dataout.rmse;
 end
 
 function [rmse,rmse_part,idx_trialsparts] = calculate_performance(t,x,idx_trials,Nparts)
