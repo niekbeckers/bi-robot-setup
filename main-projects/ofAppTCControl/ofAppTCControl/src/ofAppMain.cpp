@@ -297,9 +297,12 @@ void ofAppMain::setupGUI()
 	_guiAdmittance.add(&_grpConnectionControl);
 
 	_grpVirtualPartner.setup("Virtual partner control");
+	_grpVirtualPartner.minimize();
+	
 	_grpVirtualPartner.setName("Virtual partner control");
 	_grpVirtualPartner.add(_btnDrawVirtualPartner.setup("Draw virtual partner", false));
 	_grpVirtualPartner.add(_btnStartStopVPMATLAB.setup("Press to start MATLAB VP on HEROC", false));
+	_grpVirtualPartner.minimize();
 	_guiAdmittance.add(&_grpVirtualPartner);
 
 	_guiSystem.setWidthElements(width);
