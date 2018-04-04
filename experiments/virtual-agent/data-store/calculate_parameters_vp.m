@@ -119,7 +119,7 @@ for ii = 1:Nblocks % blocks
 
     % calculate HHI improvement and relative performance
     idx_rows_connected = blocks(ii).idx_trials_connected(:,1) - blocks(ii).idx_trials(1) + 1;
-    idx_rows_single = idx_rows_connected + 1;
+    idx_rows_single = idx_rows_connected + 1; %!!!!!!!!!!!!!!!!!!!!!!! +1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     [blocks(ii).improvement_hhi, blocks(ii).relperformance_hhi] = calculate_improvement_vp(blocks(ii).rmse,blocks(ii).rmse_vp,idx_rows_connected,idx_rows_single);
     
     % rmse_improvement
