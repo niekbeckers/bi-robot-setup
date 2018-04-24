@@ -38,6 +38,13 @@ rmse2_parts = NaN([size(connected) Nparts]);
 blocks = struct;
 
 for ii = 1:Nblocks % blocks
+    % store time traces
+    ft(1).x = []; ft(2).x = [];
+    ft(1).y = []; ft(2).y = [];
+    x(1).x = []; x(2).x = [];
+    x(1).y = []; x(2).y = [];
+    f(1).x = []; f(2).x = [];
+    f(1).y = []; f(2).y = [];
     
     % per trial and partner, calculate RMS
     for jj = 1:size(idx_trials,1)
@@ -47,6 +54,7 @@ for ii = 1:Nblocks % blocks
         % select target and cursor data
         target = NaN(Nsel,4);
         cursor = NaN(Nsel,4);
+        force = NaN(Nsel,4);
         
         % number of data points, time step
         N = size(dat.target_BROS1,1);
@@ -58,6 +66,24 @@ for ii = 1:Nblocks % blocks
 
         target(end-length(idx)+1:end,:) = [dat.target_BROS1(idx,:) dat.target_BROS2(idx,:)];
         cursor(end-length(idx)+1:end,:) = [dat.cursor_BROS1(idx,:) dat.cursor_BROS2(idx,:)];
+        force(end-length(idx)+1:end,:) = [dat.ForcesOpSpace_BROS1(idx,1:2) dat.ForcesOpSpace_BROS2(idx,1:2)];
+        
+        % store time traces of the target
+        ft(1).x = [ft(1).x target(1:10:end,1)];
+        ft(2).x = [ft(2).x target(1:10:end,3)];
+        ft(1).y = [ft(1).y target(1:10:end,2)];
+        ft(2).y = [ft(2).y target(1:10:end,4)];
+        
+        x(1).x = [f(1).x cursor(1:10:end,1)];
+        x(2).x = [f(2).x cursor(1:10:end,3)];
+        x(1).y = [f(1).y cursor(1:10:end,2)];
+        x(2).y = [f(2).y cursor(1:10:end,4)];
+        
+        f(1).x = [f(1).x force(1:10:end,1)];
+        f(2).x = [f(2).x force(1:10:end,3)];
+        f(1).y = [f(1).y force(1:10:end,2)];
+        f(2).y = [f(2).y force(1:10:end,4)];
+       
         
         if p.Results.AlignTrials
             % shift target and cursor data such that for each trial they are
@@ -101,6 +127,11 @@ for ii = 1:Nblocks % blocks
     blocks(ii).idx_trials_parts = repmat(reshape(idx_trials_parts_tmp,[],1),1,2);
     blocks(ii).idx_trials_connected_parts = repmat(reshape(idx_trials_parts_tmp(:,idx_connected(:,ii),:),[],1),1,2);
     blocks(ii).idx_trials_single_parts = repmat(reshape(idx_trials_parts_tmp(:,idx_single(:,ii),:),[],1),1,2);
+    
+    % time traces
+    blocks(ii).ft = ft;
+    blocks(ii).x = x;
+    blocks(ii).f = f;
 
     % calculate HHI improvement and relative performance
     idx_rows_connected = blocks(ii).idx_trials_connected(:,1) - blocks(ii).idx_trials(1) + 1;
