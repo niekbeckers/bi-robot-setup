@@ -68,21 +68,47 @@ for ii = 1:Nblocks % blocks
         cursor(end-length(idx)+1:end,:) = [dat.cursor_BROS1(idx,:) dat.cursor_BROS2(idx,:)];
         force(end-length(idx)+1:end,:) = [dat.ForcesOpSpace_BROS1(idx,1:2) dat.ForcesOpSpace_BROS2(idx,1:2)];
         
+        target2 = target;
+        cursor2 = cursor;
+        force2 = force;
+        
+        % take out time randomization
+        Tshift = expprotocol.block(ii).trialRandomization(jj);
+        Tshift = mod(Tshift,20);
+        Nshift = round(Tshift/dt);
+        target2 = circshift(target2,Nshift,1);
+        cursor2 = circshift(cursor2,Nshift,1);
+        force2 = circshift(force2,Nshift,1);
+        
         % store time traces of the target
-        ft(1).x = [ft(1).x target(1:10:end,1)];
-        ft(2).x = [ft(2).x target(1:10:end,3)];
-        ft(1).y = [ft(1).y target(1:10:end,2)];
-        ft(2).y = [ft(2).y target(1:10:end,4)];
+        target2 = target2(1:10:end,:);
+        cursor2 = cursor2(1:10:end,:);
+        force2 = force2(1:10:end,:);
+
+        % rotate back to 0 degrees
+        nRand = floor(expprotocol.block(ii).trialRandomization(jj)/20);
+        thetaRot = nRand*(2*pi/6); % - because rotating back
+        R = [cos(thetaRot) -sin(thetaRot); sin(thetaRot) cos(thetaRot)];
+        for kk = 1:size(target2,1)
+            target2(kk,:) = blkdiag(R,R)\(target2(kk,:).');
+            cursor2(kk,:) = blkdiag(R,R)\(cursor2(kk,:).');
+            force2(kk,:) = blkdiag(R,R)\(force2(kk,:).');
+        end
+ 
+        ft(1).x = [ft(1).x target2(:,1)];
+        ft(2).x = [ft(2).x target2(:,3)];
+        ft(1).y = [ft(1).y target2(:,2)];
+        ft(2).y = [ft(2).y target2(:,4)];
         
-        x(1).x = [f(1).x cursor(1:10:end,1)];
-        x(2).x = [f(2).x cursor(1:10:end,3)];
-        x(1).y = [f(1).y cursor(1:10:end,2)];
-        x(2).y = [f(2).y cursor(1:10:end,4)];
+        x(1).x = [x(1).x cursor2(:,1)];
+        x(2).x = [x(2).x cursor2(:,3)];
+        x(1).y = [x(1).y cursor2(:,2)];
+        x(2).y = [x(2).y cursor2(:,4)];
         
-        f(1).x = [f(1).x force(1:10:end,1)];
-        f(2).x = [f(2).x force(1:10:end,3)];
-        f(1).y = [f(1).y force(1:10:end,2)];
-        f(2).y = [f(2).y force(1:10:end,4)];
+        f(1).x = [f(1).x force2(:,1)];
+        f(2).x = [f(2).x force2(:,3)];
+        f(1).y = [f(1).y force2(:,2)];
+        f(2).y = [f(2).y force2(:,4)];
        
         
         if p.Results.AlignTrials
