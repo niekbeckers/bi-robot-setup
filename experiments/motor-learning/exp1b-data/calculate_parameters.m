@@ -81,18 +81,19 @@ for ii = 1:Nblocks % blocks
         force2 = circshift(force2,Nshift,1);
         
         % store time traces of the target
-        target2 = target2(1:10:end,:);
-        cursor2 = cursor2(1:10:end,:);
-        force2 = force2(1:10:end,:);
+        target2 = target2(1:5:end,:);
+        cursor2 = cursor2(1:5:end,:);
+        force2 = force2(1:5:end,:);
 
         % rotate back to 0 degrees
         nRand = floor(expprotocol.block(ii).trialRandomization(jj)/20);
         thetaRot = nRand*(2*pi/6); % - because rotating back
         R = [cos(thetaRot) -sin(thetaRot); sin(thetaRot) cos(thetaRot)];
-        for kk = 1:size(target2,1)
-            target2(kk,:) = blkdiag(R,R)\(target2(kk,:).');
-            cursor2(kk,:) = blkdiag(R,R)\(cursor2(kk,:).');
-            force2(kk,:) = blkdiag(R,R)\(force2(kk,:).');
+        R = blkdiag(R,R);
+        parfor kk = 1:size(target2,1)
+            target2(kk,:) = R\(target2(kk,:).');
+            cursor2(kk,:) = R\(cursor2(kk,:).');
+            force2(kk,:) = R\(force2(kk,:).');
         end
  
         ft(1).x = [ft(1).x target2(:,1)];
