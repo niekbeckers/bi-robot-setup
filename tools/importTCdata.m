@@ -125,7 +125,7 @@ switch lower(modelname)
         
         elseif (size(dataArray,2) == 116)
             % we changed the process noise
-            param_lbls = [param_lbls; 'pos_vp1'; 'vel_vp1'; 'noise_w'; 'pos_vp2'; 'vel_vp2'; 'noise_w'; 'target_vel_BROS1'; 'target_vel_BROS2'];
+            param_lbls = [param_lbls; 'pos_vp1'; 'vel_vp1'; 'noise_w_vp1'; 'pos_vp2'; 'vel_vp2'; 'noise_w_vp2'; 'target_vel_BROS1'; 'target_vel_BROS2'];
             param_idx = [param_idx;   85:86;     87:88;     89:98;     99:100;    101:102;    103:112;         113:114;              115:116]; 
         
         elseif (size(dataArray,2) > 116)
