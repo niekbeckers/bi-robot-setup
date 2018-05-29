@@ -86,7 +86,7 @@ void MatlabThread::threadedFunction(){
 void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &output)
 {
 	// call optimization by writing XML settings file
-	ofXml xml = input2xml(input);
+	ofxXmlPoco xml = input2xml(input);
 	
 	// write settings file 
 	copySettingsAndData(xml, input);
@@ -118,7 +118,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	if (foundFile) {
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "callMatlabOptimization " << "Found file (fitResults_trial" << input.trialID << ") - parsing results";
 		// load xml file
-		ofXml xml;
+		ofxXmlPoco xml;
 		xml.load(outputFilename);
 
 		// parse xml file
@@ -134,7 +134,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 	}
 }
 
-void MatlabThread::copySettingsAndData(ofXml xml, matlabInput input)
+void MatlabThread::copySettingsAndData(ofxXmlPoco xml, matlabInput input)
 {
     // save xml file to local direcory. If the matlabVirtualPartner script is running on the local machine, it will trigger a fit.
     string xmlfilename = ofToString(matlabSettingsFilePath_TC + "settings_vpmodelfit_trial" + ofToString(input.trialID) + ".xml");
@@ -201,10 +201,10 @@ void MatlabThread::registerCBFunction(std::function<void(matlabOutput)> callback
 }
 
 //--------------------------------------------------------------
-ofXml MatlabThread::input2xml(matlabInput input)
+ofxXmlPoco MatlabThread::input2xml(matlabInput input)
 {
 	// write matlab input to XML, which is read by the MATLAB application
-	ofXml xml;
+	ofxXmlPoco xml;
 
 	xml.addChild("VP");
 	xml.setTo("VP");
@@ -224,7 +224,7 @@ ofXml MatlabThread::input2xml(matlabInput input)
 }
 
 //--------------------------------------------------------------
-matlabOutput MatlabThread::xml2output(ofXml xml)
+matlabOutput MatlabThread::xml2output(ofxXmlPoco xml)
 {
 	// read xml and store in matlabOutput struct
 

@@ -28,7 +28,7 @@ void ofAppDisplay::setup()
 	verdana50.load("verdana.ttf", 50, true, true);
 	verdana50.setLineHeight(50.0f);
 	verdana50.setLetterSpacing(1.035);
-	_text.load("verdana.ttf", 50);
+	//_text.load("verdana.ttf", 50);
 
 	verdana30.load("verdana.ttf", 30, true, true);
 	verdana30.setLineHeight(30.0f);
@@ -97,7 +97,7 @@ void ofAppDisplay::draw()
 
 		ofPopMatrix();
 	}
-
+	/*
 	// draw message
 	if (_showMessageNorth) {
 		ofPushMatrix();
@@ -119,7 +119,7 @@ void ofAppDisplay::draw()
 		ofTranslate(0.0, 0.0);
 		_text.draw(_messageCenter, 0.0, 0.0, flags);
 		ofPopMatrix();
-	}
+	}*/
 
 	// draw countdown
 	if (_showCountDown) {

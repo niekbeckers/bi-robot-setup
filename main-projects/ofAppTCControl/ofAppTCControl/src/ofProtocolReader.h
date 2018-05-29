@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include <functional>
 #include "myCommon.h"
+#include "ofxXmlPoco.h"
 
 
 
@@ -21,7 +22,8 @@ private:
 	void processOpenFileSelection(ofFileDialogResult openFileResult);
 
 public:
-	ofXml XML;
+	//ofXml XML;
+	ofxXmlPoco XML;
 
 	ofProtocolReader();
 	~ofProtocolReader();

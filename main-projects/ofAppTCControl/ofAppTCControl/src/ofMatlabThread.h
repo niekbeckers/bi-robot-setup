@@ -4,6 +4,7 @@
 #include <functional>
 #include <algorithm>
 #include "myCommon.h"
+#include "ofxXmlPoco.h"
 
 // For debugging purposes - check if any MATLAB SDK library is defined. If not, don't execute MATLAB code
 #if defined(mclmcrrt_h)
@@ -46,9 +47,9 @@ private:
 	//
 	void threadedFunction();
 	void callMatlabOptimization(matlabInput input, matlabOutput &output);
-	ofXml input2xml(matlabInput input);
-	matlabOutput xml2output(ofXml xml);
-	void copySettingsAndData(ofXml xml, matlabInput input);
+	ofxXmlPoco input2xml(matlabInput input);
+	matlabOutput xml2output(ofxXmlPoco xml);
+	void copySettingsAndData(ofxXmlPoco xml, matlabInput input);
 
 	// callback function 
 	std::function<void(matlabOutput)> _cbFunction;

@@ -511,7 +511,7 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 	}
 	else {
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
-		ofXml xml;
+		ofxXmlPoco xml;
 
 		xml.addChild("VP");
 		xml.setTo("VP");
