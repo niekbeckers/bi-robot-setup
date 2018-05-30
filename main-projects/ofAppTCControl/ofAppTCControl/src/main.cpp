@@ -50,7 +50,7 @@ int main( ){
 	// display2Window
 	//
 	ofGLFWWindowSettings settings3;
-	settings3.setPosition(ofVec2f(-2560, 0));
+	settings3.setPosition(ofVec2f(-2560*0+50, 0+50));
 	settings3.windowMode = wmode;
 	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings3);
 

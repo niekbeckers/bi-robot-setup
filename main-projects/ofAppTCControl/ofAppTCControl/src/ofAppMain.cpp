@@ -19,7 +19,7 @@ void ofAppMain::setup(){
 
 	// read error description file (if present)
 	try {
-		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
+		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
