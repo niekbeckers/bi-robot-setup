@@ -86,6 +86,12 @@ switch lower(modelname)
             param_idx = [param_idx; 85:86; 87:88 ]; 
         end
         
+        % id model (disturbance added)
+        if (size(dataArray,2) > 88)
+            param_lbls = [param_lbls; 'dist_pos_BROS1'; 'dist_pos_BROS2'; 'dist_vel_BROS1'; 'dist_vel_BROS2'; 'dist_acc_BROS1'; 'dist_acc_BROS2'];
+            param_idx = [param_idx; 89:90; 91:92; 93:94; 95:96; 97:98; 99:100];
+        end
+        
     case 'model_virtualpartner_bros'
         %% model_virtualpartner_bros
         param_lbls = [  'time';
