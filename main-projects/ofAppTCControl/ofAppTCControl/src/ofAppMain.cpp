@@ -19,7 +19,7 @@ void ofAppMain::setup(){
 
 	// read error description file (if present)
 	try {
-		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
+		ofBuffer buffer = ofBufferFromFile("C:\\Users\\labuser\\Documents\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
@@ -702,6 +702,7 @@ string ofAppMain::DecodeBROSError(int32_t e, int brosID) {
 	// decode error message
 	string s = "Errors BROS" + ofToString(brosID) + ":\n";
 	bool anyError = false;
+	
 	for (int i = 0; i < sizeof(e)*8; ++i, e >>= 1) {
 		if (e & 0x1) {
 			s += "  " + _errorDescriptions[i] + "\n";

@@ -24,3 +24,5 @@ slprj/
 data-store/
 debug/ft*
 ftsensordebug.m
+*.ipdb
+*.iobj
