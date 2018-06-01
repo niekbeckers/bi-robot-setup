@@ -15,7 +15,7 @@ expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_00fd_' expID];
+filename = ['protocol_05fd_' expID];
 
 % create (main) struct
 s = struct;
@@ -37,11 +37,11 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [3*ones(10,1)];
+condition = [6*ones(10,1)];
     
 numTrials = numel(condition); % example
 breakDuration = 10*ones(numTrials,1);
-trialDuration = 81.92*ones(numTrials,1);
+trialDuration = 90*ones(numTrials,1);
 
 % connection
 if strcmpi(groupType,'solo')
