@@ -98,7 +98,7 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 		_settings.activeBROSIDs.clear();
 		auto ab = exp.getChild("activeBROSID");
 		if (ab) {
-			auto ids = ab.getChildren("id");
+			auto ids = ab.getChildren();
 			for (auto & id : ids) {
 				_settings.activeBROSIDs.push_back(id.getIntValue());
 			}
@@ -201,5 +201,17 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 		//if (XML.exists("vpFitOnHeRoC")) { _settings.vpFitOnHeRoC = XML.getValue<bool>("vpFitOnHeRoC"); }
 
 		_experimentLoaded = true;	
+
+		// print xml to console for debugging
+		ofBuffer auxBuffer;
+		string xmlText;
+		auxBuffer.set(XML.toString("  "));
+		xmlText.clear();
+		auto i = 0;
+		for (auto & line : auxBuffer.getReverseLines()) {
+			xmlText = line + "\n" + xmlText;
+		}
+
+		cout << xmlText << endl;
 	}
 }

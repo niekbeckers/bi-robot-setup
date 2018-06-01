@@ -32,6 +32,8 @@ int main( ){
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings0);
 
 	ofGLFWWindowSettings settings1;
+	//settings1.width = 10;
+	//settings1.height = 10;
 	settings1.setPosition(ofVec2f(50, 50));
 	settings1.visible = false;
 	settings1.title = "Experiment";

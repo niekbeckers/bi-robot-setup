@@ -8,6 +8,7 @@ void ofAppMain::setup(){
 	ofSetFrameRate(120);
 
 	ofSetLogLevel(OF_LOG_NOTICE);
+	ofLogToConsole();
 
 	// matlab on heroc thread
 	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
@@ -19,7 +20,7 @@ void ofAppMain::setup(){
 
 	// read error description file (if present)
 	try {
-		ofBuffer buffer = ofBufferFromFile("C:\\Users\\labuser\\Documents\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
+		ofBuffer buffer = ofBufferFromFile("C:\\Users\\labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
@@ -405,7 +406,7 @@ void ofAppMain::buttonPressed(const void * sender)
 	ofParameter<void> * p = (ofParameter<void> *)sender;
 	string clickedBtn = p->getName();
 
-	ofLogError() << "(" << typeid(this).name() << ") " << "Button pressed: " << clickedBtn;
+	ofLogVerbose() << "(" << typeid(this).name() << ") " << "Button pressed: " << clickedBtn;
 
 	if (clickedBtn.compare(ofToString("Reset")) == 0) {
 		requestStateChange(0);
