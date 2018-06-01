@@ -98,29 +98,25 @@ void ofAppDisplay::draw()
 
 		ofPopMatrix();
 	}
-	/*
+	
 	// draw message
 	if (_showMessageNorth) {
 		ofPushMatrix();
-		ofSetColor(clrText);
-		unsigned int flags = 0;
-		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
-		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
-		ofTranslate(0.0, -0.4*ofGetHeight());
-		_text.draw(_messageNorth, 0.0, 0.0, flags);
+			ofSetColor(clrText);
+			ofRectangle bounds = verdana30.getStringBoundingBox(_messageNorth, 0, 0);
+			ofTranslate(bounds.width / 2, bounds.height / 2 - 0.4*ofGetHeight(), 0);
+			verdana30.drawString(_messageNorth, -bounds.width / 2, bounds.height / 2);
 		ofPopMatrix();
 	}
 
 	if (_showMessageCenter) {
 		ofPushMatrix();
-		ofSetColor(clrText);
-		unsigned int flags = 0;
-		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
-		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
-		ofTranslate(0.0, 0.0);
-		_text.draw(_messageCenter, 0.0, 0.0, flags);
+			ofSetColor(clrText);
+			ofRectangle bounds = verdana30.getStringBoundingBox(_messageCenter, 0, 0);
+			ofTranslate(bounds.width / 2, bounds.height / 2, 0);
+			verdana30.drawString(_messageCenter, -bounds.width / 2, bounds.height / 2);
 		ofPopMatrix();
-	}*/
+	}
 
 	// draw countdown
 	if (_showCountDown) {
