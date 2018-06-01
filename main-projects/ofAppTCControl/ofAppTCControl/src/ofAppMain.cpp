@@ -199,7 +199,6 @@ void ofAppMain::setupGUI()
 	// add button listeners
 	_btnCalibrateForceSensor.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
-	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Calibrate.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_HomingAuto.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_HomingManual.addListener(this, &ofAppMain::buttonPressed);
@@ -212,6 +211,7 @@ void ofAppMain::setupGUI()
 	_btnConnSetStiffness.addListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetDamping.addListener(this, &ofAppMain::buttonPressed);
 	_btnConfirmBlockTrialNr.addListener(this, &ofAppMain::buttonPressed);
+	
 	
 	// setup GUIs
 	float width = 300.0;
@@ -241,18 +241,18 @@ void ofAppMain::setupGUI()
 	// request state
 	_grpReqState.setup("Request state");
 	_grpReqState.setName("State request");
-	_grpReqState.add(_btnReqState_Reset.setup("Reset"));
-	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate"));
-	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto"));
-	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual"));
-	_grpReqState.add(_btnReqState_Run.setup("Run"));
+	_grpReqState.add(_btnReqState_Reset.set("Reset"));
+	_grpReqState.add(_btnReqState_Calibrate.set("Calibrate"));
+	_grpReqState.add(_btnReqState_HomingAuto.set("Homing - Auto"));
+	_grpReqState.add(_btnReqState_HomingManual.set("Homing - Manual"));
+	_grpReqState.add(_btnReqState_Run.set("Run"));
 	_guiSystem.add(&_grpReqState);
 
 	// drive controls
 	_grpDriveControl.setup("Drive control");
 	_grpDriveControl.setName("Drive control");
-	_grpDriveControl.add(_btnEnableDrive.setup("Enable drives"));
-	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
+	_grpDriveControl.add(_btnEnableDrive.set("Enable drives"));
+	_grpDriveControl.add(_btnDisableDrive.set("Disable drives"));
 	_guiSystem.add(&_grpDriveControl);
 
 	_ofGrpSys.setName("System states");
@@ -266,14 +266,14 @@ void ofAppMain::setupGUI()
 	// GUI experiment
 	//_guiExperiment.add(_btnDebugMode.setup("Debug mode", false));
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
-	_guiExperiment.add(_btnExpLoad.setup("Load"));
+	_guiExperiment.add(_btnExpLoad.set("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
 
 	_grpExpControl.setup("Experiment control");
 	_grpExpControl.setName("Experiment control");
-	_grpExpControl.add(_btnExpStart.setup("Start"));
-	_grpExpControl.add(_btnExpStop.setup("Stop"));
+	_grpExpControl.add(_btnExpStart.set("Start"));
+	_grpExpControl.add(_btnExpStop.set("Stop"));
 	_grpExpControl.add(_btnExpPauseResume.setup("Pause", false));
 	_guiExperiment.add(&_grpExpControl);
 
@@ -282,7 +282,7 @@ void ofAppMain::setupGUI()
 	_grpExpState.add(lblBlockNumber.set("Block number", 0, 0, 1));  // add dummy experiment
 	_grpExpState.add(lblTrialNumber.set("Trial number", 0, 0, 1)); // add dummy experiment
 	_guiExperiment.add(_grpExpState);
-	_guiExperiment.add(_btnConfirmBlockTrialNr.setup("Set block and trial number"));
+	_guiExperiment.add(_btnConfirmBlockTrialNr.set("Set block and trial number"));
 
 	_grpConnectionControl.setup("Connection control");
 	_grpConnectionControl.setName("Connection control");
@@ -290,9 +290,9 @@ void ofAppMain::setupGUI()
 	_grpConnectionControl.add(_btnSetConnected.setup("Enable connection", false));
 	_btnSetConnected.setName("Enable connection");
 	_grpConnectionControl.add(_lblConnStiffness.setup("Connection stiffness Kp", ofToString(0) + " N/m"));
-	_grpConnectionControl.add(_btnConnSetStiffness.setup("Connection stiffness"));
+	_grpConnectionControl.add(_btnConnSetStiffness.set("Connection stiffness"));
 	_grpConnectionControl.add(_lblConnDamping.setup("Connection damping Kd", ofToString(0) + " Ns/m"));
-	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
+	_grpConnectionControl.add(_btnConnSetDamping.set("Connection damping"));
 	_grpConnectionControl.minimize(); // default is minimized
 	_guiAdmittance.add(&_grpConnectionControl);
 
@@ -315,12 +315,14 @@ void ofAppMain::setupGUI()
 	if (twinCatRunning) { updateADSDataGUI(); }
 
 	// add toggle listeners
-	_btnDrawVirtualPartner.addListener(this, &ofAppMain::drawVirtualPartnerPressed);
+	//_btnDrawVirtualPartner.addListener(this, &ofAppMain::drawVirtualPartnerPressed);
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	//_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
 	//_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
+
+	
 }
 
 //--------------------------------------------------------------
@@ -400,10 +402,10 @@ void ofAppMain::requestDriveEnableDisable(bool enable)
 //--------------------------------------------------------------
 void ofAppMain::buttonPressed(const void * sender)
 {
-	ofxButton * button = (ofxButton*)sender;
-	string clickedBtn = button->getName();
+	ofParameter<void> * p = (ofParameter<void> *)sender;
+	string clickedBtn = p->getName();
 
-	ofLogVerbose() << "(" << typeid(this).name() << ") " << "Button pressed: " << clickedBtn;
+	ofLogError() << "(" << typeid(this).name() << ") " << "Button pressed: " << clickedBtn;
 
 	if (clickedBtn.compare(ofToString("Reset")) == 0) {
 		requestStateChange(0);
