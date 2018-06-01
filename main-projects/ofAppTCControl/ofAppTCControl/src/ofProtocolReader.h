@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include <functional>
 #include "myCommon.h"
-#include "ofxXmlPoco.h"
 
 
 
@@ -23,7 +22,7 @@ private:
 
 public:
 	//ofXml XML;
-	ofxXmlPoco XML;
+	ofXml XML;
 
 	ofProtocolReader();
 	~ofProtocolReader();

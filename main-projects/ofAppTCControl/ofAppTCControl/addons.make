@@ -1,3 +1,1 @@
 ofxGui
-ofxPoco
-ofxXmlSettings

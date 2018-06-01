@@ -29,7 +29,7 @@ void ofAppMain::setup(){
 		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt";
 	}
 
-	_fontErrorMsg.loadFont("verdana.ttf", 10);
+	_fontErrorMsg.load("verdana.ttf", 10);
 
 	// setup tcAdsClient
 	setupTCADS();
@@ -296,14 +296,14 @@ void ofAppMain::setupGUI()
 	_grpConnectionControl.minimize(); // default is minimized
 	_guiAdmittance.add(&_grpConnectionControl);
 
-	_grpVirtualPartner.setup("Virtual partner control");
-	_grpVirtualPartner.minimize();
+	//_grpVirtualPartner.setup("Virtual partner control");
+	//_grpVirtualPartner.minimize();
 	
-	_grpVirtualPartner.setName("Virtual partner control");
-	_grpVirtualPartner.add(_btnDrawVirtualPartner.setup("Draw virtual partner", false));
-	_grpVirtualPartner.add(_btnStartStopVPMATLAB.setup("Press to start MATLAB VP on HEROC", false));
-	_grpVirtualPartner.minimize();
-	_guiAdmittance.add(&_grpVirtualPartner);
+	//_grpVirtualPartner.setName("Virtual partner control");
+	//_grpVirtualPartner.add(_btnDrawVirtualPartner.setup("Draw virtual partner", false));
+	//_grpVirtualPartner.add(_btnStartStopVPMATLAB.setup("Press to start MATLAB VP on HEROC", false));
+	//_grpVirtualPartner.minimize();
+	//_guiAdmittance.add(&_grpVirtualPartner);
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
@@ -319,8 +319,8 @@ void ofAppMain::setupGUI()
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
-	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
-	_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
+	//_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
+	//_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
 }
 
 //--------------------------------------------------------------
@@ -511,14 +511,14 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 	}
 	else {
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
-		ofxXmlPoco xml;
+		ofXml xml;
 
-		xml.addChild("VP");
-		xml.setTo("VP");
-		xml.addValue("terminate", true);
+		//xml.addChild("VP");
+		//xml.setTo("VP");
+		//xml.addValue("terminate", true);
 
 		string xmlfilename = "settings_vpmodelfit_trial_terminate.xml";
-		xml.save(xmlfilename);
+		//xml.save(xmlfilename);
 
 		ofLogVerbose() << ofToDataPath(xmlfilename);
 
@@ -625,8 +625,8 @@ void ofAppMain::exit() {
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	_btnDebugMode.removeListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.removeListener(this, &ofAppMain::setConnectionEnabled);
-	_btnStartStopVPMATLAB.removeListener(this, &ofAppMain::startStopVPMATLAB);
-	_btnDrawVirtualPartner.removeListener(this, &ofAppMain::drawVirtualPartnerPressed);
+	//_btnStartStopVPMATLAB.removeListener(this, &ofAppMain::startStopVPMATLAB);
+	//_btnDrawVirtualPartner.removeListener(this, &ofAppMain::drawVirtualPartnerPressed);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();
@@ -660,7 +660,7 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 
 	if (pNotification->hNotification == _lHdlNot_Read_OpsEnabled) {
 		bool * data = (bool *)pNotification->data;
-		sprintf(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
+		sprintf_s(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "Drive Enabled: " << ofToString(buf);
 		_lblOpsEnabled = ofToString(buf);
 	}
@@ -678,7 +678,7 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 		_systemState[0] = static_cast<SystemState>((int)data[0]);
 		_systemState[1] = static_cast<SystemState>((int)data[1]);
 
-		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
+		sprintf_s(buf, "[%d, %d]", _systemState[0], _systemState[1]);
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "System State: " << ofToString(buf);
 
 		_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
