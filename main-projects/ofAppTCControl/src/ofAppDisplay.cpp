@@ -3,7 +3,10 @@
 //--------------------------------------------------------------
 void ofAppDisplay::setup()
 {
+	
 	ofSetVerticalSync(false); // switch vsync off
+	ofSetFrameRate(120);
+
 	ofEnableAntiAliasing(); // enable anti-aliasing
 
 	// define colors

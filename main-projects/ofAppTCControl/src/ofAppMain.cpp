@@ -5,7 +5,10 @@ using namespace std;
 //--------------------------------------------------------------
 void ofAppMain::setup(){
 
+	
+	ofSetVerticalSync(false);
 	ofSetFrameRate(120);
+	
 
 	ofSetLogLevel(OF_LOG_NOTICE);
 	ofLogToConsole();
@@ -81,6 +84,8 @@ void ofAppMain::update(){
 
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
+
+		
 		_timeCheck = ofGetElapsedTimef();
 
 		// Check TwinCAT/ADS
