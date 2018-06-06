@@ -21,6 +21,7 @@ private:
 	void processOpenFileSelection(ofFileDialogResult openFileResult);
 
 public:
+	//ofXml XML;
 	ofXml XML;
 
 	ofProtocolReader();

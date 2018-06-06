@@ -1,3 +1,0 @@
-ofxGui
-ofxTextAlign
-ofxXmlSettings

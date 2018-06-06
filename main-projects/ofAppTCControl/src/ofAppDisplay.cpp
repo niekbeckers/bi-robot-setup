@@ -3,7 +3,10 @@
 //--------------------------------------------------------------
 void ofAppDisplay::setup()
 {
+	
 	ofSetVerticalSync(false); // switch vsync off
+	ofSetFrameRate(120);
+
 	ofEnableAntiAliasing(); // enable anti-aliasing
 
 	// define colors
@@ -28,7 +31,7 @@ void ofAppDisplay::setup()
 	verdana50.load("verdana.ttf", 50, true, true);
 	verdana50.setLineHeight(50.0f);
 	verdana50.setLetterSpacing(1.035);
-	_text.load("verdana.ttf", 50);
+	//_text.load("verdana.ttf", 50);
 
 	verdana30.load("verdana.ttf", 30, true, true);
 	verdana30.setLineHeight(30.0f);
@@ -46,9 +49,9 @@ void ofAppDisplay::setup()
 	target.radius = 15.0f;
 	
 
-	virtualpartner.setColor(ofColor::forestGreen);
-	virtualpartner.setFillMode(OF_FILLED);
-	virtualpartner.radius = 12.0f;
+	//virtualpartner.setColor(ofColor::forestGreen);
+	//virtualpartner.setFillMode(OF_FILLED);
+	//virtualpartner.radius = 12.0f;
 }
 
 //--------------------------------------------------------------
@@ -59,11 +62,12 @@ void ofAppDisplay::update()
 	target.update();
 	cursor.setPosition(ofPoint(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m));
 	cursor.update();
-	if (drawVirtualPartner) {
-		// update virtual partner
-		virtualpartner.setPosition(ofPoint(-(*pData).posVPX*dots_per_m, (*pData).posVPY*dots_per_m));
-		virtualpartner.update();
-	}
+
+	//if (drawVirtualPartner) {
+	//	// update virtual partner
+	//	virtualpartner.setPosition(ofPoint(-(*pData).posVPX*dots_per_m, (*pData).posVPY*dots_per_m));
+	//	virtualpartner.update();
+	//}
 }
 
 //--------------------------------------------------------------
@@ -97,27 +101,23 @@ void ofAppDisplay::draw()
 
 		ofPopMatrix();
 	}
-
+	
 	// draw message
 	if (_showMessageNorth) {
 		ofPushMatrix();
-		ofSetColor(clrText);
-		unsigned int flags = 0;
-		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
-		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
-		ofTranslate(0.0, -0.4*ofGetHeight());
-		_text.draw(_messageNorth, 0.0, 0.0, flags);
+			ofSetColor(clrText);
+			ofRectangle bounds = verdana30.getStringBoundingBox(_messageNorth, 0, 0);
+			ofTranslate(bounds.width / 2, bounds.height / 2 - 0.4*ofGetHeight(), 0);
+			verdana30.drawString(_messageNorth, -bounds.width / 2, bounds.height / 2);
 		ofPopMatrix();
 	}
 
 	if (_showMessageCenter) {
 		ofPushMatrix();
-		ofSetColor(clrText);
-		unsigned int flags = 0;
-		flags |= ofxTextAlign::HORIZONTAL_ALIGN_CENTER;
-		flags |= ofxTextAlign::VERTICAL_ALIGN_MIDDLE;
-		ofTranslate(0.0, 0.0);
-		_text.draw(_messageCenter, 0.0, 0.0, flags);
+			ofSetColor(clrText);
+			ofRectangle bounds = verdana30.getStringBoundingBox(_messageCenter, 0, 0);
+			ofTranslate(bounds.width / 2, bounds.height / 2, 0);
+			verdana30.drawString(_messageCenter, -bounds.width / 2, bounds.height / 2);
 		ofPopMatrix();
 	}
 

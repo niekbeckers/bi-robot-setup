@@ -5,6 +5,10 @@ using namespace std;
 //--------------------------------------------------------------
 void ofAppExperiment::setup()
 {
+	ofSetFrameRate(120);
+	ofSetVerticalSync(false);
+
+
 	setupTCADS();	// setup TwinCAT ADS
 	setExperimentState(ExperimentState::IDLE);
 
@@ -27,8 +31,8 @@ void ofAppExperiment::update()
 	}
 
 	// update virtual partner and check if partner is still fitting
-	partner.update();
-	_runningModelFit = partner.modelFitIsRunning();
+	//partner.update();
+	//_runningModelFit = partner.modelFitIsRunning();
 
 	//
 	// experiment state machine
@@ -684,14 +688,14 @@ void ofAppExperiment::esmCheckNextStep()
 {
 	
 
-	if (_currentTrialNumber < _currentBlock.trials.size() - 1) {
+	if (_currentTrialNumber < _currentBlock.trials.size()-1) {
 		// new trial in block, go to trial break
 		_breakStartTime = ofGetElapsedTimef();
 		setExperimentState(ExperimentState::TRIALBREAK);
 	}
-	else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
+	else if (_currentTrialNumber == _currentBlock.trials.size()-1) {
 		// end of block, determine if we proceed to the next block, or experiment is done
-		if (_currentBlockNumber < _blocks.size() - 1) {
+		if (_currentBlockNumber < _blocks.size()-1) {
 			// new block! First, block break
 			_breakStartTime = ofGetElapsedTimef();
 

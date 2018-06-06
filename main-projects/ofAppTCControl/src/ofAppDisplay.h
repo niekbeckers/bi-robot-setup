@@ -4,7 +4,7 @@
 
 #include "ofMain.h"
 #include "ofUtils.h"
-#include "ofxTextAlignTTF.h"
+//#include "ofxTextAlignTTF.h"
 #include "parentParticle.h"
 #include "myCommon.h"
 
@@ -30,7 +30,7 @@ class ofAppDisplay : public ofBaseApp
 		ofTrueTypeFont verdana50;
 		ofTrueTypeFont verdana30;
 
-		ofxTextAlignTTF _text;
+		//ofxTextAlignTTF _text;
 
 		// countdown
 		bool _showCountDown = false;
