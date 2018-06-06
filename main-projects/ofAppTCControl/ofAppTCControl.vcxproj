@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-=======
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -59,21 +55,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-    <Import Project="../../../../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="../../../../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="../../../../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="../../../../of_v0.9.8_vs_release/libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
-=======
     <Import Project="../../../../openFrameworks/of_v0.10.0_vs2017_release/libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
@@ -87,7 +68,6 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="../../../../openFrameworks/of_v0.10.0_vs2017_release/libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -121,11 +101,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-=======
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
@@ -145,13 +121,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-=======
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);
 src;
 $(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -160,10 +132,6 @@ $(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-=======
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent />
@@ -174,11 +142,7 @@ $(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-=======
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)/../../%(RelativeDir)/</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -201,12 +165,8 @@ $(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs;..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
-=======
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);
 src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
@@ -217,10 +177,7 @@ src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-=======
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent />
@@ -236,22 +193,6 @@ src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
     <ClCompile Include="src\parentParticle.cpp" />
     <ClCompile Include="src\tcAdsClient.cpp" />
     <ClCompile Include="src\virtualPartner.cpp" />
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlign.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlignTTF.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
-    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
-=======
     <ClCompile Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxBaseGui.cpp" />
     <ClCompile Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxButton.cpp" />
     <ClCompile Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxColorPicker.cpp" />
@@ -262,7 +203,6 @@ src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
     <ClCompile Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxToggle.cpp" />
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\childParticle.h" />
@@ -275,21 +215,6 @@ src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
     <ClInclude Include="src\parentParticle.h" />
     <ClInclude Include="src\tcAdsClient.h" />
     <ClInclude Include="src\virtualPartner.h" />
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/ofAppTCControl.vcxproj
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlign.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxTextAlign\src\ofxTextAlignTTF.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
-    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxXmlSettings\libs\tinyxml.h" />
-=======
     <ClInclude Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxButton.h" />
     <ClInclude Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxColorPicker.h" />
@@ -301,7 +226,6 @@ src;$(OF_ROOT)\addons\ofxGui\src</AdditionalIncludeDirectories>
     <ClInclude Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\..\openFrameworks\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxToggle.h" />
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/ofAppTCControl.vcxproj
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

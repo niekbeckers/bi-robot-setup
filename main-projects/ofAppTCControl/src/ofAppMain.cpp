@@ -23,11 +23,7 @@ void ofAppMain::setup(){
 
 	// read error description file (if present)
 	try {
-<<<<<<< HEAD:main-projects/ofAppTCControl/ofAppTCControl/src/ofAppMain.cpp
-		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
-=======
 		ofBuffer buffer = ofBufferFromFile("C:\\Users\\labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
->>>>>>> origin/develop-of10.0:main-projects/ofAppTCControl/src/ofAppMain.cpp
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
