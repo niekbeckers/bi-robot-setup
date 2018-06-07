@@ -5,8 +5,9 @@ using namespace std;
 //--------------------------------------------------------------
 void ofAppExperiment::setup()
 {
-	ofSetFrameRate(120);
+	
 	ofSetVerticalSync(false);
+	//ofSetFrameRate(60);	
 
 
 	setupTCADS();	// setup TwinCAT ADS

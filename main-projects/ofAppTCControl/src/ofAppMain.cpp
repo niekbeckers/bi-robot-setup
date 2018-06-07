@@ -7,7 +7,7 @@ void ofAppMain::setup(){
 
 	
 	ofSetVerticalSync(false);
-	ofSetFrameRate(120);
+	ofSetFrameRate(60);
 	
 
 	ofSetLogLevel(OF_LOG_NOTICE);
