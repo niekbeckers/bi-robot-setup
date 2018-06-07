@@ -26,3 +26,4 @@ debug/ft*
 ftsensordebug.m
 *.iobj
 *.ipdb
+/openFrameworks/
