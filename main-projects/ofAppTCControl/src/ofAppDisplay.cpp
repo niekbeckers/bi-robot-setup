@@ -5,7 +5,7 @@ void ofAppDisplay::setup()
 {
 	
 	ofSetVerticalSync(false); // switch vsync off
-	ofSetFrameRate(120);
+	ofSetFrameRate(60);
 
 	ofEnableAntiAliasing(); // enable anti-aliasing
 
