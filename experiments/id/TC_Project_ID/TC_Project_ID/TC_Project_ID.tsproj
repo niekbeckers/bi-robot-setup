@@ -965,7 +965,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{58AC1549-63B3-5A52-C568-5A72FCA543FC}">P_model_base_bros_r2016b_T</Name>
+			<Name GUID="{5941F9D0-BDE4-C737-7D27-46A98378FB4D}">P_model_base_bros_r2016b_T</Name>
 			<BitSize>39872</BitSize>
 			<SubItem>
 				<Name>BROS1</Name>
@@ -3422,16 +3422,22 @@
 				<BitOffs>33880</BitOffs>
 			</SubItem>
 			<SubItem>
+				<Name>Gain_Gain_c</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>33888</BitOffs>
+			</SubItem>
+			<SubItem>
 				<Name>LatchRising_j</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>33888</BitOffs>
+				<BitOffs>33896</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_gc</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>33896</BitOffs>
+				<BitOffs>33904</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_m</Name>
@@ -3494,6 +3500,7 @@
 				<BitOffs>39616</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{58AC1549-63B3-5A52-C568-5A72FCA543FC}"/>
 				<Hide GUID="{28141A42-8768-C2BB-B8ED-4404422F4085}"/>
 			</Hides>
 		</DataType>
@@ -4739,9 +4746,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{1160549E-E43F-4CC0-9897-8169EBB41CEA}">
+					<TmcDesc GUID="{22FEA755-2ABD-4C85-AD8E-660AD7997227}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{1160549E-E43F-4CC0-9897-8169EBB41CEA}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{22FEA755-2ABD-4C85-AD8E-660AD7997227}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -4863,7 +4870,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>39872</BitSize>
-								<BaseType GUID="{58AC1549-63B3-5A52-C568-5A72FCA543FC}">P_model_base_bros_r2016b_T</BaseType>
+								<BaseType GUID="{5941F9D0-BDE4-C737-7D27-46A98378FB4D}">P_model_base_bros_r2016b_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -8108,11 +8115,18 @@
 									<BitOffs>41344</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x82001431</PTCID>
+									<BitOffs>41352</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x82001431</PTCID>
-									<BitOffs>41352</BitOffs>
+									<PTCID>#x82001432</PTCID>
+									<BitOffs>41360</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_h</Name>
@@ -11782,18 +11796,25 @@
 									<BitOffs>33880</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
+									<Name>Gain_Gain_c</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+									<PTCID>#x8300108c</PTCID>
+									<BitOffs>33888</BitOffs>
+								</Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>LatchRising_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x8300108c</PTCID>
-									<BitOffs>33888</BitOffs>
+									<PTCID>#x8300108d</PTCID>
+									<BitOffs>33896</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_gc</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x8300108d</PTCID>
-									<BitOffs>33896</BitOffs>
+									<PTCID>#x8300108e</PTCID>
+									<BitOffs>33904</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_m</Name>
@@ -14155,83 +14176,83 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[10]</Name>
-								<Value>0.0358569687947215</Value>
+								<Value>0.0248424367031478</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[11]</Name>
-								<Value>0.0275584886583768</Value>
+								<Value>0.0190930810144477</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[12]</Name>
-								<Value>0.0179368350016975</Value>
+								<Value>0.012427003819968</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[13]</Name>
-								<Value>0.00742679896352031</Value>
+								<Value>0.00514543725696682</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[14]</Name>
-								<Value>0.00502984267579696</Value>
+								<Value>0.00348477722742341</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[15]</Name>
-								<Value>0.00426780995554426</Value>
+								<Value>0.00295682547202037</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[16]</Name>
-								<Value>0.0033655514694638</Value>
+								<Value>0.00233172245623976</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[17]</Name>
-								<Value>0.00294788100378849</Value>
+								<Value>0.00204235186929152</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[18]</Name>
-								<Value>0.00273827425486529</Value>
+								<Value>0.0018971320537938</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[19]</Name>
-								<Value>0.00262516567799898</Value>
+								<Value>0.00181876813303209</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[20]</Name>
-								<Value>2.16659243626296</Value>
+								<Value>-0.191282433683001</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[21]</Name>
-								<Value>0.470885790635408</Value>
+								<Value>0.869083777701607</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[22]</Name>
-								<Value>3.39632737863752</Value>
+								<Value>1.22253285460291</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[23]</Name>
-								<Value>4.40626213252303</Value>
+								<Value>2.95448513887146</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[24]</Name>
-								<Value>2.71043881575329</Value>
+								<Value>-0.187668227768241</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[25]</Name>
-								<Value>1.89547485309579</Value>
+								<Value>-1.2395057100935</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[26]</Name>
-								<Value>-0.269581178956976</Value>
+								<Value>0.850756745841514</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[27]</Name>
-								<Value>-0.87961356647557</Value>
+								<Value>0.81009332689079</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[28]</Name>
-								<Value>0.0695721529353763</Value>
+								<Value>1.86555351100147</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist1[29]</Name>
-								<Value>-1.20013748593267</Value>
+								<Value>3.92888509964531</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[0]</Name>
@@ -14275,83 +14296,83 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[10]</Name>
-								<Value>0.0366642780878553</Value>
+								<Value>0.0254017569883999</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[11]</Name>
-								<Value>0.0272817537998044</Value>
+								<Value>0.0189013534803386</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[12]</Name>
-								<Value>0.0161373386117273</Value>
+								<Value>0.0111802761497819</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[13]</Name>
-								<Value>0.00773894769233055</Value>
+								<Value>0.00536170024009377</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[14]</Name>
-								<Value>0.00536496724706906</Value>
+								<Value>0.00371695834114661</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[15]</Name>
-								<Value>0.00459421026066348</Value>
+								<Value>0.00318296223684936</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[16]</Name>
-								<Value>0.00366640841923573</Value>
+								<Value>0.00254016226536583</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[17]</Name>
-								<Value>0.00322913853078968</Value>
+								<Value>0.00223721280000242</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[18]</Name>
-								<Value>0.0030070221457169</Value>
+								<Value>0.00208332605434658</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[19]</Name>
-								<Value>0.00288615713974158</Value>
+								<Value>0.00199958832186403</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[20]</Name>
-								<Value>-1.30049123921696</Value>
+								<Value>1.38561636680843</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[21]</Name>
-								<Value>2.42771869287178</Value>
+								<Value>2.32507795438724</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[22]</Name>
-								<Value>0.519965340070859</Value>
+								<Value>1.30151176361759</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[23]</Name>
-								<Value>1.65032507015039</Value>
+								<Value>-1.27130210302564</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[24]</Name>
-								<Value>2.50815607635148</Value>
+								<Value>2.43051195880372</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[25]</Name>
-								<Value>0.921655166149673</Value>
+								<Value>1.40966196107762</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[26]</Name>
-								<Value>0.157360019022998</Value>
+								<Value>4.17643695284992</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[27]</Name>
-								<Value>3.69966518801585</Value>
+								<Value>2.3344183013347</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[28]</Name>
-								<Value>0.848927502884335</Value>
+								<Value>3.91744973459702</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_dist2[29]</Name>
-								<Value>4.30139701892408</Value>
+								<Value>0.819915779462385</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[0]</Name>
@@ -14395,83 +14416,83 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[10]</Name>
-								<Value>0.0346092943487369</Value>
+								<Value>0.0239780224904475</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[11]</Name>
-								<Value>0.0274080370505062</Value>
+								<Value>0.0189888450828828</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[12]</Name>
-								<Value>0.0179516097208334</Value>
+								<Value>0.0124372400456524</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[13]</Name>
-								<Value>0.0100911653973746</Value>
+								<Value>0.00699136447033353</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[14]</Name>
-								<Value>0.00754014376217669</Value>
+								<Value>0.00522396483698543</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[15]</Name>
-								<Value>0.00572526855028205</Value>
+								<Value>0.00396658240642588</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[16]</Name>
-								<Value>0.00403170643800083</Value>
+								<Value>0.00279324815672799</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[17]</Name>
-								<Value>0.00293962734915314</Value>
+								<Value>0.0020366335696209</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[18]</Name>
-								<Value>0.00258259195326529</Value>
+								<Value>0.00178927219130961</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[19]</Name>
-								<Value>0.00238872857310242</Value>
+								<Value>0.00165495970164196</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[20]</Name>
-								<Value>-0.518884103399589</Value>
+								<Value>-1.0390039157872</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[21]</Name>
-								<Value>2.43589157245065</Value>
+								<Value>0.286918024695991</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[22]</Name>
-								<Value>4.04933473747639</Value>
+								<Value>-0.999426731505078</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[23]</Name>
-								<Value>-1.50598231169809</Value>
+								<Value>1.82330209026063</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[24]</Name>
-								<Value>3.1385838034693</Value>
+								<Value>3.73814011185447</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[25]</Name>
-								<Value>3.31942501488902</Value>
+								<Value>2.337614454894</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[26]</Name>
-								<Value>-0.494828893601719</Value>
+								<Value>4.08160881903955</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[27]</Name>
-								<Value>2.10031542629212</Value>
+								<Value>3.37339398462842</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[28]</Name>
-								<Value>-0.617621167805299</Value>
+								<Value>-0.36378013662604</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.msin_data_target[29]</Name>
-								<Value>-1.42587955730021</Value>
+								<Value>4.52565684227597</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.sampleTime</Name>
@@ -16220,6 +16241,10 @@
 							<Value>
 								<Name>ModelParameters.Recorddata1yes0no_Value</Name>
 								<EnumText>FALSE</EnumText>
+							</Value>
+							<Value>
+								<Name>ModelParameters.Gain_Gain_c</Name>
+								<Value>128</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.LatchRising_j.Out_Y0</Name>
