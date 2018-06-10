@@ -5,7 +5,7 @@ void ofAppDisplay::setup()
 {
 	
 	ofSetVerticalSync(false); // switch vsync off
-	ofSetFrameRate(60);
+	//ofSetFrameRate(60);
 
 	ofEnableAntiAliasing(); // enable anti-aliasing
 
@@ -52,6 +52,7 @@ void ofAppDisplay::setup()
 	//virtualpartner.setColor(ofColor::forestGreen);
 	//virtualpartner.setFillMode(OF_FILLED);
 	//virtualpartner.radius = 12.0f;
+	//showMessageNorth(true, "TESTEST");
 }
 
 //--------------------------------------------------------------
@@ -95,9 +96,9 @@ void ofAppDisplay::draw()
 		cursor.draw();
 
 		// draw virtual partner
-		if (drawVirtualPartner) {
-			virtualpartner.draw();
-		}
+		//if (drawVirtualPartner) {
+		//	virtualpartner.draw();
+		//}
 
 		ofPopMatrix();
 	}
@@ -107,7 +108,7 @@ void ofAppDisplay::draw()
 		ofPushMatrix();
 			ofSetColor(clrText);
 			ofRectangle bounds = verdana30.getStringBoundingBox(_messageNorth, 0, 0);
-			ofTranslate(bounds.width / 2, bounds.height / 2 - 0.4*ofGetHeight(), 0);
+			ofTranslate(0, -0.425*ofGetHeight(), 0);
 			verdana30.drawString(_messageNorth, -bounds.width / 2, bounds.height / 2);
 		ofPopMatrix();
 	}
@@ -116,7 +117,7 @@ void ofAppDisplay::draw()
 		ofPushMatrix();
 			ofSetColor(clrText);
 			ofRectangle bounds = verdana30.getStringBoundingBox(_messageCenter, 0, 0);
-			ofTranslate(bounds.width / 2, bounds.height / 2, 0);
+			//ofTranslate(bounds.width / 2, bounds.height / 2, 0);
 			verdana30.drawString(_messageCenter, -bounds.width / 2, bounds.height / 2);
 		ofPopMatrix();
 	}
@@ -125,18 +126,20 @@ void ofAppDisplay::draw()
 	if (_showCountDown) {
 		// countdown bar
 		ofPushMatrix();
-		ofSetColor(clrText);
-		ofNoFill();
-		ofDrawRectangle(_cdBarPosition, _cdBarWidth, _cdBarHeight);
-		ofFill();
-		ofPoint p = _cdBarPosition + ofPoint(_cdBarWidth, _cdBarHeight);
-		double w = _cdBarWidth*(_cdTimeRemaining / _cdDuration);
-		ofDrawRectangle(p, -w, -_cdBarHeight);
+
+			_cdBarPosition = ofPoint(0.0 - _cdBarWidth / 2.0, -(0.325*ofGetHeight() + _cdBarHeight / 2.0));
+			ofSetColor(clrText);
+			ofNoFill();
+			ofDrawRectangle(_cdBarPosition, _cdBarWidth, _cdBarHeight);
+			ofFill();
+			ofPoint p = _cdBarPosition + ofPoint(_cdBarWidth, _cdBarHeight);
+			double w = _cdBarWidth*(_cdTimeRemaining / _cdDuration);
+			ofDrawRectangle(p, -w, -_cdBarHeight);
 		
-		// text remaining time
-		string msg = ofToString(ceil(_cdTimeRemaining)) + " s";
-		ofRectangle bounds2 = verdana30.getStringBoundingBox(msg, 0, 0);
-		verdana30.drawString(msg, p[0]+20.0, p[1] + bounds2.getCenter()[1]);
+			// text remaining time
+			string msg = ofToString(ceil(_cdTimeRemaining)) + " s";
+			ofRectangle bounds2 = verdana30.getStringBoundingBox(msg, 0, 0);
+			verdana30.drawString(msg, p[0]+20.0, p[1] + bounds2.getCenter()[1]);
 		ofPopMatrix();
 	}
 
