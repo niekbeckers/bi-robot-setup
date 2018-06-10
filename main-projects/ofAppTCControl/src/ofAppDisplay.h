@@ -4,7 +4,6 @@
 
 #include "ofMain.h"
 #include "ofUtils.h"
-//#include "ofxTextAlignTTF.h"
 #include "parentParticle.h"
 #include "myCommon.h"
 
@@ -38,7 +37,7 @@ class ofAppDisplay : public ofBaseApp
 		double _cdTimeRemaining = 1.0;
 		double _cdBarWidth = 200.0;
 		double _cdBarHeight = 40.0;
-		ofPoint _cdBarPosition = { 0.0 - _cdBarWidth / 2.0, -(0.35*ofGetScreenHeight() + _cdBarHeight / 2.0) };
+		ofPoint _cdBarPosition = { 0.0 - _cdBarWidth / 2.0, -(0.35*ofGetHeight() + _cdBarHeight / 2.0) };
 
 	public:
 
