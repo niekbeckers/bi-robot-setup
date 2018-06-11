@@ -137,9 +137,27 @@ void parentParticle::draw()
     ofSetColor(_color);
     
     if (_mode == PARENTPARTICLE_MODE_NORMAL) {
-        ofSetCircleResolution(120);
-        ofSetLineWidth(6);
-        ofDrawCircle(_pos.x,_pos.y,radius);
+
+		switch (_shape) {
+		case PARTICLESHAPE_CIRCLE:
+			ofSetCircleResolution(120);
+			ofSetLineWidth(6);
+			ofDrawCircle(_pos.x, _pos.y, radius);
+			break;
+		case PARTICLESHAPE_LINE:
+			ofSetLineWidth(4);
+			ofDrawLine(_pos.x, radius, _pos.x, -radius);
+			break;
+		case PARTICLESHAPE_CROSS:
+			ofSetLineWidth(4);
+			ofPushMatrix();
+			ofTranslate(_pos);
+			ofDrawLine(_pos + ofPoint(0.0, radius), _pos - ofPoint(0.0, radius));
+			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos - ofPoint(radius, 0.0));
+			ofPopMatrix();
+			break;
+		}
+        
 
 		// draw tail
 		_line.clear();
@@ -187,6 +205,12 @@ void parentParticle::setMode(parentParticleMode newMode)
 void parentParticle::setPosition(ofPoint p)
 {
     _pos = p;
+}
+
+//--------------------------------------------------------------
+ofPoint parentParticle::getPosition()
+{
+	return _pos;
 }
 
 //--------------------------------------------------------------

@@ -9,6 +9,8 @@
 
 class ofAppDisplay : public ofBaseApp
 {
+
+
 	private:
 		//
 		// variables
@@ -52,6 +54,8 @@ class ofAppDisplay : public ofBaseApp
 		parentParticle target;
 		parentParticle virtualpartner;
 
+		DisplayType displayType = DisplayType::PURSUIT;
+
 		//
 		// openFrameworks
 		//
@@ -64,5 +68,6 @@ class ofAppDisplay : public ofBaseApp
 		void showMessageCenter(bool show, const string &msg = "");
 
 		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
+		void setDisplayType(DisplayType dtype);
 };
 

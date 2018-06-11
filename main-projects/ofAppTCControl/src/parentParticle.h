@@ -14,9 +14,16 @@ enum parentParticleMode {
     PARENTPARTICLE_MODE_EXPLODE
 };
 
+enum ParticleShape {
+	PARTICLESHAPE_CIRCLE = 0,
+	PARTICLESHAPE_LINE,
+	PARTICLESHAPE_CROSS
+};
+
 class parentParticle {
     private:
         parentParticleMode _mode = PARENTPARTICLE_MODE_NORMAL;
+		ParticleShape _shape = PARTICLESHAPE_CIRCLE;
         ofPoint _pos;
         ofColor _color = ofColor::deepSkyBlue;
         float _startTime;
@@ -59,6 +66,8 @@ class parentParticle {
         void setFillMode(ofFillFlag fillFlag);
         void setMode(parentParticleMode newMode);
         void setPosition(ofPoint p);
+		ofPoint getPosition();
         void setColor(ofColor c);
+		inline void setShape(ParticleShape t) { _shape = t; };
     
 };
