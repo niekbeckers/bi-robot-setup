@@ -285,14 +285,19 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 	mainApp->lblBlockNumber.setMax(_blocks.size());
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
-	
+
+
+	// set displaytype
+	display1->setDisplayType(_settings.displayType);
+	display2->setDisplayType(_settings.displayType);
+
 
 	ofLogVerbose() << _settings.protocolname;
 
 	// virtual partner
-	if (_settings.vpDoVirtualPartner) {
-		partner.initialize(_settings.activeBROSIDs);
-	}
+	//if (_settings.vpDoVirtualPartner) {
+	//	partner.initialize(_settings.activeBROSIDs);
+	//}
 
 	/*
 	// debug

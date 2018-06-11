@@ -92,7 +92,7 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 		else { _settings.trialFeedbackType = TrialFeedback::NONE; } // trialFeedback is either 0 or not present
 
 		//  display settings 
-		if (exp.getChild("targetDisplayType")) _settings.targetDisplayType = exp.getChild("targetDisplayType").getIntValue();
+		if (exp.getChild("displayType")) _settings.displayType = static_cast<DisplayType>(exp.getChild("displayType").getIntValue());
 
 		// check which BROS need to be active
 		_settings.activeBROSIDs.clear();
@@ -147,19 +147,9 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 
 				// check connection types
 				trial.connectedTo.clear();
-				//if (XML.exists("connectedTo")) {
-				//	XML.setTo("connectedTo");
-				//	// loop through active BROS IDs
-				//	for (auto id : _settings.activeBROSIDs) {
-				//		if (XML.exists("id" + ofToString(id))) { trial.connectedTo.push_back(static_cast<ConnectedToTypes>(XML.getValue<int>("id" + ofToString(id)))); }
-				//		else { trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); }
-				//	}
-				//	XML.setToParent();
-				//}
-				//else {
-					for (auto id : _settings.activeBROSIDs) trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); // DEFAULT
-				//}
-				// check fit virtual partner
+				for (auto id : _settings.activeBROSIDs) trial.connectedTo.push_back(ConnectedToTypes::HUMANPARTNER); // DEFAULT
+				
+																													 // check fit virtual partner
 				//if (XML.exists("fitVirtualPartner")) {
 
 				//	// read which partners we need to fit the virtual partner model to
@@ -212,6 +202,7 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 			xmlText = line + "\n" + xmlText;
 		}
 
+		// print protocol to terminal (debuig)
 		cout << xmlText << endl;
 	}
 }

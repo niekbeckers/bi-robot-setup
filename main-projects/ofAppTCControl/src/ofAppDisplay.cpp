@@ -1,5 +1,7 @@
 #include "ofAppDisplay.h"
 
+
+
 //--------------------------------------------------------------
 void ofAppDisplay::setup()
 {
@@ -37,22 +39,14 @@ void ofAppDisplay::setup()
 	verdana30.setLineHeight(30.0f);
 	verdana30.setLetterSpacing(1.035);
 
-	// setup cursor and target
-	cursor.setColor(clrCursor);
-	cursor.setFillMode(OF_FILLED);
-	cursor.radius = 12.0f;
-
-	//target.setMode(PARENTPARTICLE_MODE_CLOUD);
-	//target.setMode(PARENTPARTICLE_MODE_NORMAL);
-	target.setColor(clrTarget);
-	target.setFillMode(OF_OUTLINE);
-	target.radius = 15.0f;
+	// setup display type
+	displayType = DisplayType::PURSUIT;
+	setDisplayType(displayType);
 	
 
 	//virtualpartner.setColor(ofColor::forestGreen);
 	//virtualpartner.setFillMode(OF_FILLED);
 	//virtualpartner.radius = 12.0f;
-	//showMessageNorth(true, "TESTEST");
 }
 
 //--------------------------------------------------------------
@@ -80,27 +74,53 @@ void ofAppDisplay::draw()
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 	
 	if (drawTask) {
-		ofPushMatrix();
+		
 
-		// draw workspace boundary
-		ofNoFill();
-		ofSetLineWidth(4);
-		ofSetColor(clrWSBoundary);
-		ofSetCircleResolution(80);
-		ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
+		switch (displayType) {
+		case DisplayType::PURSUIT :
+			ofPushMatrix();
+			// draw workspace boundary
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(clrWSBoundary);
+			ofSetCircleResolution(80);
+			ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
-		// draw target
-		target.draw();
+			// draw target
+			target.draw();
 
-		// draw cursor
-		cursor.draw();
+			// draw cursor
+			cursor.draw();
 
-		// draw virtual partner
-		//if (drawVirtualPartner) {
-		//	virtualpartner.draw();
-		//}
+			ofPopMatrix();
+			break;
 
-		ofPopMatrix();
+		case DisplayType::COMPENSATORY:
+			ofPushMatrix();
+
+			
+			ofNoFill();
+
+			// draw target (at 0,0)
+			ofSetColor(clrTarget);
+			//ofSetLineWidth(4.0);
+			//int cursorheight = 80;
+			//ofDrawLine(0.0, cursorheight / 2, 0.0, 120.0);
+			//ofDrawLine(0.0, -cursorheight / 2, 0.0, -120.0);
+			ofSetLineWidth(2.0);
+			ofDrawLine(0.0, ofGetHeight() / 2.0, 0.0, -ofGetHeight() / 2.0);
+
+			// draw cursor (error)
+			ofSetLineWidth(4.0);
+			ofSetColor(clrCursor);
+			cursor.setPosition(ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0));
+			cursor.update();
+			cursor.draw();
+			ofPopMatrix();
+			break;
+		}
+
+			
 	}
 	
 	// draw message
@@ -171,4 +191,38 @@ void ofAppDisplay::showCountDown(bool show, double timeRemaining, double duratio
 	_showCountDown = show;
 	_cdTimeRemaining = timeRemaining;
 	_cdDuration = duration;
+}
+
+void ofAppDisplay::setDisplayType(DisplayType dtype)
+{
+	switch (displayType) {
+	case DisplayType::PURSUIT:
+
+		// setup cursor and target
+		cursor.setColor(clrCursor);
+		cursor.setFillMode(OF_FILLED);
+		cursor.radius = 12.0f;
+		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
+
+		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
+		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		target.setColor(clrTarget);
+		target.setFillMode(OF_OUTLINE);
+		target.radius = 15.0f;
+		break;
+
+	case DisplayType::COMPENSATORY:
+		// setup cursor and target
+		cursor.setColor(clrCursor);
+		cursor.setFillMode(OF_FILLED);
+		cursor.radius = 40.0f;
+		cursor.setShape(ParticleShape::PARTICLESHAPE_LINE);
+
+		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
+		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		target.setColor(clrTarget);
+		target.setFillMode(OF_OUTLINE);
+		target.radius = 15.0f;
+		break;
+	};
 }
