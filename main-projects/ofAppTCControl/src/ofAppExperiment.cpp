@@ -287,10 +287,12 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 
 
-	// set displaytype
+	// set displaytype and cursorshapwe
 	display1->setDisplayType(_settings.displayType);
 	display2->setDisplayType(_settings.displayType);
 
+	display1->setCursorShape(_settings.cursorShape);
+	display2->setCursorShape(_settings.cursorShape);
 
 	ofLogVerbose() << _settings.protocolname;
 

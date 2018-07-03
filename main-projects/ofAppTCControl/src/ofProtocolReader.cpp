@@ -94,6 +94,9 @@ void ofProtocolReader::processOpenFileSelection(ofFileDialogResult openFileResul
 		//  display settings 
 		if (exp.getChild("displayType")) _settings.displayType = static_cast<DisplayType>(exp.getChild("displayType").getIntValue());
 
+		if (exp.getChild("cursorShape")) _settings.cursorShape = static_cast<ParticleShape>(exp.getChild("cursorShape").getIntValue());
+
+
 		// check which BROS need to be active
 		_settings.activeBROSIDs.clear();
 		auto ab = exp.getChild("activeBROSID");
