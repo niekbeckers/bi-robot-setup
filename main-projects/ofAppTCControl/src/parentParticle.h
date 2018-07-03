@@ -6,18 +6,13 @@
 #include <random>
 #include "ofMain.h"
 #include "childParticle.h"
+#include "myCommon.h"
 
 
 enum parentParticleMode {
     PARENTPARTICLE_MODE_NORMAL = 0,
     PARENTPARTICLE_MODE_CLOUD,
     PARENTPARTICLE_MODE_EXPLODE
-};
-
-enum ParticleShape {
-	PARTICLESHAPE_CIRCLE = 0,
-	PARTICLESHAPE_LINE,
-	PARTICLESHAPE_CROSS
 };
 
 class parentParticle {
