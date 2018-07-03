@@ -6,6 +6,7 @@
 #include <random>
 #include "ofMain.h"
 #include "childParticle.h"
+#include "myCommon.h"
 
 
 enum parentParticleMode {

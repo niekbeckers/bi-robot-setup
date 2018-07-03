@@ -21,6 +21,12 @@ enum DisplayType {
 	COMPENSATORY
 };
 
+enum ParticleShape {
+	PARTICLESHAPE_CIRCLE = 0,
+	PARTICLESHAPE_LINE,
+	PARTICLESHAPE_CROSS
+};
+
 //
 // Experiment Stuff
 //
@@ -72,7 +78,8 @@ struct experimentSettings {
 	double getReadyDuration = 1.0;
 	int numTrials = 0;
 	string protocolname;
-	DisplayType displayType = DisplayType::PURSUIT; // 0 = circle/normal, 1 = point cloud
+	DisplayType displayType = DisplayType::PURSUIT; // 0 = pursuit, 1 = compensatory
+	ParticleShape cursorShape = ParticleShape::PARTICLESHAPE_CIRCLE; //  0 = circle
 };
 
 
@@ -98,12 +105,12 @@ struct CompareDateModified{
 
 const string ipAddressHeRoC = "130.89.64.28";
 const string userHeRoC = "niek";
-const string strSSHKey = "C:\\Users\\Labuser\\keys\\niek.ppk";
+const string strSSHKey = "C:\\Users\\TCUser\\keys\\niek.ppk";
 const string pwKeyHeRoC = "EthercatisCool";
 
-const string matlabSettingsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
-const string matlabResultsFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
-const string matlabDataFilePath_TC = "C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
+const string matlabSettingsFilePath_TC = "C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\settings\\";
+const string matlabResultsFilePath_TC = "C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\results\\";
+const string matlabDataFilePath_TC = "C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\experiments\\virtual-agent\\data\\";
 
 const string matlabSettingsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/settings/";
 const string matlabResultsFilePath_HeRoC = "/home/niek/repositories/bros_experiments/main-projects/matlab-vp-modelfit/results/";

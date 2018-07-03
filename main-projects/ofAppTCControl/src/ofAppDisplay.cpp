@@ -42,6 +42,9 @@ void ofAppDisplay::setup()
 	// setup display type
 	displayType = DisplayType::PURSUIT;
 	setDisplayType(displayType);
+
+	// cursor shape
+	setCursorShape(ParticleShape::PARTICLESHAPE_CIRCLE);
 	
 
 	//virtualpartner.setColor(ofColor::forestGreen);
