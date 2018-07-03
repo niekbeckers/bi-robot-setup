@@ -14,7 +14,7 @@ void ofAppMain::setup(){
 	ofLogToConsole();
 
 	// matlab on heroc thread
-	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
+	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
 	_herocMATLABThread = new SystemCmdThreaded(cmd);
 
 	// set up window
@@ -23,7 +23,7 @@ void ofAppMain::setup(){
 
 	// read error description file (if present)
 	try {
-		ofBuffer buffer = ofBufferFromFile("C:\\Users\\labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
+		ofBuffer buffer = ofBufferFromFile("C:\\Users\\tcuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
