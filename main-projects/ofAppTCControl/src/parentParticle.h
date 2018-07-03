@@ -15,12 +15,6 @@ enum parentParticleMode {
     PARENTPARTICLE_MODE_EXPLODE
 };
 
-enum ParticleShape {
-	PARTICLESHAPE_CIRCLE = 0,
-	PARTICLESHAPE_LINE,
-	PARTICLESHAPE_CROSS
-};
-
 class parentParticle {
     private:
         parentParticleMode _mode = PARENTPARTICLE_MODE_NORMAL;
