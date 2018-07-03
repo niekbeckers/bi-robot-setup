@@ -15973,9 +15973,9 @@
 				<Name>Master (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>Ethernet (Intel(R) PRO/1000 PT Dual Port Server Ada</DeviceDesc>
-						<DeviceName>\DEVICE\{BF3B8B1A-33EA-4FF9-AC18-0200BD7C12B7}</DeviceName>
-						<DeviceData>6805ca44915e</DeviceData>
+						<DeviceDesc>Ethernet 4 (TwinCAT-Intel PCI Ethernet Adapter (Gig</DeviceDesc>
+						<DeviceName>\DEVICE\{7F906CA5-A450-473A-B621-222316F0D9A9}</DeviceName>
+						<DeviceData>e8ea6a092a6d</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="1" AddrType="9" ImageType="3">
@@ -16643,7 +16643,7 @@
 						<CoeProfile ProfileNo="404"/>
 					</EtherCAT>
 				</Box>
-				<EtherCAT DeviceDesc="Ethernet (Intel(R) PRO/1000 PT Dual Port Server Adapter)" DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="5" MaxSwitchFrames="180"/>
+				<EtherCAT DeviceDesc="Ethernet 4 (TwinCAT-Intel PCI Ethernet Adapter (Gigabit))" DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="5" MaxSwitchFrames="180"/>
 			</Device>
 		</Io>
 	</Project>

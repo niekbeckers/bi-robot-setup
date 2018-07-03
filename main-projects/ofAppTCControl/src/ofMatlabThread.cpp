@@ -124,7 +124,7 @@ void MatlabThread::callMatlabOptimization(matlabInput input, matlabOutput &outpu
 		// parse xml file
 		output = xml2output(xml);
 		
-		xml.clear();
+		//xml.clear();
 		ofFile::removeFile(outputFilename);
 	}
 	else {
@@ -206,16 +206,16 @@ ofXml MatlabThread::input2xml(matlabInput input)
 	// write matlab input to XML, which is read by the MATLAB application
 	ofXml xml;
 
-	xml.addChild("VP");
-	xml.setTo("VP");
-	xml.addValue("trialID", input.trialID);
-	xml.addValue("condition", input.condition);
-	xml.addChild("doFitForBROSID");
-	xml.setTo("doFitForBROSID");
-	for (int i = 0; i < input.doFitForBROSIDs.size(); i++) {
-		xml.addValue("id" + ofToString(i) , input.doFitForBROSIDs[i]);
-	}
-	xml.setToParent();
+	//xml.addChild("VP");
+	//xml.setTo("VP");
+	//xml.addValue("trialID", input.trialID);
+	//xml.addValue("condition", input.condition);
+	//xml.addChild("doFitForBROSID");
+	//xml.setTo("doFitForBROSID");
+	//for (int i = 0; i < input.doFitForBROSIDs.size(); i++) {
+	//	xml.addValue("id" + ofToString(i) , input.doFitForBROSIDs[i]);
+	//}
+	//xml.setToParent();
 	//_XMLWrite.addValue("useX0", input.useX0[0]); (etc)
 
 	_counterMatlabInputFile++;
@@ -231,68 +231,68 @@ matlabOutput MatlabThread::xml2output(ofXml xml)
 	matlabOutput output;
 	ofLogNotice() << "(" << typeid(this).name() << ") " << "xml2output " << "Results from the model fit:";
 
-	if (xml.exists("trialID")) output.trialID = xml.getValue<int>("trialID");
-	ofLogNotice() << "Trial ID: " << output.trialID;
+	//if (xml.exists("trialID")) output.trialID = xml.getValue<int>("trialID");
+	//ofLogNotice() << "Trial ID: " << output.trialID;
 
-	// execute virtual partner
-	if (xml.exists("executeVirtualPartner")) {
-		xml.setTo("executeVirtualPartner");
-		if (xml.setToChild(0)) {
-			do {
-				output.executeVirtualPartner.push_back(xml.getBoolValue());
-			} while (xml.setToSibling());
-			xml.setToParent(); // go back to brosX
-		}
-		xml.setToParent();
-	}
-	ofLogNotice() << "ExecuteVirtualPartner " << ofToString(output.executeVirtualPartner);
+	//// execute virtual partner
+	//if (xml.exists("executeVirtualPartner")) {
+	//	xml.setTo("executeVirtualPartner");
+	//	if (xml.setToChild(0)) {
+	//		do {
+	//			output.executeVirtualPartner.push_back(xml.getBoolValue());
+	//		} while (xml.setToSibling());
+	//		xml.setToParent(); // go back to brosX
+	//	}
+	//	xml.setToParent();
+	//}
+	//ofLogNotice() << "ExecuteVirtualPartner " << ofToString(output.executeVirtualPartner);
 
-	// doFitForBROSID
-	if (xml.exists("doFitForBROSID")) {
-		xml.setTo("doFitForBROSID");
-		if (xml.setToChild(0)) {
-			do {
-				output.doFitForBROSIDs.push_back(xml.getIntValue());
-			} while (xml.setToSibling());
-			xml.setToParent(); // go back to brosX
-		}
-		xml.setToParent();
-	}
-	ofLogNotice() << "DoFitForBROSID " << ofToString(output.doFitForBROSIDs);
+	//// doFitForBROSID
+	//if (xml.exists("doFitForBROSID")) {
+	//	xml.setTo("doFitForBROSID");
+	//	if (xml.setToChild(0)) {
+	//		do {
+	//			output.doFitForBROSIDs.push_back(xml.getIntValue());
+	//		} while (xml.setToSibling());
+	//		xml.setToParent(); // go back to brosX
+	//	}
+	//	xml.setToParent();
+	//}
+	//ofLogNotice() << "DoFitForBROSID " << ofToString(output.doFitForBROSIDs);
 
-	// errors
-	if (xml.exists("error")) {
-		xml.setTo("error");
-		if (xml.setToChild(0)) {
-			do {
-				output.error.push_back(xml.getIntValue());
-			} while (xml.setToSibling());
-			xml.setToParent(); // go back to brosX
-		}
-		xml.setToParent();
-	}
-	ofLogNotice() << "Error " << ofToString(output.error);
+	//// errors
+	//if (xml.exists("error")) {
+	//	xml.setTo("error");
+	//	if (xml.setToChild(0)) {
+	//		do {
+	//			output.error.push_back(xml.getIntValue());
+	//		} while (xml.setToSibling());
+	//		xml.setToParent(); // go back to brosX
+	//	}
+	//	xml.setToParent();
+	//}
+	//ofLogNotice() << "Error " << ofToString(output.error);
 
-	// model parameters
-	if (xml.exists("modelparameters")) {
-		xml.setTo("modelparameters");
+	//// model parameters
+	//if (xml.exists("modelparameters")) {
+	//	xml.setTo("modelparameters");
 
-		if (xml.setToChild(0)) { // set to first child (if it exists)
-			vector<double> tmp;
-			do {
-				tmp.clear();
-				if (xml.setToChild(0)) {
-					do {
-						tmp.push_back(xml.getFloatValue());
-					} while (xml.setToSibling());
-					xml.setToParent(); // go back to brosX
-				}
-				output.x.push_back(tmp);
-				ofLogNotice() << "Modelparameters." << xml.getName() << ": " << ofToString(tmp);
-			} while (xml.setToSibling());
-			xml.setToParent();
-		}
-	}
+	//	if (xml.setToChild(0)) { // set to first child (if it exists)
+	//		vector<double> tmp;
+	//		do {
+	//			tmp.clear();
+	//			if (xml.setToChild(0)) {
+	//				do {
+	//					tmp.push_back(xml.getFloatValue());
+	//				} while (xml.setToSibling());
+	//				xml.setToParent(); // go back to brosX
+	//			}
+	//			output.x.push_back(tmp);
+	//			ofLogNotice() << "Modelparameters." << xml.getName() << ": " << ofToString(tmp);
+	//		} while (xml.setToSibling());
+	//		xml.setToParent();
+	//	}
+	//}
 	return output;
 }
 

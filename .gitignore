@@ -24,6 +24,6 @@ slprj/
 data-store/
 debug/ft*
 ftsensordebug.m
-*.iobj
 *.ipdb
+*.iobj
 /openFrameworks/

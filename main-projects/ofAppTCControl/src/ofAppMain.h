@@ -75,7 +75,7 @@ class ofAppMain : public ofBaseApp{
 
 		// GUI system
 		ofxPanel _guiSystem;
-		ofxButton _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnCalibrateForceSensor,
+		ofParameter<void> _btnReqState_Reset, _btnReqState_Init, _btnReqState_Calibrate, _btnReqState_HomingAuto, _btnReqState_HomingManual, _btnCalibrateForceSensor,
 			_btnReqState_Run, _btnEnableDrive, _btnDisableDrive;
 		ofxToggle _btnToggleRecordData;
 		ofxGuiGroup _grpReqState, _grpDriveControl;
@@ -89,7 +89,7 @@ class ofAppMain : public ofBaseApp{
 
 		// GUI experiment
 		ofxPanel _guiExperiment;
-		ofxButton _btnExpLoad, _btnExpStart, _btnExpStop, _btnConfirmBlockTrialNr;
+		ofParameter<void> _btnExpLoad, _btnExpStart, _btnExpStop, _btnConfirmBlockTrialNr;
 		ofxToggle _btnExpPauseResume, _btnDebugMode, _btnDrawVirtualPartner, _btnStartStopVPMATLAB;
 		ofxGuiGroup _grpExpControl;
 		ofParameterGroup _grpExpState;
@@ -98,7 +98,7 @@ class ofAppMain : public ofBaseApp{
 		ofxPanel _guiAdmittance;
 		ofxToggle _btnSetConnected;
 		ofxGuiGroup _grpConnectionControl, _grpVirtualPartner;
-		ofxButton _btnConnSetStiffness, _btnConnSetDamping;
+		ofParameter<void> _btnConnSetStiffness, _btnConnSetDamping;
 		ofxLabel _lblConnected, _lblConnStiffness, _lblConnDamping;
 		
 		vector<string> _errorDescriptions;

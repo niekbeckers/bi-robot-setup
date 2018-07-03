@@ -5,9 +5,13 @@ using namespace std;
 //--------------------------------------------------------------
 void ofAppMain::setup(){
 
-	ofSetFrameRate(120);
+	
+	ofSetVerticalSync(false);
+	ofSetFrameRate(60);
+	
 
 	ofSetLogLevel(OF_LOG_NOTICE);
+	ofLogToConsole();
 
 	// matlab on heroc thread
 	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\Labuser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
@@ -19,7 +23,7 @@ void ofAppMain::setup(){
 
 	// read error description file (if present)
 	try {
-		ofBuffer buffer = ofBufferFromFile("C:\\Users\\Labuser\\Documents\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
+		ofBuffer buffer = ofBufferFromFile("C:\\Users\\labuser\\Documents\\repositories\\bros_experiments\\libraries\\BROSErrorDescriptions.txt");
 		for (auto line : buffer.getLines()) {
 			_errorDescriptions.push_back(line);
 		}
@@ -29,7 +33,7 @@ void ofAppMain::setup(){
 		ofLogError() << "(" << typeid(this).name() << ") " << "Cannot find BROSErrorDescriptions.txt";
 	}
 
-	_fontErrorMsg.loadFont("verdana.ttf", 10);
+	_fontErrorMsg.load("verdana.ttf", 10);
 
 	// setup tcAdsClient
 	setupTCADS();
@@ -80,6 +84,8 @@ void ofAppMain::update(){
 
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
+
+		
 		_timeCheck = ofGetElapsedTimef();
 
 		// Check TwinCAT/ADS
@@ -199,7 +205,6 @@ void ofAppMain::setupGUI()
 	// add button listeners
 	_btnCalibrateForceSensor.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Reset.addListener(this, &ofAppMain::buttonPressed);
-	_btnReqState_Init.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_Calibrate.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_HomingAuto.addListener(this, &ofAppMain::buttonPressed);
 	_btnReqState_HomingManual.addListener(this, &ofAppMain::buttonPressed);
@@ -212,6 +217,7 @@ void ofAppMain::setupGUI()
 	_btnConnSetStiffness.addListener(this, &ofAppMain::buttonPressed);
 	_btnConnSetDamping.addListener(this, &ofAppMain::buttonPressed);
 	_btnConfirmBlockTrialNr.addListener(this, &ofAppMain::buttonPressed);
+	
 	
 	// setup GUIs
 	float width = 300.0;
@@ -241,18 +247,18 @@ void ofAppMain::setupGUI()
 	// request state
 	_grpReqState.setup("Request state");
 	_grpReqState.setName("State request");
-	_grpReqState.add(_btnReqState_Reset.setup("Reset"));
-	_grpReqState.add(_btnReqState_Calibrate.setup("Calibrate"));
-	_grpReqState.add(_btnReqState_HomingAuto.setup("Homing - Auto"));
-	_grpReqState.add(_btnReqState_HomingManual.setup("Homing - Manual"));
-	_grpReqState.add(_btnReqState_Run.setup("Run"));
+	_grpReqState.add(_btnReqState_Reset.set("Reset"));
+	_grpReqState.add(_btnReqState_Calibrate.set("Calibrate"));
+	_grpReqState.add(_btnReqState_HomingAuto.set("Homing - Auto"));
+	_grpReqState.add(_btnReqState_HomingManual.set("Homing - Manual"));
+	_grpReqState.add(_btnReqState_Run.set("Run"));
 	_guiSystem.add(&_grpReqState);
 
 	// drive controls
 	_grpDriveControl.setup("Drive control");
 	_grpDriveControl.setName("Drive control");
-	_grpDriveControl.add(_btnEnableDrive.setup("Enable drives"));
-	_grpDriveControl.add(_btnDisableDrive.setup("Disable drives"));
+	_grpDriveControl.add(_btnEnableDrive.set("Enable drives"));
+	_grpDriveControl.add(_btnDisableDrive.set("Disable drives"));
 	_guiSystem.add(&_grpDriveControl);
 
 	_ofGrpSys.setName("System states");
@@ -266,14 +272,14 @@ void ofAppMain::setupGUI()
 	// GUI experiment
 	//_guiExperiment.add(_btnDebugMode.setup("Debug mode", false));
 	_guiExperiment.add(_btnToggleRecordData.setup("Record data", false));
-	_guiExperiment.add(_btnExpLoad.setup("Load"));
+	_guiExperiment.add(_btnExpLoad.set("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
 
 	_grpExpControl.setup("Experiment control");
 	_grpExpControl.setName("Experiment control");
-	_grpExpControl.add(_btnExpStart.setup("Start"));
-	_grpExpControl.add(_btnExpStop.setup("Stop"));
+	_grpExpControl.add(_btnExpStart.set("Start"));
+	_grpExpControl.add(_btnExpStop.set("Stop"));
 	_grpExpControl.add(_btnExpPauseResume.setup("Pause", false));
 	_guiExperiment.add(&_grpExpControl);
 
@@ -282,7 +288,7 @@ void ofAppMain::setupGUI()
 	_grpExpState.add(lblBlockNumber.set("Block number", 0, 0, 1));  // add dummy experiment
 	_grpExpState.add(lblTrialNumber.set("Trial number", 0, 0, 1)); // add dummy experiment
 	_guiExperiment.add(_grpExpState);
-	_guiExperiment.add(_btnConfirmBlockTrialNr.setup("Set block and trial number"));
+	_guiExperiment.add(_btnConfirmBlockTrialNr.set("Set block and trial number"));
 
 	_grpConnectionControl.setup("Connection control");
 	_grpConnectionControl.setName("Connection control");
@@ -290,20 +296,20 @@ void ofAppMain::setupGUI()
 	_grpConnectionControl.add(_btnSetConnected.setup("Enable connection", false));
 	_btnSetConnected.setName("Enable connection");
 	_grpConnectionControl.add(_lblConnStiffness.setup("Connection stiffness Kp", ofToString(0) + " N/m"));
-	_grpConnectionControl.add(_btnConnSetStiffness.setup("Connection stiffness"));
+	_grpConnectionControl.add(_btnConnSetStiffness.set("Connection stiffness"));
 	_grpConnectionControl.add(_lblConnDamping.setup("Connection damping Kd", ofToString(0) + " Ns/m"));
-	_grpConnectionControl.add(_btnConnSetDamping.setup("Connection damping"));
+	_grpConnectionControl.add(_btnConnSetDamping.set("Connection damping"));
 	_grpConnectionControl.minimize(); // default is minimized
 	_guiAdmittance.add(&_grpConnectionControl);
 
-	_grpVirtualPartner.setup("Virtual partner control");
-	_grpVirtualPartner.minimize();
+	//_grpVirtualPartner.setup("Virtual partner control");
+	//_grpVirtualPartner.minimize();
 	
-	_grpVirtualPartner.setName("Virtual partner control");
-	_grpVirtualPartner.add(_btnDrawVirtualPartner.setup("Draw virtual partner", false));
-	_grpVirtualPartner.add(_btnStartStopVPMATLAB.setup("Press to start MATLAB VP on HEROC", false));
-	_grpVirtualPartner.minimize();
-	_guiAdmittance.add(&_grpVirtualPartner);
+	//_grpVirtualPartner.setName("Virtual partner control");
+	//_grpVirtualPartner.add(_btnDrawVirtualPartner.setup("Draw virtual partner", false));
+	//_grpVirtualPartner.add(_btnStartStopVPMATLAB.setup("Press to start MATLAB VP on HEROC", false));
+	//_grpVirtualPartner.minimize();
+	//_guiAdmittance.add(&_grpVirtualPartner);
 
 	_guiSystem.setWidthElements(width);
 	_guiExperiment.setWidthElements(width);
@@ -315,12 +321,14 @@ void ofAppMain::setupGUI()
 	if (twinCatRunning) { updateADSDataGUI(); }
 
 	// add toggle listeners
-	_btnDrawVirtualPartner.addListener(this, &ofAppMain::drawVirtualPartnerPressed);
+	//_btnDrawVirtualPartner.addListener(this, &ofAppMain::drawVirtualPartnerPressed);
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
-	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
-	_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
+	//_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
+	//_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
+
+	
 }
 
 //--------------------------------------------------------------
@@ -400,8 +408,8 @@ void ofAppMain::requestDriveEnableDisable(bool enable)
 //--------------------------------------------------------------
 void ofAppMain::buttonPressed(const void * sender)
 {
-	ofxButton * button = (ofxButton*)sender;
-	string clickedBtn = button->getName();
+	ofParameter<void> * p = (ofParameter<void> *)sender;
+	string clickedBtn = p->getName();
 
 	ofLogVerbose() << "(" << typeid(this).name() << ") " << "Button pressed: " << clickedBtn;
 
@@ -513,12 +521,12 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
 		ofXml xml;
 
-		xml.addChild("VP");
-		xml.setTo("VP");
-		xml.addValue("terminate", true);
+		//xml.addChild("VP");
+		//xml.setTo("VP");
+		//xml.addValue("terminate", true);
 
 		string xmlfilename = "settings_vpmodelfit_trial_terminate.xml";
-		xml.save(xmlfilename);
+		//xml.save(xmlfilename);
 
 		ofLogVerbose() << ofToDataPath(xmlfilename);
 
@@ -625,8 +633,8 @@ void ofAppMain::exit() {
 	_btnExpPauseResume.removeListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	_btnDebugMode.removeListener(this, &ofAppMain::experimentDebugModeTogglePressed);
 	_btnSetConnected.removeListener(this, &ofAppMain::setConnectionEnabled);
-	_btnStartStopVPMATLAB.removeListener(this, &ofAppMain::startStopVPMATLAB);
-	_btnDrawVirtualPartner.removeListener(this, &ofAppMain::drawVirtualPartnerPressed);
+	//_btnStartStopVPMATLAB.removeListener(this, &ofAppMain::startStopVPMATLAB);
+	//_btnDrawVirtualPartner.removeListener(this, &ofAppMain::drawVirtualPartnerPressed);
 
 	// disconnect ADS clients
 	_tcClientCont->disconnect();
@@ -660,7 +668,7 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 
 	if (pNotification->hNotification == _lHdlNot_Read_OpsEnabled) {
 		bool * data = (bool *)pNotification->data;
-		sprintf(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
+		sprintf_s(buf, "[%s,%s]", data[0] ? "T" : "F", data[1] ? "T" : "F");
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "Drive Enabled: " << ofToString(buf);
 		_lblOpsEnabled = ofToString(buf);
 	}
@@ -678,7 +686,7 @@ void ofAppMain::handleCallback(AmsAddr* pAddr, AdsNotificationHeader* pNotificat
 		_systemState[0] = static_cast<SystemState>((int)data[0]);
 		_systemState[1] = static_cast<SystemState>((int)data[1]);
 
-		sprintf(buf, "[%d, %d]", _systemState[0], _systemState[1]);
+		sprintf_s(buf, "[%d, %d]", _systemState[0], _systemState[1]);
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "System State: " << ofToString(buf);
 
 		_lblSysState[0] = StringSystemStateLabel(_systemState[0]);
@@ -702,6 +710,7 @@ string ofAppMain::DecodeBROSError(int32_t e, int brosID) {
 	// decode error message
 	string s = "Errors BROS" + ofToString(brosID) + ":\n";
 	bool anyError = false;
+	
 	for (int i = 0; i < sizeof(e)*8; ++i, e >>= 1) {
 		if (e & 0x1) {
 			s += "  " + _errorDescriptions[i] + "\n";

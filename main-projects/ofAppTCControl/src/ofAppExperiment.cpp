@@ -5,6 +5,11 @@ using namespace std;
 //--------------------------------------------------------------
 void ofAppExperiment::setup()
 {
+	
+	ofSetVerticalSync(false);
+	//ofSetFrameRate(60);	
+
+
 	setupTCADS();	// setup TwinCAT ADS
 	setExperimentState(ExperimentState::IDLE);
 
@@ -27,8 +32,8 @@ void ofAppExperiment::update()
 	}
 
 	// update virtual partner and check if partner is still fitting
-	partner.update();
-	_runningModelFit = partner.modelFitIsRunning();
+	//partner.update();
+	//_runningModelFit = partner.modelFitIsRunning();
 
 	//
 	// experiment state machine
@@ -280,14 +285,19 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 	mainApp->lblBlockNumber.setMax(_blocks.size());
 	mainApp->lblTrialNumber = _currentTrialNumber + 1;
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
-	
+
+
+	// set displaytype
+	display1->setDisplayType(_settings.displayType);
+	display2->setDisplayType(_settings.displayType);
+
 
 	ofLogVerbose() << _settings.protocolname;
 
 	// virtual partner
-	if (_settings.vpDoVirtualPartner) {
-		partner.initialize(_settings.activeBROSIDs);
-	}
+	//if (_settings.vpDoVirtualPartner) {
+	//	partner.initialize(_settings.activeBROSIDs);
+	//}
 
 	/*
 	// debug
@@ -684,14 +694,14 @@ void ofAppExperiment::esmCheckNextStep()
 {
 	
 
-	if (_currentTrialNumber < _currentBlock.trials.size() - 1) {
+	if (_currentTrialNumber < _currentBlock.trials.size()-1) {
 		// new trial in block, go to trial break
 		_breakStartTime = ofGetElapsedTimef();
 		setExperimentState(ExperimentState::TRIALBREAK);
 	}
-	else if (_currentTrialNumber == _currentBlock.trials.size() - 1) {
+	else if (_currentTrialNumber == _currentBlock.trials.size()-1) {
 		// end of block, determine if we proceed to the next block, or experiment is done
-		if (_currentBlockNumber < _blocks.size() - 1) {
+		if (_currentBlockNumber < _blocks.size()-1) {
 			// new block! First, block break
 			_breakStartTime = ofGetElapsedTimef();
 

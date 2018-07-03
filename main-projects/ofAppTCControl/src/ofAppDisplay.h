@@ -4,12 +4,13 @@
 
 #include "ofMain.h"
 #include "ofUtils.h"
-#include "ofxTextAlignTTF.h"
 #include "parentParticle.h"
 #include "myCommon.h"
 
 class ofAppDisplay : public ofBaseApp
 {
+
+
 	private:
 		//
 		// variables
@@ -30,7 +31,7 @@ class ofAppDisplay : public ofBaseApp
 		ofTrueTypeFont verdana50;
 		ofTrueTypeFont verdana30;
 
-		ofxTextAlignTTF _text;
+		//ofxTextAlignTTF _text;
 
 		// countdown
 		bool _showCountDown = false;
@@ -38,7 +39,7 @@ class ofAppDisplay : public ofBaseApp
 		double _cdTimeRemaining = 1.0;
 		double _cdBarWidth = 200.0;
 		double _cdBarHeight = 40.0;
-		ofPoint _cdBarPosition = { 0.0 - _cdBarWidth / 2.0, -(0.35*ofGetScreenHeight() + _cdBarHeight / 2.0) };
+		ofPoint _cdBarPosition = { 0.0 - _cdBarWidth / 2.0, -(0.35*ofGetHeight() + _cdBarHeight / 2.0) };
 
 	public:
 
@@ -53,6 +54,8 @@ class ofAppDisplay : public ofBaseApp
 		parentParticle target;
 		parentParticle virtualpartner;
 
+		DisplayType displayType = DisplayType::PURSUIT;
+
 		//
 		// openFrameworks
 		//
@@ -65,5 +68,6 @@ class ofAppDisplay : public ofBaseApp
 		void showMessageCenter(bool show, const string &msg = "");
 
 		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
+		void setDisplayType(DisplayType dtype);
 };
 
