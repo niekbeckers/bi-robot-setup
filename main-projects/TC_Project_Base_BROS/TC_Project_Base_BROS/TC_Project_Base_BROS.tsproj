@@ -4749,9 +4749,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{1632CEE5-92F1-476F-99DF-EAB5BA6E9041}">
+					<TmcDesc GUID="{5A3A8625-03F4-497E-8917-B2773C830B1C}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{1632CEE5-92F1-476F-99DF-EAB5BA6E9041}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{5A3A8625-03F4-497E-8917-B2773C830B1C}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -6991,14 +6991,14 @@
 									<BitOffs>36864</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Sum7</Name>
+									<Name>Product_i</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
 									<PTCID>#x82001210</PTCID>
 									<BitOffs>36992</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Product_i</Name>
+									<Name>Sum1_d</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
 									<PTCID>#x82001220</PTCID>
@@ -7012,21 +7012,21 @@
 									<BitOffs>37248</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Sum8</Name>
-									<BitSize>128</BitSize>
-									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
+									<Name>Saturation</Name>
+									<BitSize>64</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
 									<PTCID>#x82001238</PTCID>
 									<BitOffs>37312</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Saturation</Name>
-									<BitSize>64</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
-									<PTCID>#x82001248</PTCID>
-									<BitOffs>37440</BitOffs>
+									<Name>Add1_d</Name>
+									<BitSize>128</BitSize>
+									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
+									<PTCID>#x82001240</PTCID>
+									<BitOffs>37376</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Add1_d</Name>
+									<Name>Sum5</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</BaseType>
 									<PTCID>#x82001250</PTCID>

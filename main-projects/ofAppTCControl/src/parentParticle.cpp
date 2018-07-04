@@ -150,11 +150,11 @@ void parentParticle::draw()
 			break;
 		case PARTICLESHAPE_CROSS:
 			ofSetLineWidth(4);
-			ofPushMatrix();
+			//ofPushMatrix();
 			//ofTranslate(_pos);
 			ofDrawLine(_pos + ofPoint(0.0, radius), _pos - ofPoint(0.0, radius));
 			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos - ofPoint(radius, 0.0));
-			ofPopMatrix();
+			//ofPopMatrix();
 			break;
 		}
         

@@ -15,14 +15,14 @@ expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_pursuit_nofd_' expID];
+filename = ['protocol_pilot_compensatory_nofd_' expID];
 
 % create (main) struct
 s = struct;
 
 % display type (pursuit or compensatory)
-s.experiment.displayType = 0; % 0 = pursuit, 1 = compensatory
-s.experiment.cursorShape = 2; % 0 = circle, 1 = line, 2 = cross
+s.experiment.displayType = 2; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory
+s.experiment.cursorShape = 1; % 0 = circle, 1 = line, 2 = cross
 
 
 % indicate which type of trial feedback

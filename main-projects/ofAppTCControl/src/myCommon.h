@@ -18,6 +18,7 @@ struct displayData {
 
 enum DisplayType {
 	PURSUIT = 0,
+	PURSUIT_1D,
 	COMPENSATORY
 };
 

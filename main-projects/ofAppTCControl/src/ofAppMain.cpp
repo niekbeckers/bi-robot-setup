@@ -521,12 +521,7 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
 		ofXml xml;
 
-		//xml.addChild("VP");
-		//xml.setTo("VP");
-		//xml.addValue("terminate", true);
-
 		string xmlfilename = "settings_vpmodelfit_trial_terminate.xml";
-		//xml.save(xmlfilename);
 
 		ofLogVerbose() << ofToDataPath(xmlfilename);
 
@@ -719,7 +714,7 @@ string ofAppMain::DecodeBROSError(int32_t e, int brosID) {
 	}
 
 	if (!anyError) 
-		s += "  No errors\n";
+		s += " No errors\n";
 
 	return s;
 }

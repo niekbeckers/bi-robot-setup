@@ -69,7 +69,7 @@ class ofAppDisplay : public ofBaseApp
 
 		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
 		void setDisplayType(DisplayType dtype);
-		inline void setCursorShape(ParticleShape pshape) { cursor.setShape(pshape); };
-		inline void setTargetShape(ParticleShape pshape) { target.setShape(pshape); };
+		//inline void setCursorShape(ParticleShape pshape) { cursor.setShape(pshape); };
+		//inline void setTargetShape(ParticleShape pshape) { target.setShape(pshape); };
 };
 

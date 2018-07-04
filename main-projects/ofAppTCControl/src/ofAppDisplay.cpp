@@ -44,7 +44,7 @@ void ofAppDisplay::setup()
 	setDisplayType(displayType);
 
 	// cursor shape
-	setCursorShape(ParticleShape::PARTICLESHAPE_CIRCLE);
+	//setCursorShape(ParticleShape::PARTICLESHAPE_CIRCLE);
 	
 
 	//virtualpartner.setColor(ofColor::forestGreen);
@@ -76,7 +76,7 @@ void ofAppDisplay::draw()
 	//ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 	
-	if (drawTask) {
+	if (true) {
 		
 
 		switch (displayType) {
@@ -93,6 +93,27 @@ void ofAppDisplay::draw()
 			target.draw();
 
 			// draw cursor
+			cursor.update();
+			cursor.draw();
+
+			ofPopMatrix();
+			break;
+
+		case DisplayType::PURSUIT_1D:
+			ofPushMatrix();
+			// draw workspace boundary
+			ofNoFill();
+			//ofSetLineWidth(2);
+			//ofSetColor(clrWSBoundary);
+			//ofSetCircleResolution(80);
+			//ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
+			//ofDrawLine(ofGetWidth() / 2.0, 0.0, -ofGetWidth() / 2.0, 0.0);
+			
+			// draw target
+			target.draw();
+
+			// draw cursor
+			//cursor.update();
 			cursor.draw();
 
 			ofPopMatrix();
@@ -198,20 +219,37 @@ void ofAppDisplay::showCountDown(bool show, double timeRemaining, double duratio
 
 void ofAppDisplay::setDisplayType(DisplayType dtype)
 {
+	displayType = dtype;
+
 	switch (displayType) {
 	case DisplayType::PURSUIT:
 
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 12.0f;
+		cursor.radius = 16.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_OUTLINE);
-		target.radius = 15.0f;
+		target.radius = 18.0f;
+		break;
+
+	case DisplayType::PURSUIT_1D:
+
+		// setup cursor and target
+		cursor.setColor(clrCursor);
+		cursor.setFillMode(OF_FILLED);
+		cursor.radius = 16.0f;
+		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
+
+		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
+		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		target.setColor(clrTarget);
+		target.setFillMode(OF_OUTLINE);
+		target.radius = 16.0f;
 		break;
 
 	case DisplayType::COMPENSATORY:
