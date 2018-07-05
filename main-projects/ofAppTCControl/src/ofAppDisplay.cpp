@@ -227,14 +227,14 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 16.0f;
+		cursor.radius = 18.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_OUTLINE);
-		target.radius = 18.0f;
+		target.radius = 20.0f;
 		break;
 
 	case DisplayType::PURSUIT_1D:
@@ -242,14 +242,14 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 16.0f;
+		cursor.radius = 20.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_OUTLINE);
-		target.radius = 16.0f;
+		target.radius = 23.0f;
 		break;
 
 	case DisplayType::COMPENSATORY:

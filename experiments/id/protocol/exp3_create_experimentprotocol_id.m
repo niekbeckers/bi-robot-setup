@@ -9,13 +9,13 @@ clear all; close all; clc;
 pairNr = 99;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
-Ks = 150;
-Ds = 2;
+Ks = 100;
+Ds = 1;
 expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_compensatory_nofd_' expID];
+filename = ['protocol_pilot_compensatory_Ks100_nofd_' expID];
 
 % create (main) struct
 s = struct;
