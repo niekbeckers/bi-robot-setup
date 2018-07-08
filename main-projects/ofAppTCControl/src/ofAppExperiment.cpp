@@ -190,12 +190,17 @@ void ofAppExperiment::stopExperiment()
 void ofAppExperiment::pauseExperiment()
 {
 	_experimentPaused = true;
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofAppExperiment::resumeExperiment()
 {
 	_experimentPaused = false;
+    
+    // start the data logger
+    mainApp->startDataLogger();
 }
 
 //--------------------------------------------------------------
@@ -419,9 +424,16 @@ void ofAppExperiment::esmNewBlock()
 void ofAppExperiment::esmNewTrial()
 {
 	if (!_experimentRunning) { return; }
+    
 	if (_experimentPaused) {
 		display1->showMessageNorth(true, "EXPERIMENT PAUSED");
-		display2->showMessageNorth(true, "EXPERIMENT PAUSED"); 
+		display2->showMessageNorth(true, "EXPERIMENT PAUSED");
+        
+        
+        // no need to log data while paused
+        if (mainApp->dataLoggerIsRunning()) {
+            mainApp->stopDataLogger(); // although called
+        }
 		return; 
 	}
 
