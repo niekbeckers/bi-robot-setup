@@ -22,15 +22,17 @@ void ofAppDisplay::setup()
 	//clrCursor = ofColor(42, 161, 152);
 	//clrCursor = ofColor(38, 139, 210); // solarized blue
 	clrCursor = ofColor(198, 192, 173); // egg white
+	cursor.setColor(clrCursor);
 
 	//clrTarget = ofColor(225, 31, 31);
 	//clrTarget = ofColor(153, 0, 0);
 	//clrTarget = ofColor(203,75,22); // solarized orange
 	//clrTarget = ofColor(220,50,47); // solarized red
 	clrTarget = ofColor(227, 106, 36); // my orange
+	target.setColor(clrTarget);
 
 	clrWSBoundary = ofColor(198, 192, 173); // egg white
-	clrText = ofColor(198, 192, 173);
+	clrText = clrCursor;
 
 	ofBackground(clrBackground); // background color
 	ofSetWindowTitle("Display");
@@ -298,7 +300,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		target.setColor(clrTarget);
 		target.setFillMode(OF_FILLED);
 		target.radius = 16.0f;
-		
+		target.reset();
 		break;
 
 	case DisplayType::PURSUIT_1D:

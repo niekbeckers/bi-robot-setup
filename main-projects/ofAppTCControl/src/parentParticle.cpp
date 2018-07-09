@@ -138,6 +138,13 @@ void parentParticle::draw()
     
     if (_mode == PARENTPARTICLE_MODE_NORMAL) {
 
+		// check if cursor is out of the screen, cap at screen boundary
+		if (_pos.x > ofGetWidth() / 2.0) _pos.x = ofGetWidth() / 2.0;
+		if (_pos.x < -ofGetWidth() / 2.0) _pos.x = -ofGetWidth() / 2.0;
+		if (_pos.y > ofGetHeight() / 2.0) _pos.y = ofGetHeight() / 2.0;
+		if (_pos.y < -ofGetHeight() / 2.0) _pos.y = -ofGetHeight() / 2.0;
+
+
 		switch (_shape) {
 		case PARTICLESHAPE_CIRCLE:
 			ofSetCircleResolution(200);
