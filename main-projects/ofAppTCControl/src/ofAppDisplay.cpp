@@ -30,7 +30,7 @@ void ofAppDisplay::setup()
 	clrTarget = ofColor(227, 106, 36); // my orange
 
 	clrWSBoundary = ofColor(198, 192, 173); // egg white
-	clrText = ofColor::darkCyan;
+	clrText = ofColor(198, 192, 173);
 
 	ofBackground(clrBackground); // background color
 	ofSetWindowTitle("Display");
@@ -291,12 +291,14 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		//cursor.setFillMode(OF_OUTLINE);
 		cursor.radius = 24.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
+		cursor.reset();
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_FILLED);
 		target.radius = 16.0f;
+		
 		break;
 
 	case DisplayType::PURSUIT_1D:
@@ -306,12 +308,14 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		cursor.setFillMode(OF_OUTLINE);
 		cursor.radius = 24.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
+		cursor.reset();
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_FILLED);
 		target.radius = 16.0f;
+		target.reset();
 		break;
 
 	case DisplayType::COMPENSATORY:
@@ -320,12 +324,14 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		cursor.setFillMode(OF_FILLED);
 		cursor.radius = 40.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_LINE);
+		cursor.reset();
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_OUTLINE);
 		target.radius = 15.0f;
+		target.reset();
 		break;
 	};
 }
