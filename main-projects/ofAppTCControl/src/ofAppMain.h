@@ -163,7 +163,7 @@ class ofAppMain : public ofBaseApp{
 		void setConnectionEnabled(bool & value);
 		void stopDataLogger();
 		void startDataLogger();
-        inline bool dataLoggerIsRunning() { return _btnToggleRecordData }; // bit of a hack, since the toggle button is not the actual state of the logger in the EtherCAT model.
+		inline bool dataLoggerIsRunning() { return _btnToggleRecordData; }; // bit of a hack, since the toggle button is not the actual state of the logger in the EtherCAT model.
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 
 		string DecodeBROSError(int32_t e, int brosID);
