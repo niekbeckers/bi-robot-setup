@@ -12,10 +12,14 @@ void ofAppDisplay::setup()
 	ofEnableAntiAliasing(); // enable anti-aliasing
 
 	// define colors
-	clrBackground = ofColor(18, 40, 47);
+	//clrBackground = ofColor(18, 40, 47);
+	clrBackground = ofColor(238, 232, 213);
+
 	clrCursor = ofColor(20, 138, 255);
+	clrCursor = ofColor(42, 161, 152);
 	//clrTarget = ofColor(225, 31, 31);
-	clrTarget = ofColor(153, 0, 0);
+	//clrTarget = ofColor(153, 0, 0);
+	clrTarget = ofColor(7, 54, 66);
 	clrWSBoundary = ofColor(198, 192, 173);
 	clrText = ofColor::darkCyan;
 
@@ -227,7 +231,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 18.0f;
+		cursor.radius = 15.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
@@ -242,8 +246,8 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 20.0f;
-		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
+		cursor.radius = 16.0f;
+		cursor.setShape(ParticleShape::PARTICLESHAPE_CIRCLE);
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
