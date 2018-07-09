@@ -140,12 +140,12 @@ void parentParticle::draw()
 
 		switch (_shape) {
 		case PARTICLESHAPE_CIRCLE:
-			ofSetCircleResolution(120);
-			ofSetLineWidth(6);
+			ofSetCircleResolution(200);
+			ofSetLineWidth(6.0);
 			ofDrawCircle(_pos.x, _pos.y, radius);
 			break;
 		case PARTICLESHAPE_LINE:
-			ofSetLineWidth(4);
+			ofSetLineWidth(4.0);
 			ofDrawLine(_pos.x, radius, _pos.x, -radius);
 			break;
 		case PARTICLESHAPE_CROSS:
@@ -155,6 +155,18 @@ void parentParticle::draw()
 			ofDrawLine(_pos + ofPoint(0.0, radius), _pos - ofPoint(0.0, radius));
 			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos - ofPoint(radius, 0.0));
 			//ofPopMatrix();
+			break;
+
+		case PARTICLESHAPE_CROSSHAIR:
+			ofSetLineWidth(6.0);
+			ofSetCircleResolution(200);
+			ofDrawCircle(_pos, radius);
+			ofDrawLine(_pos + ofPoint(0.0, -radius), _pos + ofPoint(0.0, -radius - 0.75*radius));
+			ofDrawLine(_pos + ofPoint(0.0, radius), _pos + ofPoint(0.0, radius + 0.75*radius));
+			ofDrawLine(_pos + ofPoint(-radius, 0.0), _pos + ofPoint(-radius - 0.75*radius, 0.0));
+			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos + ofPoint(radius + 0.75*radius, 0.0));
+			ofFill();
+			ofDrawCircle(_pos, 4.0);
 			break;
 		}
         

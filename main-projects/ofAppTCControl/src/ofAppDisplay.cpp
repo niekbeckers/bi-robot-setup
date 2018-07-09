@@ -12,17 +12,25 @@ void ofAppDisplay::setup()
 	ofEnableAntiAliasing(); // enable anti-aliasing
 
 	// define colors
-	//clrBackground = ofColor(18, 40, 47);
-	clrBackground = ofColor(238, 232, 213);
+	//clrBackground = ofColor(38, 139, 210);// solarized blue
+	//clrBackground = ofColor(42, 161, 152); // solarized cyan
+	clrBackground = ofColor(88, 110, 117); // solarized base01
+	//clrBackground = ofColor(7, 54, 66); // solarized base02
+	//clrBackground = ofColor(238, 232, 213); // solarized base3
 
-	clrCursor = ofColor(20, 138, 255);
-	clrCursor = ofColor(42, 161, 152);
+	//clrCursor = ofColor(20, 138, 255);
+	//clrCursor = ofColor(42, 161, 152);
+	//clrCursor = ofColor(38, 139, 210); // solarized blue
+	clrCursor = ofColor(198, 192, 173); // egg white
+
 	//clrTarget = ofColor(225, 31, 31);
 	//clrTarget = ofColor(153, 0, 0);
-	clrTarget = ofColor(7, 54, 66);
-	clrWSBoundary = ofColor(198, 192, 173);
-	clrText = ofColor::darkCyan;
+	//clrTarget = ofColor(203,75,22); // solarized orange
+	//clrTarget = ofColor(220,50,47); // solarized red
+	clrTarget = ofColor(227, 106, 36); // my orange
 
+	clrWSBoundary = ofColor(198, 192, 173); // egg white
+	clrText = ofColor::darkCyan;
 
 	ofBackground(clrBackground); // background color
 	ofSetWindowTitle("Display");
@@ -80,8 +88,11 @@ void ofAppDisplay::draw()
 	//ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 	
-	if (true) {
+	if (drawTask) {
 		
+		ofPoint p = ofPoint(100, 0);
+		ofPoint p2 = ofPoint(-100, 0);
+		float s = 24.0;
 
 		switch (displayType) {
 		case DisplayType::PURSUIT :
@@ -90,7 +101,7 @@ void ofAppDisplay::draw()
 			ofNoFill();
 			ofSetLineWidth(4);
 			ofSetColor(clrWSBoundary);
-			ofSetCircleResolution(80);
+			ofSetCircleResolution(240);
 			ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
 			// draw target
@@ -100,13 +111,60 @@ void ofAppDisplay::draw()
 			cursor.update();
 			cursor.draw();
 
+			/*
+			// test 1
+
+			// new target
+			ofSetLineWidth(6);
+			//ofPushMatrix();
+			//ofTranslate(_pos);
+			ofSetColor(220, 50, 47);
+			ofSetColor(211,54,130);  // solarized magenta
+			ofSetColor(108,113,196); // solarized violet		
+			ofSetColor(203,75,22); // solarized brred (orange)
+			ofSetColor(4, 49, 255);
+			ofSetColor(133, 153, 0);   // solarized green
+			ofSetColor(42, 161, 152); // solarized cyan
+			ofSetColor(181,137,0); // solarized yellow
+			ofSetColor(227, 106, 36); // my orange
+			//ofDrawLine(p2 + ofPoint(0.0, -s+12.0), p2 + ofPoint(0.0, s-12.0));
+			//ofDrawLine(p2 + ofPoint( -s + 12.0,0.0), p2 + ofPoint(s - 12.0,0.0));
+			ofFill();
+			ofDrawCircle(p + ofPoint(5.0, 0.0), s-8.0);
+
+			// cursor
+			ofNoFill();
+			//ofSetColor(38, 139, 210);  // solarized blue
+			//ofSetColor(211, 54, 130);  // solarized magenta
+			//ofSetColor(133, 153, 0);   // solarized green
+			//ofSetColor(203, 75, 22); // solarized brred (orange)
+			//ofSetColor(108, 113, 196); // solarized violet
+			ofSetColor(ofColor(198, 192, 173));
+			//ofSetLineWidth(1.0);
+			
+			//ofDrawLine(p + ofPoint(0.0, -s), p + ofPoint(0.0, s));
+			ofSetLineWidth(6.0);
+			ofSetCircleResolution(200);
+			ofDrawCircle(p, s);
+			ofDrawLine(p + ofPoint(0.0, -s), p + ofPoint(0.0, -s-0.75*s));
+			ofDrawLine(p + ofPoint(0.0, s), p + ofPoint(0.0, s + 0.75*s));
+			ofDrawLine(p + ofPoint(-s, 0.0), p + ofPoint(-s - 0.75*s, 0.0));
+			ofDrawLine(p + ofPoint(s, 0.0), p + ofPoint(s + 0.75*s, 0.0));
+			ofFill();
+			ofDrawCircle(p, 4);
+
+			*/
+
+
+			
+
 			ofPopMatrix();
 			break;
 
 		case DisplayType::PURSUIT_1D:
 			ofPushMatrix();
 			// draw workspace boundary
-			ofNoFill();
+			//ofNoFill();
 			//ofSetLineWidth(2);
 			//ofSetColor(clrWSBoundary);
 			//ofSetCircleResolution(80);
@@ -230,30 +288,30 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 
 		// setup cursor and target
 		cursor.setColor(clrCursor);
-		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 15.0f;
-		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
+		//cursor.setFillMode(OF_OUTLINE);
+		cursor.radius = 24.0f;
+		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
-		target.setFillMode(OF_OUTLINE);
-		target.radius = 20.0f;
+		target.setFillMode(OF_FILLED);
+		target.radius = 16.0f;
 		break;
 
 	case DisplayType::PURSUIT_1D:
 
 		// setup cursor and target
 		cursor.setColor(clrCursor);
-		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 16.0f;
-		cursor.setShape(ParticleShape::PARTICLESHAPE_CIRCLE);
+		cursor.setFillMode(OF_OUTLINE);
+		cursor.radius = 24.0f;
+		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
-		target.setFillMode(OF_OUTLINE);
-		target.radius = 23.0f;
+		target.setFillMode(OF_FILLED);
+		target.radius = 16.0f;
 		break;
 
 	case DisplayType::COMPENSATORY:
