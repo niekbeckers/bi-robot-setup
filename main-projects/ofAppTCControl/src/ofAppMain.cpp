@@ -82,6 +82,10 @@ void ofAppMain::update(){
 		_display2Data.posVPY = _VP2Data[1];
 	}
 
+	double trialTime;
+	_tcClientEvent->read(_lHdlVar_TrialTime, &trialTime, sizeof(trialTime));
+	lblTrialTime = ofToString(trialTime, 1);
+
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
 
@@ -194,6 +198,9 @@ void ofAppMain::setupTCADS()
 	// Request State
 	char szVar8[] = { "Object1 (ModelBROS).ModelParameters.Recorddata1yes0no_Value" };
 	_lHdlVar_RecordData = _tcClientEvent->getVariableHandle(szVar8, sizeof(szVar8));
+
+	char szVar10[] = { "Object1 (ModelBROS).BlockIO.VecCon_TrialTime" };
+	_lHdlVar_TrialTime = _tcClientEvent->getVariableHandle(szVar10, sizeof(szVar10));
 }
  
 //--------------------------------------------------------------
@@ -284,6 +291,7 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
+	_grpExpState.add(lblTrialTime.set("Trial Time", ""));
 	_grpExpState.add(lblTrialPerformance.set("Trial Performance", "[,]"));
 	_grpExpState.add(lblBlockNumber.set("Block number", 0, 0, 1));  // add dummy experiment
 	_grpExpState.add(lblTrialNumber.set("Trial number", 0, 0, 1)); // add dummy experiment
