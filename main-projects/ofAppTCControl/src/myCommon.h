@@ -19,7 +19,8 @@ struct displayData {
 enum DisplayType {
 	PURSUIT = 0,
 	PURSUIT_1D,
-	COMPENSATORY
+	COMPENSATORY,
+	PURSUIT_ROLL
 };
 
 enum ParticleShape {

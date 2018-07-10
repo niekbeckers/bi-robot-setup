@@ -45,12 +45,12 @@ void ofAppDisplay::setup()
 	// font
 	ofTrueTypeFont::setGlobalDpi(72);
 	verdana50.load("verdana.ttf", 50, true, true);
-	verdana50.setLineHeight(50.0f);
+	verdana50.setLineHeight(60.0f);
 	verdana50.setLetterSpacing(1.035);
 	//_text.load("verdana.ttf", 50);
 
 	verdana30.load("verdana.ttf", 30, true, true);
-	verdana30.setLineHeight(30.0f);
+	verdana30.setLineHeight(40.0f);
 	verdana30.setLetterSpacing(1.035);
 
 	// setup display type
@@ -92,13 +92,14 @@ void ofAppDisplay::draw()
 	
 	if (drawTask) {
 		
-		ofPoint p = ofPoint(100, 0);
-		ofPoint p2 = ofPoint(-100, 0);
-		float s = 24.0;
+		//ofPoint p = ofPoint(100, 0);
+		//ofPoint p2 = ofPoint(-100, 0);
+		//float s = 24.0;
 
 		switch (displayType) {
 		case DisplayType::PURSUIT :
 			ofPushMatrix();
+			
 			// draw workspace boundary
 			ofNoFill();
 			ofSetLineWidth(4);
@@ -110,8 +111,8 @@ void ofAppDisplay::draw()
 			target.draw();
 
 			// draw cursor
-			cursor.update();
 			cursor.draw();
+			
 
 			/*
 			// test 1
@@ -157,6 +158,9 @@ void ofAppDisplay::draw()
 
 			*/
 
+			
+			
+			
 
 			
 
@@ -177,7 +181,6 @@ void ofAppDisplay::draw()
 			target.draw();
 
 			// draw cursor
-			//cursor.update();
 			cursor.draw();
 
 			ofPopMatrix();
@@ -186,24 +189,47 @@ void ofAppDisplay::draw()
 		case DisplayType::COMPENSATORY:
 			ofPushMatrix();
 
-			
 			ofNoFill();
 
 			// draw target (at 0,0)
 			ofSetColor(clrTarget);
-			//ofSetLineWidth(4.0);
-			//int cursorheight = 80;
-			//ofDrawLine(0.0, cursorheight / 2, 0.0, 120.0);
-			//ofDrawLine(0.0, -cursorheight / 2, 0.0, -120.0);
 			ofSetLineWidth(2.0);
 			ofDrawLine(0.0, ofGetHeight() / 2.0, 0.0, -ofGetHeight() / 2.0);
 
 			// draw cursor (error)
 			ofSetLineWidth(4.0);
 			ofSetColor(clrCursor);
-			cursor.setPosition(ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0));
+			cursor.setPosition(-ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0));
 			cursor.update();
 			cursor.draw();
+			ofPopMatrix();
+			break;
+
+		case DisplayType::PURSUIT_ROLL:
+			// horizon
+			ofBackground(ofColor(0, 197, 255));
+			ofPushMatrix();
+			ofFill();
+			//ofRotateRad(0.005*(target.getPosition()[0] - cursor.getPosition()[0])); // scaling: 1cm of BROS deflection is 1 rad/s 
+			ofRotateRad(-0.005*(cursor.getPosition()[0])); // scaling: 1cm of BROS deflection is 1 rad/s
+			ofSetColor(0, 0, 0);
+			ofSetLineWidth(2.0);
+			ofDrawLine(-ofGetWidth(), 0.0, ofGetWidth(), 0.0);
+			ofSetColor(88, 110, 117);
+			ofDrawRectangle(-ofGetWidth(), 0.0, 2.0*ofGetWidth(), 2.0*ofGetHeight());
+			ofPopMatrix();
+
+			// attitude indicator
+			ofPushMatrix();
+			ofSetColor(255, 255, 255);
+			ofDrawRectangle(-12.0, -4.0, 24.0, 8.0);
+
+			ofDrawRectangle(-160.0, -4.0, 120.0, 8.0);
+			ofDrawRectangle(-44.0, -4.0, 8.0, 30.0);
+
+			ofDrawRectangle(160.0, -4.0, -120.0, 8.0);
+			ofDrawRectangle(44.0, -4.0, -8.0, 30.0);
+
 			ofPopMatrix();
 			break;
 		}
