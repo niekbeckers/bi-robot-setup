@@ -211,7 +211,8 @@ void ofAppDisplay::draw()
 			ofPushMatrix();
 			ofFill();
 			//ofRotateRad(0.005*(target.getPosition()[0] - cursor.getPosition()[0])); // scaling: 1cm of BROS deflection is 1 rad/s 
-			ofRotateRad(-0.005*(cursor.getPosition()[0])); // scaling: 1cm of BROS deflection is 1 rad/s
+			//ofRotateRad(-0.005*(cursor.getPosition()[0])); // scaling: 1cm of BROS deflection is 1 rad/s
+			ofRotateRad(0.005*target.getPosition()[0]);
 			ofSetColor(0, 0, 0);
 			ofSetLineWidth(2.0);
 			ofDrawLine(-ofGetWidth(), 0.0, ofGetWidth(), 0.0);

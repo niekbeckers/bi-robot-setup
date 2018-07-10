@@ -147,6 +147,9 @@ void ofAppExperiment::setupTCADS()
 	char szVar8[] = { "Object1 (ModelBROS).BlockIO.PerformanceFeedback" };
 	_lHdlVar_Read_PerformanceFeedback = _tcClient->getVariableHandle(szVar8, sizeof(szVar8));
 
+	char szVar9[] = { "Object1 (ModelBROS).ModelParameters.ExpStopTrial_Value" };
+	_lHdlVar_Write_StopTrial = _tcClient->getVariableHandle(szVar9, sizeof(szVar9));
+
 	//char szVar2[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
 	//_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
 
@@ -254,6 +257,16 @@ void ofAppExperiment::requestStartTrialADS()
 	_tcClient->write(_lHdlVar_Write_StartTrial, &var, sizeof(var));
 	var = 0.0;
 	_tcClient->write(_lHdlVar_Write_StartTrial, &var, sizeof(var));
+}
+
+//--------------------------------------------------------------
+void ofAppExperiment::requestStopTrialADS()
+{
+	// signal start trial to simulink, then await for trial done, then start break
+	double var = 1.0;
+	_tcClient->write(_lHdlVar_Write_StopTrial, &var, sizeof(var));
+	var = 0.0;
+	_tcClient->write(_lHdlVar_Write_StopTrial, &var, sizeof(var));
 }
 
 //--------------------------------------------------------------
@@ -384,6 +397,9 @@ void ofAppExperiment::esmExperimentStop()
 {
 
 	_experimentRunning = false;
+
+	// stop running trial
+	requestStopTrialADS();
 
 	display1->drawTask = true;
 	display2->drawTask = true;
