@@ -510,12 +510,21 @@ void ofAppExperiment::esmGetReadyDone()
 	else {
 		// start countdown
 		_cdStartTime = ofGetElapsedTimef();
+
 		display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 		//display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		display1->target.setPosition(ofPoint(0.0, 0.0));
+		display1->cursor.setPosition(ofPoint(0.0, 0.0));
 		display1->target.reset();
+		display1->cursor.reset();
+
 		display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 		//display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
-		display1->target.reset();
+		display2->target.setPosition(ofPoint(0.0, 0.0));
+		display2->cursor.setPosition(ofPoint(0.0, 0.0));
+		display2->target.reset();
+		display2->cursor.reset();
+
 		display1->drawTask = true;
 		display2->drawTask = true;
 		setExperimentState(ExperimentState::COUNTDOWN);

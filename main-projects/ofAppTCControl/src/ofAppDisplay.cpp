@@ -169,7 +169,6 @@ void ofAppDisplay::draw()
 
 			ofPopMatrix();
 
-			
 
 			// attitude indicator
 			ofPushMatrix();
