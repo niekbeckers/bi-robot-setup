@@ -113,69 +113,11 @@ void ofAppDisplay::draw()
 			// draw cursor
 			cursor.draw();
 			
-
-			/*
-			// test 1
-
-			// new target
-			ofSetLineWidth(6);
-			//ofPushMatrix();
-			//ofTranslate(_pos);
-			ofSetColor(220, 50, 47);
-			ofSetColor(211,54,130);  // solarized magenta
-			ofSetColor(108,113,196); // solarized violet		
-			ofSetColor(203,75,22); // solarized brred (orange)
-			ofSetColor(4, 49, 255);
-			ofSetColor(133, 153, 0);   // solarized green
-			ofSetColor(42, 161, 152); // solarized cyan
-			ofSetColor(181,137,0); // solarized yellow
-			ofSetColor(227, 106, 36); // my orange
-			//ofDrawLine(p2 + ofPoint(0.0, -s+12.0), p2 + ofPoint(0.0, s-12.0));
-			//ofDrawLine(p2 + ofPoint( -s + 12.0,0.0), p2 + ofPoint(s - 12.0,0.0));
-			ofFill();
-			ofDrawCircle(p + ofPoint(5.0, 0.0), s-8.0);
-
-			// cursor
-			ofNoFill();
-			//ofSetColor(38, 139, 210);  // solarized blue
-			//ofSetColor(211, 54, 130);  // solarized magenta
-			//ofSetColor(133, 153, 0);   // solarized green
-			//ofSetColor(203, 75, 22); // solarized brred (orange)
-			//ofSetColor(108, 113, 196); // solarized violet
-			ofSetColor(ofColor(198, 192, 173));
-			//ofSetLineWidth(1.0);
-			
-			//ofDrawLine(p + ofPoint(0.0, -s), p + ofPoint(0.0, s));
-			ofSetLineWidth(6.0);
-			ofSetCircleResolution(200);
-			ofDrawCircle(p, s);
-			ofDrawLine(p + ofPoint(0.0, -s), p + ofPoint(0.0, -s-0.75*s));
-			ofDrawLine(p + ofPoint(0.0, s), p + ofPoint(0.0, s + 0.75*s));
-			ofDrawLine(p + ofPoint(-s, 0.0), p + ofPoint(-s - 0.75*s, 0.0));
-			ofDrawLine(p + ofPoint(s, 0.0), p + ofPoint(s + 0.75*s, 0.0));
-			ofFill();
-			ofDrawCircle(p, 4);
-
-			*/
-
-			
-			
-			
-
-			
-
 			ofPopMatrix();
 			break;
 
 		case DisplayType::PURSUIT_1D:
 			ofPushMatrix();
-			// draw workspace boundary
-			//ofNoFill();
-			//ofSetLineWidth(2);
-			//ofSetColor(clrWSBoundary);
-			//ofSetCircleResolution(80);
-			//ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
-			//ofDrawLine(ofGetWidth() / 2.0, 0.0, -ofGetWidth() / 2.0, 0.0);
 			
 			// draw target
 			target.draw();
@@ -199,36 +141,45 @@ void ofAppDisplay::draw()
 			// draw cursor (error)
 			ofSetLineWidth(4.0);
 			ofSetColor(clrCursor);
-			cursor.setPosition(-ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0));
+			cursor.setPosition(-ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0)); // note the negation!
 			cursor.update();
 			cursor.draw();
 			ofPopMatrix();
 			break;
 
 		case DisplayType::PURSUIT_ROLL:
-			// horizon
-			ofBackground(ofColor(0, 197, 255));
-			ofPushMatrix();
+
 			ofFill();
-			//ofRotateRad(0.005*(target.getPosition()[0] - cursor.getPosition()[0])); // scaling: 1cm of BROS deflection is 1 rad/s 
-			//ofRotateRad(-0.005*(cursor.getPosition()[0])); // scaling: 1cm of BROS deflection is 1 rad/s
-			ofRotateRad(0.005*target.getPosition()[0]);
-			ofSetColor(0, 0, 0);
-			ofSetLineWidth(2.0);
-			ofDrawLine(-ofGetWidth(), 0.0, ofGetWidth(), 0.0);
-			ofSetColor(88, 110, 117);
+
+			// horizon
+			ofPushMatrix();
+			ofRotateRad(-cursor.getPosition()[0]);
+			ofSetColor(0, 197, 255); // "sky"
+			ofDrawRectangle(-ofGetWidth(), 0.0, 2.0*ofGetWidth(), -2.0*ofGetHeight());
+			ofSetColor(88, 110, 117); // "ground color"
 			ofDrawRectangle(-ofGetWidth(), 0.0, 2.0*ofGetWidth(), 2.0*ofGetHeight());
+
+			// target
+			ofPushMatrix();
+			ofRotateRad(target.getPosition()[0]);
+			ofSetColor(0, 0, 0);
+			ofSetLineWidth(3.0);
+			ofDrawLine(-ofGetWidth(), 0.0, ofGetWidth(), 0.0);
 			ofPopMatrix();
+
+			ofPopMatrix();
+
+			
 
 			// attitude indicator
 			ofPushMatrix();
-			ofSetColor(255, 255, 255);
-			ofDrawRectangle(-12.0, -4.0, 24.0, 8.0);
-
-			ofDrawRectangle(-160.0, -4.0, 120.0, 8.0);
+			ofSetColor(255, 255, 255); // white
+			ofDrawRectangle(-12.0, -4.0, 24.0, 8.0); // dot in the middle
+			// left part
+			ofDrawRectangle(-180.0, -4.0, 140.0, 8.0);
 			ofDrawRectangle(-44.0, -4.0, 8.0, 30.0);
-
-			ofDrawRectangle(160.0, -4.0, -120.0, 8.0);
+			// right part
+			ofDrawRectangle(180.0, -4.0, -140.0, 8.0);
 			ofDrawRectangle(44.0, -4.0, -8.0, 30.0);
 
 			ofPopMatrix();

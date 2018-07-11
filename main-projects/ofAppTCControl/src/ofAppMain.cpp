@@ -70,6 +70,7 @@ void ofAppMain::update(){
 	_display2Data.posTargetX = AdsData[6];
 	_display2Data.posTargetY = AdsData[7];
 
+	/*
 	// virtual partner data
 	if (_lHdlVar_DataVP1 != -1) {
 		_tcClientCont->read(_lHdlVar_DataVP1, &_VP1Data, sizeof(_VP1Data));
@@ -81,6 +82,7 @@ void ofAppMain::update(){
 		_display2Data.posVPX = _VP2Data[0];
 		_display2Data.posVPY = _VP2Data[1];
 	}
+	*/
 
 	double trialTime;
 	_tcClientEvent->read(_lHdlVar_TrialTime, &trialTime, sizeof(trialTime));
