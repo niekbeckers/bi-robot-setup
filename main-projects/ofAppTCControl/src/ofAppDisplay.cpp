@@ -21,7 +21,8 @@ void ofAppDisplay::setup()
 	//clrCursor = ofColor(20, 138, 255);
 	//clrCursor = ofColor(42, 161, 152);
 	//clrCursor = ofColor(38, 139, 210); // solarized blue
-	clrCursor = ofColor(198, 192, 173); // egg white
+	//clrCursor = ofColor(198, 192, 173); // egg white
+	clrCursor = ofColor(255, 255, 255);
 	cursor.setColor(clrCursor);
 
 	//clrTarget = ofColor(225, 31, 31);
@@ -29,6 +30,7 @@ void ofAppDisplay::setup()
 	//clrTarget = ofColor(203,75,22); // solarized orange
 	//clrTarget = ofColor(220,50,47); // solarized red
 	clrTarget = ofColor(227, 106, 36); // my orange
+	clrTarget = ofColor(0, 0, 0);
 	target.setColor(clrTarget);
 
 	clrWSBoundary = ofColor(198, 192, 173); // egg white
@@ -47,7 +49,6 @@ void ofAppDisplay::setup()
 	verdana50.load("verdana.ttf", 50, true, true);
 	verdana50.setLineHeight(60.0f);
 	verdana50.setLetterSpacing(1.035);
-	//_text.load("verdana.ttf", 50);
 
 	verdana30.load("verdana.ttf", 30, true, true);
 	verdana30.setLineHeight(40.0f);
@@ -139,7 +140,7 @@ void ofAppDisplay::draw()
 			ofDrawLine(0.0, ofGetHeight() / 2.0, 0.0, -ofGetHeight() / 2.0);
 
 			// draw cursor (error)
-			ofSetLineWidth(4.0);
+			ofSetLineWidth(8.0);
 			ofSetColor(clrCursor);
 			cursor.setPosition(-ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0)); // note the negation!
 			cursor.update();
@@ -153,7 +154,7 @@ void ofAppDisplay::draw()
 
 			// horizon
 			ofPushMatrix();
-			ofRotateRad(-cursor.getPosition()[0]);
+			ofRotateRad(-0.005*cursor.getPosition()[0]);
 			ofSetColor(0, 197, 255); // "sky"
 			ofDrawRectangle(-ofGetWidth(), 0.0, 2.0*ofGetWidth(), -2.0*ofGetHeight());
 			ofSetColor(88, 110, 117); // "ground color"
@@ -161,7 +162,7 @@ void ofAppDisplay::draw()
 
 			// target
 			ofPushMatrix();
-			ofRotateRad(target.getPosition()[0]);
+			ofRotateRad(0.005*target.getPosition()[0]);
 			ofSetColor(0, 0, 0);
 			ofSetLineWidth(3.0);
 			ofDrawLine(-ofGetWidth(), 0.0, ofGetWidth(), 0.0);
@@ -175,6 +176,41 @@ void ofAppDisplay::draw()
 			ofSetColor(255, 255, 255); // white
 			ofDrawRectangle(-12.0, -4.0, 24.0, 8.0); // dot in the middle
 			// left part
+			ofDrawRectangle(-180.0, -4.0, 140.0, 8.0);
+			ofDrawRectangle(-44.0, -4.0, 8.0, 30.0);
+			// right part
+			ofDrawRectangle(180.0, -4.0, -140.0, 8.0);
+			ofDrawRectangle(44.0, -4.0, -8.0, 30.0);
+
+			ofPopMatrix();
+			break;
+
+		case DisplayType::COMPENSATORY_ROLL:
+
+			ofFill();
+
+			// horizon
+			ofPushMatrix();
+			ofRotateRad(-0.005*(target.getPosition()[0]+cursor.getPosition()[0]));
+			ofSetColor(0, 197, 255); // "sky"
+			ofDrawRectangle(-ofGetWidth(), 0.0, 2.0*ofGetWidth(), -2.0*ofGetHeight());
+			ofSetColor(88, 110, 117); // "ground color"
+			ofDrawRectangle(-ofGetWidth(), 0.0, 2.0*ofGetWidth(), 2.0*ofGetHeight());
+
+			// target
+			ofPushMatrix();
+			ofSetColor(0, 0, 0);
+			ofSetLineWidth(3.0);
+			ofDrawLine(-ofGetWidth(), 0.0, ofGetWidth(), 0.0);
+			ofPopMatrix();
+			ofPopMatrix();
+
+
+			// attitude indicator
+			ofPushMatrix();
+			ofSetColor(255, 255, 255); // white
+			ofDrawRectangle(-12.0, -4.0, 24.0, 8.0); // dot in the middle
+													 // left part
 			ofDrawRectangle(-180.0, -4.0, 140.0, 8.0);
 			ofDrawRectangle(-44.0, -4.0, 8.0, 30.0);
 			// right part
@@ -301,7 +337,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_FILLED);
-		cursor.radius = 40.0f;
+		cursor.radius = 160.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_LINE);
 		cursor.reset();
 

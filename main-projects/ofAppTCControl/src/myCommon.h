@@ -20,7 +20,8 @@ enum DisplayType {
 	PURSUIT = 0,
 	PURSUIT_1D,
 	COMPENSATORY,
-	PURSUIT_ROLL
+	PURSUIT_ROLL,
+	COMPENSATORY_ROLL
 };
 
 enum ParticleShape {

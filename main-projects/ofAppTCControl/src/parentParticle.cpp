@@ -160,8 +160,12 @@ void parentParticle::draw()
 			}
 			break;
 		case PARTICLESHAPE_LINE:
-			ofSetLineWidth(4.0);
-			ofDrawLine(_pos.x, radius, _pos.x, -radius);
+			ofSetLineWidth(8.0);
+			ofDrawLine(_pos.x, -radius, _pos.x, -0.25*radius);
+			ofDrawLine(_pos.x, -6.0, _pos.x, 6.0);
+			ofDrawLine(_pos.x, 0.25*radius, _pos.x, radius);
+			
+
 			break;
 		case PARTICLESHAPE_CROSS:
 			ofSetLineWidth(4);
