@@ -6,23 +6,23 @@ clear all; close all; clc;
 
 % NOTE: pair 6 was collected using the wrong model (TC), excluded. 
 
-pairNr = 99;
-groupType = 'solo'; % solo or interaction
-groupTypeNr = 0; % 0 = solo, 1 = interaction
+pairNr = 101;
+groupType = 'interaction'; % solo or interaction
+groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 100;
 Ds = 1;
 expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_pursuit_Ks100_nofd_training_' expID];
+filename = ['protocol_pilot_pursuit_nofd_' expID];
 
 % create (main) struct
 s = struct;
 
 % display type (pursuit or compensatory)
 s.experiment.displayType = 1; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory
-s.experiment.cursorShape = 2; % 0 = circle, 1 = line, 2 = cross
+s.experiment.cursorShape = 1; % 0 = circle, 1 = line, 2 = cross
 
 
 % indicate which type of trial feedback
@@ -42,10 +42,10 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [3*ones(12,1)];
+condition = [3*ones(2,1); 3*ones(11,1)];
     
 numTrials = numel(condition); % example
-breakDuration = 10*ones(numTrials,1);
+breakDuration = 15*ones(numTrials,1);
 trialDuration = 90*ones(numTrials,1);
 
 % connection
@@ -54,7 +54,7 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    connected = zeros(21,1); %connected(2:2:end) = 1;
+    connected = zeros(12,1); connected(4:2:end) = 1;
     connected = repmat(connected,4,1);
 
 %     connected1 = zeros(42,1); connected1(2:2:end) = 1;
@@ -64,7 +64,7 @@ elseif strcmpi(groupType,'interaction')
 end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:3};
+divTrials = {1:2 3:13};
 
 
 %% randomization

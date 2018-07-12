@@ -120,11 +120,26 @@ void ofAppDisplay::draw()
 		case DisplayType::PURSUIT_1D:
 			ofPushMatrix();
 			
+			ofNoFill();
+
+			// draw target (at 0,0)
+			ofSetColor(clrTarget);
+			ofSetLineWidth(2.0);
+			ofDrawLine(target.getPosition()[0], ofGetHeight() / 2.0, target.getPosition()[0], -ofGetHeight() / 2.0);
+
+			// draw cursor (error)
+			ofSetLineWidth(8.0);
+			ofSetColor(clrCursor);
+			cursor.radius = 160.0f;
+			cursor.setPosition(ofPoint(cursor.getPosition()[0], 0.0)); // note the negation!
+			cursor.update();
+			cursor.draw();
+
 			// draw target
-			target.draw();
+			//target.draw();
 
 			// draw cursor
-			cursor.draw();
+			//cursor.draw();
 
 			ofPopMatrix();
 			break;
@@ -142,6 +157,7 @@ void ofAppDisplay::draw()
 			// draw cursor (error)
 			ofSetLineWidth(8.0);
 			ofSetColor(clrCursor);
+			
 			cursor.setPosition(-ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0)); // note the negation!
 			cursor.update();
 			cursor.draw();
@@ -322,7 +338,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_OUTLINE);
 		cursor.radius = 24.0f;
-		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
+		cursor.setShape(ParticleShape::PARTICLESHAPE_LINE);
 		cursor.reset();
 
 		//target.setMode(PARENTPARTICLE_MODE_CLOUD);

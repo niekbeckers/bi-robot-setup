@@ -1000,7 +1000,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{92297834-8E20-77FA-94E4-832CCFBC88D6}">P_model_base_bros_T</Name>
+			<Name GUID="{420B7452-86DB-D209-3945-8DE91546618A}">P_model_base_bros_T</Name>
 			<BitSize>40832</BitSize>
 			<SubItem>
 				<Name>BROS1</Name>
@@ -3487,7 +3487,7 @@
 				<BitOffs>34200</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_d</Name>
+				<Name>Gain_Gain_m</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>34208</BitOffs>
@@ -3577,6 +3577,10 @@
 				<BitOffs>40576</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{074EA772-6594-3C5F-5F64-FA18B04E9A6E}"/>
+				<Hide GUID="{453C680F-6201-9260-A8FB-68B129DC4194}"/>
+				<Hide GUID="{9A8B5646-8A30-0E2F-D0A5-55DFDFB86A19}"/>
+				<Hide GUID="{92297834-8E20-77FA-94E4-832CCFBC88D6}"/>
 				<Hide GUID="{DC57E32D-702B-C579-FB3E-BC1EFF728752}"/>
 				<Hide GUID="{0B4EA9F9-DEF1-7712-6A77-BA3414FD389D}"/>
 				<Hide GUID="{63DB70B9-4AB5-2E0E-97DF-5811DE44F708}"/>
@@ -4876,9 +4880,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{F2D111AB-BFB6-461C-B0B4-9D3D22072EB9}">
+					<TmcDesc GUID="{711EAD9F-106E-490E-8EBA-997DB19494D8}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{F2D111AB-BFB6-461C-B0B4-9D3D22072EB9}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{711EAD9F-106E-490E-8EBA-997DB19494D8}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5000,7 +5004,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>40832</BitSize>
-								<BaseType GUID="{92297834-8E20-77FA-94E4-832CCFBC88D6}">P_model_base_bros_T</BaseType>
+								<BaseType GUID="{420B7452-86DB-D209-3945-8DE91546618A}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -12122,7 +12126,7 @@
 									<BitOffs>34200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_d</Name>
+									<Name>Gain_Gain_m</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x830010b4</PTCID>
@@ -15506,7 +15510,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.virtualmass_Value</Name>
-								<Value>0.3</Value>
+								<Value>0.6</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.virtualdamping_Value</Name>
@@ -16617,7 +16621,7 @@
 								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_d</Name>
+								<Name>ModelParameters.Gain_Gain_m</Name>
 								<Value>128</Value>
 							</Value>
 							<Value>
