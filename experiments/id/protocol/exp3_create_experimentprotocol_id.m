@@ -15,13 +15,13 @@ expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_2d_pursuit_' expID];
+filename = ['protocol_pilot_2d_compnsatory_' expID];
 
 % create (main) struct
 s = struct;
 
 % display type (pursuit or compensatory)
-s.experiment.displayType = 1; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory
+s.experiment.displayType = 3; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory, 3 = compensatory_2d
 s.experiment.cursorShape = 2; % 0 = circle, 1 = line, 2 = cross
 
 
