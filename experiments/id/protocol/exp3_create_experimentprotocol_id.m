@@ -15,14 +15,14 @@ expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_2d_compnsatory_' expID];
+filename = ['protocol_pilot_2d_compensatory_' expID];
 
 % create (main) struct
 s = struct;
 
 % display type (pursuit or compensatory)
 s.experiment.displayType = 3; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory, 3 = compensatory_2d
-s.experiment.cursorShape = 2; % 0 = circle, 1 = line, 2 = cross
+s.experiment.cursorShape = 3; % 0 = circle, 1 = line, 2 = cross
 
 
 % indicate which type of trial feedback
@@ -86,7 +86,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = 120.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
