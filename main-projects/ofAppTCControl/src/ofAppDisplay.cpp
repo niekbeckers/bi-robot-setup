@@ -55,7 +55,7 @@ void ofAppDisplay::setup()
 	verdana30.setLetterSpacing(1.035);
 
 	// setup display type
-	displayType = DisplayType::PURSUIT;
+	displayType = DisplayType::PURSUIT_2D;
 	setDisplayType(displayType);
 
 	// cursor shape
@@ -98,15 +98,15 @@ void ofAppDisplay::draw()
 		//float s = 24.0;
 
 		switch (displayType) {
-		case DisplayType::PURSUIT :
+		case DisplayType::PURSUIT_2D :
 			ofPushMatrix();
 			
 			// draw workspace boundary
-			ofNoFill();
-			ofSetLineWidth(4);
-			ofSetColor(clrWSBoundary);
-			ofSetCircleResolution(240);
-			ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
+			//ofNoFill();
+			//ofSetLineWidth(4);
+			//ofSetColor(clrWSBoundary);
+			//ofSetCircleResolution(240);
+			//ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
 			// draw target
 			target.draw();
@@ -144,7 +144,7 @@ void ofAppDisplay::draw()
 			ofPopMatrix();
 			break;
 
-		case DisplayType::COMPENSATORY:
+		case DisplayType::COMPENSATORY_1D:
 			ofPushMatrix();
 
 			ofNoFill();
@@ -161,6 +161,22 @@ void ofAppDisplay::draw()
 			cursor.setPosition(-ofPoint(target.getPosition()[0] - cursor.getPosition()[0], 0.0)); // note the negation!
 			cursor.update();
 			cursor.draw();
+			ofPopMatrix();
+			break;
+
+		case DisplayType::COMPENSATORY_2D:
+			ofPushMatrix();
+
+			// draw target at (0,0)
+			target.setPosition(ofPoint(0.0, 0.0));
+			target.update();
+			target.draw();
+
+			// draw cursor (error)
+			cursor.setPosition(-(target.getPosition() - cursor.getPosition())); // note the negation!
+			cursor.update();
+			cursor.draw();
+
 			ofPopMatrix();
 			break;
 
@@ -315,7 +331,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 	displayType = dtype;
 
 	switch (displayType) {
-	case DisplayType::PURSUIT:
+	case DisplayType::PURSUIT_2D:
 
 		// setup cursor and target
 		cursor.setColor(clrCursor);
@@ -328,7 +344,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_FILLED);
-		target.radius = 16.0f;
+		target.radius = 20.0f;
 		target.reset();
 		break;
 
@@ -349,7 +365,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		target.reset();
 		break;
 
-	case DisplayType::COMPENSATORY:
+	case DisplayType::COMPENSATORY_1D:
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		cursor.setFillMode(OF_FILLED);
@@ -364,5 +380,23 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		target.radius = 15.0f;
 		target.reset();
 		break;
+
+	case DisplayType::COMPENSATORY_2D:
+
+		// setup cursor and target
+		cursor.setColor(clrCursor);
+		//cursor.setFillMode(OF_OUTLINE);
+		cursor.radius = 24.0f;
+		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
+		cursor.reset();
+
+		//target.setMode(PARENTPARTICLE_MODE_CLOUD);
+		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		target.setColor(clrTarget);
+		target.setFillMode(OF_FILLED);
+		target.radius = 20.0f;
+		target.reset();
+		break;
 	};
+
 }

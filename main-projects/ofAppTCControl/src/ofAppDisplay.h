@@ -54,7 +54,7 @@ class ofAppDisplay : public ofBaseApp
 		parentParticle target;
 		parentParticle virtualpartner;
 
-		DisplayType displayType = DisplayType::PURSUIT;
+		DisplayType displayType = DisplayType::PURSUIT_2D;
 
 		//
 		// openFrameworks

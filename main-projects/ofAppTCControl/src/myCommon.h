@@ -17,9 +17,10 @@ struct displayData {
 };
 
 enum DisplayType {
-	PURSUIT = 0,
+	PURSUIT_2D = 0,
 	PURSUIT_1D,
-	COMPENSATORY,
+	COMPENSATORY_1D,
+	COMPENSATORY_2D,
 	PURSUIT_ROLL,
 	COMPENSATORY_ROLL
 };
@@ -82,7 +83,7 @@ struct experimentSettings {
 	double getReadyDuration = 1.0;
 	int numTrials = 0;
 	string protocolname;
-	DisplayType displayType = DisplayType::PURSUIT; // 0 = pursuit, 1 = compensatory
+	DisplayType displayType = DisplayType::PURSUIT_2D; // 0 = pursuit, 1 = compensatory
 	ParticleShape cursorShape = ParticleShape::PARTICLESHAPE_CIRCLE; //  0 = circle
 };
 

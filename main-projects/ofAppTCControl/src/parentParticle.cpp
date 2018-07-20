@@ -150,14 +150,14 @@ void parentParticle::draw()
 			ofSetCircleResolution(200);
 			ofSetLineWidth(6.0);
 			ofDrawCircle(_pos.x, _pos.y, radius);
-
+			/*
 			if (_fillMode == OF_FILLED) {
 				ofSetLineWidth(2.0);
 				ofNoFill();
 				ofSetColor(ofColor(7, 54, 66));
 				ofDrawCircle(_pos, radius + 1.0);
 				ofSetColor(_color);
-			}
+			}*/
 			break;
 		case PARTICLESHAPE_LINE:
 			ofSetLineWidth(8.0);
