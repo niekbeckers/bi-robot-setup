@@ -6,23 +6,23 @@ clear all; close all; clc;
 
 % NOTE: pair 6 was collected using the wrong model (TC), excluded. 
 
-pairNr = 101;
+pairNr = 104;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
-Ks = 100;
-Ds = 1;
+Ks = 125;
+Ds = 5;
 expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_pursuit_nofd_' expID];
+filename = ['protocol_pilot_2d_pursuit_' expID];
 
 % create (main) struct
 s = struct;
 
 % display type (pursuit or compensatory)
 s.experiment.displayType = 1; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory
-s.experiment.cursorShape = 1; % 0 = circle, 1 = line, 2 = cross
+s.experiment.cursorShape = 2; % 0 = circle, 1 = line, 2 = cross
 
 
 % indicate which type of trial feedback

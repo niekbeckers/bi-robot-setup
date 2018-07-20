@@ -928,8 +928,8 @@
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{901EF5A4-7279-2594-7E8A-A872ED2EEE64}">P_Yc1_model_base_bros_T</Name>
-			<BitSize>320</BitSize>
+			<Name GUID="{09BCFCAB-55BD-B2AC-A816-8ADA56B87A6E}">P_Yc1_model_base_bros_T</Name>
+			<BitSize>192</BitSize>
 			<SubItem>
 				<Name>x_Y0</Name>
 				<Type GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</Type>
@@ -937,24 +937,13 @@
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>DiscreteTimeIntegrator_gainval</Name>
+				<Name>Gain_Gain</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
 				<BitOffs>128</BitOffs>
 			</SubItem>
-			<SubItem>
-				<Name>DiscreteTimeIntegrator_IC</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
-				<BitSize>64</BitSize>
-				<BitOffs>192</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Gain_Gain</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
-				<BitSize>64</BitSize>
-				<BitOffs>256</BitOffs>
-			</SubItem>
 			<Hides>
+				<Hide GUID="{901EF5A4-7279-2594-7E8A-A872ED2EEE64}"/>
 				<Hide GUID="{5B05551B-497A-BE63-E1ED-67B79CBA8103}"/>
 				<Hide GUID="{5CAA2CD5-E04C-4772-6585-78C3DCC12A6C}"/>
 			</Hides>
@@ -1000,8 +989,8 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{420B7452-86DB-D209-3945-8DE91546618A}">P_model_base_bros_T</Name>
-			<BitSize>40832</BitSize>
+			<Name GUID="{453C680F-6201-9260-A8FB-68B129DC4194}">P_model_base_bros_T</Name>
+			<BitSize>40576</BitSize>
 			<SubItem>
 				<Name>BROS1</Name>
 				<Type GUID="{B0A0900A-D825-D771-3345-5EEDAF9EEFE9}">struct_wQmPhDknpLCzFGnMEBnbW</Type>
@@ -3487,22 +3476,16 @@
 				<BitOffs>34200</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_m</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>34208</BitOffs>
-			</SubItem>
-			<SubItem>
 				<Name>LatchRising_j</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>34216</BitOffs>
+				<BitOffs>34208</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_gc</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>34224</BitOffs>
+				<BitOffs>34216</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_m</Name>
@@ -3554,31 +3537,29 @@
 			</SubItem>
 			<SubItem>
 				<Name>Yc2</Name>
-				<Type GUID="{901EF5A4-7279-2594-7E8A-A872ED2EEE64}">P_Yc1_model_base_bros_T</Type>
-				<BitSize>320</BitSize>
+				<Type GUID="{09BCFCAB-55BD-B2AC-A816-8ADA56B87A6E}">P_Yc1_model_base_bros_T</Type>
+				<BitSize>192</BitSize>
 				<BitOffs>39680</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Yc1</Name>
-				<Type GUID="{901EF5A4-7279-2594-7E8A-A872ED2EEE64}">P_Yc1_model_base_bros_T</Type>
-				<BitSize>320</BitSize>
-				<BitOffs>40000</BitOffs>
+				<Type GUID="{09BCFCAB-55BD-B2AC-A816-8ADA56B87A6E}">P_Yc1_model_base_bros_T</Type>
+				<BitSize>192</BitSize>
+				<BitOffs>39872</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>HoldFirstSampleOnEnable1</Name>
 				<Type GUID="{EF7FEDE8-54AD-BB4A-72D6-861EAE985D6B}">P_HoldFirstSampleOnEnable_mod_T</Type>
 				<BitSize>256</BitSize>
-				<BitOffs>40320</BitOffs>
+				<BitOffs>40064</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>HoldFirstSampleOnEnable</Name>
 				<Type GUID="{EF7FEDE8-54AD-BB4A-72D6-861EAE985D6B}">P_HoldFirstSampleOnEnable_mod_T</Type>
 				<BitSize>256</BitSize>
-				<BitOffs>40576</BitOffs>
+				<BitOffs>40320</BitOffs>
 			</SubItem>
 			<Hides>
-				<Hide GUID="{074EA772-6594-3C5F-5F64-FA18B04E9A6E}"/>
-				<Hide GUID="{453C680F-6201-9260-A8FB-68B129DC4194}"/>
 				<Hide GUID="{9A8B5646-8A30-0E2F-D0A5-55DFDFB86A19}"/>
 				<Hide GUID="{92297834-8E20-77FA-94E4-832CCFBC88D6}"/>
 				<Hide GUID="{DC57E32D-702B-C579-FB3E-BC1EFF728752}"/>
@@ -4160,21 +4141,22 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{8981B57D-2739-300B-442D-6B9277B5FB42}">B_Yc1_model_base_bros_T</Name>
-			<BitSize>128</BitSize>
+			<Name GUID="{34616E22-1791-2DC5-9823-7E588CB55E7E}">B_Yc1_model_base_bros_T</Name>
+			<BitSize>192</BitSize>
 			<SubItem>
-				<Name>DiscreteTimeIntegrator</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
-				<BitSize>64</BitSize>
+				<Name>u</Name>
+				<Type GUID="{BB70DAAD-4E7A-B6F5-9E66-27230D456EC9}">matrix_2_real_T</Type>
+				<BitSize>128</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Gain</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
 				<BitSize>64</BitSize>
-				<BitOffs>64</BitOffs>
+				<BitOffs>128</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{8981B57D-2739-300B-442D-6B9277B5FB42}"/>
 				<Hide GUID="{6FC59F28-3970-9B65-09B5-FF2CBB8E4F67}"/>
 			</Hides>
 		</DataType>
@@ -4530,27 +4512,22 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{BF72DC19-8DA5-679A-C312-9030066D2F62}">DW_Yc1_model_base_bros_T</Name>
-			<BitSize>128</BitSize>
-			<SubItem>
-				<Name>DiscreteTimeIntegrator_DSTATE</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
-				<BitSize>64</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
+			<Name GUID="{B38EB159-8056-2A76-3018-CC5A1C280402}">DW_Yc1_model_base_bros_T</Name>
+			<BitSize>16</BitSize>
 			<SubItem>
 				<Name>Yc1_SubsysRanBC</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000003}">SINT</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>64</BitOffs>
+				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>Yc1_MODE</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>72</BitOffs>
+				<BitOffs>8</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{BF72DC19-8DA5-679A-C312-9030066D2F62}"/>
 				<Hide GUID="{48171A1C-65E5-B64D-E7E8-277F2BD555F1}"/>
 				<Hide GUID="{A6064871-6C64-990D-75AD-36FA294A1C39}"/>
 			</Hides>
@@ -4880,9 +4857,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{711EAD9F-106E-490E-8EBA-997DB19494D8}">
+					<TmcDesc GUID="{B4345A96-E395-4DA7-8C33-B9EB1E335A6E}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{711EAD9F-106E-490E-8EBA-997DB19494D8}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{B4345A96-E395-4DA7-8C33-B9EB1E335A6E}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5003,8 +4980,8 @@
 							</Parameter>
 							<Parameter>
 								<Name>ModelParameters</Name>
-								<BitSize>40832</BitSize>
-								<BaseType GUID="{420B7452-86DB-D209-3945-8DE91546618A}">P_model_base_bros_T</BaseType>
+								<BitSize>40576</BitSize>
+								<BaseType GUID="{453C680F-6201-9260-A8FB-68B129DC4194}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -5391,7 +5368,7 @@
 								<AreaNo AreaType="Internal" CreateSymbols="true">2</AreaNo>
 								<Name>BlockIO</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>7592</ByteSize>
+								<ByteSize>7608</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>Requestedstate</Name>
 									<BitSize>64</BitSize>
@@ -8396,18 +8373,11 @@
 									<BitOffs>40440</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x820013c0</PTCID>
-									<BitOffs>40448</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x820013c1</PTCID>
-									<BitOffs>40456</BitOffs>
+									<PTCID>#x820013c0</PTCID>
+									<BitOffs>40448</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_h</Name>
@@ -9160,73 +9130,73 @@
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Yc2</Name>
-									<BitSize>128</BitSize>
-									<BaseType GUID="{8981B57D-2739-300B-442D-6B9277B5FB42}">B_Yc1_model_base_bros_T</BaseType>
+									<BitSize>192</BitSize>
+									<BaseType GUID="{34616E22-1791-2DC5-9823-7E588CB55E7E}">B_Yc1_model_base_bros_T</BaseType>
 									<PTCID>#x82001cd0</PTCID>
 									<BitOffs>59008</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Yc1</Name>
-									<BitSize>128</BitSize>
-									<BaseType GUID="{8981B57D-2739-300B-442D-6B9277B5FB42}">B_Yc1_model_base_bros_T</BaseType>
-									<PTCID>#x82001ce0</PTCID>
-									<BitOffs>59136</BitOffs>
+									<BitSize>192</BitSize>
+									<BaseType GUID="{34616E22-1791-2DC5-9823-7E588CB55E7E}">B_Yc1_model_base_bros_T</BaseType>
+									<PTCID>#x82001ce8</PTCID>
+									<BitOffs>59200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Calc_RMSE_BROS2</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{F531FF72-D8CF-1AB6-7F9A-F0AFD9095EB2}">B_Calc_RMSE_BROS1_model_base_T</BaseType>
-									<PTCID>#x82001cf0</PTCID>
-									<BitOffs>59264</BitOffs>
+									<PTCID>#x82001d00</PTCID>
+									<BitOffs>59392</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Calc_RMSE_BROS1</Name>
 									<BitSize>64</BitSize>
 									<BaseType GUID="{F531FF72-D8CF-1AB6-7F9A-F0AFD9095EB2}">B_Calc_RMSE_BROS1_model_base_T</BaseType>
-									<PTCID>#x82001cf8</PTCID>
-									<BitOffs>59328</BitOffs>
+									<PTCID>#x82001d08</PTCID>
+									<BitOffs>59456</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable1</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{54B84508-B80B-42DF-E034-74FC4C68630E}">B_HoldFirstSampleOnEnable_mod_T</BaseType>
-									<PTCID>#x82001d00</PTCID>
-									<BitOffs>59392</BitOffs>
+									<PTCID>#x82001d10</PTCID>
+									<BitOffs>59520</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable</Name>
 									<BitSize>384</BitSize>
 									<BaseType GUID="{54B84508-B80B-42DF-E034-74FC4C68630E}">B_HoldFirstSampleOnEnable_mod_T</BaseType>
-									<PTCID>#x82001d30</PTCID>
-									<BitOffs>59776</BitOffs>
+									<PTCID>#x82001d40</PTCID>
+									<BitOffs>59904</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_msin_target</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{430572B6-B5DB-6B1C-6989-47773B0A2128}">B_msin_disturbance1_model_bas_T</BaseType>
-									<PTCID>#x82001d60</PTCID>
-									<BitOffs>60160</BitOffs>
+									<PTCID>#x82001d70</PTCID>
+									<BitOffs>60288</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_msin_disturbance2</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{430572B6-B5DB-6B1C-6989-47773B0A2128}">B_msin_disturbance1_model_bas_T</BaseType>
-									<PTCID>#x82001d78</PTCID>
-									<BitOffs>60352</BitOffs>
+									<PTCID>#x82001d88</PTCID>
+									<BitOffs>60480</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_msin_disturbance1</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{430572B6-B5DB-6B1C-6989-47773B0A2128}">B_msin_disturbance1_model_bas_T</BaseType>
-									<PTCID>#x82001d90</PTCID>
-									<BitOffs>60544</BitOffs>
+									<PTCID>#x82001da0</PTCID>
+									<BitOffs>60672</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
 								<AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
 								<Name>ModelParameters</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>5104</ByteSize>
+								<ByteSize>5072</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>BROS1</Name>
 									<BitSize>3456</BitSize>
@@ -12126,25 +12096,18 @@
 									<BitOffs>34200</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_m</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x830010b4</PTCID>
-									<BitOffs>34208</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
 									<Name>LatchRising_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x830010b5</PTCID>
-									<BitOffs>34216</BitOffs>
+									<PTCID>#x830010b4</PTCID>
+									<BitOffs>34208</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_gc</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x830010b6</PTCID>
-									<BitOffs>34224</BitOffs>
+									<PTCID>#x830010b5</PTCID>
+									<BitOffs>34216</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_m</Name>
@@ -12204,31 +12167,31 @@
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Yc2</Name>
-									<BitSize>320</BitSize>
-									<BaseType GUID="{901EF5A4-7279-2594-7E8A-A872ED2EEE64}">P_Yc1_model_base_bros_T</BaseType>
+									<BitSize>192</BitSize>
+									<BaseType GUID="{09BCFCAB-55BD-B2AC-A816-8ADA56B87A6E}">P_Yc1_model_base_bros_T</BaseType>
 									<PTCID>#x83001360</PTCID>
 									<BitOffs>39680</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Yc1</Name>
-									<BitSize>320</BitSize>
-									<BaseType GUID="{901EF5A4-7279-2594-7E8A-A872ED2EEE64}">P_Yc1_model_base_bros_T</BaseType>
-									<PTCID>#x83001388</PTCID>
-									<BitOffs>40000</BitOffs>
+									<BitSize>192</BitSize>
+									<BaseType GUID="{09BCFCAB-55BD-B2AC-A816-8ADA56B87A6E}">P_Yc1_model_base_bros_T</BaseType>
+									<PTCID>#x83001378</PTCID>
+									<BitOffs>39872</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable1</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{EF7FEDE8-54AD-BB4A-72D6-861EAE985D6B}">P_HoldFirstSampleOnEnable_mod_T</BaseType>
-									<PTCID>#x830013b0</PTCID>
-									<BitOffs>40320</BitOffs>
+									<PTCID>#x83001390</PTCID>
+									<BitOffs>40064</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable</Name>
 									<BitSize>256</BitSize>
 									<BaseType GUID="{EF7FEDE8-54AD-BB4A-72D6-861EAE985D6B}">P_HoldFirstSampleOnEnable_mod_T</BaseType>
-									<PTCID>#x830013d0</PTCID>
-									<BitOffs>40576</BitOffs>
+									<PTCID>#x830013b0</PTCID>
+									<BitOffs>40320</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -13567,7 +13530,7 @@
 								<AreaNo AreaType="Internal" CreateSymbols="true">9</AreaNo>
 								<Name>DWork06</Name>
 								<ContextId>0</ContextId>
-								<ByteSize>48224</ByteSize>
+								<ByteSize>48200</ByteSize>
 								<Symbol CreateSymbol="true">
 									<Name>sf_CorrectOffset</Name>
 									<BitSize>384512</BitSize>
@@ -13598,45 +13561,45 @@
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Yc2</Name>
-									<BitSize>128</BitSize>
-									<BaseType GUID="{BF72DC19-8DA5-679A-C312-9030066D2F62}">DW_Yc1_model_base_bros_T</BaseType>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B38EB159-8056-2A76-3018-CC5A1C280402}">DW_Yc1_model_base_bros_T</BaseType>
 									<PTCID>#x8900bbf0</PTCID>
 									<BitOffs>384896</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>Yc1</Name>
-									<BitSize>128</BitSize>
-									<BaseType GUID="{BF72DC19-8DA5-679A-C312-9030066D2F62}">DW_Yc1_model_base_bros_T</BaseType>
-									<PTCID>#x8900bc00</PTCID>
-									<BitOffs>385024</BitOffs>
+									<BitSize>16</BitSize>
+									<BaseType GUID="{B38EB159-8056-2A76-3018-CC5A1C280402}">DW_Yc1_model_base_bros_T</BaseType>
+									<PTCID>#x8900bbf2</PTCID>
+									<BitOffs>384912</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Calc_RMSE_BROS2</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{97FC104B-9C30-1EF1-ACF8-06B9FF8EFCCE}">DW_Calc_RMSE_BROS1_model_base_T</BaseType>
-									<PTCID>#x8900bc10</PTCID>
-									<BitOffs>385152</BitOffs>
+									<PTCID>#x8900bbf8</PTCID>
+									<BitOffs>384960</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Calc_RMSE_BROS1</Name>
 									<BitSize>128</BitSize>
 									<BaseType GUID="{97FC104B-9C30-1EF1-ACF8-06B9FF8EFCCE}">DW_Calc_RMSE_BROS1_model_base_T</BaseType>
-									<PTCID>#x8900bc20</PTCID>
-									<BitOffs>385280</BitOffs>
+									<PTCID>#x8900bc08</PTCID>
+									<BitOffs>385088</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable1</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{CC3F7D31-7C29-A45A-8D6C-A80A377EA774}">DW_HoldFirstSampleOnEnable_mo_T</BaseType>
-									<PTCID>#x8900bc30</PTCID>
-									<BitOffs>385408</BitOffs>
+									<PTCID>#x8900bc18</PTCID>
+									<BitOffs>385216</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>HoldFirstSampleOnEnable</Name>
 									<BitSize>192</BitSize>
 									<BaseType GUID="{CC3F7D31-7C29-A45A-8D6C-A80A377EA774}">DW_HoldFirstSampleOnEnable_mo_T</BaseType>
-									<PTCID>#x8900bc48</PTCID>
-									<BitOffs>385600</BitOffs>
+									<PTCID>#x8900bc30</PTCID>
+									<BitOffs>385408</BitOffs>
 								</Symbol>
 							</DataArea>
 						</DataAreas>
@@ -16138,7 +16101,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Gain1_Gain_m</Name>
-								<Value>2</Value>
+								<Value>1</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.One_Value_pk</Name>
@@ -16158,7 +16121,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Gain5_Gain</Name>
-								<Value>2</Value>
+								<Value>1</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.One_Value_c</Name>
@@ -16621,10 +16584,6 @@
 								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_m</Name>
-								<Value>128</Value>
-							</Value>
-							<Value>
 								<Name>ModelParameters.LatchRising_j.Out_Y0</Name>
 								<EnumText>FALSE</EnumText>
 							</Value>
@@ -17001,14 +16960,6 @@
 								<Value>0</Value>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Yc2.DiscreteTimeIntegrator_gainval</Name>
-								<Value>0.001</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Yc2.DiscreteTimeIntegrator_IC</Name>
-								<Value>0</Value>
-							</Value>
-							<Value>
 								<Name>ModelParameters.Yc2.Gain_Gain</Name>
 								<Value>0</Value>
 							</Value>
@@ -17018,14 +16969,6 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Yc1.x_Y0[1]</Name>
-								<Value>0</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Yc1.DiscreteTimeIntegrator_gainval</Name>
-								<Value>0.001</Value>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Yc1.DiscreteTimeIntegrator_IC</Name>
 								<Value>0</Value>
 							</Value>
 							<Value>

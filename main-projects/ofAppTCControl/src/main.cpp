@@ -18,7 +18,7 @@ int main( ){
 	ofWindowMode wmode = ofWindowMode::OF_WINDOW;
 	if (glfwInit()) {
 		glfwGetMonitors(&monitorCount);
-		wmode = (monitorCount > 1) ? ofWindowMode::OF_FULLSCREEN : ofWindowMode::OF_WINDOW;
+		wmode = (monitorCount > 2) ? ofWindowMode::OF_FULLSCREEN : ofWindowMode::OF_WINDOW;
 	}
 
 	//
@@ -42,7 +42,7 @@ int main( ){
 	// display1Window
 	//
 	ofGLFWWindowSettings settings2;
-	settings2.setPosition(ofVec2f(-2560+50, 50));
+	settings2.setPosition(ofVec2f(0*-2560+50, 50));
 	settings2.windowMode = wmode;
 	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
 	
@@ -50,7 +50,8 @@ int main( ){
 	// display2Window
 	//
 	ofGLFWWindowSettings settings3;
-	settings3.setPosition(ofVec2f(-5120+50, 50));
+	//settings3.setPosition(ofVec2f(0*-5120+50, 50));
+	settings3.setPosition(ofVec2f(0-2560 + 50, 50));
 	settings3.windowMode = wmode;
 	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings3);
 
