@@ -58,7 +58,7 @@ struct trialData {
 	double connectionStiffness = 0.0;		// default: 0.0 (no connection stiffness)
 	double connectionDamping = 0.0;			// default: 0.0
 	int condition = 0;						// condition type
-	double trialDuration = -1.0;			// - 1.0 seconds: define trialDone in Simulink
+	double trialDuration = 0.0;			// - 1.0 seconds: define trialDone in Simulink
 	double breakDuration = -1.0;			// pause after each trial
 	double trialRandomization = 0.0;		// random start time
 };

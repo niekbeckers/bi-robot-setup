@@ -67,6 +67,7 @@ class ofAppMain : public ofBaseApp{
 
 		float _timeRefreshCheck = 1.0f; // 2 second refresh
 		float _timeCheck;
+		double _trialTime;
 
 		bool _loggerStartedDueExperiment = false;
 
@@ -167,4 +168,5 @@ class ofAppMain : public ofBaseApp{
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 
 		string DecodeBROSError(int32_t e, int brosID);
+		inline double getTrialTime() { return _trialTime; };
 };

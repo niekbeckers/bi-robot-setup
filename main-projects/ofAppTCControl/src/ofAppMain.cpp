@@ -84,9 +84,9 @@ void ofAppMain::update(){
 	}
 	*/
 
-	double trialTime;
-	_tcClientEvent->read(_lHdlVar_TrialTime, &trialTime, sizeof(trialTime));
-	lblTrialTime = ofToString(trialTime, 1);
+	
+	_tcClientEvent->read(_lHdlVar_TrialTime, &_trialTime, sizeof(_trialTime));
+	lblTrialTime = ofToString(_trialTime, 1);
 
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {

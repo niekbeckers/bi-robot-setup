@@ -91,11 +91,30 @@ void ofAppDisplay::draw()
 	//ofTranslate(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 	
+	
 	if (drawTask) {
 		
-		//ofPoint p = ofPoint(100, 0);
-		//ofPoint p2 = ofPoint(-100, 0);
-		//float s = 24.0;
+
+		// countdown for task time
+		if (experimentApp->experimentIsLoaded()) {
+			ofPushMatrix();
+			// translate back to top-left corner
+			ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
+			float trialDuration = experimentApp->getCurrentTrial().trialDuration;
+			float trialTime = (float)mainApp->getTrialTime();
+			if (trialDuration > 0.0) {
+				float r = 1.0 - ((trialDuration - trialTime) / trialDuration);
+				ofSetLineWidth(6.0);
+				ofSetColor(255, 255, 255);
+				ofDrawLine(0.0, 0.0, r*ofGetWidth(), 0.0);
+			}
+			ofPopMatrix();
+		}
+
+
+		
+
+		
 
 		switch (displayType) {
 		case DisplayType::PURSUIT_2D :
@@ -134,12 +153,6 @@ void ofAppDisplay::draw()
 			cursor.setPosition(ofPoint(cursor.getPosition()[0], 0.0)); // note the negation!
 			cursor.update();
 			cursor.draw();
-
-			// draw target
-			//target.draw();
-
-			// draw cursor
-			//cursor.draw();
 
 			ofPopMatrix();
 			break;

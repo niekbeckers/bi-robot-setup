@@ -54,10 +54,10 @@ int main( ){
 	settings3.windowMode = wmode;
 	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings3);
 
+	shared_ptr<ofAppMain> mainApp(new ofAppMain);
+	shared_ptr<ofAppExperiment> experimentApp(new ofAppExperiment);
 	shared_ptr<ofAppDisplay> display1App(new ofAppDisplay);
 	shared_ptr<ofAppDisplay> display2App(new ofAppDisplay);
-	shared_ptr<ofAppExperiment> experimentApp(new ofAppExperiment);
-	shared_ptr<ofAppMain> mainApp(new ofAppMain);
 	
 	// give pointers to classes
 	mainApp->display1 = display1App;
@@ -68,11 +68,18 @@ int main( ){
 	experimentApp->display1 = display1App;
 	experimentApp->display2 = display2App;
 
+	display1App->mainApp = mainApp;
+	display1App->experimentApp = experimentApp;
+	display2App->mainApp = mainApp;
+	display2App->experimentApp = experimentApp;
+
+
 	// run of apps
 	ofRunApp(mainWindow, mainApp);
+	ofRunApp(experimentWindow, experimentApp);
 	ofRunApp(display1Window, display1App);
 	ofRunApp(display2Window, display2App);
-	ofRunApp(experimentWindow, experimentApp);
+	
 
 	ofRunMainLoop();
 

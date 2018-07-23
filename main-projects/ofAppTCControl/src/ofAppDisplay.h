@@ -6,6 +6,11 @@
 #include "ofUtils.h"
 #include "parentParticle.h"
 #include "myCommon.h"
+#include "ofAppMain.h"
+#include "ofAppExperiment.h"
+
+class ofAppMain;
+class ofAppExperiment;
 
 class ofAppDisplay : public ofBaseApp
 {
@@ -55,6 +60,9 @@ class ofAppDisplay : public ofBaseApp
 		parentParticle virtualpartner;
 
 		DisplayType displayType = DisplayType::PURSUIT_2D;
+
+		shared_ptr<ofAppMain> mainApp;
+		shared_ptr<ofAppExperiment> experimentApp;
 
 		//
 		// openFrameworks
