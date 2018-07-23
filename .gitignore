@@ -28,7 +28,6 @@ ftsensordebug.m
 *.iobj
 *.ipdb
 =======
-*.ipdb
-*.iobj
 >>>>>>> origin/develop-of10.0
 /openFrameworks/
+*.exe.lastcodeanalysissucceeded
