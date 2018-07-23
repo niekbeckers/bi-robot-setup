@@ -177,13 +177,13 @@ void parentParticle::draw()
 			break;
 
 		case PARTICLESHAPE_CROSSHAIR:
-			ofSetLineWidth(6.0);
-			ofSetCircleResolution(200);
+			ofSetLineWidth(5.0);
+			ofSetCircleResolution(120);
 			ofDrawCircle(_pos, radius);
-			ofDrawLine(_pos + ofPoint(0.0, -radius), _pos + ofPoint(0.0, -radius - 0.75*radius));
-			ofDrawLine(_pos + ofPoint(0.0, radius), _pos + ofPoint(0.0, radius + 0.75*radius));
-			ofDrawLine(_pos + ofPoint(-radius, 0.0), _pos + ofPoint(-radius - 0.75*radius, 0.0));
-			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos + ofPoint(radius + 0.75*radius, 0.0));
+			ofDrawLine(_pos + ofPoint(0.0, -radius), _pos + ofPoint(0.0, -radius - 0.5*radius));
+			ofDrawLine(_pos + ofPoint(0.0, radius), _pos + ofPoint(0.0, radius + 0.5*radius));
+			ofDrawLine(_pos + ofPoint(-radius, 0.0), _pos + ofPoint(-radius - 0.5*radius, 0.0));
+			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos + ofPoint(radius + 0.5*radius, 0.0));
 			ofFill();
 			ofDrawCircle(_pos, 4.0);
 			break;
