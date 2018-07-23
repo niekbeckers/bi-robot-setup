@@ -167,15 +167,15 @@ void ofAppDisplay::draw()
 		case DisplayType::COMPENSATORY_2D:
 			ofPushMatrix();
 
-			// draw target at (0,0)
-			target.setPosition(ofPoint(0.0, 0.0));
-			target.update();
-			target.draw();
-
 			// draw cursor (error)
 			cursor.setPosition(-(target.getPosition() - cursor.getPosition())); // note the negation!
 			cursor.update();
 			cursor.draw();
+
+			// draw target at (0,0)
+			target.setPosition(ofPoint(0.0, 0.0));
+			target.update();
+			target.draw();
 
 			ofPopMatrix();
 			break;
