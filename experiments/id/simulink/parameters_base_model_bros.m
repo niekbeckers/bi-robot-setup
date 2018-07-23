@@ -11,7 +11,7 @@ Lb = 0.07;                      % base width [m]
 
 % load target signal data
 % load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
-load('forcingfunction_data_id_2d_var6.mat');
+load('forcingfunction_data_id_2d_var6_1.mat');
 
 % force field
 FFMatrix = -[0 0; 0 0]; % added minus due to coordinate system flip (y pointing up)
