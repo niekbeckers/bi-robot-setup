@@ -4777,14 +4777,17 @@
 				<Cpu CpuId="5"/>
 				<Cpu CpuId="6"/>
 				<Cpu CpuId="7"/>
-				<Cpu CpuId="24"/>
-				<Cpu CpuId="25"/>
+				<Cpu CpuId="24" BaseTime="5000"/>
+				<Cpu CpuId="25" BaseTime="5000"/>
 				<Cpu CpuId="26"/>
 				<Cpu CpuId="27"/>
 			</Settings>
 			<Tasks>
 				<Task Id="2" Priority="1" CycleTime="10000" AmsPort="350" Affinity="#x01000000">
 					<Name>Task 1</Name>
+				</Task>
+				<Task Id="3" Priority="2" CycleTime="10000" AmsPort="351" Affinity="#x02000000" AdtTasks="true">
+					<Name>Task 2</Name>
 				</Task>
 			</Tasks>
 			<Modules>
@@ -17223,9 +17226,9 @@
 							<Context>
 								<Id>0</Id>
 								<ManualConfig>
-									<OTCID>#x02010020</OTCID>
+									<OTCID>#x02010030</OTCID>
 								</ManualConfig>
-								<Priority>1</Priority>
+								<Priority>2</Priority>
 								<CycleTime>1000000</CycleTime>
 							</Context>
 						</Contexts>
@@ -17355,7 +17358,7 @@
 								<Name>CyclicCaller</Name>
 								<Type GUID="{0300001E-0000-0000-E000-000000000064}">ITcCyclicCaller</Type>
 								<Default>
-									<OTCID>#x02010020</OTCID>
+									<OTCID>#x02010030</OTCID>
 								</Default>
 							</InterfacePointer>
 						</InterfacePointers>
@@ -17414,7 +17417,7 @@
 						<InterfacePointerValues>
 							<Value>
 								<Name>CyclicCaller</Name>
-								<OTCID>#x02010020</OTCID>
+								<OTCID>#x02010030</OTCID>
 							</Value>
 						</InterfacePointerValues>
 					</TmcDesc>

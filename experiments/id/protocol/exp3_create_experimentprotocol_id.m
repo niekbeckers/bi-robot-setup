@@ -13,13 +13,13 @@ expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
 protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_2d_compensatory_' expID];
+filename = ['protocol_pilot_2d_pursuit_' expID];
 
 % create (main) struct
 s = struct;
 
 % display type (pursuit or compensatory)
-s.experiment.displayType = 3; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory, 3 = compensatory_2d
+s.experiment.displayType = 0; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory, 3 = compensatory_2d
 s.experiment.cursorShape = 3; % 0 = circle, 1 = line, 2 = cross
 
 
@@ -40,7 +40,7 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [3*ones(2,1); 3*ones(11,1)];
+condition = [3*ones(11,1)];
     
 numTrials = numel(condition); % example
 breakDuration = 15*ones(numTrials,1);
@@ -62,7 +62,7 @@ elseif strcmpi(groupType,'interaction')
 end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:2 3:13};
+divTrials = {1:11};
 
 
 %% randomization
