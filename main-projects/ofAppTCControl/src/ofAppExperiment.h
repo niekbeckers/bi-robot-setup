@@ -121,6 +121,7 @@ private:
 	double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
 	double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }; // approximate mean-squared error
 	double _trialMovementTimeSec = 0.0;
+	
 
 	ofProtocolReader _protocol;
 	experimentSettings _settings;

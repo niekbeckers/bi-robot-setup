@@ -96,10 +96,10 @@ void ofAppDisplay::draw()
 		
 
 		// countdown for task time
-		if (experimentApp->experimentIsLoaded()) {
+		if (_drawTrialTimeCountdown && experimentApp->experimentIsLoaded()) {
 			ofPushMatrix();
 			// translate back to top-left corner
-			ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
+			ofTranslate(-ofGetWidth() / 2, ofGetHeight() / 2);
 			float trialDuration = experimentApp->getCurrentTrial().trialDuration;
 			float trialTime = (float)mainApp->getTrialTime();
 			if (trialDuration > 0.0) {
