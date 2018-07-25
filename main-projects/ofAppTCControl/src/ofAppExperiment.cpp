@@ -7,7 +7,7 @@ void ofAppExperiment::setup()
 {
 	
 	ofSetVerticalSync(false);
-	//ofSetFrameRate(60);	
+	ofSetFrameRate(120);	
 
 
 	setupTCADS();	// setup TwinCAT ADS
