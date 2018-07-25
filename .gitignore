@@ -27,3 +27,4 @@ ftsensordebug.m
 *.ipdb
 *.iobj
 /openFrameworks/
+*.exe.lastcodeanalysissucceeded
