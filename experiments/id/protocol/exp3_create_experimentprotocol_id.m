@@ -7,8 +7,8 @@ clear all; close all; clc;
 pairNr = 104;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
-Ks = 125;
-Ds = 5;
+Ks = 104;
+Ds = 7;
 expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
