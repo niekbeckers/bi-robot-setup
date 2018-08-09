@@ -14,8 +14,8 @@ void ofAppMain::setup(){
 	ofLogToConsole();
 
 	// matlab on heroc thread
-	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
-	_herocMATLABThread = new SystemCmdThreaded(cmd);
+	//string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
+	//_herocMATLABThread = new SystemCmdThreaded(cmd);
 
 	// set up window
 	ofBackground(ofColor::blueSteel);
@@ -114,10 +114,10 @@ void ofAppMain::update(){
 		updateADSDataGUI();
 
 		// check if Heroc thread is running
-		if (!_herocMATLABThread->isThreadRunning()) {
-			if (_btnStartStopVPMATLAB)
-				_btnStartStopVPMATLAB = false;
-		}
+		//if (!_herocMATLABThread->isThreadRunning()) {
+		//	if (_btnStartStopVPMATLAB)
+		//		_btnStartStopVPMATLAB = false;
+		//}
 	}	
 }
 
@@ -519,9 +519,11 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 //--------------------------------------------------------------
 void ofAppMain::startStopVPMATLAB(bool & value)
 {
+	return; 
+
 	if (value) {
 		// send request to HEROC computer
-		_herocMATLABThread->startThread();
+		//_herocMATLABThread->startThread();
 
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending request to start matlabVirtualPartner on HeRoC";
 
@@ -537,8 +539,8 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 
 		// copy to HeRoC pc
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending terminate request to HeRoC";
-		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
-		int i = system(cmd.c_str());
+		//string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+		//int i = system(cmd.c_str());
 		
 		// clean up
 		remove(xmlfilename.c_str());

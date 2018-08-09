@@ -107,7 +107,7 @@ class ofAppMain : public ofBaseApp{
 		double _VP1Data[4] = { 0.0,0.0,0.0,0.0 };
 		double _VP2Data[4] = { 0.0,0.0,0.0,0.0 };
 
-		SystemCmdThreaded *_herocMATLABThread;
+		//SystemCmdThreaded *_herocMATLABThread;
 
 		//
 		// custom
