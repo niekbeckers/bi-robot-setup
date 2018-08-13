@@ -29,7 +29,7 @@ fc = 60;
 % clear FM1
 
 BROS1.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
-BROS1.HomeLocationSize = 0.0025;
+BROS1.HomeLocationSize = 0.002;
 BROS1.NominalPositionOpSpace = [0;0.25];
 
 % FM1.DynModParams = [1.597109e-03  1.580786e-03  7.028260e-02  7.988736e-02 0*-9.954503e-04  1.006366e-01 0*-1.994173e-03]';                     % dynamic model parameters (I1,I2,mehat,Fs1,Fv1,Fs2,Fv2)
@@ -77,7 +77,7 @@ BROS1.FTSensor.ThresholdDiffForceSensorSpike = 5;%0.05*4; % 0.05 is based on dif
 % clear FM2
 
 BROS2.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
-BROS2.HomeLocationSize = 0.0025;
+BROS2.HomeLocationSize = 0.002;
 BROS2.NominalPositionOpSpace = [0;0.25];
 
 
