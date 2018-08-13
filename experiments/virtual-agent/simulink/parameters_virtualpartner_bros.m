@@ -25,7 +25,7 @@ fc2 = 0.2;
 [NoiseFiltB1,NoiseFiltA1] = butter(3, fc1/fn);
 [NoiseFiltB2,NoiseFiltA2] = butter(1, fc2/fn, 'high');
 
-% load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
+load('simin_target.mat'); %%% FOR DEBUG ONLY, REMOVE AFTER TESTING IS DONE!!!
 
 %% virtual partner dynamics
 m_vp = diag([0.3 0.3]); 

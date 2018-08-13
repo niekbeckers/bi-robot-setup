@@ -13,7 +13,6 @@ tcAdsClient::tcAdsClient(USHORT port)
 
 	// Select Port: TwinCAT 3 PLC
 	_pAddr->port = port;
-
 }
 
 //--------------------------------------------------------------
