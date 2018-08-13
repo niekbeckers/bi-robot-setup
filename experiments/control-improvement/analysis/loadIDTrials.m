@@ -13,7 +13,7 @@ fldnms = fieldnames(data);
 for ii = 1:length(idxtrialrunning)
     idxtrial = trialrunning(idxtrialrunning(ii),:);
     idx = idxtrial(1,2):idxtrial(1,3);
-    idx = idx(end-20000+1:end);
+    idx = idx(end-12000+1:end);
     
     for jj = 1:length(fldnms)
         trialdata.trial(ii).(fldnms{jj}) = data.(fldnms{jj})(idx,:);
