@@ -17,3 +17,4 @@ slprj/
 *.asv
 *.m~
 .sync
+/debug/
