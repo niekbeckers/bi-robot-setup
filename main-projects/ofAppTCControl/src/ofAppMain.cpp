@@ -335,7 +335,7 @@ void ofAppMain::setupGUI()
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
-	//_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
+	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
 	//_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
 
 	
