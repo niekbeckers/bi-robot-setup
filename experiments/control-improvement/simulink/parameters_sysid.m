@@ -8,7 +8,7 @@ Lf = 0.238;                     % forearm length [m]
 Lu = 0.153;                     % upperarm length [m]
 Lb = 0.07;                      % base width [m]
 
-load('data_inputsignal.mat');
+load('data_inputsignal_100Hz.mat');
 
 % butterworth filter (filtering velocity signal) 
 fc = 60;
@@ -17,7 +17,7 @@ fc = 60;
 %% RobotStruct_BROS3
 % clear FM1
 
-BROS3.HomeLocationOpSpace = [0;0.25];                     % home location (homing) [m]
+BROS3.HomeLocationOpSpace = [0;0.25];                     % home   location (homing) [m]
 BROS3.HomeLocationSize = 0.0025;
 BROS3.NominalPositionOpSpace = [0;0.25];
 
@@ -28,7 +28,7 @@ BROS3.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per r
 BROS3.Actuator1.AbsEncoderOffset = 45203/BROS3.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);                     % offset absolute encoder [rad]
 BROS3.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
-BROS3.Actuator1.FOAWNoiseLevel = 9e-4;                  % Noise level for FOAW algorithm
+% BROS3.Actuator1.FOAWNoiseLevel = 9e-4;                  % Noise level for FOAW algorithm
 BROS3.Actuator1.transmissionRatio = 7.34608;               % transmission ratio (estimated)[-]
 BROS3.Actuator1.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 BROS3.Actuator1.drivePeakCurrent = 20;                    % drive peak current [A]
@@ -41,10 +41,10 @@ BROS3.Actuator1.FilterButterB = Bbutter;
 
 % actuator 2 data
 BROS3.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-BROS3.Actuator2.AbsEncoderOffset = 32194/BROS3.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
+BROS3.Actuator2.AbsEncoderOffset = 32153/BROS3.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
 BROS3.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
-BROS3.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
+% BROS3.Actuator2.FOAWNoiseLevel = 9e-4; % Noise level for FOAW algorithm
 BROS3.Actuator2.transmissionRatio = 7.42045;               % transmission ratio (estimated) [-]
 BROS3.Actuator2.motorTorqueConstant = 84.86*1e-3;         % motor torque constant [Nm/A]
 BROS3.Actuator2.drivePeakCurrent = 20;                    % drive peak current [A]
