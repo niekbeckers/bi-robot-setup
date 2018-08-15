@@ -1,7 +1,7 @@
 %% loadIDTrials
 clear all; close all; clc;
-runnr = 15;
-load(['data_x_nom_run' num2str(runnr) '.mat']);
+runnr = 16;
+load(['data_xy_nom_run' num2str(runnr) '.mat']);
 
 % select ID trials
 trialrunning = findseq(double(data.ExpTrialRunning));
@@ -21,4 +21,4 @@ for ii = 1:length(idxtrialrunning)
     
 end
 
-save(['data_sysid_x_nom_run' num2str(runnr) '.mat'],'trialdata');
+save(['data_sysid_xy_nom_run' num2str(runnr) '.mat'],'trialdata');

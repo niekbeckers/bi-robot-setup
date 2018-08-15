@@ -1,14 +1,14 @@
 % clear all; close all; clc;
 
-load('data_sysid_x_nom_run15.mat');
-load('data_inputsignal_100Hz.mat');
+load('data_sysid_xy_nom_run16.mat');
+load('data_inputsignal_admittance_100Hz.mat');
 
-T = 12;
+T = 30;
 fs = 1000;
 dt = 1/fs;
 fn = fs/2;
 
-idx_trials = 7:12;%length(trialdata.trial);
+idx_trials = 5:6;%length(trialdata.trial);
 
 figure('color','w');
 for ii = 1:length(idx_trials)
@@ -31,7 +31,7 @@ for ii = 1:length(idx_trials)
 
     
     % loglog(w/(2*pi),abs(H),'-','color', [0.8 0.8 0.8 0.5]); hold on;
-    loglog(w(n)/(2*pi),abs(H1(n)),'.-'); hold on;
+    loglog(w(ny)/(2*pi),abs(H1(ny)),'.-'); hold on;
 % loglog(w(n)/(2*pi),abs(H2(n)),'.-');
 end
 
