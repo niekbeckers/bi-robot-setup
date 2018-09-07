@@ -990,7 +990,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{A253390E-EEA3-5872-D730-2153E154E6A2}">P_model_base_bros_T</Name>
+			<Name GUID="{EA3C092C-4940-D54A-38F1-864D5218D6B6}">P_model_base_bros_T</Name>
 			<BitSize>46016</BitSize>
 			<SubItem>
 				<Name>BROS1</Name>
@@ -3417,7 +3417,7 @@
 				<BitOffs>39768</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_h</Name>
+				<Name>Gain_Gain_c</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>39776</BitOffs>
@@ -3508,6 +3508,8 @@
 			</SubItem>
 			<Hides>
 				<Hide GUID="{D43861DE-2BC3-B014-53E5-D643765E0B11}"/>
+				<Hide GUID="{77893C66-9305-7E5C-C304-667B7241099B}"/>
+				<Hide GUID="{A253390E-EEA3-5872-D730-2153E154E6A2}"/>
 				<Hide GUID="{2DECC9EE-8B10-C03C-A652-BB72C8213049}"/>
 				<Hide GUID="{6537879E-C656-63F7-2D0C-8BD9F13DC1B7}"/>
 				<Hide GUID="{23C211D8-E8E3-E93A-B3DE-3B7D9A33C87E}"/>
@@ -4816,9 +4818,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{BE25ACED-099B-4769-8A85-2BE733493052}">
+					<TmcDesc GUID="{EC15785E-859B-4077-B86C-FDE5ABD445D3}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{BE25ACED-099B-4769-8A85-2BE733493052}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{EC15785E-859B-4077-B86C-FDE5ABD445D3}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -4940,7 +4942,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>46016</BitSize>
-								<BaseType GUID="{A253390E-EEA3-5872-D730-2153E154E6A2}">P_model_base_bros_T</BaseType>
+								<BaseType GUID="{EA3C092C-4940-D54A-38F1-864D5218D6B6}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -11992,7 +11994,7 @@
 									<BitOffs>39768</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_h</Name>
+									<Name>Gain_Gain_c</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x8300136c</PTCID>
@@ -13904,7 +13906,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.HomeLocationSize</Name>
-								<Value>0.0025</Value>
+								<Value>0.002</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.NominalPositionOpSpace[0]</Name>
@@ -14120,7 +14122,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS2.HomeLocationSize</Name>
-								<Value>0.0025</Value>
+								<Value>0.002</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS2.NominalPositionOpSpace[0]</Name>
@@ -16831,7 +16833,7 @@
 								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_h</Name>
+								<Name>ModelParameters.Gain_Gain_c</Name>
 								<Value>128</Value>
 							</Value>
 							<Value>

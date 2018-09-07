@@ -5,9 +5,9 @@
 clear all; close all; clc;
 
 pairNr = 99;
-groupType = 'solo'; % solo or interaction
-groupTypeNr = 0; % 0 = solo, 1 = interaction
-Ks = 104;
+groupType = 'interaction'; % solo or interaction
+groupTypeNr = 1; % 0 = solo, 1 = interaction
+Ks = 107;
 Ds = 7;
 expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
@@ -20,7 +20,7 @@ s = struct;
 
 % display type (pursuit or compensatory)
 s.experiment.displayType = 0; % 0 = pursuit, 1 = pursuit_1d, 2 = compensatory, 3 = compensatory_2d
-s.experiment.cursorShape = 3; % 0 = circle, 1 = line, 2 = cross
+s.experiment.cursorShape = 3; % 0 = circle, 1 = line, 2 = cross, 3 - crosshair
 
 
 % indicate which type of trial feedback
@@ -40,10 +40,10 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [3*ones(11,1)];
+condition = [3*ones(8,1); 3*ones(8,1); 3*ones(8,1); 3*ones(8,1);];
     
 numTrials = numel(condition); % example
-breakDuration = 15*ones(numTrials,1);
+breakDuration = 30*ones(numTrials,1);
 trialDuration = 90*ones(numTrials,1);
 
 % connection
@@ -52,9 +52,8 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    connected = zeros(12,1); connected(2:2:end) = 1;
-    connected = repmat(connected,4,1);
-
+    connected = [zeros(8,1); [1;0;1;0;1;0;1;0];[1;0;1;0;1;0;1;0];ones(8,1)];
+%     connected = repmat(connected,4,1);
 %     connected1 = zeros(42,1); connected1(2:2:end) = 1;
 %     connected = [connected1;connected;connected];
     connectionStiffness = connected*Ks;
@@ -62,7 +61,7 @@ elseif strcmpi(groupType,'interaction')
 end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:11};
+divTrials = {1:8; 9:16; 17:24; 25:32};
 
 
 %% randomization
