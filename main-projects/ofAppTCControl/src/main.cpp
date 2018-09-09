@@ -32,8 +32,9 @@ int main( ){
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings0);
 
 	ofGLFWWindowSettings settings1;
-	settings1.setPosition(ofVec2f(50, 50));
-	settings1.visible = false;
+	settings1.setPosition(ofVec2f(1200, 50));
+	settings1.visible = true;
+	settings1.setSize(200,60);
 	settings1.title = "Experiment";
 	settings1.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings1);
@@ -42,7 +43,7 @@ int main( ){
 	// display1Window
 	//
 	ofGLFWWindowSettings settings2;
-	settings2.setPosition(ofVec2f(-2560+50, 50));
+	//settings2.setPosition(ofVec2f(-2560+50, 50));
 	settings2.windowMode = wmode;
 	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
 	
@@ -76,7 +77,7 @@ int main( ){
 
 	// run of apps
 	ofRunApp(mainWindow, mainApp);
-	ofRunApp(experimentWindow, experimentApp);
+	ofRunApp(experimentWindow,experimentApp);
 	ofRunApp(display1Window, display1App);
 	ofRunApp(display2Window, display2App);
 	
