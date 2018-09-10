@@ -133,6 +133,10 @@ private:
 	int _instructionMessageInterval = 6;
 	string _instructionMessage = ""; // "Great job so far!\n\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
 
+	// performance log vectors 
+	vector<float> _trackingPerformanceLog_BROS1, _trackingPerformanceLog_BROS2;
+
+
 	//
 	// functions
 	//

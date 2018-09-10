@@ -43,7 +43,7 @@ s.experiment.activeBROSID.id1 = 2;
 condition = [3*ones(10,1); 3*ones(10,1); 3*ones(10,1); 3*ones(10,1);];
     
 numTrials = numel(condition); % example
-breakDuration = 28*ones(numTrials,1);
+breakDuration = 30*ones(numTrials,1);
 trialDuration = 72*ones(numTrials,1);
 
 % connection

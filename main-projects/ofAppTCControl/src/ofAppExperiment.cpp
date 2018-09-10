@@ -432,6 +432,9 @@ void ofAppExperiment::esmNewBlock()
 	_trialPerformancePrev[0] = 0.0;
 	_trialPerformancePrev[1] = 0.0;
 
+	_trackingPerformanceLog_BROS1.clear();
+	_trackingPerformanceLog_BROS2.clear();
+
 	// start first trial
 	setExperimentState(ExperimentState::NEWTRIAL);
 }
@@ -610,6 +613,7 @@ void ofAppExperiment::esmTrialDone()
 	mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
 	setExperimentState(ExperimentState::TRIALFEEDBACK);
 
+	/*
 	// check if we need to fit the virtual partner
 	if (_currentTrial.fitVirtualPartner) {
 		// pause data logger before doing optimization
@@ -624,6 +628,7 @@ void ofAppExperiment::esmTrialDone()
 		partner.runVPOptimization(settings);
 		_runningModelFit = true;
 	}
+	*/
 }
 
 //--------------------------------------------------------------
@@ -666,6 +671,15 @@ void ofAppExperiment::esmTrialFeedback()
 
 			// visual reward
 			showVisualReward();
+
+			// add performance to performance log, print to console
+			_trackingPerformanceLog_BROS1.push_back(_trialPerformance[0]);
+			_trackingPerformanceLog_BROS2.push_back(_trialPerformance[1]);
+
+			ofLogNotice() << "Tracking task performance log:";
+			ofLogNotice() << "BROS 1 (Green) = " << ofToString(_trackingPerformanceLog_BROS1);
+			ofLogNotice() << "BROS 2 (Blue)  = " << ofToString(_trackingPerformanceLog_BROS2);
+
 
 			break;
 		case TrialFeedback::MT:

@@ -21,6 +21,15 @@ int main( ){
 		wmode = (monitorCount > 2) ? ofWindowMode::OF_FULLSCREEN : ofWindowMode::OF_WINDOW;
 	}
 
+
+	ofGLFWWindowSettings settings1;
+	settings1.setPosition(ofVec2f(50, 50));
+	settings1.visible = true;
+	settings1.setSize(200, 60);
+	settings1.title = "Experiment";
+	settings1.windowMode = OF_WINDOW;
+	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings1);
+
 	//
 	// mainWindow
 	//
@@ -31,13 +40,7 @@ int main( ){
 	settings0.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings0);
 
-	ofGLFWWindowSettings settings1;
-	settings1.setPosition(ofVec2f(1200, 50));
-	settings1.visible = true;
-	settings1.setSize(200,60);
-	settings1.title = "Experiment";
-	settings1.windowMode = OF_WINDOW;
-	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings1);
+	
 
 	//
 	// display1Window
@@ -76,8 +79,8 @@ int main( ){
 
 
 	// run of apps
+	ofRunApp(experimentWindow, experimentApp);
 	ofRunApp(mainWindow, mainApp);
-	ofRunApp(experimentWindow,experimentApp);
 	ofRunApp(display1Window, display1App);
 	ofRunApp(display2Window, display2App);
 	
