@@ -44,7 +44,7 @@ condition = [3*ones(10,1); 3*ones(10,1); 3*ones(10,1); 3*ones(10,1);];
     
 numTrials = numel(condition); % example
 breakDuration = 30*ones(numTrials,1);
-trialDuration = 72*ones(numTrials,1);
+trialDuration = 75*ones(numTrials,1);
 
 % connection
 if strcmpi(groupType,'solo')
