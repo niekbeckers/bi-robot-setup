@@ -46,7 +46,7 @@ int main( ){
 	// display1Window
 	//
 	ofGLFWWindowSettings settings2;
-	//settings2.setPosition(ofVec2f(-2560+50, 50));
+	settings2.setPosition(ofVec2f(-2560+50, 50));
 	settings2.windowMode = wmode;
 	shared_ptr<ofAppBaseWindow> display1Window = ofCreateWindow(settings2);
 	
