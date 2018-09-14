@@ -642,7 +642,9 @@ void ofAppExperiment::esmTrialFeedback()
 
 		string msg1 = "TRIAL DONE\n\n";
 		string msg2 = "TRIAL DONE\n\n";
-
+#ifdef _WIN32 || _WIN64
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
 
 		// depending on feedback type, adjust method
 		switch (_settings.trialFeedbackType) {
@@ -675,11 +677,15 @@ void ofAppExperiment::esmTrialFeedback()
 			// add performance to performance log, print to console
 			_trackingPerformanceLog_BROS1.push_back(_trialPerformance[0]);
 			_trackingPerformanceLog_BROS2.push_back(_trialPerformance[1]);
-
-			ofLogNotice() << "Tracking task performance log:";
-			ofLogNotice() << "BROS 1 (Green) = " << ofToString(_trackingPerformanceLog_BROS1);
-			ofLogNotice() << "BROS 2 (Blue)  = " << ofToString(_trackingPerformanceLog_BROS2);
-
+#ifdef _WIN32 || _WIN64
+			SetConsoleTextAttribute(hConsole, 3); // set color WINDOWS ONLY
+#endif
+			cout << "Tracking task performance log:" << endl;
+			cout << "BROS 1 (Green) = " << ofToString(_trackingPerformanceLog_BROS1) << endl;
+			cout << "BROS 2 (Blue)  = " << ofToString(_trackingPerformanceLog_BROS2) << endl;
+#ifdef _WIN32 || _WIN64
+			SetConsoleTextAttribute(hConsole, 15); // set color back
+#endif
 
 			break;
 		case TrialFeedback::MT:
