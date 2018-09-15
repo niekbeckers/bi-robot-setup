@@ -4,7 +4,7 @@
 
 clear all; close all; clc;
 
-pairNr = 99;
+pairNr = 0;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 107;
