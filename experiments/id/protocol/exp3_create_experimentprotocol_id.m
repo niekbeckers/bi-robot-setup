@@ -8,7 +8,7 @@ pairNr = 0;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 107;
-Ds = 7;
+Ds = 6;
 expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
 
 % filename
@@ -41,6 +41,7 @@ s.experiment.activeBROSID.id1 = 2;
 
 % experiment settings
 condition = [3*ones(10,1); 3*ones(10,1); 3*ones(10,1); 3*ones(10,1);];
+%     condition = [3*ones(10,1)];
     
 numTrials = numel(condition); % example
 breakDuration = 30*ones(numTrials,1);
@@ -53,6 +54,7 @@ if strcmpi(groupType,'solo')
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
     connected = [zeros(10,1); [1;0;1;0;1;0;1;0;1;0];[1;0;1;0;1;0;1;0;1;0];ones(10,1)];
+% connected = [1;0;1;0;1;0;1;0;1;0];
 %     connected = repmat(connected,4,1);
 %     connected1 = zeros(42,1); connected1(2:2:end) = 1;
 %     connected = [connected1;connected;connected];
