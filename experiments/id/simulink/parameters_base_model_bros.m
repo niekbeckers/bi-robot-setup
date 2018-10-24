@@ -34,7 +34,7 @@ BROS1.DynModParams = [9.446018e-04  5.536255e-04  1.102026e-01  1.175426e-01 -6.
 % actuator 1 data
 BROS1.Actuator1.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
 % BROS1.Actuator1.AbsEncoderOffset = 54769/BROS1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153);
-BROS1.Actuator1.AbsEncoderOffset = 54726/BROS1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153); % offset absolute encoder [rad]
+BROS1.Actuator1.AbsEncoderOffset = 54736/BROS1.Actuator1.JointAbsoluteEncoderCounts_rev*2*pi + asin(8/153); % offset absolute encoder [rad]
 BROS1.Actuator1.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator1.FOAWNoiseLevel = 4*2*pi/FM1.Actuator1.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm
 BROS1.Actuator1.FOAWNoiseLevel = 9e-4;                  % Noise level for FOAW algorithm
@@ -50,7 +50,7 @@ BROS1.Actuator1.FilterButterB = Bbutter;
 
 % actuator 2 data
 BROS1.Actuator2.JointAbsoluteEncoderCounts_rev = 2^16;    % encoder counts per revolution [counts]
-BROS1.Actuator2.AbsEncoderOffset = 44469/BROS1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
+BROS1.Actuator2.AbsEncoderOffset = 46465`/BROS1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);                     % offset absolute encoder [rad]
 % BROS1.Actuator2.AbsEncoderOffset = 44338/BROS1.Actuator2.JointAbsoluteEncoderCounts_rev*2*pi + pi - asin(8/153);
 BROS1.Actuator2.MotorEncoderCounts_rev = 2^12;            % motor encoder resolution [counts] (1024 lines & X4: 4096 counts)
 % FM1.Actuator2.FOAWNoiseLevel = 4*2*pi/FM1.Actuator2.JointAbsoluteEncoderCounts_rev; % Noise level for FOAW algorithm

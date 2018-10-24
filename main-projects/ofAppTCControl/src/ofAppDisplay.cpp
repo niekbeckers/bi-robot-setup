@@ -121,11 +121,11 @@ void ofAppDisplay::draw()
 			ofPushMatrix();
 			
 			// draw workspace boundary
-			//ofNoFill();
-			//ofSetLineWidth(4);
-			//ofSetColor(clrWSBoundary);
-			//ofSetCircleResolution(240);
-			//ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
+			ofNoFill();
+			ofSetLineWidth(4);
+			ofSetColor(clrWSBoundary);
+			ofSetCircleResolution(240);
+			ofDrawEllipse(0.0, 0.0, 2.0*(*pData).wsSemiMajor*dots_per_m, 2.0*(*pData).wsSemiMinor*dots_per_m);
 
 			// draw target
 			target.draw();

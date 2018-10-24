@@ -68,9 +68,18 @@ for ii = 1:length(trialnumbers)
     % select the data per trial
     for jj = 1:length(vars)
         try
-%             [tres,datares]= resampleTCdata(t,alldata.(vars{jj})(idx,:),dt);
-            data.trial(ii).(vars{jj}) = alldata.(vars{jj})(idx,:);
-            data.trial(ii).t = t; 
+            [tres,datares]= resampleTCdata(t,alldata.(vars{jj})(idx,:),dt);
+            
+%             data.trial(ii).(vars{jj}) = alldata.(vars{jj})(idx,:);
+%             data.trial(ii).t = t; 
+            data.trial(ii).(vars{jj}) = datares;
+            data.trial(ii).t = tres; 
+            
+%             figure
+%             plot(tres,datares); hold on;
+%             plot(t,alldata.(vars{jj})(idx,:));
+%             keyboard
+            
         catch me
             disp(getReport( me, 'extended', 'hyperlinks', 'on' ));
         end
