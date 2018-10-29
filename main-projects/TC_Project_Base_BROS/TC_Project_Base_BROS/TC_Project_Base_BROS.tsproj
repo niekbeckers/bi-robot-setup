@@ -959,7 +959,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{FEE4C89F-C25F-1936-859D-BE720C604DE3}">P_model_base_bros_T</Name>
+			<Name GUID="{73E21E6B-F075-2515-41E0-0A0101371AC1}">P_model_base_bros_T</Name>
 			<BitSize>33472</BitSize>
 			<SubItem>
 				<Name>BROS1</Name>
@@ -3230,22 +3230,16 @@
 				<BitOffs>27360</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_p</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>27488</BitOffs>
-			</SubItem>
-			<SubItem>
 				<Name>LatchRising_j</Name>
 				<Type GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>27496</BitOffs>
+				<BitOffs>27488</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>LatchRising_gc</Name>
 				<Type GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</Type>
 				<BitSize>8</BitSize>
-				<BitOffs>27504</BitOffs>
+				<BitOffs>27496</BitOffs>
 			</SubItem>
 			<SubItem>
 				<Name>run_m</Name>
@@ -3309,7 +3303,17 @@
 			</SubItem>
 			<Hides>
 				<Hide GUID="{AB1409E6-DCEF-749A-3DB4-9A08B9115CA1}"/>
-				<Hide GUID="{73E21E6B-F075-2515-41E0-0A0101371AC1}"/>
+				<Hide GUID="{FEE4C89F-C25F-1936-859D-BE720C604DE3}"/>
+				<Hide GUID="{20241D84-7F0E-CEE0-E1AF-BBF8C2F0DE16}"/>
+				<Hide GUID="{D55E6C20-DBF7-48C6-CDB1-DC4E73C21E7F}"/>
+				<Hide GUID="{288B44A3-3E8F-6BAD-F5BD-D47725FCC012}"/>
+				<Hide GUID="{EA3C092C-4940-D54A-38F1-864D5218D6B6}"/>
+				<Hide GUID="{D43861DE-2BC3-B014-53E5-D643765E0B11}"/>
+				<Hide GUID="{77893C66-9305-7E5C-C304-667B7241099B}"/>
+				<Hide GUID="{A253390E-EEA3-5872-D730-2153E154E6A2}"/>
+				<Hide GUID="{2DECC9EE-8B10-C03C-A652-BB72C8213049}"/>
+				<Hide GUID="{6537879E-C656-63F7-2D0C-8BD9F13DC1B7}"/>
+				<Hide GUID="{23C211D8-E8E3-E93A-B3DE-3B7D9A33C87E}"/>
 				<Hide GUID="{3AD975EC-2B3F-8D5B-8D04-C3C4CEC59F78}"/>
 				<Hide GUID="{35724CA8-C687-5390-7618-FEE78EE30441}"/>
 				<Hide GUID="{E2682E67-9205-D83D-5A96-0DFF5C231399}"/>
@@ -4558,9 +4562,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{5A885111-6AE3-4F9A-9F01-E714ED9AF2F5}">
+					<TmcDesc GUID="{5F835AEE-1020-4F61-B49A-706BFDE26C64}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{5A885111-6AE3-4F9A-9F01-E714ED9AF2F5}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{5F835AEE-1020-4F61-B49A-706BFDE26C64}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -4682,7 +4686,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>33472</BitSize>
-								<BaseType GUID="{FEE4C89F-C25F-1936-859D-BE720C604DE3}">P_model_base_bros_T</BaseType>
+								<BaseType GUID="{73E21E6B-F075-2515-41E0-0A0101371AC1}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -7983,18 +7987,11 @@
 									<BitOffs>38560</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x820012d5</PTCID>
-									<BitOffs>38568</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
 									<Name>sf_checkEndpointPosition_e</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{963DA6FB-E9E1-6247-0BD5-99C0F7D62D1A}">B_checkEndpointPosition_model_T</BaseType>
-									<PTCID>#x820012d6</PTCID>
-									<BitOffs>38576</BitOffs>
+									<PTCID>#x820012d5</PTCID>
+									<BitOffs>38568</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>sf_Statemachine_h</Name>
@@ -11440,25 +11437,18 @@
 									<BitOffs>27360</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_p</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-									<PTCID>#x83000d6c</PTCID>
-									<BitOffs>27488</BitOffs>
-								</Symbol>
-								<Symbol CreateSymbol="true">
 									<Name>LatchRising_j</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{E9F15A96-F052-D52F-9D82-0E1423BDEF33}">P_LatchRising_model_base_br_n_T</BaseType>
-									<PTCID>#x83000d6d</PTCID>
-									<BitOffs>27496</BitOffs>
+									<PTCID>#x83000d6c</PTCID>
+									<BitOffs>27488</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>LatchRising_gc</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B684DCCB-5A7D-17FB-FCC8-2BE708E1D579}">P_LatchRising_model_base_bros_T</BaseType>
-									<PTCID>#x83000d6e</PTCID>
-									<BitOffs>27504</BitOffs>
+									<PTCID>#x83000d6d</PTCID>
+									<BitOffs>27496</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
 									<Name>run_m</Name>
@@ -13368,7 +13358,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator1.AbsEncoderOffset</Name>
-								<Value>5.29910097405544</Value>
+								<Value>5.30005971204787</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator1.MotorEncoderCounts_rev</Name>
@@ -13436,7 +13426,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator2.AbsEncoderOffset</Name>
-								<Value>7.35269319542911</Value>
+								<Value>7.54405729871785</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator2.MotorEncoderCounts_rev</Name>
@@ -15461,10 +15451,6 @@
 							<Value>
 								<Name>ModelParameters.Logic_table[15]</Name>
 								<EnumText>FALSE</EnumText>
-							</Value>
-							<Value>
-								<Name>ModelParameters.Gain_Gain_p</Name>
-								<Value>128</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.LatchRising_j.Out_Y0</Name>
