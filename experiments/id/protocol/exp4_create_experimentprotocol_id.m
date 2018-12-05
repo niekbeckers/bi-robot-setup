@@ -9,11 +9,11 @@ groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 107;
 Ds = 6;
-expID = [''];
+expID = ['idemg'];
 
 % filename
 protocolpath = 'exp4_protocols';
-filename = ['protocol_idemg' expID];
+filename = ['protocol_' expID];
 
 % create (main) struct
 s = struct;
@@ -40,7 +40,7 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [3*ones(10,1); 3*ones(16,1); 3*ones(16,1); 3*ones(16,1); 3*ones(16,1)];
+condition = [3*ones(10,1); 3*ones(12,1); 3*ones(12,1); 3*ones(20,1); 3*ones(20,1)];
 %     condition = [3*ones(10,1)];
     
 numTrials = numel(condition); % example
@@ -53,21 +53,22 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    connected = [zeros(10,1);  [1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0];  [1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0]; zeros(16,1); ones(16,1)];
-% connected = [1;0;1;0;1;0;1;0;1;0];
-%     connected = repmat(connected,4,1);
-%     connected1 = zeros(42,1); connected1(2:2:end) = 1;
-%     connected = [connected1;connected;connected];
+    connected = [zeros(10,1);  [1;0;1;0;1;0;1;0;1;0;1;0]; [1;0;1;0;1;0;1;0;1;0;1;0]; zeros(20,1); ones(20,1)];
     connectionStiffness = connected*Ks;
     connectionDamping = connected*Ds;
 end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:10; 11:26; 27:42; 43:58; 59:74};
+divTrials = {1:10; 11:22; 23:34; 35:54; 55:74};
 
 
 %% randomization
-trialRandomization = zeros(numTrials,1);
+if exist('exp4_protocols/exp4_randomization.mat','file')
+    load('exp4_protocols/exp4_randomization.mat');
+else 
+    trialRandomization = 24*rand(size(condition));
+    save('exp4_protocols/exp4_randomization.mat','trialRandomization');
+end
 
 %% prepare trials
 for ii = 1:numTrials
