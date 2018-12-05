@@ -4,16 +4,16 @@
 
 clear all; close all; clc;
 
-pairNr = 0;
+pairNr = 1;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
 Ks = 107;
 Ds = 6;
-expID = ['id_pair' num2str(pairNr) '_type' num2str(groupTypeNr)];
+expID = [''];
 
 % filename
-protocolpath = 'exp3_protocols';
-filename = ['protocol_pilot_2d_pursuit_' expID];
+protocolpath = 'exp4_protocols';
+filename = ['protocol_idemg' expID];
 
 % create (main) struct
 s = struct;
@@ -40,12 +40,12 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [3*ones(8,1); 3*ones(8,1); 3*ones(8,1); 3*ones(8,1);];
+condition = [3*ones(10,1); 3*ones(16,1); 3*ones(16,1); 3*ones(16,1); 3*ones(16,1)];
 %     condition = [3*ones(10,1)];
     
 numTrials = numel(condition); % example
-breakDuration = 30*ones(numTrials,1);
-trialDuration = 75*ones(numTrials,1);
+breakDuration = 12*ones(numTrials,1);
+trialDuration = 28*ones(numTrials,1);
 
 % connection
 if strcmpi(groupType,'solo')
@@ -53,7 +53,7 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    connected = [zeros(8,1);[1;0;1;0;1;0;1;0];[1;0;1;0;1;0;1;0];ones(8,1)];
+    connected = [zeros(10,1);  [1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0];  [1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0]; zeros(16,1); ones(16,1)];
 % connected = [1;0;1;0;1;0;1;0;1;0];
 %     connected = repmat(connected,4,1);
 %     connected1 = zeros(42,1); connected1(2:2:end) = 1;
@@ -63,7 +63,7 @@ elseif strcmpi(groupType,'interaction')
 end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:8; 9:16; 17:24; 25:32};
+divTrials = {1:10; 11:26; 27:42; 43:58; 59:74};
 
 
 %% randomization
@@ -85,7 +85,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 180.0;
+    s.experiment.block{ii}.breakDuration = 120.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};
