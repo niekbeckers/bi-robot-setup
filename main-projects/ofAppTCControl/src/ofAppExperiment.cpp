@@ -655,15 +655,15 @@ void ofAppExperiment::esmTrialFeedback()
 			msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
 
 			if (_trialPerformance[0] < _trialPerformancePrev[0]) {
-				msg1 += "\nYou improved! Keep up the good work!";
+				msg1 += "\nYou improved! Yeah!";
 			}
 			if (_trialPerformance[1] < _trialPerformancePrev[1]) {
-				msg2 += "\nYou improved! Keep up the good work!";
+				msg2 += "\nYou improved! Yeah!";
 			}
 
 			// add reminder not to squeeze the ball too hard
-			msg1 += "\n\n Remember not to squeeze the ball too hard.";
-			msg2 += "\n\n Remember not to squeeze the ball too hard.";
+			//msg1 += "\n\n Remember not to squeeze the ball too hard.";
+			//msg2 += "\n\n Remember not to squeeze the ball too hard.";
 
 			// display
 			display1->showMessageNorth(true, msg1);
