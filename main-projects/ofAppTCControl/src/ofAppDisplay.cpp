@@ -352,7 +352,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		// setup cursor and target
 		cursor.setColor(clrCursor);
 		//cursor.setFillMode(OF_OUTLINE);
-		cursor.radius = 24.0f;
+		cursor.radius = 20.0f;
 		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
 		cursor.reset();
 
@@ -360,7 +360,7 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_FILLED);
-		target.radius = 20.0f;
+		target.radius = 16.0f;
 		target.reset();
 		break;
 
