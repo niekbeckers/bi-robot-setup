@@ -13,6 +13,8 @@ Lb = 0.07;                      % base width [m]
 % load('forcingfunction_data_id_2d_nt11.mat');
 % load('forcingfunction_data_id_2d_nt10.mat');
 load('forcingfunction_id_emg.mat');
+msin_data_dist1 = zeros(5,6);
+msin_data_dist2 = zeros(5,6);
 
 % force field
 FFMatrix = -[0 0; 0 0]; % added minus due to coordinate system flip (y pointing up)
