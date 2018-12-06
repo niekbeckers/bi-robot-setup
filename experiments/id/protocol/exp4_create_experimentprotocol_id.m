@@ -7,7 +7,7 @@ clear all; close all; clc;
 pairNr = 1;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction
-Ks = 107;
+Ks = 130;
 Ds = 6;
 expID = ['idemg'];
 
@@ -40,7 +40,7 @@ s.experiment.activeBROSID.id1 = 2;
 % trial settings
 
 % experiment settings
-condition = [3*ones(10,1); 3*ones(12,1); 3*ones(12,1); 3*ones(20,1); 3*ones(20,1)];
+condition = [3*ones(10,1); 3*ones(14,1); 3*ones(14,1); 3*ones(20,1); 3*ones(20,1)];
 %     condition = [3*ones(10,1)];
     
 numTrials = numel(condition); % example
@@ -53,13 +53,13 @@ if strcmpi(groupType,'solo')
     connectionStiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    connected = [zeros(10,1);  [1;0;1;0;1;0;1;0;1;0;1;0]; [1;0;1;0;1;0;1;0;1;0;1;0]; zeros(20,1); ones(20,1)];
+    connected = [zeros(10,1);  [1;0;1;0;1;0;1;0;1;0;1;0;1;0]; [1;0;1;0;1;0;1;0;1;0;1;0;1;0]; zeros(20,1); ones(20,1)];
     connectionStiffness = connected*Ks;
     connectionDamping = connected*Ds;
 end
 
 % specify how the trials are divided over the blocks
-divTrials = {1:10; 11:22; 23:34; 35:54; 55:74};
+divTrials = {1:10; 11:24; 25:38; 39:58; 59:78};
 
 
 %% randomization
