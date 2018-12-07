@@ -335,6 +335,7 @@ void ofAppExperiment::showVisualReward()
 	//
 	// BROS 1
 	//
+	/*
 	double performanceDiff = 0.0;
 	if (fabs(_trialPerformancePrev[0]) > 0) {
 		// relative improvement
@@ -353,6 +354,7 @@ void ofAppExperiment::showVisualReward()
 	else {  // similar performance compared to last trial
 		// do nothing
 	}
+	
 
 	//
 	// BROS 2
@@ -373,6 +375,18 @@ void ofAppExperiment::showVisualReward()
 	}
 	else {  // similar performance compared to last trial
 		// do nothing
+	}
+	*/
+
+	// explosion when highscore is improved
+
+	// BROS1
+	if (_trialScore[0] > _trialMaxScore[0]) {
+		display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
+	}
+	// BROS2
+	if (_trialScore[1] > _trialMaxScore[1]) {
+		display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 }
 
@@ -600,6 +614,8 @@ void ofAppExperiment::esmTrialDone()
 
 	display1->showMessageNorth(true, "TRIAL DONE");
 	display2->showMessageNorth(true, "TRIAL DONE");
+
+
 	_trialDoneTime = ofGetElapsedTimef();
 
 	// write trial done to log file 
@@ -646,20 +662,43 @@ void ofAppExperiment::esmTrialFeedback()
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
 
+		float lowestRMSE = 1; // 1 cm
+
 		// depending on feedback type, adjust method
 		switch (_settings.trialFeedbackType) {
 		case TrialFeedback::RMSE:
-			// show RMSE
+			
+			// calculate a score (instead of RMSE)
+			
+			_trialScore[0] = 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
+			_trialScore[1] = 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
 
-			msg1 += "Performance: " + ofToString(_trialPerformance[0], 2);
-			msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
+			// cap to zero
+			_trialScore[0] = (_trialScore[0] > 0) ? _trialScore[0] : 0.0;
+			_trialScore[1] = (_trialScore[1] > 0) ? _trialScore[1] : 0.0;
 
-			if (_trialPerformance[0] < _trialPerformancePrev[0]) {
-				msg1 += "\nYou improved! Yeah!";
+			// show score
+			msg1 += "Score: " + ofToString((int)_trialScore[0], 0);
+			msg2 += "Score: " + ofToString((int)_trialScore[1], 0);
+
+			if (_trialScore[0] > _trialMaxScore[0]) {
+				msg1 += "\nYou improved your highscore! Yeah!";
 			}
-			if (_trialPerformance[1] < _trialPerformancePrev[1]) {
-				msg2 += "\nYou improved! Yeah!";
+			if (_trialScore[1] > _trialMaxScore[1]) {
+				msg2 += "\nYou improved your highscore! Yeah!";
 			}
+
+			//msg1 += "Performance: " + ofToString(_trialPerformance[0], 2);
+			//msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
+
+			//if (_trialPerformance[0] < _trialPerformancePrev[0]) {
+			//	msg1 += "\nYou improved! Yeah!";
+			//}
+			//if (_trialPerformance[1] < _trialPerformancePrev[1]) {
+			//	msg2 += "\nYou improved! Yeah!";
+			//}
+
+
 
 			// add reminder not to squeeze the ball too hard
 			//msg1 += "\n\n Remember not to squeeze the ball too hard.";
@@ -677,6 +716,11 @@ void ofAppExperiment::esmTrialFeedback()
 			// add performance to performance log, print to console
 			_trackingPerformanceLog_BROS1.push_back(_trialPerformance[0]);
 			_trackingPerformanceLog_BROS2.push_back(_trialPerformance[1]);
+
+			// show high score and trials left
+			display1->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[0]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
+			display2->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[1]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
+
 #ifdef _WIN32 || _WIN64
 			SetConsoleTextAttribute(hConsole, 3); // set color WINDOWS ONLY
 #endif
@@ -712,6 +756,10 @@ void ofAppExperiment::esmTrialFeedback()
 		// save previous trial performance
 		_trialPerformancePrev[0] = _trialPerformance[0];
 		_trialPerformancePrev[1] = _trialPerformance[1];
+
+		// if maximum score is improved, update
+		_trialMaxScore[0] = (_trialScore[0] > _trialMaxScore[0]) ? _trialScore[0] : _trialMaxScore[0];
+		_trialMaxScore[1] = (_trialScore[1] > _trialMaxScore[1]) ? _trialScore[1] : _trialMaxScore[1];
 	}
 
 	// occasionaly show instructions
@@ -739,6 +787,9 @@ void ofAppExperiment::esmHomingAfterDone()
 	if (ofGetElapsedTimef() - _trialDoneTime > 4.0f) { 
 		display1->showMessageNorth(false);
 		display2->showMessageNorth(false);
+
+		display1->showMessageNorthWest(false);
+		display2->showMessageNorthWest(false);
 
 		display1->drawTask = false;
 		display2->drawTask = false;

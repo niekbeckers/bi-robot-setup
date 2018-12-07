@@ -46,9 +46,9 @@ void ofAppDisplay::setup()
 
 	// font
 	ofTrueTypeFont::setGlobalDpi(72);
-	verdana50.load("verdana.ttf", 50, true, true);
-	verdana50.setLineHeight(60.0f);
-	verdana50.setLetterSpacing(1.035);
+	verdana20.load("verdana.ttf", 20, true, true);
+	verdana20.setLineHeight(30.0f);
+	verdana20.setLetterSpacing(1.035);
 
 	verdana30.load("verdana.ttf", 30, true, true);
 	verdana30.setLineHeight(40.0f);
@@ -277,7 +277,7 @@ void ofAppDisplay::draw()
 		ofPushMatrix();
 			ofSetColor(clrText);
 			ofRectangle bounds = verdana30.getStringBoundingBox(_messageNorth, 0, 0);
-			ofTranslate(0, -0.425*ofGetHeight(), 0);
+			ofTranslate(0, -0.435*ofGetHeight(), 0);
 			verdana30.drawString(_messageNorth, -bounds.width / 2, bounds.height / 2);
 		ofPopMatrix();
 	}
@@ -288,6 +288,15 @@ void ofAppDisplay::draw()
 			ofRectangle bounds = verdana30.getStringBoundingBox(_messageCenter, 0, 0);
 			//ofTranslate(bounds.width / 2, bounds.height / 2, 0);
 			verdana30.drawString(_messageCenter, -bounds.width / 2, bounds.height / 2);
+		ofPopMatrix();
+	}
+
+	if (_showMessageNW) {
+		ofPushMatrix();
+		ofSetColor(clrText);
+		ofRectangle bounds = verdana30.getStringBoundingBox(_messageNW, 0, 0);
+		ofTranslate(-ofGetScreenWidth()/2.0+40.0, -ofGetScreenHeight()/2.0+40.0, 0);
+		verdana30.drawString(_messageNW, 0.0, bounds.height/2.0);
 		ofPopMatrix();
 	}
 
@@ -335,12 +344,19 @@ void ofAppDisplay::showMessageCenter(bool show, const string &msg)
 }
 
 //--------------------------------------------------------------
+void ofAppDisplay::showMessageNorthWest(bool show, const string &msg)
+{
+	_messageNW = msg;
+	_showMessageNW = show;
+}
+
+//--------------------------------------------------------------
 void ofAppDisplay::showCountDown(bool show, double timeRemaining, double duration)
 {
 	_showCountDown = show;
 	_cdTimeRemaining = timeRemaining;
 	_cdDuration = duration;
-}
+} 
 
 void ofAppDisplay::setDisplayType(DisplayType dtype)
 {

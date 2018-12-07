@@ -33,7 +33,10 @@ class ofAppDisplay : public ofBaseApp
 		bool _showMessageNorth = false;
 		string _messageCenter = "";
 		bool _showMessageCenter = false;
-		ofTrueTypeFont verdana50;
+		string _messageNW = "";
+		bool _showMessageNW = false;
+
+		ofTrueTypeFont verdana20;
 		ofTrueTypeFont verdana30;
 
 		//ofxTextAlignTTF _text;
@@ -75,6 +78,7 @@ class ofAppDisplay : public ofBaseApp
 
 		void showMessageNorth(bool show, const string &msg = "");
 		void showMessageCenter(bool show, const string &msg = "");
+		void showMessageNorthWest(bool show, const string & msg = "");
 
 		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
 		void setDisplayType(DisplayType dtype);
