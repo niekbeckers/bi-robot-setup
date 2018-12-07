@@ -20,7 +20,7 @@
 % FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 % DEALINGS IN THE SOFTWARE.
 
-function real_time_data_stream_plotting
+function real_time_data_stream_plotting_NIEK
 
 
 % CHANGE THIS TO THE IP OF THE COMPUTER RUNNING THE TRIGNO CONTROL UTILITY
@@ -32,7 +32,10 @@ HOST_IP = '130.89.64.30';
 
 
 %% NIEK's CUSTOM SENSOR PLOT
+global partner1sensors;
 partner1sensors = [9 1 2 3 4 10 11];
+
+global partner2sensors;
 partner2sensors = [12 5 6 7 8 13 14];
 
 
@@ -44,6 +47,12 @@ NUM_SENSORS = 16;
 %handles to all plots
 global plotHandlesEMG;
 plotHandlesEMG = zeros(NUM_SENSORS,1);
+
+global plotHandlesEMG_BROS1;
+plotHandlesEMG_BROS1 = zeros(8,1);
+global plotHandlesEMG_BROS2;
+plotHandlesEMG_BROS2 = zeros(8,1);
+
 global plotHandlesACC;
 plotHandlesACC = zeros(NUM_SENSORS*3, 1);
 global rateAdjustedEmgBytesToRead;
@@ -70,6 +79,10 @@ data_arrayACC = [];
 
 
 axesHandlesEMG = zeros(NUM_SENSORS,1);
+
+axesHandlesEMG_BROS1 = zeros(8,1);
+axesHandlesEMG_BROS2 = zeros(8,1);
+
 axesHandlesACC = zeros(NUM_SENSORS,1);
 
 %initiate the EMG figure
@@ -105,6 +118,76 @@ for i = 1:NUM_SENSORS
     
     title(sprintf('EMG %i', i)) 
 end
+
+
+% PARTNER 1 figure
+figureHandleEMG_BROS1 = figure('Name', 'EMG BROS1','Numbertitle', 'off',  'CloseRequestFcn', {@localCloseFigure, interfaceObjectEMG, interfaceObjectACC, commObject, t});
+set(figureHandleEMG_BROS1, 'position', [50 500 750 750])
+
+for i = 1:7
+    axesHandlesEMG_BROS1(i) = subplot(2,4,i);
+
+    plotHandlesEMG_BROS1(i) = plot(axesHandlesEMG_BROS1(i),0,'-y','LineWidth',1);
+
+    set(axesHandlesEMG_BROS1(i),'YGrid','on');
+    %set(axesHandlesEMG(i),'YColor',[0.9725 0.9725 0.9725]);
+    set(axesHandlesEMG_BROS1(i),'XGrid','on');
+    %set(axesHandlesEMG(i),'XColor',[0.9725 0.9725 0.9725]);
+    set(axesHandlesEMG_BROS1(i),'Color',[.15 .15 .15]);
+    set(axesHandlesEMG_BROS1(i),'YLim', [-.005 .005]*0.4);
+    set(axesHandlesEMG_BROS1(i),'YLimMode', 'manual');
+    set(axesHandlesEMG_BROS1(i),'XLim', [0 2000]);
+    set(axesHandlesEMG_BROS1(i),'XLimMode', 'manual');
+    
+    if(mod(i, 4) == 1)
+        ylabel(axesHandlesEMG_BROS1(i),'V');
+    else
+        set(axesHandlesEMG_BROS1(i), 'YTickLabel', '')
+    end
+    
+    if(i >12)
+        xlabel(axesHandlesEMG_BROS1(i),'Samples');
+    else
+        set(axesHandlesEMG_BROS1(i), 'XTickLabel', '')
+    end
+    
+    title(sprintf('EMG %i', partner1sensors(i))) 
+end
+
+% PARTNER 2 figure
+figureHandleEMG_BROS2 = figure('Name', 'EMG BROS2','Numbertitle', 'off',  'CloseRequestFcn', {@localCloseFigure, interfaceObjectEMG, interfaceObjectACC, commObject, t});
+set(figureHandleEMG_BROS2, 'position', [850 500 750 750])
+
+for i = 1:7
+    axesHandlesEMG_BROS2(i) = subplot(2,4,i);
+
+    plotHandlesEMG_BROS2(i) = plot(axesHandlesEMG_BROS2(i),0,'-y','LineWidth',1);
+
+    set(axesHandlesEMG_BROS2(i),'YGrid','on');
+    %set(axesHandlesEMG(i),'YColor',[0.9725 0.9725 0.9725]);
+    set(axesHandlesEMG_BROS2(i),'XGrid','on');
+    %set(axesHandlesEMG(i),'XColor',[0.9725 0.9725 0.9725]);
+    set(axesHandlesEMG_BROS2(i),'Color',[.15 .15 .15]);
+    set(axesHandlesEMG_BROS2(i),'YLim', [-.005 .005]*0.4);
+    set(axesHandlesEMG_BROS2(i),'YLimMode', 'manual');
+    set(axesHandlesEMG_BROS2(i),'XLim', [0 2000]);
+    set(axesHandlesEMG_BROS2(i),'XLimMode', 'manual');
+    
+    if(mod(i, 4) == 1)
+        ylabel(axesHandlesEMG_BROS2(i),'V');
+    else
+        set(axesHandlesEMG_BROS2(i), 'YTickLabel', '')
+    end
+    
+    if(i >12)
+        xlabel(axesHandlesEMG_BROS2(i),'Samples');
+    else
+        set(axesHandlesEMG_BROS2(i), 'XTickLabel', '')
+    end
+    
+    title(sprintf('EMG %i', partner2sensors(i))) 
+end
+
 
 %initiate the ACC figure
 figureHandleACC = figure('Name', 'ACC Data', 'Numbertitle', 'off', 'CloseRequestFcn', {@localCloseFigure, interfaceObjectEMG, interfaceObjectACC, commObject, t});
@@ -191,8 +274,11 @@ try
     fopen(interfaceObjectEMG);
     fopen(interfaceObjectACC);
 catch
+    
     localCloseFigure(figureHandleACC,1 ,interfaceObjectACC, interfaceObjectEMG, commObject, t);
     delete(figureHandleEMG);
+    delete(figureHandleEMG_BROS1);
+    delete(figureHandleEMG_BROS2);
     error('CONNECTION ERROR: Please start the Delsys Trigno Control Application and try again');
 end
 
@@ -279,6 +365,27 @@ for i = 1:size(plotHandlesEMG, 1)
     data_ch = data_arrayEMG(i:16:end);      
     set(plotHandlesEMG(i), 'Ydata', data_ch)
 end
+
+% partner 1
+global plotHandlesEMG_BROS1;
+global partner1sensors;
+
+for i = 1:size(plotHandlesEMG_BROS1,1)
+    idx = partner1sensors(i);
+    data_ch = data_arrayEMG(idx:16:end);
+    set(plotHandlesEMG_BROS1(i), 'YData', data_ch);
+end
+
+% partner 2
+global plotHandlesEMG_BROS2;
+global partner2sensors;
+
+for i = 1:size(plotHandlesEMG_BROS2,1)
+    idx = partner2sensors(i);
+    data_ch = data_arrayEMG(idx:16:end);
+    set(plotHandlesEMG_BROS2(i), 'YData', data_ch);
+end
+
 global data_arrayACC
 global plotHandlesACC
 for i = 1:size(plotHandlesACC, 1)
