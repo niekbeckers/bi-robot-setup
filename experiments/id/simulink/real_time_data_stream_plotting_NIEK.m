@@ -1,3 +1,4 @@
+
 %%RealTime Data Streaming with Delsys SDK
 
 % Copyright (C) 2011 Delsys, Inc.
@@ -49,9 +50,9 @@ global plotHandlesEMG;
 plotHandlesEMG = zeros(NUM_SENSORS,1);
 
 global plotHandlesEMG_BROS1;
-plotHandlesEMG_BROS1 = zeros(8,1);
+plotHandlesEMG_BROS1 = zeros(7,1);
 global plotHandlesEMG_BROS2;
-plotHandlesEMG_BROS2 = zeros(8,1);
+plotHandlesEMG_BROS2 = zeros(7,1);
 
 global plotHandlesACC;
 plotHandlesACC = zeros(NUM_SENSORS*3, 1);
