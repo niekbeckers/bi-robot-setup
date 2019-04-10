@@ -1069,7 +1069,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{58E2E7C5-13FE-AC46-8336-79DC01B7C366}">P_model_base_bros_T</Name>
+			<Name GUID="{C5F57825-411D-6470-F7B2-93D82C777BE0}">P_model_base_bros_T</Name>
 			<BitSize>39872</BitSize>
 			<SubItem>
 				<Name>BROS1</Name>
@@ -3496,7 +3496,7 @@
 				<BitOffs>33624</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>Gain_Gain_o</Name>
+				<Name>Gain_Gain_f</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>33632</BitOffs>
@@ -3586,6 +3586,9 @@
 				<BitOffs>39616</BitOffs>
 			</SubItem>
 			<Hides>
+				<Hide GUID="{9963A220-EBFD-CB8D-0FB0-30E118B974AF}"/>
+				<Hide GUID="{F9C695C1-0325-AF16-041B-F485265550D7}"/>
+				<Hide GUID="{58E2E7C5-13FE-AC46-8336-79DC01B7C366}"/>
 				<Hide GUID="{DB417971-B0F4-7741-233A-5DFD17577A96}"/>
 				<Hide GUID="{73E21E6B-F075-2515-41E0-0A0101371AC1}"/>
 				<Hide GUID="{AB1409E6-DCEF-749A-3DB4-9A08B9115CA1}"/>
@@ -4837,7 +4840,7 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
 			<BitSize>1</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -4846,7 +4849,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
 			<BitSize>5</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -4949,9 +4952,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{C1D3EF27-55D0-4D6F-961E-BE7579167E24}">
+					<TmcDesc GUID="{53F1D4F6-5F75-4A5E-9592-046C97362F81}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{C1D3EF27-55D0-4D6F-961E-BE7579167E24}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{53F1D4F6-5F75-4A5E-9592-046C97362F81}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -5073,7 +5076,7 @@
 							<Parameter>
 								<Name>ModelParameters</Name>
 								<BitSize>39872</BitSize>
-								<BaseType GUID="{58E2E7C5-13FE-AC46-8336-79DC01B7C366}">P_model_base_bros_T</BaseType>
+								<BaseType GUID="{C5F57825-411D-6470-F7B2-93D82C777BE0}">P_model_base_bros_T</BaseType>
 								<PTCID>#x83000000</PTCID>
 							</Parameter>
 							<Parameter CreateSymbol="true">
@@ -12244,7 +12247,7 @@
 									<BitOffs>33624</BitOffs>
 								</Symbol>
 								<Symbol CreateSymbol="true">
-									<Name>Gain_Gain_o</Name>
+									<Name>Gain_Gain_f</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 									<PTCID>#x8300106c</PTCID>
@@ -14256,7 +14259,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator1.AbsEncoderOffset</Name>
-								<Value>5.30005971204787</Value>
+								<Value>5.28606213735841</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator1.MotorEncoderCounts_rev</Name>
@@ -14324,7 +14327,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator2.AbsEncoderOffset</Name>
-								<Value>7.54405729871785</Value>
+								<Value>7.56371142756263</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator2.MotorEncoderCounts_rev</Name>
@@ -16755,7 +16758,7 @@
 								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
-								<Name>ModelParameters.Gain_Gain_o</Name>
+								<Name>ModelParameters.Gain_Gain_f</Name>
 								<Value>128</Value>
 							</Value>
 							<Value>
