@@ -85,122 +85,131 @@ static std::string StringExperimentStateLabel(const ExperimentState value) {
 };
 
 class ofAppMain;
+class ofAppDisplay;
 class VirtualPartner;
 
 class ofAppExperiment : public ofBaseApp
 {
-	private:
-		
-		//
-		// variables
-		//
+private:
 
-		// tcAdsClient
-		tcAdsClient *_tcClient;
-		unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration,
-			_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback;
+	//
+	// variables
+	//
 
-		// experiment state
-		ExperimentState _expState = ExperimentState::IDLE;
-		
-		int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
+	// tcAdsClient
+	tcAdsClient *_tcClient;
+	unsigned long _lHdlVar_Write_Condition, _lHdlVar_Write_Connected, _lHdlVar_Write_TrialDuration,
+		_lHdlVar_Write_TrialNumber, _lHdlVar_Write_StartTrial, _lHdlVar_Write_StopTrial, _lHdlVar_Write_TrialRandom, _lHdlVar_Read_PerformanceFeedback;
 
-		bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
-		bool _prevTrialRunning = false, _nowTrialRunning = false;
+	// experiment state
+	ExperimentState _expState = ExperimentState::IDLE;
 
-		// virtual partner fit bool
-		bool _runningModelFit = false;
-		
-		// block and trial data for current trial/block
-		blockData _currentBlock;
-		trialData _currentTrial;
-		vector<blockData> _blocks; // vector of vector<trials> to store all trials per block
+	int _currentTrialNumber = 0, _currentBlockNumber = 0, _numTrials = 0;
 
-		// countdown and break parameters
-		double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
-		double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }; // approximate mean-squared error
-		double _trialMovementTimeSec = 0.0; 
+	bool _experimentRunning = false, _experimentLoaded = false, _experimentPaused = false;
+	bool _prevTrialRunning = false, _nowTrialRunning = false;
 
-		ofProtocolReader _protocol;
-		experimentSettings _settings;
+	// virtual partner fit bool
+	bool _runningModelFit = false;
 
-		// log
-		string _logFilename;
+	// block and trial data for current trial/block
+	blockData _currentBlock;
+	trialData _currentTrial;
+	vector<blockData> _blocks; // vector of vector<trials> to store all trials per block
 
-		// every 4 trials, show instructions during the break
-		int _instructionMessageInterval = 6;
-		string _instructionMessage = ""; // "Great job so far!\n\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
+	// countdown and break parameters
+	double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
+	double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }, _trialScore[2] = { 0.0 , 0.0 }, _trialMaxScore[2] = { 0.0, 0.0 };// approximate mean-squared error
+	double _trialMovementTimeSec = 0.0;
+	
 
-		//
-		// functions
-		//
-		void setTrialDataADS();
-		void requestStartTrialADS();
-		void setExperimentState(ExperimentState newState);
-		string secToMin(double seconds);
-		void showVisualReward();
+	ofProtocolReader _protocol;
+	experimentSettings _settings;
 
-		void esmExperimentStart();
-		void esmExperimentStop();
-		void esmNewBlock();
-		void esmNewTrial();
-		void esmHomingBefore();
-		void esmHomingBeforeDone();
-		void esmGetReady();
-		void esmGetReadyDone();
-		void esmCountdown();
-		void esmCountdownDone();
-		void esmTrialRunning();
-		void esmTrialDone();
-		void esmTrialFeedback();
-		void esmHomingAfter();
-		void esmHomingAfterDone();
-		void esmCheckNextStep();
-		void esmTrialBreak();
-		void esmTrialBreakDone();
-		void esmBlockBreak();
-		void esmBlockBreakDone();
+	// log
+	string _logFilename;
 
-	public:
+	// every 4 trials, show instructions during the break
+	int _instructionMessageInterval = 6;
+	string _instructionMessage = ""; // "Great job so far!\n\nSome reminders:\nTry to track the target as accurately as possible\nRemember to avoid stiffening up your arm!";
 
-		//
-		// variables
-		//
-		ofXml XML, _XMLWrite;
+	// performance log vectors 
+	vector<float> _trackingPerformanceLog_BROS1, _trackingPerformanceLog_BROS2;
 
-		shared_ptr<ofAppMain> mainApp;
-		shared_ptr<VirtualPartner> vpApp;
-		shared_ptr<ofAppDisplay> display1;
-		shared_ptr<ofAppDisplay> display2;
 
-		string experimentStateLabel = StringExperimentStateLabel(_expState);
-		
-		VirtualPartner partner;
+	//
+	// functions
+	//
+	void setTrialDataADS();
+	void requestStartTrialADS();
+	void requestStopTrialADS();
+	void setExperimentState(ExperimentState newState);
+	string secToMin(double seconds);
+	void showVisualReward();
 
-		bool debugMode = false;
-		// 
-		// functions
-		//
+	void esmExperimentStart();
+	void esmExperimentStop();
+	void esmNewBlock();
+	void esmNewTrial();
+	void esmHomingBefore();
+	void esmHomingBeforeDone();
+	void esmGetReady();
+	void esmGetReadyDone();
+	void esmCountdown();
+	void esmCountdownDone();
+	void esmTrialRunning();
+	void esmTrialDone();
+	void esmTrialFeedback();
+	void esmHomingAfter();
+	void esmHomingAfterDone();
+	void esmCheckNextStep();
+	void esmTrialBreak();
+	void esmTrialBreakDone();
+	void esmBlockBreak();
+	void esmBlockBreakDone();
 
-		// openframeworks
-		void setup();
-		void update();
-		void exit();
+public:
 
-		// custom
-		void setupTCADS();
-		void loadExperimentXML();
-		void onProtocolLoaded(bool success, std::string filename, experimentSettings settings, vector<blockData> blocks);
+	//
+	// variables
+	//
+	ofXml XML, _XMLWrite;
 
-		void startExperiment();
-		void stopExperiment();
-		void pauseExperiment();
-		void resumeExperiment();
+	shared_ptr<ofAppMain> mainApp;
+	shared_ptr<VirtualPartner> vpApp;
+	shared_ptr<ofAppDisplay> display1;
+	shared_ptr<ofAppDisplay> display2;
 
-		ExperimentState experimentState() { return _expState; };
-		inline int getCurrentTrialNumber() { return _currentTrialNumber; };
-		inline trialData getCurrentTrial() { return _currentTrial; };
-		void setCurrentTrialNumber(int nr); 
-		void setCurrentBlockNumber(int nr);
+	string experimentStateLabel = StringExperimentStateLabel(_expState);
+
+	VirtualPartner partner;
+
+	bool debugMode = false;
+	// 
+	// functions
+	//
+
+	// openframeworks
+	void setup();
+	void update();
+	void exit();
+
+	// custom
+	void setupTCADS();
+	void loadExperimentXML();
+	void onProtocolLoaded(bool success, std::string filename, experimentSettings settings, vector<blockData> blocks);
+
+	void startExperiment();
+	void stopExperiment();
+	void pauseExperiment();
+	void resumeExperiment();
+
+	ExperimentState experimentState() { return _expState; };
+	inline int getCurrentTrialNumber() { return _currentTrialNumber; };
+	inline trialData getCurrentTrial() { return _currentTrial; };
+	void setCurrentTrialNumber(int nr);
+	void setCurrentBlockNumber(int nr);
+	inline experimentSettings getExperimentSettings() { return _settings; };
+	inline bool experimentIsLoaded() { return _experimentLoaded; };
 };
 

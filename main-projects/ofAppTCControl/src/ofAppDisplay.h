@@ -6,6 +6,11 @@
 #include "ofUtils.h"
 #include "parentParticle.h"
 #include "myCommon.h"
+#include "ofAppMain.h"
+#include "ofAppExperiment.h"
+
+class ofAppMain;
+class ofAppExperiment;
 
 class ofAppDisplay : public ofBaseApp
 {
@@ -28,7 +33,10 @@ class ofAppDisplay : public ofBaseApp
 		bool _showMessageNorth = false;
 		string _messageCenter = "";
 		bool _showMessageCenter = false;
-		ofTrueTypeFont verdana50;
+		string _messageNW = "";
+		bool _showMessageNW = false;
+
+		ofTrueTypeFont verdana20;
 		ofTrueTypeFont verdana30;
 
 		//ofxTextAlignTTF _text;
@@ -41,6 +49,7 @@ class ofAppDisplay : public ofBaseApp
 		double _cdBarHeight = 40.0;
 		ofPoint _cdBarPosition = { 0.0 - _cdBarWidth / 2.0, -(0.35*ofGetHeight() + _cdBarHeight / 2.0) };
 
+		bool _drawTrialTimeCountdown = false;
 	public:
 
 		//
@@ -54,7 +63,10 @@ class ofAppDisplay : public ofBaseApp
 		parentParticle target;
 		parentParticle virtualpartner;
 
-		DisplayType displayType = DisplayType::PURSUIT;
+		DisplayType displayType = DisplayType::PURSUIT_2D;
+
+		shared_ptr<ofAppMain> mainApp;
+		shared_ptr<ofAppExperiment> experimentApp;
 
 		//
 		// openFrameworks
@@ -66,10 +78,11 @@ class ofAppDisplay : public ofBaseApp
 
 		void showMessageNorth(bool show, const string &msg = "");
 		void showMessageCenter(bool show, const string &msg = "");
+		void showMessageNorthWest(bool show, const string & msg = "");
 
 		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
 		void setDisplayType(DisplayType dtype);
-		inline void setCursorShape(ParticleShape pshape) { cursor.setShape(pshape); };
-		inline void setTargetShape(ParticleShape pshape) { target.setShape(pshape); };
+		//inline void setCursorShape(ParticleShape pshape) { cursor.setShape(pshape); };
+		//inline void setTargetShape(ParticleShape pshape) { target.setShape(pshape); };
 };
 

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{69fe4fdd-11c6-437d-970d-64ad8e8c006d}</ProjectGuid>
+    <AssemblyName>TC_Measurement_Project_EMG</AssemblyName>
+    <Name>TC_Measurement_Project_EMG</Name>
+    <RootNamespace>TC_Measurement_Project_EMG</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Scope YT Project.tcscope">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+</Project>

@@ -147,6 +147,9 @@ void ofAppExperiment::setupTCADS()
 	char szVar8[] = { "Object1 (ModelBROS).BlockIO.PerformanceFeedback" };
 	_lHdlVar_Read_PerformanceFeedback = _tcClient->getVariableHandle(szVar8, sizeof(szVar8));
 
+	char szVar9[] = { "Object1 (ModelBROS).ModelParameters.ExpStopTrial_Value" };
+	_lHdlVar_Write_StopTrial = _tcClient->getVariableHandle(szVar9, sizeof(szVar9));
+
 	//char szVar2[] = { "Object1 (ModelBROS).ModelParameters.KpConnection_Value" };
 	//_lHdlVar_Write_ConnectionStiffness = _tcClient->getVariableHandle(szVar2, sizeof(szVar2));
 
@@ -257,6 +260,16 @@ void ofAppExperiment::requestStartTrialADS()
 }
 
 //--------------------------------------------------------------
+void ofAppExperiment::requestStopTrialADS()
+{
+	// signal start trial to simulink, then await for trial done, then start break
+	double var = 1.0;
+	_tcClient->write(_lHdlVar_Write_StopTrial, &var, sizeof(var));
+	var = 0.0;
+	_tcClient->write(_lHdlVar_Write_StopTrial, &var, sizeof(var));
+}
+
+//--------------------------------------------------------------
 void ofAppExperiment::loadExperimentXML()
 {
 	setExperimentState(ExperimentState::IDLE);
@@ -296,8 +309,8 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 	display1->setDisplayType(_settings.displayType);
 	display2->setDisplayType(_settings.displayType);
 
-	display1->setCursorShape(_settings.cursorShape);
-	display2->setCursorShape(_settings.cursorShape);
+	//display1->setCursorShape(_settings.cursorShape);
+	//display2->setCursorShape(_settings.cursorShape);
 
 	ofLogVerbose() << _settings.protocolname;
 
@@ -322,6 +335,7 @@ void ofAppExperiment::showVisualReward()
 	//
 	// BROS 1
 	//
+	/*
 	double performanceDiff = 0.0;
 	if (fabs(_trialPerformancePrev[0]) > 0) {
 		// relative improvement
@@ -340,6 +354,7 @@ void ofAppExperiment::showVisualReward()
 	else {  // similar performance compared to last trial
 		// do nothing
 	}
+	
 
 	//
 	// BROS 2
@@ -360,6 +375,18 @@ void ofAppExperiment::showVisualReward()
 	}
 	else {  // similar performance compared to last trial
 		// do nothing
+	}
+	*/
+
+	// explosion when highscore is improved
+
+	// BROS1
+	if (_trialScore[0] > _trialMaxScore[0]) {
+		display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
+	}
+	// BROS2
+	if (_trialScore[1] > _trialMaxScore[1]) {
+		display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 }
 
@@ -384,6 +411,9 @@ void ofAppExperiment::esmExperimentStop()
 {
 
 	_experimentRunning = false;
+
+	// stop running trial
+	requestStopTrialADS();
 
 	display1->drawTask = true;
 	display2->drawTask = true;
@@ -415,6 +445,9 @@ void ofAppExperiment::esmNewBlock()
 	// reset trial performance
 	_trialPerformancePrev[0] = 0.0;
 	_trialPerformancePrev[1] = 0.0;
+
+	_trackingPerformanceLog_BROS1.clear();
+	_trackingPerformanceLog_BROS2.clear();
 
 	// start first trial
 	setExperimentState(ExperimentState::NEWTRIAL);
@@ -494,12 +527,21 @@ void ofAppExperiment::esmGetReadyDone()
 	else {
 		// start countdown
 		_cdStartTime = ofGetElapsedTimef();
+
 		display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 		//display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		display1->target.setPosition(ofPoint(0.0, 0.0));
+		display1->cursor.setPosition(ofPoint(0.0, 0.0));
 		display1->target.reset();
+		display1->cursor.reset();
+
 		display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 		//display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
-		display1->target.reset();
+		display2->target.setPosition(ofPoint(0.0, 0.0));
+		display2->cursor.setPosition(ofPoint(0.0, 0.0));
+		display2->target.reset();
+		display2->cursor.reset();
+
 		display1->drawTask = true;
 		display2->drawTask = true;
 		setExperimentState(ExperimentState::COUNTDOWN);
@@ -572,6 +614,8 @@ void ofAppExperiment::esmTrialDone()
 
 	display1->showMessageNorth(true, "TRIAL DONE");
 	display2->showMessageNorth(true, "TRIAL DONE");
+
+
 	_trialDoneTime = ofGetElapsedTimef();
 
 	// write trial done to log file 
@@ -585,6 +629,7 @@ void ofAppExperiment::esmTrialDone()
 	mainApp->requestStateChange(static_cast<SystemState>(_currentBlock.homingType));
 	setExperimentState(ExperimentState::TRIALFEEDBACK);
 
+	/*
 	// check if we need to fit the virtual partner
 	if (_currentTrial.fitVirtualPartner) {
 		// pause data logger before doing optimization
@@ -599,6 +644,7 @@ void ofAppExperiment::esmTrialDone()
 		partner.runVPOptimization(settings);
 		_runningModelFit = true;
 	}
+	*/
 }
 
 //--------------------------------------------------------------
@@ -612,26 +658,51 @@ void ofAppExperiment::esmTrialFeedback()
 
 		string msg1 = "TRIAL DONE\n\n";
 		string msg2 = "TRIAL DONE\n\n";
+#ifdef _WIN32 || _WIN64
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
 
+		float lowestRMSE = 1; // 1 cm
 
 		// depending on feedback type, adjust method
 		switch (_settings.trialFeedbackType) {
 		case TrialFeedback::RMSE:
-			// show RMSE
+			
+			// calculate a score (instead of RMSE)
+			
+			_trialScore[0] = 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
+			_trialScore[1] = 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
 
-			msg1 += "Performance: " + ofToString(_trialPerformance[0], 2);
-			msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
+			// cap to zero
+			_trialScore[0] = (_trialScore[0] > 0) ? _trialScore[0] : 0.0;
+			_trialScore[1] = (_trialScore[1] > 0) ? _trialScore[1] : 0.0;
 
-			if (_trialPerformance[0] < _trialPerformancePrev[0]) {
-				msg1 += "\nYou improved! Keep up the good work!";
+			// show score
+			msg1 += "Score: " + ofToString((int)_trialScore[0], 0);
+			msg2 += "Score: " + ofToString((int)_trialScore[1], 0);
+
+			if (_trialScore[0] > _trialMaxScore[0]) {
+				msg1 += "\nYou improved your highscore! Yeah!";
 			}
-			if (_trialPerformance[1] < _trialPerformancePrev[1]) {
-				msg2 += "\nYou improved! Keep up the good work!";
+			if (_trialScore[1] > _trialMaxScore[1]) {
+				msg2 += "\nYou improved your highscore! Yeah!";
 			}
+
+			//msg1 += "Performance: " + ofToString(_trialPerformance[0], 2);
+			//msg2 += "Performance: " + ofToString(_trialPerformance[1], 2);
+
+			//if (_trialPerformance[0] < _trialPerformancePrev[0]) {
+			//	msg1 += "\nYou improved! Yeah!";
+			//}
+			//if (_trialPerformance[1] < _trialPerformancePrev[1]) {
+			//	msg2 += "\nYou improved! Yeah!";
+			//}
+
+
 
 			// add reminder not to squeeze the ball too hard
-			msg1 += "\n\n Remember not to squeeze the ball too hard.";
-			msg2 += "\n\n Remember not to squeeze the ball too hard.";
+			//msg1 += "\n\n Remember not to squeeze the ball too hard.";
+			//msg2 += "\n\n Remember not to squeeze the ball too hard.";
 
 			// display
 			display1->showMessageNorth(true, msg1);
@@ -641,6 +712,24 @@ void ofAppExperiment::esmTrialFeedback()
 
 			// visual reward
 			showVisualReward();
+
+			// add performance to performance log, print to console
+			_trackingPerformanceLog_BROS1.push_back(_trialPerformance[0]);
+			_trackingPerformanceLog_BROS2.push_back(_trialPerformance[1]);
+
+			// show high score and trials left
+			display1->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[0]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
+			display2->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[1]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
+
+#ifdef _WIN32 || _WIN64
+			SetConsoleTextAttribute(hConsole, 3); // set color WINDOWS ONLY
+#endif
+			cout << "Tracking task performance log:" << endl;
+			cout << "BROS 1 (Green) = " << ofToString(_trackingPerformanceLog_BROS1) << endl;
+			cout << "BROS 2 (Blue)  = " << ofToString(_trackingPerformanceLog_BROS2) << endl;
+#ifdef _WIN32 || _WIN64
+			SetConsoleTextAttribute(hConsole, 15); // set color back
+#endif
 
 			break;
 		case TrialFeedback::MT:
@@ -667,6 +756,10 @@ void ofAppExperiment::esmTrialFeedback()
 		// save previous trial performance
 		_trialPerformancePrev[0] = _trialPerformance[0];
 		_trialPerformancePrev[1] = _trialPerformance[1];
+
+		// if maximum score is improved, update
+		_trialMaxScore[0] = (_trialScore[0] > _trialMaxScore[0]) ? _trialScore[0] : _trialMaxScore[0];
+		_trialMaxScore[1] = (_trialScore[1] > _trialMaxScore[1]) ? _trialScore[1] : _trialMaxScore[1];
 	}
 
 	// occasionaly show instructions
@@ -694,6 +787,9 @@ void ofAppExperiment::esmHomingAfterDone()
 	if (ofGetElapsedTimef() - _trialDoneTime > 4.0f) { 
 		display1->showMessageNorth(false);
 		display2->showMessageNorth(false);
+
+		display1->showMessageNorthWest(false);
+		display2->showMessageNorthWest(false);
 
 		display1->drawTask = false;
 		display2->drawTask = false;

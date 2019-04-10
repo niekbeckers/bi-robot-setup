@@ -24,7 +24,10 @@ slprj/
 data-store/
 debug/ft*
 ftsensordebug.m
-*.ipdb
+<<<<<<< HEAD
 *.iobj
+*.ipdb
+=======
+>>>>>>> origin/develop-of10.0
 /openFrameworks/
 *.exe.lastcodeanalysissucceeded

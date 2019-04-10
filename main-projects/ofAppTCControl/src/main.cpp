@@ -18,8 +18,17 @@ int main( ){
 	ofWindowMode wmode = ofWindowMode::OF_WINDOW;
 	if (glfwInit()) {
 		glfwGetMonitors(&monitorCount);
-		wmode = (monitorCount > 1) ? ofWindowMode::OF_FULLSCREEN : ofWindowMode::OF_WINDOW;
+		wmode = (monitorCount > 2) ? ofWindowMode::OF_FULLSCREEN : ofWindowMode::OF_WINDOW;
 	}
+
+
+	ofGLFWWindowSettings settings1;
+	settings1.setPosition(ofVec2f(50, 50));
+	settings1.visible = true;
+	settings1.setSize(200, 60);
+	settings1.title = "Experiment";
+	settings1.windowMode = OF_WINDOW;
+	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings1);
 
 	//
 	// mainWindow
@@ -31,12 +40,7 @@ int main( ){
 	settings0.windowMode = OF_WINDOW;
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings0);
 
-	ofGLFWWindowSettings settings1;
-	settings1.setPosition(ofVec2f(50, 50));
-	settings1.visible = false;
-	settings1.title = "Experiment";
-	settings1.windowMode = OF_WINDOW;
-	shared_ptr<ofAppBaseWindow> experimentWindow = ofCreateWindow(settings1);
+	
 
 	//
 	// display1Window
@@ -54,10 +58,10 @@ int main( ){
 	settings3.windowMode = wmode;
 	shared_ptr<ofAppBaseWindow> display2Window = ofCreateWindow(settings3);
 
+	shared_ptr<ofAppMain> mainApp(new ofAppMain);
+	shared_ptr<ofAppExperiment> experimentApp(new ofAppExperiment);
 	shared_ptr<ofAppDisplay> display1App(new ofAppDisplay);
 	shared_ptr<ofAppDisplay> display2App(new ofAppDisplay);
-	shared_ptr<ofAppExperiment> experimentApp(new ofAppExperiment);
-	shared_ptr<ofAppMain> mainApp(new ofAppMain);
 	
 	// give pointers to classes
 	mainApp->display1 = display1App;
@@ -68,11 +72,18 @@ int main( ){
 	experimentApp->display1 = display1App;
 	experimentApp->display2 = display2App;
 
+	display1App->mainApp = mainApp;
+	display1App->experimentApp = experimentApp;
+	display2App->mainApp = mainApp;
+	display2App->experimentApp = experimentApp;
+
+
 	// run of apps
+	ofRunApp(experimentWindow, experimentApp);
 	ofRunApp(mainWindow, mainApp);
 	ofRunApp(display1Window, display1App);
 	ofRunApp(display2Window, display2App);
-	ofRunApp(experimentWindow, experimentApp);
+	
 
 	ofRunMainLoop();
 

@@ -1,3 +1,5 @@
 *.mat
 *.zip
 /ftsensordebug.m
+/misc/
+

@@ -5,7 +5,7 @@ clear all; close all; clc;
 
 % NOTE: pair 6 was collected using the wrong model (TC), excluded. 
 
-pairNr = 5;
+pairNr = 8;
 selectPremadeTrialSequence = 1;
 groupType = 'interaction'; % solo or interaction
 groupTypeNr = 1; % 0 = solo, 1 = interaction

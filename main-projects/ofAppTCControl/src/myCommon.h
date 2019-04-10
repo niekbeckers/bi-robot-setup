@@ -17,14 +17,19 @@ struct displayData {
 };
 
 enum DisplayType {
-	PURSUIT = 0,
-	COMPENSATORY
+	PURSUIT_2D = 0,
+	PURSUIT_1D,
+	COMPENSATORY_1D,
+	COMPENSATORY_2D,
+	PURSUIT_ROLL,
+	COMPENSATORY_ROLL
 };
 
 enum ParticleShape {
 	PARTICLESHAPE_CIRCLE = 0,
 	PARTICLESHAPE_LINE,
-	PARTICLESHAPE_CROSS
+	PARTICLESHAPE_CROSS,
+	PARTICLESHAPE_CROSSHAIR
 };
 
 //
@@ -53,7 +58,7 @@ struct trialData {
 	double connectionStiffness = 0.0;		// default: 0.0 (no connection stiffness)
 	double connectionDamping = 0.0;			// default: 0.0
 	int condition = 0;						// condition type
-	double trialDuration = -1.0;			// - 1.0 seconds: define trialDone in Simulink
+	double trialDuration = 0.0;			// - 1.0 seconds: define trialDone in Simulink
 	double breakDuration = -1.0;			// pause after each trial
 	double trialRandomization = 0.0;		// random start time
 };
@@ -78,7 +83,7 @@ struct experimentSettings {
 	double getReadyDuration = 1.0;
 	int numTrials = 0;
 	string protocolname;
-	DisplayType displayType = DisplayType::PURSUIT; // 0 = pursuit, 1 = compensatory
+	DisplayType displayType = DisplayType::PURSUIT_2D; // 0 = pursuit, 1 = compensatory
 	ParticleShape cursorShape = ParticleShape::PARTICLESHAPE_CIRCLE; //  0 = circle
 };
 

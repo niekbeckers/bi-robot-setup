@@ -6,7 +6,7 @@
 % Niek Beckers
 
 % absolute paths (or copy this function to the parent folder in question.
-fromfolders = {'part1';'part2';'part3'};
+fromfolders = {'deel 1';'deel 2'};
 
 tofolder = '.';
 if ~strcmpi(tofolder,'.') && ~exist(tofolder,'dir')

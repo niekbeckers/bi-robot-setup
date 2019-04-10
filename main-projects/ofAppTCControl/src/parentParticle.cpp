@@ -138,23 +138,54 @@ void parentParticle::draw()
     
     if (_mode == PARENTPARTICLE_MODE_NORMAL) {
 
+		// check if cursor is out of the screen, cap at screen boundary
+		if (_pos.x > ofGetWidth() / 2.0) _pos.x = ofGetWidth() / 2.0;
+		if (_pos.x < -ofGetWidth() / 2.0) _pos.x = -ofGetWidth() / 2.0;
+		if (_pos.y > ofGetHeight() / 2.0) _pos.y = ofGetHeight() / 2.0;
+		if (_pos.y < -ofGetHeight() / 2.0) _pos.y = -ofGetHeight() / 2.0;
+
+
 		switch (_shape) {
 		case PARTICLESHAPE_CIRCLE:
-			ofSetCircleResolution(120);
-			ofSetLineWidth(6);
+			ofSetCircleResolution(200);
+			ofSetLineWidth(6.0);
 			ofDrawCircle(_pos.x, _pos.y, radius);
+			/*
+			if (_fillMode == OF_FILLED) {
+				ofSetLineWidth(2.0);
+				ofNoFill();
+				ofSetColor(ofColor(7, 54, 66));
+				ofDrawCircle(_pos, radius + 1.0);
+				ofSetColor(_color);
+			}*/
 			break;
 		case PARTICLESHAPE_LINE:
-			ofSetLineWidth(4);
-			ofDrawLine(_pos.x, radius, _pos.x, -radius);
+			ofSetLineWidth(8.0);
+			ofDrawLine(_pos.x, -radius, _pos.x, -0.25*radius);
+			ofDrawLine(_pos.x, -6.0, _pos.x, 6.0);
+			ofDrawLine(_pos.x, 0.25*radius, _pos.x, radius);
+			
+
 			break;
 		case PARTICLESHAPE_CROSS:
 			ofSetLineWidth(4);
-			ofPushMatrix();
-			ofTranslate(_pos);
+			//ofPushMatrix();
+			//ofTranslate(_pos);
 			ofDrawLine(_pos + ofPoint(0.0, radius), _pos - ofPoint(0.0, radius));
 			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos - ofPoint(radius, 0.0));
-			ofPopMatrix();
+			//ofPopMatrix();
+			break;
+
+		case PARTICLESHAPE_CROSSHAIR:
+			ofSetLineWidth(5.0);
+			ofSetCircleResolution(120);
+			ofDrawCircle(_pos, radius);
+			ofDrawLine(_pos + ofPoint(0.0, -radius), _pos + ofPoint(0.0, -radius - 0.5*radius));
+			ofDrawLine(_pos + ofPoint(0.0, radius), _pos + ofPoint(0.0, radius + 0.5*radius));
+			ofDrawLine(_pos + ofPoint(-radius, 0.0), _pos + ofPoint(-radius - 0.5*radius, 0.0));
+			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos + ofPoint(radius + 0.5*radius, 0.0));
+			ofFill();
+			ofDrawCircle(_pos, 4.0);
 			break;
 		}
         

@@ -62,11 +62,12 @@ class ofAppMain : public ofBaseApp{
 
 		unsigned long _lHdlVar_Read_Data, _lHdlVar_Read_SystemState, _lHdlVar_Read_OpsEnabled, _lHdlVar_Read_SystemError, _lHdlVar_Write_CalibrateForceSensor,
 			_lHdlNot_Read_OpsEnabled, _lHdlNot_Read_SystemState, _lHdlNot_Read_SystemError, _lHdlVar_Connected, _lHdlVar_ConnectionStiffness, _lHdlVar_ConnectionDamping,
-			_lHdlVar_RecordData,
+			_lHdlVar_RecordData, _lHdlVar_TrialTime,
 			_lHdlVar_DataVP1, _lHdlVar_DataVP2;
 
 		float _timeRefreshCheck = 1.0f; // 2 second refresh
 		float _timeCheck;
+		double _trialTime;
 
 		bool _loggerStartedDueExperiment = false;
 
@@ -106,7 +107,7 @@ class ofAppMain : public ofBaseApp{
 		double _VP1Data[4] = { 0.0,0.0,0.0,0.0 };
 		double _VP2Data[4] = { 0.0,0.0,0.0,0.0 };
 
-		SystemCmdThreaded *_herocMATLABThread;
+		//SystemCmdThreaded *_herocMATLABThread;
 
 		//
 		// custom
@@ -139,7 +140,7 @@ class ofAppMain : public ofBaseApp{
 		// gui
 		ofParameter<string> lblExpState, lblExpLoaded;
 		ofParameter<int> lblTrialNumber, lblBlockNumber;
-		ofParameter<string> lblTrialPerformance;
+		ofParameter<string> lblTrialPerformance, lblTrialTime;
 
 		//
 		// functions
@@ -167,4 +168,5 @@ class ofAppMain : public ofBaseApp{
 		void handleCallback(AmsAddr*, AdsNotificationHeader*);
 
 		string DecodeBROSError(int32_t e, int brosID);
+		inline double getTrialTime() { return _trialTime; };
 };

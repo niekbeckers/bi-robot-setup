@@ -44,7 +44,7 @@ class parentParticle {
         parentParticle();
     
     
-        float radius = 10.0f;
+        float radius = 8.0f;
         float mean = 0.0f;
         float stdev = 0.5*sqrt(0.0001f) * dots_per_m; // pixels
 		

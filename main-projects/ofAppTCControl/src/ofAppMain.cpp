@@ -14,8 +14,8 @@ void ofAppMain::setup(){
 	ofLogToConsole();
 
 	// matlab on heroc thread
-	string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
-	_herocMATLABThread = new SystemCmdThreaded(cmd);
+	//string cmd = "putty -ssh -i " + strSSHKey + " -pw " + pwKeyHeRoC + " " + userHeRoC + "@" + ipAddressHeRoC + " -m C:\\Users\\TCUser\\Documents\\repositories\\bros_experiments\\main-projects\\matlab-vp-modelfit\\runVirtualPartnerMATLAB.sh -t";
+	//_herocMATLABThread = new SystemCmdThreaded(cmd);
 
 	// set up window
 	ofBackground(ofColor::blueSteel);
@@ -70,6 +70,7 @@ void ofAppMain::update(){
 	_display2Data.posTargetX = AdsData[6];
 	_display2Data.posTargetY = AdsData[7];
 
+	/*
 	// virtual partner data
 	if (_lHdlVar_DataVP1 != -1) {
 		_tcClientCont->read(_lHdlVar_DataVP1, &_VP1Data, sizeof(_VP1Data));
@@ -81,6 +82,11 @@ void ofAppMain::update(){
 		_display2Data.posVPX = _VP2Data[0];
 		_display2Data.posVPY = _VP2Data[1];
 	}
+	*/
+
+	
+	_tcClientEvent->read(_lHdlVar_TrialTime, &_trialTime, sizeof(_trialTime));
+	lblTrialTime = ofToString(_trialTime, 1);
 
 	// periodic check
 	if (ofGetElapsedTimef() - _timeCheck > _timeRefreshCheck) {
@@ -108,10 +114,10 @@ void ofAppMain::update(){
 		updateADSDataGUI();
 
 		// check if Heroc thread is running
-		if (!_herocMATLABThread->isThreadRunning()) {
-			if (_btnStartStopVPMATLAB)
-				_btnStartStopVPMATLAB = false;
-		}
+		//if (!_herocMATLABThread->isThreadRunning()) {
+		//	if (_btnStartStopVPMATLAB)
+		//		_btnStartStopVPMATLAB = false;
+		//}
 	}	
 }
 
@@ -194,6 +200,9 @@ void ofAppMain::setupTCADS()
 	// Request State
 	char szVar8[] = { "Object1 (ModelBROS).ModelParameters.Recorddata1yes0no_Value" };
 	_lHdlVar_RecordData = _tcClientEvent->getVariableHandle(szVar8, sizeof(szVar8));
+
+	char szVar10[] = { "Object1 (ModelBROS).BlockIO.VecCon_TrialTime" };
+	_lHdlVar_TrialTime = _tcClientEvent->getVariableHandle(szVar10, sizeof(szVar10));
 }
  
 //--------------------------------------------------------------
@@ -284,6 +293,7 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(&_grpExpControl);
 
 	_grpExpState.setName("Experiment state");
+	_grpExpState.add(lblTrialTime.set("Trial Time", ""));
 	_grpExpState.add(lblTrialPerformance.set("Trial Performance", "[,]"));
 	_grpExpState.add(lblBlockNumber.set("Block number", 0, 0, 1));  // add dummy experiment
 	_grpExpState.add(lblTrialNumber.set("Trial number", 0, 0, 1)); // add dummy experiment
@@ -325,7 +335,7 @@ void ofAppMain::setupGUI()
 	_btnToggleRecordData.addListener(this, &ofAppMain::recordDataTogglePressed);
 	_btnExpPauseResume.addListener(this, &ofAppMain::pauseExperimentTogglePressed);
 	//_btnDebugMode.addListener(this, &ofAppMain::experimentDebugModeTogglePressed);
-	//_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
+	_btnSetConnected.addListener(this, &ofAppMain::setConnectionEnabled);
 	//_btnStartStopVPMATLAB.addListener(this, &ofAppMain::startStopVPMATLAB);
 
 	
@@ -509,9 +519,11 @@ void ofAppMain::recordDataTogglePressed(bool & value)
 //--------------------------------------------------------------
 void ofAppMain::startStopVPMATLAB(bool & value)
 {
+	return; 
+
 	if (value) {
 		// send request to HEROC computer
-		_herocMATLABThread->startThread();
+		//_herocMATLABThread->startThread();
 
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending request to start matlabVirtualPartner on HeRoC";
 
@@ -521,19 +533,14 @@ void ofAppMain::startStopVPMATLAB(bool & value)
 		// terminate the matlabVirtualPartner script running on the HeRoC computer by sending a XML file with one field: terminate
 		ofXml xml;
 
-		//xml.addChild("VP");
-		//xml.setTo("VP");
-		//xml.addValue("terminate", true);
-
 		string xmlfilename = "settings_vpmodelfit_trial_terminate.xml";
-		//xml.save(xmlfilename);
 
 		ofLogVerbose() << ofToDataPath(xmlfilename);
 
 		// copy to HeRoC pc
 		ofLogNotice() << "(" << typeid(this).name() << ") " << "Sending terminate request to HeRoC";
-		string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
-		int i = system(cmd.c_str());
+		//string cmd = ofToString("pscp -r -agent -i " + strSSHKey + " -pw " + pwKeyHeRoC +  " " + ofToDataPath(xmlfilename) + " " + userHeRoC + "@" + ipAddressHeRoC + ":" + matlabSettingsFilePath_HeRoC);
+		//int i = system(cmd.c_str());
 		
 		// clean up
 		remove(xmlfilename.c_str());
@@ -719,7 +726,7 @@ string ofAppMain::DecodeBROSError(int32_t e, int brosID) {
 	}
 
 	if (!anyError) 
-		s += "  No errors\n";
+		s += " No errors\n";
 
 	return s;
 }
