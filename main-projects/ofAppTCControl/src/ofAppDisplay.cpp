@@ -111,11 +111,6 @@ void ofAppDisplay::draw()
 			ofPopMatrix();
 		}
 
-
-		
-
-		
-
 		switch (displayType) {
 		case DisplayType::PURSUIT_2D :
 			ofPushMatrix();
