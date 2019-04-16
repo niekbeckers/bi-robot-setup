@@ -14,13 +14,14 @@ void childParticle::reset()
     uniqueVal = ofRandom(-10000, 10000);
     
     vel = ofPoint(0, 0);
+	absPos0 = ofPoint(0.0, 0.0);
     frc = ofPoint(0, 0, 0);
-    drag  = ofRandom(0.95, 0.998);
+    //drag  = ofRandom(0.95, 0.998);
     
     scale = ofRandom(0.5, 1.0);
     alpha = 1.0f;
     phase = 0.0f;
-    
+
     startTime = ofGetElapsedTimef();
 }
 
@@ -78,7 +79,16 @@ void childParticle::draw()
         ofFill();
         ofEnableAlphaBlending();
         ofSetColor(color.r, color.g, color.b, (int)(alpha*255.0f));
-        ofDrawCircle(relPos.x + parentPos.x, relPos.y + parentPos.y, radius*scale);
+
+		// check if the reference position of the particle is at the initial position or not
+		if (useAbsPos0) {
+			ofDrawCircle(relPos.x + absPos0.x, relPos.y + absPos0.y, radius*scale); // based on initial absolute position 
+		}
+		else
+		{
+			ofDrawCircle(relPos.x + parentPos.x, relPos.y + parentPos.y, radius*scale); // let it move along with the parent
+		}
+        
         ofDisableAlphaBlending();
     }
 }

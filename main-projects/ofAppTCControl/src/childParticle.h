@@ -20,10 +20,7 @@ class childParticle {
         float phase = 0.0f;
         
         float uniqueVal;
-        float alpha = 1.0;
-        float drag;
-    
-        
+        float alpha = 1.0;    
     
         particleDisplayMode dispMode = PARTICLE_DISPLAY_MODE_ONOFF_ALPHA;
         particleRepetitionMode repMode = PARTICLE_REPETITION_MODE_REPEAT;
@@ -39,10 +36,12 @@ class childParticle {
         void setPeriod(float newPeriod);
         void setPhase(float newPhase = 0.0f);
     
-        ofPoint relPos = ofPoint(0,0);
-        ofPoint parentPos = ofPoint(0,0);
-        ofPoint vel = ofPoint(0,0);
-        ofPoint frc = ofPoint(0,0);
+		ofPoint absPos0 = ofPoint(0.0, 0.0);
+        ofPoint relPos = ofPoint(0.0, 0.0);
+        ofPoint parentPos = ofPoint(0.0, 0.0);
+		
+        ofPoint vel = ofPoint(0.0, 0.0);
+        ofPoint frc = ofPoint(0.0, 0.0);
         
         ofColor color = ofColor::deepSkyBlue;
     
@@ -51,6 +50,8 @@ class childParticle {
     
         bool addNoise = false;
         bool isActive = false;
+		bool useAbsPos0 = false;
 		bool doDraw = false;
 		float startTime = 0.0;
+		float drag = 0.0;
 };

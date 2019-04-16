@@ -46,6 +46,10 @@ void parentParticle::reset()
             }
             
             break;
+
+		case PARENTPARTICLE_MODE_MOVINGCLOUD:
+
+			break;
             
         case PARENTPARTICLE_MODE_EXPLODE:
             // make 2500 _particles
