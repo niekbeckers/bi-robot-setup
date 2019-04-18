@@ -74,6 +74,7 @@ void ofAppDisplay::update()
 {
 	// update target and cursor
 
+
 	//target.setPosition(ofPoint(0.05*sin(2.0*M_PI*0.2*ofGetElapsedTimef() + 0.5)*dots_per_m, 0.075*sin(2.0*M_PI*0.1*ofGetElapsedTimef())*dots_per_m));
 	target.setPosition(ofPoint(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m));
 	target.update();

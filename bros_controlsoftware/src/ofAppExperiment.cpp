@@ -585,10 +585,14 @@ void ofAppExperiment::esmCountdownDone()
 	if (_currentTrial.condition != -1) {
 		// 'normal trial', switch robot to run mode
 		mainApp->requestStateChange(SystemState::RUN);
+		display1->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_MOVINGCLOUD);
+		display2->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_MOVINGCLOUD);
 	}
 	else {
 		// measurement trial (condition == -1), keep the robot in the home position (the current state).
 		mainApp->requestStateChange(SystemState::REQHOMINGAUTO);
+		display1->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_NORMAL);
+		display2->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_NORMAL);
 	}
 	
 

@@ -49,9 +49,9 @@ class parentParticle {
     
 		// normal distribution for target cloud position and velocity
 		float _mean_pos = 0.0f;
-		float _sd_pos = 0.02; // m
+		float _sd_pos = 0.005; // m
 		float _mean_vel = 0.0f;
-		float _sd_vel = 0.005; // m
+		float _sd_vel = 0.03; // m
 
 
 		//

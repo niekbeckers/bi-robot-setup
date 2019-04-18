@@ -12,7 +12,7 @@
       <id0>1</id0>
       <id1>2</id1>
    </activeBROSID>
-   <targetParticleCount>10</targetParticleCount>
+   <targetParticleCount>15</targetParticleCount>
    <targetParticlePeriod>2</targetParticlePeriod>
    <targetParticleSize>3</targetParticleSize>
    <block>
@@ -22,7 +22,7 @@
          <connected>0</connected>
          <connectionstiffness>0</connectionstiffness>
          <connectionDamping>0</connectionDamping>
-         <condition>-1</condition>
+         <condition>0</condition>
          <trialDuration>30</trialDuration>
          <breakDuration>15</breakDuration>
          <trialRandomization>20.6033</trialRandomization>
@@ -31,8 +31,8 @@
             <id1>0.005</id1>
          </targetPosSD>
          <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
+            <id0>0</id0>
+            <id1>0</id1>
          </targetVelSD>
       </trial>
       <trial>
@@ -48,93 +48,8 @@
             <id1>0.005</id1>
          </targetPosSD>
          <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
-         </targetVelSD>
-      </trial>
-      <trial>
-         <connected>0</connected>
-         <connectionstiffness>0</connectionstiffness>
-         <connectionDamping>0</connectionDamping>
-         <condition>1</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
-         <trialRandomization>11.0545</trialRandomization>
-         <targetPosSD>
-            <id0>0.005</id0>
-            <id1>0.005</id1>
-         </targetPosSD>
-         <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
-         </targetVelSD>
-      </trial>
-      <trial>
-         <connected>0</connected>
-         <connectionstiffness>0</connectionstiffness>
-         <connectionDamping>0</connectionDamping>
-         <condition>2</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
-         <trialRandomization>18.7686</trialRandomization>
-         <targetPosSD>
-            <id0>0.005</id0>
-            <id1>0.005</id1>
-         </targetPosSD>
-         <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
-         </targetVelSD>
-      </trial>
-      <trial>
-         <connected>0</connected>
-         <connectionstiffness>0</connectionstiffness>
-         <connectionDamping>0</connectionDamping>
-         <condition>3</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
-         <trialRandomization>23.4068</trialRandomization>
-         <targetPosSD>
-            <id0>0.005</id0>
-            <id1>0.005</id1>
-         </targetPosSD>
-         <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
-         </targetVelSD>
-      </trial>
-      <trial>
-         <connected>0</connected>
-         <connectionstiffness>0</connectionstiffness>
-         <connectionDamping>0</connectionDamping>
-         <condition>4</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
-         <trialRandomization>2.4338</trialRandomization>
-         <targetPosSD>
-            <id0>0.005</id0>
-            <id1>0.005</id1>
-         </targetPosSD>
-         <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
-         </targetVelSD>
-      </trial>
-      <trial>
-         <connected>0</connected>
-         <connectionstiffness>0</connectionstiffness>
-         <connectionDamping>0</connectionDamping>
-         <condition>5</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
-         <trialRandomization>27.8816</trialRandomization>
-         <targetPosSD>
-            <id0>0.005</id0>
-            <id1>0.005</id1>
-         </targetPosSD>
-         <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
+            <id0>0</id0>
+            <id1>0</id1>
          </targetVelSD>
       </trial>
       <trial>
@@ -144,14 +59,31 @@
          <condition>0</condition>
          <trialDuration>30</trialDuration>
          <breakDuration>15</breakDuration>
-         <trialRandomization>23.2714</trialRandomization>
+         <trialRandomization>11.0545</trialRandomization>
          <targetPosSD>
             <id0>0.005</id0>
             <id1>0.005</id1>
          </targetPosSD>
          <targetVelSD>
-            <id0>0.01</id0>
-            <id1>0.01</id1>
+            <id0>0</id0>
+            <id1>0</id1>
+         </targetVelSD>
+      </trial>
+      <trial>
+         <connected>0</connected>
+         <connectionstiffness>0</connectionstiffness>
+         <connectionDamping>0</connectionDamping>
+         <condition>0</condition>
+         <trialDuration>30</trialDuration>
+         <breakDuration>15</breakDuration>
+         <trialRandomization>18.7686</trialRandomization>
+         <targetPosSD>
+            <id0>0.005</id0>
+            <id1>0.005</id1>
+         </targetPosSD>
+         <targetVelSD>
+            <id0>0</id0>
+            <id1>0</id1>
          </targetVelSD>
       </trial>
    </block>

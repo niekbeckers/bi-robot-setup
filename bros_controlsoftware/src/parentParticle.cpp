@@ -249,10 +249,10 @@ void parentParticle::draw()
         }
 
 		// draw actual target for debug
-		ofSetColor(ofColor::burlyWood);
-		ofFill();
-		ofDrawCircle(_pos, 8.0);
-		setFillMode(_fillMode);
+		//ofSetColor(ofColor::burlyWood);
+		//ofFill();
+		//ofDrawCircle(_pos, 8.0);
+		//setFillMode(_fillMode);
 		
     }
 }
