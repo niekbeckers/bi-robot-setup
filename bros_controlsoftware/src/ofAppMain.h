@@ -171,4 +171,5 @@ class ofAppMain : public ofBaseApp{
 
 		string DecodeBROSError(int32_t e, int brosID);
 		inline double getTrialTime() { return _trialTime; };
+		inline bool getToggleTaskType() { return _btnToggleTargetType; };
 };

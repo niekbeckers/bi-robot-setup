@@ -424,6 +424,8 @@ void ofAppExperiment::esmExperimentStop()
 
 	display1->drawTask = true;
 	display2->drawTask = true;
+	display1->target.doDraw = false;
+	display2->target.doDraw = false;
 	display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 
@@ -542,22 +544,56 @@ void ofAppExperiment::esmGetReadyDone()
 		// start countdown
 		_cdStartTime = ofGetElapsedTimef();
 
+		// display 1
 		display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
-		//display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		// if baseline, show dot as target, else, show moving cloud
+		if (_currentTrial.condition != -1) {
+			// all other trials
+			if (mainApp->getToggleTaskType()) {
+				display1->target.setMode(PARENTPARTICLE_MODE_MOVINGCLOUD);
+			}
+			else {
+				display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+			}
+		}
+		else {
+			// baseline
+			display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		}
+
+		display1->target.doDraw = true;
 		display1->target.setPosition(ofPoint(0.0, 0.0));
 		display1->cursor.setPosition(ofPoint(0.0, 0.0));
 		display1->target.reset();
 		display1->cursor.reset();
+		display1->drawTask = true;
 
+		// display 2
 		display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
-		//display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		if (_currentTrial.condition != -1) {
+			// all other trials
+			if (mainApp->getToggleTaskType()) {
+				display2->target.setMode(PARENTPARTICLE_MODE_MOVINGCLOUD);
+			}
+			else {
+				display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+			}
+		}
+		else {
+			// baseline
+			display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
+		}
+
+		// overrule based on toggle button
+
+		display2->target.doDraw = true;
 		display2->target.setPosition(ofPoint(0.0, 0.0));
 		display2->cursor.setPosition(ofPoint(0.0, 0.0));
 		display2->target.reset();
 		display2->cursor.reset();
-
-		display1->drawTask = true;
 		display2->drawTask = true;
+
+
 		setExperimentState(ExperimentState::COUNTDOWN);
 	}
 }
@@ -581,21 +617,6 @@ void ofAppExperiment::esmCountdown()
 //--------------------------------------------------------------
 void ofAppExperiment::esmCountdownDone()
 {
-	// countdown is done, so make sure the robot is in run mode! (or not, depending on the trial)
-	if (_currentTrial.condition != -1) {
-		// 'normal trial', switch robot to run mode
-		mainApp->requestStateChange(SystemState::RUN);
-		display1->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_MOVINGCLOUD);
-		display2->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_MOVINGCLOUD);
-	}
-	else {
-		// measurement trial (condition == -1), keep the robot in the home position (the current state).
-		mainApp->requestStateChange(SystemState::REQHOMINGAUTO);
-		display1->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_NORMAL);
-		display2->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_NORMAL);
-	}
-	
-
 	// countdown done, start trial
 	display1->showMessageNorth(false);
 	display2->showMessageNorth(false);
@@ -605,12 +626,34 @@ void ofAppExperiment::esmCountdownDone()
 	display2->target.doDraw = true;
 	display1->drawTask = true;
 	display2->drawTask = true;
-	display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
+	//display1->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 	//display1->target.setMode(PARENTPARTICLE_MODE_NORMAL);
 	display1->target.reset();
-	display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
+	//display2->cursor.setMode(PARENTPARTICLE_MODE_NORMAL);
 	//display2->target.setMode(PARENTPARTICLE_MODE_NORMAL);
 	display2->target.reset();
+
+	// countdown is done, so make sure the robot is in run mode! (or not, depending on the trial)
+	if (_currentTrial.condition != -1) {
+		// 'normal trial', switch robot to run mode
+		mainApp->requestStateChange(SystemState::RUN);
+		//display1->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_MOVINGCLOUD);
+		//display2->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_MOVINGCLOUD);
+	}
+	else {
+		// measurement trial (condition == -1), keep the robot in the home position (the current state).
+		mainApp->requestStateChange(SystemState::REQHOMINGAUTO);
+		//display1->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_NORMAL);
+		//display2->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_NORMAL);
+
+		// give textual feedback about trial
+		display1->showMessageNorth(true, "BASELINE TRIAL\n\nRELAX, DON'T MOVE");
+		display2->showMessageNorth(true, "BASELINE TRIAL\n\nRELAX, DON'T MOVE");
+
+	}
+	
+
+	
 
 	requestStartTrialADS();
 
@@ -679,8 +722,10 @@ void ofAppExperiment::esmTrialFeedback()
 	// show feedback (if enabled)
 	if (_settings.trialFeedbackType > 0) {  // if trialFeedbackType is not NONE
 
+		
 		// request trial performance feedback from the RT model
-		_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
+		if (_currentTrial.condition != -1) 
+			_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
 
 		string msg1 = "TRIAL DONE\n\n";
 		string msg2 = "TRIAL DONE\n\n";
@@ -694,24 +739,29 @@ void ofAppExperiment::esmTrialFeedback()
 		switch (_settings.trialFeedbackType) {
 		case TrialFeedback::RMSE:
 			
-			// calculate a score (instead of RMSE)
-			
-			_trialScore[0] = 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
-			_trialScore[1] = 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
+			if (_currentTrial.condition != -1) {
+				// calculate a score (instead of RMSE)
+				_trialScore[0] = 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
+				_trialScore[1] = 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
 
-			// cap to zero
-			_trialScore[0] = (_trialScore[0] > 0) ? _trialScore[0] : 0.0;
-			_trialScore[1] = (_trialScore[1] > 0) ? _trialScore[1] : 0.0;
+				// cap to zero
+				_trialScore[0] = (_trialScore[0] > 0) ? _trialScore[0] : 0.0;
+				_trialScore[1] = (_trialScore[1] > 0) ? _trialScore[1] : 0.0;
 
-			// show score
-			msg1 += "Score: " + ofToString((int)_trialScore[0], 0);
-			msg2 += "Score: " + ofToString((int)_trialScore[1], 0);
+				// show score
+				msg1 += "Score: " + ofToString((int)_trialScore[0], 0);
+				msg2 += "Score: " + ofToString((int)_trialScore[1], 0);
 
-			if (_trialScore[0] > _trialMaxScore[0]) {
-				msg1 += "\nYou improved your highscore! Yeah!";
-			}
-			if (_trialScore[1] > _trialMaxScore[1]) {
-				msg2 += "\nYou improved your highscore! Yeah!";
+				if (_trialScore[0] > _trialMaxScore[0]) {
+					msg1 += "\nYou improved your highscore! Yeah!";
+				}
+				if (_trialScore[1] > _trialMaxScore[1]) {
+					msg2 += "\nYou improved your highscore! Yeah!";
+				}
+
+				// show high score and trials left
+				display1->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[0]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
+				display2->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[1]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
 			}
 
 			//msg1 += "Performance: " + ofToString(_trialPerformance[0], 2);
@@ -743,10 +793,7 @@ void ofAppExperiment::esmTrialFeedback()
 			_trackingPerformanceLog_BROS1.push_back(_trialPerformance[0]);
 			_trackingPerformanceLog_BROS2.push_back(_trialPerformance[1]);
 
-			// show high score and trials left
-			display1->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[0]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
-			display2->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[1]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
-
+			// feedback of trial performance in console (list)
 #ifdef _WIN32 || _WIN64
 			SetConsoleTextAttribute(hConsole, 3); // set color WINDOWS ONLY
 #endif
