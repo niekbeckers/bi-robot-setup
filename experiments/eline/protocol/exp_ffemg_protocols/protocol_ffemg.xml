@@ -22,9 +22,9 @@
          <connected>0</connected>
          <connectionstiffness>0</connectionstiffness>
          <connectionDamping>0</connectionDamping>
-         <condition>0</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
+         <condition>-1</condition>
+         <trialDuration>10</trialDuration>
+         <breakDuration>10</breakDuration>
          <trialRandomization>20.6033</trialRandomization>
          <targetPosSD>
             <id0>0.005</id0>
@@ -40,8 +40,8 @@
          <connectionstiffness>0</connectionstiffness>
          <connectionDamping>0</connectionDamping>
          <condition>0</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
+         <trialDuration>10</trialDuration>
+         <breakDuration>10</breakDuration>
          <trialRandomization>5.5053</trialRandomization>
          <targetPosSD>
             <id0>0.005</id0>
@@ -56,9 +56,9 @@
          <connected>0</connected>
          <connectionstiffness>0</connectionstiffness>
          <connectionDamping>0</connectionDamping>
-         <condition>0</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
+         <condition>-1</condition>
+         <trialDuration>10</trialDuration>
+         <breakDuration>10</breakDuration>
          <trialRandomization>11.0545</trialRandomization>
          <targetPosSD>
             <id0>0.005</id0>
@@ -74,9 +74,60 @@
          <connectionstiffness>0</connectionstiffness>
          <connectionDamping>0</connectionDamping>
          <condition>0</condition>
-         <trialDuration>30</trialDuration>
-         <breakDuration>15</breakDuration>
+         <trialDuration>10</trialDuration>
+         <breakDuration>10</breakDuration>
          <trialRandomization>18.7686</trialRandomization>
+         <targetPosSD>
+            <id0>0.005</id0>
+            <id1>0.005</id1>
+         </targetPosSD>
+         <targetVelSD>
+            <id0>0</id0>
+            <id1>0</id1>
+         </targetVelSD>
+      </trial>
+      <trial>
+         <connected>0</connected>
+         <connectionstiffness>0</connectionstiffness>
+         <connectionDamping>0</connectionDamping>
+         <condition>0</condition>
+         <trialDuration>10</trialDuration>
+         <breakDuration>10</breakDuration>
+         <trialRandomization>23.4068</trialRandomization>
+         <targetPosSD>
+            <id0>0.005</id0>
+            <id1>0.005</id1>
+         </targetPosSD>
+         <targetVelSD>
+            <id0>0</id0>
+            <id1>0</id1>
+         </targetVelSD>
+      </trial>
+      <trial>
+         <connected>0</connected>
+         <connectionstiffness>0</connectionstiffness>
+         <connectionDamping>0</connectionDamping>
+         <condition>0</condition>
+         <trialDuration>10</trialDuration>
+         <breakDuration>10</breakDuration>
+         <trialRandomization>2.4338</trialRandomization>
+         <targetPosSD>
+            <id0>0.005</id0>
+            <id1>0.005</id1>
+         </targetPosSD>
+         <targetVelSD>
+            <id0>0</id0>
+            <id1>0</id1>
+         </targetVelSD>
+      </trial>
+      <trial>
+         <connected>0</connected>
+         <connectionstiffness>0</connectionstiffness>
+         <connectionDamping>0</connectionDamping>
+         <condition>0</condition>
+         <trialDuration>10</trialDuration>
+         <breakDuration>10</breakDuration>
+         <trialRandomization>27.8816</trialRandomization>
          <targetPosSD>
             <id0>0.005</id0>
             <id1>0.005</id1>

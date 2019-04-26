@@ -54,16 +54,16 @@ cond_tmp = repmat((1:5).',Nreps,1);
 cond_sorting = randperm(length(cond_tmp));
 condition = [0*ones(Nreps,1); cond_tmp(cond_sorting)];
 
-condition = [-1;0;1;2;3;4;5];
-condition = [0;0;0;0];
+% condition = [-1;0;1;2;3;4;5];
+condition = [-1;0;-1;0;0;0;0];
 
 % stpecify how the trialst are divided over the blockst
 divTrialsOverBlocks = {1:4; 5:24};
 divTrialsOverBlocks = {1:length(condition)};
     
 numTrials = numel(condition); % example
-breakDuration = 15*ones(numTrials,1);
-trialDuration = 30*ones(numTrials,1);
+breakDuration = 10*ones(numTrials,1);
+trialDuration = 10*ones(numTrials,1);
 
 % connection
 if strcmpi(groupType,'stolo')
