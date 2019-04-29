@@ -316,6 +316,9 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 	display1->target.setPeriodChildParticle(_settings.targetParticlePeriod);
 	display2->target.setPeriodChildParticle(_settings.targetParticlePeriod);
 
+	display1->target.particleRadius = _settings.targetParticleSize;
+	display2->target.particleRadius = _settings.targetParticleSize;
+
 	// set target position and velocity variance
 	display1->target.setNormalDistPos(0.0, _blocks[0].trials[0].targetPosSD[0]);
 	display2->target.setNormalDistPos(0.0, _blocks[0].trials[0].targetPosSD[1]);

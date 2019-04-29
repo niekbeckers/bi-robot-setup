@@ -29,8 +29,9 @@ void ofAppDisplay::setup()
 	//clrTarget = ofColor(153, 0, 0);
 	//clrTarget = ofColor(203,75,22); // solarized orange
 	//clrTarget = ofColor(220,50,47); // solarized red
-	clrTarget = ofColor(227, 106, 36); // my orange
-	clrTarget = ofColor(0, 0, 0);
+	// clrTarget = ofColor(227, 106, 36); // my orange
+	//clrTarget = ofColor(0, 0, 0);
+	clrTarget = ofColor(255, 255, 0); // yellow 
 	target.setColor(clrTarget);
 
 	clrWSBoundary = ofColor(198, 192, 173); // egg white

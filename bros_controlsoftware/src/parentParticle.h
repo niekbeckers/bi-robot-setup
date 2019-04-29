@@ -25,7 +25,7 @@ class parentParticle {
         parentParticleMode _mode = PARENTPARTICLE_MODE_NORMAL;
 		ParticleShape _shape = PARTICLESHAPE_CIRCLE;
         ofPoint _pos;
-        ofColor _color = ofColor::deepSkyBlue;
+		ofColor _color = ofColor::deepSkyBlue;
         float _startTime;
         ofFillFlag _fillMode = OF_OUTLINE;
 
@@ -68,8 +68,8 @@ class parentParticle {
 		float velExplode = 400.0f;
 		bool doDraw = true;
 		bool drawTail = false;
-		int numberParticles = 10;
-		float particleRadius = 4.0f;
+		int numberParticles = 5;
+		float particleRadius = 5.0f;
     
 		float workspaceRadius = 0.1*dots_per_m;
 

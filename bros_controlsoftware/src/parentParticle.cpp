@@ -152,10 +152,10 @@ void parentParticle::update()
 				}
 
 				// check if any particles are outside of the workspace
-				if (_particles[i].getAbsPos().lengthSquared() > pow(workspaceRadius, 2.0)) { // used squared because taking a root takes up a lot of PC resource
-					_particles[i].relPos = workspaceRadius*_particles[i].getAbsPos().normalize() - _pos;
-					_particles[i].vel = -_particles[i].vel;
-				}
+				//if (_particles[i].getAbsPos().lengthSquared() > pow(workspaceRadius, 2.0)) { // used squared because taking a root takes up a lot of PC resource
+				//_particles[i].relPos =  workspaceRadius*_particles[i].getAbsPos().normalize() - _pos;
+				//_particles[i].vel = -_particles[i].vel;
+				//}
 
 			}
 			break;

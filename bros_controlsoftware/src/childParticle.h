@@ -41,8 +41,8 @@ class childParticle {
 		ofColor color = ofColor::deepSkyBlue;
 
 		float scale = 1.0;
-		float radius = 4.0f;
-		float lineWidth = 2.0f;
+		float radius = 4.0f; 
+		float lineWidth = 2.0f; 
 
 		bool addNoise = false;
 		bool isActive = false;

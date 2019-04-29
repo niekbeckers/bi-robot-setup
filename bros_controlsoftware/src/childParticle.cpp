@@ -83,7 +83,7 @@ void childParticle::update()
 void childParticle::draw()
 {
     if (doDraw) {
-		setFillMode(OF_OUTLINE);
+		setFillMode(OF_FILLED);
         ofEnableAlphaBlending();
         ofSetColor(color.r, color.g, color.b, (int)(alpha*255.0f));
 		ofSetLineWidth(lineWidth);
