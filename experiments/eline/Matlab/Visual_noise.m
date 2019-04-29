@@ -5,8 +5,8 @@ dt = 1/f;
 t = 0:dt:15; 
 
 std = linspace(0.5,30,10);      % vector with possible std's of velocity 
-rv = std(10);                       % std of velocity 
-rp = 0.5;                        % std of position 
+rv = std(10);                    % std of velocity 
+rp = 0.5;                       % std of position 
 
 % Initialize first time step 
 x(1) = 1.6*sin(0.1*2*pi*t(1))+4*sin(0.3*2*pi*t(1))+0.8*sin(0.5*2*pi*t(1))+2.4*sin(0.8*2*pi*t(1));
@@ -39,49 +39,48 @@ ylim([-20 20])
 F(1) = getframe(gca); 
 
 for i = 2: length(t)
+    
     x(i) = 1.6*sin(0.1*2*pi*t(i))+4*sin(0.3*2*pi*t(i))+0.8*sin(0.5*2*pi*t(i))+2.4*sin(0.8*2*pi*t(i));
     y(i) = 0.8*sin(0.2*2*pi*t(i))+2.4*sin(0.3*2*pi*t(i))+4*sin(0.6*2*pi*t(i))+2.4*sin(0.8*2*pi*t(i)); 
 
     vx(i)  = (x(i) - x(i-1))/dt; 
     vy(i)  = (y(i) - y(i-1))/dt; 
-    npx(i,1:5) = npx(i-1,1:5) + dt.*nvx(i-1,1:5);   
-    npy(i,1:5) = npy(i-1,1:5) + dt.*nvy(i-1,1:5);
     nvx(i,1:5) = nvx(i-1,1:5); 
     nvy(i,1:5) = nvy(i-1,1:5); 
+    npx(i,1:5) = npx(i-1,1:5) + dt.*(vx(i)+nvx(i,1:5));   
+    npy(i,1:5) = npy(i-1,1:5) + dt.*(vy(i)+nvy(i,1:5));
 
 if mod(i,80) == 0
     npx(i,r(i)) = x(i) + rp*randn(1); 
     npy(i,r(i)) = y(i) + rp*randn(1); 
-    nvx(i,r(i)) = vx(i) + rv*randn(1); 
-    nvy(i,r(i)) = vy(i) + rv*randn(1);
+    nvx(i,r(i)) = rv*randn(1); 
+    nvy(i,r(i)) = rv*randn(1);
     display(['i = ' num2str(i)]); 
 end 
-
 
 xn = npx(i,:); 
 yn = npy(i,:); 
 xr = x(i); 
 yr = y(i);
 
-
 set(h, 'xdata' , xn, 'ydata', yn)
 % set(g, 'xdata' , xr, 'ydata', yr)
 
 drawnow limitrate 
 
-F(i) = getframe(gca); 
+% F(i) = getframe(gca); 
 
 end 
 
 %% Make a video of the trajectory 
 
-v = VideoWriter('VN_v_0.05.avi','Motion JPEG AVI');
-v.Quality = 100; 
-v.FrameRate = 1000; 
-
-open(v) 
-writeVideo(v,F)
-close(v)
+% v = VideoWriter('VN_vmin_r.avi','Motion JPEG AVI');
+% v.Quality = 100; 
+% v.FrameRate = 1000; 
+% 
+% open(v) 
+% writeVideo(v,F)
+% close(v)
 
 %% Show trajectory 
 

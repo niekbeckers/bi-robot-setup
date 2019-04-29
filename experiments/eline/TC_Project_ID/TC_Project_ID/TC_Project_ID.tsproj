@@ -4681,9 +4681,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{760D34A7-0048-4575-8417-C923205AB893}">
+					<TmcDesc GUID="{1874DEA5-4F1B-45C7-A9BB-06FF00CB36B9}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{760D34A7-0048-4575-8417-C923205AB893}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{1874DEA5-4F1B-45C7-A9BB-06FF00CB36B9}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
