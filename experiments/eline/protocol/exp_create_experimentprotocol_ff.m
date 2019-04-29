@@ -36,9 +36,9 @@ st.experiment.activeBROSID.id0 = 1;
 st.experiment.activeBROSID.id1 = 2;
 
 % target stettingst
-st.experiment.targetParticleCount = 15;
-st.experiment.targetParticlePeriod = 2.0;% how long each child particle mopves before reset
-st.experiment.targetParticleSize = 3.0; % size of partticle (px)
+st.experiment.targetParticleCount = 5;
+st.experiment.targetParticlePeriod = 0.5;% how long each child particle mopves before reset
+st.experiment.targetParticleSize = 6.0; % size of partticle (px)
 
 %% trial data
 
@@ -55,15 +55,15 @@ cond_sorting = randperm(length(cond_tmp));
 condition = [0*ones(Nreps,1); cond_tmp(cond_sorting)];
 
 % condition = [-1;0;1;2;3;4;5];
-condition = [-1;0;-1;0;0;0;0];
+condition = [0;0;0;0;0];
 
 % stpecify how the trialst are divided over the blockst
 divTrialsOverBlocks = {1:4; 5:24};
 divTrialsOverBlocks = {1:length(condition)};
     
 numTrials = numel(condition); % example
-breakDuration = 10*ones(numTrials,1);
-trialDuration = 10*ones(numTrials,1);
+breakDuration = 3*ones(numTrials,1);
+trialDuration = 15*ones(numTrials,1);
 
 % connection
 if strcmpi(groupType,'stolo')
@@ -78,8 +78,8 @@ end
 
 % target position and velocity variance (per trial in the columns, in
 % meter]
-trialPosSD = 0.005*ones(2,size(connected,1));   % [green subject ; blue subject] 
-trialVelSD = 0*ones(2,size(connected,1));
+trialPosSD = 0.004*ones(2,size(connected,1));   % [green subject ; blue subject] 
+trialVelSD = repmat(linspace(0.005, 0.08, length(connected)),2,1);     %0*ones(2,size(connected,1));
 % trialVelSD = repmat(linspace(0.0005, 0.005,length(connected)),2,1);
 
 
@@ -138,9 +138,9 @@ end
 % check if you want to overwrite the protocol
 saveProtocol = 1;
 if exist([protocolpath filesep filename '.xml'],'file') || exist([protocolpath filesep filename],'file')
-    promptMeststage = sprintf('Thist file already existtst:\n%st\nDo you want to overwrite it?', [protocolpath filesep filename '.xml']);
+    promptMeststage = sprintf('Thist file already exists:\n%st\nDo you want to overwrite it?', [protocolpath filesep filename '.xml']);
 	titleBarCaption = 'Overwrite protocol?';
-	buttonText = questdlg(promptMeststage, titleBarCaption, 'Yest', 'No', 'No');
+	buttonText = questdlg(promptMeststage, titleBarCaption, 'Yes', 'No', 'No');
     
     if strcmpi(buttonText,'No')
         saveProtocol = 0;
