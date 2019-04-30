@@ -9,10 +9,10 @@ groupType = 'stolo'; % stolo or interaction
 groupTypeNr = 0; % 0 = stolo, 1 = interaction
 Ks = 0;
 Ds = 0;
-expID = ['ffemg'];
+expID = ['vn'];
 
 % filename
-protocolpath = 'exp_ffemg_protocols';
+protocolpath = 'exp_vn_protocols';
 filename = ['protocol_' expID];
 
 % create (main) sttruct
@@ -46,7 +46,7 @@ st.experiment.targetParticleSize = 6.0; % size of partticle (px)
 
 % experiment stettingst
 
-% condition vector: each index ist a trial
+% condition vector: each index is a trial
 % condition to -1: baseline trial (no movement)
 
 Nreps = 4;
@@ -55,15 +55,14 @@ cond_sorting = randperm(length(cond_tmp));
 condition = [0*ones(Nreps,1); cond_tmp(cond_sorting)];
 
 % condition = [-1;0;1;2;3;4;5];
-condition = [0;0;0;0;0];
+condition = zeros(1,60);
 
 % stpecify how the trialst are divided over the blockst
-divTrialsOverBlocks = {1:4; 5:24};
-divTrialsOverBlocks = {1:length(condition)};
+divTrialsOverBlocks = {1:15; 16:30; 31:45; 46:60};
     
 numTrials = numel(condition); % example
-breakDuration = 3*ones(numTrials,1);
-trialDuration = 15*ones(numTrials,1);
+breakDuration = 5*ones(numTrials,1);
+trialDuration = 20*ones(numTrials,1);
 
 % connection
 if strcmpi(groupType,'stolo')
@@ -79,19 +78,20 @@ end
 % target position and velocity variance (per trial in the columns, in
 % meter]
 trialPosSD = 0.004*ones(2,size(connected,1));   % [green subject ; blue subject] 
-trialVelSD = repmat(linspace(0.005, 0.08, length(connected)),2,1);     %0*ones(2,size(connected,1));
-% trialVelSD = repmat(linspace(0.0005, 0.005,length(connected)),2,1);
 
+VelSD_tmp = repmat([linspace(0.005,0.1,10) 0.15 0.225 0.3],1,4); 
+VelSD_sort = randperm(length(VelSD_tmp)); 
+trialVelSD = repmat([zeros(1,8) VelSD_tmp(VelSD_sort)],2,1);
 
 %% randomization
-if exist('exp_ffemg_protocols/exp_ffemg_randomization.mat','file')
-    load('exp_ffemg_protocols/exp_ffemg_randomization.mat');
+if exist('exp_vn_protocols/exp_vn_randomization.mat','file')
+    load('exp_vn_protocols/exp_vn_randomization.mat');
 else 
     trialRandomization = 30*rand(size(condition));
-    save('exp_ffemg_protocols/exp_ffemg_randomization.mat','trialRandomization');
+    save('exp_vn_protocols/exp_vn_randomization.mat','trialRandomization');
 end
 
-%% prepare trialst
+%% prepare trials
 for ii = 1:numTrials
     trial{ii}.connected = connected(ii);
     trial{ii}.connectionstiffness = connectionstiffness(ii);
@@ -110,7 +110,7 @@ for ii = 1:numTrials
 end
 
 %% block data
-% indicate how the trialst are divided over the blockst
+% indicate how the trialst are divided over the blocks
 % NOTE: you alwayst need at leastt 1 block
 numBlockst = length(divTrialsOverBlocks);
 for ii = 1:numBlockst
@@ -125,6 +125,9 @@ for ii = 1:numBlockst
     expprotocol.block(ii).trialRandomization = trialRandomization(divTrialsOverBlocks{ii});
     expprotocol.block(ii).connectionstiffness = connectionstiffness(divTrialsOverBlocks{ii});
     expprotocol.block(ii).connectionDamping = connectionDamping(divTrialsOverBlocks{ii});
+    expprotocol.block(ii).velocitySDid0 = trialVelSD(1,divTrialsOverBlocks{ii});
+	expprotocol.block(ii).velocitySDid1 = trialVelSD(2,divTrialsOverBlocks{ii});
+
 end
 
 
@@ -153,3 +156,8 @@ if saveProtocol
     % stave experiment sttruct in mat file
     save([protocolpath filesep filename], 'st','expprotocol');
 end
+
+
+
+
+
