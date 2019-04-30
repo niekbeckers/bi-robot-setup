@@ -65,7 +65,7 @@ void childParticle::update()
 	*/
     
     // update kinematics
-    float dt = 1.0/60.0f;
+    float dt = 1.0/120.0f;
     if (ofGetFrameRate() > 30.0f)
         dt = 1.0f/ofGetFrameRate();
     

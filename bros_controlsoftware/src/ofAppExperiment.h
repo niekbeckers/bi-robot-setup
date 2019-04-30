@@ -119,7 +119,7 @@ private:
 
 	// countdown and break parameters
 	double _cdStartTime, _breakStartTime, _getReadyStartTime, _trialDoneTime;
-	double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }, _trialScore[2] = { 0.0 , 0.0 }, _trialMaxScore[2] = { 0.0, 0.0 };// approximate mean-squared error
+	double _trialPerformance[2] = { 0.0, 0.0 }, _trialPerformancePrev[2] = { 0.0, 0.0 }, _trialScore[2] = { 0.0 , 0.0 }, _trialMaxScore[2] = { 100.0, 100.0 };// approximate mean-squared error
 	double _trialMovementTimeSec = 0.0;
 	
 

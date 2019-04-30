@@ -391,11 +391,11 @@ void ofAppExperiment::showVisualReward()
 	// explosion when highscore is improved
 
 	// BROS1
-	if (_trialScore[0] > _trialMaxScore[0]) {
+	if (_trialScore[0] < _trialMaxScore[0]) {
 		display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 	// BROS2
-	if (_trialScore[1] > _trialMaxScore[1]) {
+	if (_trialScore[1] < _trialMaxScore[1]) {
 		display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 }
@@ -727,16 +727,16 @@ void ofAppExperiment::esmTrialFeedback()
 
 		
 		// request trial performance feedback from the RT model
-		if (_currentTrial.condition != -1) 
+		if (_currentTrial.condition != -1) {
+			ofLogNotice() << "reading trial feedback";
 			_tcClient->read(_lHdlVar_Read_PerformanceFeedback, &_trialPerformance, sizeof(_trialPerformance));
+		}
 
 		string msg1 = "TRIAL DONE\n\n";
 		string msg2 = "TRIAL DONE\n\n";
 #ifdef _WIN32 || _WIN64
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
-
-		float lowestRMSE = 1; // 1 cm
 
 		// depending on feedback type, adjust method
 		switch (_settings.trialFeedbackType) {
@@ -747,24 +747,28 @@ void ofAppExperiment::esmTrialFeedback()
 				_trialScore[0] = _trialPerformance[0]; // 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
 				_trialScore[1] = _trialPerformance[1]; // 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
 
+				// if maximum score is improved, update
+				_trialMaxScore[0] = (_trialScore[0] < _trialMaxScore[0]) ? _trialScore[0] : _trialMaxScore[0];
+				_trialMaxScore[1] = (_trialScore[1] < _trialMaxScore[1]) ? _trialScore[1] : _trialMaxScore[1];
+
 				// cap to zero
 				//_trialScore[0] = (_trialScore[0] < 0) ? _trialScore[0] : 0.0;
 				//_trialScore[1] = (_trialScore[1] < 0) ? _trialScore[1] : 0.0;
 
 				// show score
-				msg1 += "Score: " + ofToString(100.0*_trialScore[0],2);
-				msg2 += "Score: " + ofToString(100.0*_trialScore[1],2);
+				msg1 += "Score: " + ofToString(_trialScore[0],2);
+				msg2 += "Score: " + ofToString(_trialScore[1],2);
 
-				if (_trialScore[0] > _trialMaxScore[0]) {
+				if (_trialScore[0] < _trialMaxScore[0]) {
 					msg1 += "\nYou improved your highscore! Yeah!";
 				}
-				if (_trialScore[1] > _trialMaxScore[1]) {
+				if (_trialScore[1] < _trialMaxScore[1]) {
 					msg2 += "\nYou improved your highscore! Yeah!";
 				}
 
 				// show high score and trials left
-				display1->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[0]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
-				display2->showMessageNorthWest(true, "Your high score: " + ofToString((int)_trialMaxScore[1]) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
+				display1->showMessageNorthWest(true, "Your high score: " + ofToString(_trialMaxScore[0],2) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
+				display2->showMessageNorthWest(true, "Your high score: " + ofToString(_trialMaxScore[1],2) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
 			}
 
 			//msg1 += "Performance: " + ofToString(_trialPerformance[0], 2);
@@ -833,9 +837,7 @@ void ofAppExperiment::esmTrialFeedback()
 		_trialPerformancePrev[0] = _trialPerformance[0];
 		_trialPerformancePrev[1] = _trialPerformance[1];
 
-		// if maximum score is improved, update
-		_trialMaxScore[0] = (_trialScore[0] > _trialMaxScore[0]) ? _trialScore[0] : _trialMaxScore[0];
-		_trialMaxScore[1] = (_trialScore[1] > _trialMaxScore[1]) ? _trialScore[1] : _trialMaxScore[1];
+		
 	}
 
 	// occasionaly show instructions
