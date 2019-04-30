@@ -744,16 +744,16 @@ void ofAppExperiment::esmTrialFeedback()
 			
 			if (_currentTrial.condition != -1) {
 				// calculate a score (instead of RMSE)
-				_trialScore[0] = 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
-				_trialScore[1] = 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
+				_trialScore[0] = _trialPerformance[0]; // 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
+				_trialScore[1] = _trialPerformance[1]; // 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
 
 				// cap to zero
-				_trialScore[0] = (_trialScore[0] > 0) ? _trialScore[0] : 0.0;
-				_trialScore[1] = (_trialScore[1] > 0) ? _trialScore[1] : 0.0;
+				//_trialScore[0] = (_trialScore[0] < 0) ? _trialScore[0] : 0.0;
+				//_trialScore[1] = (_trialScore[1] < 0) ? _trialScore[1] : 0.0;
 
 				// show score
-				msg1 += "Score: " + ofToString((int)_trialScore[0], 0);
-				msg2 += "Score: " + ofToString((int)_trialScore[1], 0);
+				msg1 += "Score: " + ofToString(100.0*_trialScore[0],2);
+				msg2 += "Score: " + ofToString(100.0*_trialScore[1],2);
 
 				if (_trialScore[0] > _trialMaxScore[0]) {
 					msg1 += "\nYou improved your highscore! Yeah!";
