@@ -4706,9 +4706,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{EAE440A7-079A-4DAB-9A86-71627B345474}">
-						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{EAE440A7-079A-4DAB-9A86-71627B345474}</CLSID>
+					<TmcDesc GUID="{3961EFB1-CF26-40A5-B801-A3B4D08FAF34}">
+						<Name>ModelBaseBROS_CC</Name>
+						<CLSID ClassFactory="ModelBaseBROS_CC">{3961EFB1-CF26-40A5-B801-A3B4D08FAF34}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -4791,7 +4791,7 @@
 								<BaseType GUID="{FAB91EB8-90F2-411F-980B-E32C12715544}">TctExtModeServerStatusType</BaseType>
 								<PTCID>#xbf003000</PTCID>
 							</Parameter>
-							<Parameter CreateSymbol="true">
+							<Parameter ShowSubItems="true" CreateSymbol="true">
 								<Name>ExtModeParameters</Name>
 								<BitSize>192</BitSize>
 								<BaseType GUID="{E8C74883-A6C7-461C-AF16-40F211A1E7DB}">TctExtModeParametersType</BaseType>
@@ -13190,14 +13190,14 @@
 								<DestinationFile>%TC_DRIVERAUTOINSTALLPATH%%CLASSFACTORYNAME%.pdb</DestinationFile>
 							</FileEntry>
 							<FileEntry>
-								<ProjectFile>%SOLUTIONMODULEINSTTPATH%ModelBaseBROS_PlcOpenPOUs.xml</ProjectFile>
+								<ProjectFile>%SOLUTIONMODULEINSTTPATH%ModelBaseBROS_CC_PlcOpenPOUs.xml</ProjectFile>
 							</FileEntry>
 							<FileEntry>
-								<ProjectFile>%SOLUTIONMODULEINSTTPATH%ModelBaseBROS_ModuleInfo.xml</ProjectFile>
+								<ProjectFile>%SOLUTIONMODULEINSTTPATH%ModelBaseBROS_CC_ModuleInfo.xml</ProjectFile>
 							</FileEntry>
 						</Deployment>
 						<Xml>
-							<GeneratedModuleInfoFile>ModelBaseBROS_ModuleInfo.xml</GeneratedModuleInfoFile>
+							<GeneratedModuleInfoFile>ModelBaseBROS_CC_ModuleInfo.xml</GeneratedModuleInfoFile>
 						</Xml>
 						<ParameterValues>
 							<Value>
@@ -13274,11 +13274,11 @@
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.InitIncomingPktBufferSize</Name>
-								<Value>200000</Value>
+								<Value>100000</Value>
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.InitOutgoingPktBufferSize</Name>
-								<Value>200000</Value>
+								<Value>100000</Value>
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.Activated</Name>
@@ -13286,7 +13286,7 @@
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.AllowExecutionCommands</Name>
-								<EnumText>TRUE</EnumText>
+								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
 								<Name>ExtModeParameters.WaitForStartCommand</Name>
