@@ -374,10 +374,10 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		//cursor.setFillMode(OF_OUTLINE);
 		cursor.radius = 20.0f;
 		//cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
-		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
+		cursor.setShape(_cursorShape);
 		cursor.reset();
 
-		target.setMode(PARENTPARTICLE_MODE_MOVINGCLOUD);
+		target.setMode(_targetMode);
 		//target.setMode(PARENTPARTICLE_MODE_NORMAL);
 		target.setColor(clrTarget);
 		target.setFillMode(OF_FILLED);

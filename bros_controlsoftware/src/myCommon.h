@@ -27,9 +27,17 @@ enum DisplayType {
 
 enum ParticleShape {
 	PARTICLESHAPE_CIRCLE = 0,
+	PARTICLESHAPE_CIRCLE_OPEN,
 	PARTICLESHAPE_LINE,
 	PARTICLESHAPE_CROSS,
 	PARTICLESHAPE_CROSSHAIR
+};
+
+enum parentParticleMode {
+	PARENTPARTICLE_MODE_NORMAL = 0,
+	PARENTPARTICLE_MODE_CLOUD,
+	PARENTPARTICLE_MODE_MOVINGCLOUD,
+	PARENTPARTICLE_MODE_EXPLODE
 };
 
 //
@@ -90,6 +98,7 @@ struct experimentSettings {
 	string protocolname;
 	DisplayType displayType = DisplayType::PURSUIT_2D; // 0 = pursuit, 1 = compensatory
 	ParticleShape cursorShape = ParticleShape::PARTICLESHAPE_CIRCLE; //  0 = circle
+	parentParticleMode targetMode = parentParticleMode::PARENTPARTICLE_MODE_NORMAL;
 };
 
 

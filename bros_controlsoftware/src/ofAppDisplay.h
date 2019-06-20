@@ -39,6 +39,9 @@ class ofAppDisplay : public ofBaseApp
 		ofTrueTypeFont verdana20;
 		ofTrueTypeFont verdana30;
 
+		ParticleShape _cursorShape = ParticleShape::PARTICLESHAPE_CROSS;
+		parentParticleMode _targetMode = parentParticleMode::PARENTPARTICLE_MODE_CLOUD;
+
 		//ofxTextAlignTTF _text;
 
 		// countdown
@@ -64,6 +67,7 @@ class ofAppDisplay : public ofBaseApp
 		//parentParticle virtualpartner;
 
 		DisplayType displayType = DisplayType::PURSUIT_2D;
+		
 
 		shared_ptr<ofAppMain> mainApp;
 		shared_ptr<ofAppExperiment> experimentApp;
@@ -82,7 +86,7 @@ class ofAppDisplay : public ofBaseApp
 
 		void showCountDown(bool show, double timeRemaining = 0.0, double duration = 0.0);
 		void setDisplayType(DisplayType dtype);
-		//inline void setCursorShape(ParticleShape pshape) { cursor.setShape(pshape); };
-		//inline void setTargetShape(ParticleShape pshape) { target.setShape(pshape); };
+		inline void setCursorShape(ParticleShape pshape) { _cursorShape = pshape; cursor.setShape(pshape); cursor.reset(); };
+		inline void setTargetMode(parentParticleMode pmode) { _targetMode = pmode; target.setMode(pmode); target.reset(); };
 };
 

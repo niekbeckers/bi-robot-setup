@@ -305,9 +305,19 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 
 
+	
+
+	display1->setCursorShape(_settings.cursorShape);
+	display2->setCursorShape(_settings.cursorShape);
+
+	display1->setTargetMode(_settings.targetMode);
+	display2->setTargetMode(_settings.targetMode);
+
 	// set displaytype and cursorshapwe
 	display1->setDisplayType(_settings.displayType);
 	display2->setDisplayType(_settings.displayType);
+
+	ofLogNotice() << _settings.targetMode << " " << _settings.cursorShape;
 
 	// target particle settings
 	display1->target.numberParticles = _settings.targetParticleCount;
@@ -652,12 +662,13 @@ void ofAppExperiment::esmCountdownDone()
 		// give textual feedback about trial
 		display1->showMessageNorth(true, "BASELINE TRIAL");  //(true, "BASELINE TRIAL\n\nRELAX, DON'T MOVE");
 		display2->showMessageNorth(true, "BASELINE TRIAL");
+		 
+		// get time of trial start (for countdown during baseline trial)
+		_cdStartTime = ofGetElapsedTimef();
 
 	}
 	
-
-	
-
+	// trial running!
 	requestStartTrialADS();
 
 	setExperimentState(ExperimentState::TRIALRUNNING);
@@ -666,9 +677,22 @@ void ofAppExperiment::esmCountdownDone()
 //--------------------------------------------------------------
 void ofAppExperiment::esmTrialRunning()
 {
+
 	// check if trial is running (data from simulink)
 	if (_prevTrialRunning && !_nowTrialRunning) {
 		setExperimentState(ExperimentState::TRIALDONE);
+	}
+
+	// if baseline trial, then show countdown
+	if (_currentTrial.condition == -1) {
+		double time = ofGetElapsedTimef();
+		if ((time - _cdStartTime) <=_currentTrial.trialDuration) {
+			double cdTimeRemaining = _currentTrial.trialDuration - (time - _cdStartTime);
+			display1->showMessageNorth(true, "BASELINE TRIAL");
+			display2->showMessageNorth(true, "BASELINE TRIAL");
+			display1->showCountDown(true, cdTimeRemaining, _currentTrial.trialDuration);
+			display2->showCountDown(true, cdTimeRemaining, _currentTrial.trialDuration);
+		}
 	}
 }
 
@@ -717,6 +741,14 @@ void ofAppExperiment::esmTrialDone()
 		_runningModelFit = true;
 	}
 	*/
+
+	// get rid of the countdown bar
+	if (_currentTrial.condition == -1) {
+		display1->showMessageNorth(false);
+		display2->showMessageNorth(false);
+		display1->showCountDown(false);
+		display2->showCountDown(false);
+	}
 }
 
 //--------------------------------------------------------------
