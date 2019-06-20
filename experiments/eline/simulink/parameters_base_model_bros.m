@@ -12,7 +12,7 @@ Lb = 0.07;                      % base width [m]
 % load target signal data
 % load('forcingfunction_data_id_2d_nt11.mat');
 % load('forcingfunction_data_id_2d_nt10.mat');
-load('forcingfunction_id_emg.mat');
+load('forcingfunction_id_CI.mat');
 msin_data_dist1 = zeros(5,6);
 msin_data_dist2 = zeros(5,6);
 

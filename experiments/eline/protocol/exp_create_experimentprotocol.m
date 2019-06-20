@@ -2,32 +2,29 @@
 % Niek Beckerst
 % May 2017
 
-clear all; close all; clc;
+clear variables; close all; clc;
 
+% Change before running protocol 
+type = 'pilot';          % pilot or experiment 
 pairNr = 1;
-groupType = 'stolo'; % stolo or interaction
-groupTypeNr = 0; % 0 = stolo, 1 = interaction
-Ks = 0;
-Ds = 0;
-expID = ['vn'];
+
+expID = 'CI';
+groupType = 'interaction'; % solo or interaction
+Kdes = 100; 
+Ks = 1/((1/Kdes)-(1/1500));
+Ds = 3;
+MVC = 0; 
 
 % filename
-protocolpath = 'exp_vn_protocols';
-filename = ['protocol_' expID];
+protocolpath = 'exp_CI_protocols';
+filename = [type filesep 'pair' num2str(pairNr) filesep 'protocol_' expID '_pair' num2str(pairNr)];
 
 % create (main) sttruct
 st = struct;
 
-% distplay type (purstuit or compenstatory)
-st.experiment.displayType = 0; % 0 = purstuit, 1 = purstuit_1d, 2 = compenstatory, 3 = compenstatory_2d
-st.experiment.cursorshape = 3; % 0 = circle, 1 = line, 2 = crostst, 3 - croststhair
-
-
 % indicate which type of trial feedback
 st.experiment.expID = expID;
 st.experiment.trialFeedback = 1;
-st.experiment.trialPerformanceThreshold = 0.05;
-st.experiment.groupTypeNr = groupTypeNr;
 st.experiment.sessionNr = 1;
 st.experiment.partnersNr = pairNr;
 
@@ -35,42 +32,37 @@ st.experiment.partnersNr = pairNr;
 st.experiment.activeBROSID.id0 = 1;
 st.experiment.activeBROSID.id1 = 2;
 
-% target stettingst
+% target stettings
 st.experiment.targetParticleCount = 5;
-st.experiment.targetParticlePeriod = 0.5;% how long each child particle mopves before reset
+st.experiment.targetParticlePeriod = 0.5; % how long each child particle mopves before reset
 st.experiment.targetParticleSize = 6.0; % size of partticle (px)
 
 %% trial data
 
-% trial stettingst
+% trial stettings
 
-% experiment stettingst
+% experiment stettings
 
 % condition vector: each index is a trial
 % condition to -1: baseline trial (no movement)
 
-Nreps = 4;
-cond_tmp = repmat((1:5).',Nreps,1);
-cond_sorting = randperm(length(cond_tmp));
-condition = [0*ones(Nreps,1); cond_tmp(cond_sorting)];
+condition = [-1*ones(MVC+1,1); zeros(85,1)]; 
 
-% condition = [-1;0;1;2;3;4;5];
-condition = zeros(1,60);
+divTrialsOverBlocks = {1:1+MVC; MVC+2:MVC+21; MVC+22:MVC+36; MVC+37:MVC+51; MVC+52:MVC+66; MVC+67:MVC+86};
 
-% stpecify how the trialst are divided over the blockst
-divTrialsOverBlocks = {1:15; 16:30; 31:45; 46:60};
-    
 numTrials = numel(condition); % example
-breakDuration = 5*ones(numTrials,1);
-trialDuration = 20*ones(numTrials,1);
+breakDuration = 0*ones(numTrials,1);
+trialDuration = [20; 30*ones(MVC,1); 23*ones(numTrials-(MVC+1),1)];
 
 % connection
-if strcmpi(groupType,'stolo')
+if strcmpi(groupType,'solo')
     connected = zeros(numTrials,1);
     connectionstiffness = zeros(numTrials,1);
     connectionDamping = zeros(numTrials,1);
 elseif strcmpi(groupType,'interaction')
-    connected = [zeros(10,1);  [1;0;1;0;1;0;1;0;1;0;1;0;1;0]; [1;0;1;0;1;0;1;0;1;0;1;0;1;0]; zeros(20,1); ones(20,1); zeros(5,1)];
+    exptr_15 = [zeros(5,1); ones(10,1)]; 
+    exptr_20 = [zeros(5,1); ones(15,1)]; 
+    connected = [zeros(MVC+1,1); zeros(20,1); exptr_15(randperm(length(exptr_15))); exptr_15(randperm(length(exptr_15))); exptr_15(randperm(length(exptr_15))); exptr_20(randperm(length(exptr_20)))];
     connectionstiffness = connected*Ks;
     connectionDamping = connected*Ds;
 end
@@ -79,16 +71,29 @@ end
 % meter]
 trialPosSD = 0.004*ones(2,size(connected,1));   % [green subject ; blue subject] 
 
-VelSD_tmp = repmat([linspace(0.005,0.1,10) 0.15 0.225 0.3],1,4); 
-VelSD_sort = randperm(length(VelSD_tmp)); 
-trialVelSD = repmat([zeros(1,8) VelSD_tmp(VelSD_sort)],2,1);
+
+VelSD = linspace(0.005,0.10,5); % SD of velocity 
+VelSD_conn = [repmat(VelSD,1,5) 0.005*ones(1,20); 0.005*ones(1,25) repmat(VelSD(2:end),1,5)]; % 9 possible combinations of VelSD, repeated 5 times 
+VelSD_conn_rand = VelSD_conn(:,randperm(length(VelSD_conn))); % VelSD_conn randomized 
+VelSD_sing_rand = [VelSD(randperm(length(VelSD))) VelSD(randperm(length(VelSD))) VelSD(randperm(length(VelSD))) VelSD(randperm(length(VelSD)));...
+                  VelSD(randperm(length(VelSD))) VelSD(randperm(length(VelSD))) VelSD(randperm(length(VelSD))) VelSD(randperm(length(VelSD)))]; % randomize the order of single trials within blocks  
+VelSD_training  = [VelSD(:,randperm(length(VelSD))); VelSD(:,randperm(length(VelSD)))]; 
+              
+if strcmpi(groupType,'solo')
+    trialVelSD = 0.005*ones(2,length(connected)); 
+elseif strcmpi(groupType,'interaction')              
+    trialVelSD(:,connected(MVC+22:end)==1)=VelSD_conn_rand; % connected trials 
+    trialVelSD(:,connected(MVC+22:end)==0)=VelSD_sing_rand; % single trials 
+    trialVelSD = [0.005*ones(2,MVC+11) repmat(VelSD,2,1) VelSD_training trialVelSD]; 
+end 
+
 
 %% randomization
-if exist('exp_vn_protocols/exp_vn_randomization.mat','file')
-    load('exp_vn_protocols/exp_vn_randomization.mat');
+if exist('exp_CI_protocols/exp_CI_randomization.mat','file')
+    load('exp_CI_protocols/exp_CI_randomization.mat');
 else 
     trialRandomization = 30*rand(size(condition));
-    save('exp_vn_protocols/exp_vn_randomization.mat','trialRandomization');
+    save('exp_CI_protocols/exp_CI_randomization.mat','trialRandomization');
 end
 
 %% prepare trials
@@ -114,7 +119,7 @@ end
 % NOTE: you alwayst need at leastt 1 block
 numBlockst = length(divTrialsOverBlocks);
 for ii = 1:numBlockst
-    st.experiment.block{ii}.breakDuration = 120.0;
+    st.experiment.block{ii}.breakDuration = 240.0;
     st.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrialsOverBlocks{ii})
         st.experiment.block{ii}.trial{jj} = trial{divTrialsOverBlocks{ii}(jj)};
@@ -132,7 +137,7 @@ end
 
 
 
-%% stave everything (in xml and mat)
+%% save everything (in xml and mat)
 
 if ~exist(protocolpath,'dir')
     mkdir(protocolpath);
