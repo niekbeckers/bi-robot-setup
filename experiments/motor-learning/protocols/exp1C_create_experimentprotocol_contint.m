@@ -2,7 +2,7 @@
 
 clear all; close all; clc;
 
-pairNr = 1;
+pairNr = 10;
 selectPremadeTrialSequence = 1;
 groupType = 'interaction'; % solo or interaction (INTERACTION ONLY!)
 groupTypeNr = 1; % 0 = solo, 1 = interaction
@@ -27,6 +27,10 @@ s.experiment.partnersNr = pairNr;
 
 s.experiment.activeBROSID.id0 = 1;
 s.experiment.activeBROSID.id1 = 2;
+
+
+s.experiment.targetMode = 0; % normal
+s.experiment.cursorShape = 1;
 
 %% trial data
 

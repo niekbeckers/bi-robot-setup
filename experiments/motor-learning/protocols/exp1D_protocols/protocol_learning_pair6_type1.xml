@@ -10,6 +10,8 @@
       <id0>1</id0>
       <id1>2</id1>
    </activeBROSID>
+   <targetMode>0</targetMode>
+   <cursorShape>1</cursorShape>
    <block>
       <breakDuration>240</breakDuration>
       <homingType>302</homingType>

@@ -4584,9 +4584,9 @@
 				<Module Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Object1 (ModelBROS)</Name>
 					<ImageId>1000</ImageId>
-					<TmcDesc GUID="{4F2B8AB8-6626-4C64-B64D-D93B38A77989}">
+					<TmcDesc GUID="{C9B1E0ED-55B9-48E1-B0E3-2E7C3189A280}">
 						<Name>ModelBaseBROS</Name>
-						<CLSID ClassFactory="ModelBaseBROS">{4F2B8AB8-6626-4C64-B64D-D93B38A77989}</CLSID>
+						<CLSID ClassFactory="ModelBaseBROS">{C9B1E0ED-55B9-48E1-B0E3-2E7C3189A280}</CLSID>
 						<Info>
 							<TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}"/>
 						</Info>
@@ -13336,7 +13336,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.HomeLocationSize</Name>
-								<Value>0.0025</Value>
+								<Value>0.002</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.NominalPositionOpSpace[0]</Name>
@@ -13380,7 +13380,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator1.AbsEncoderOffset</Name>
-								<Value>5.30005971204787</Value>
+								<Value>5.28606213735841</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator1.MotorEncoderCounts_rev</Name>
@@ -13448,7 +13448,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator2.AbsEncoderOffset</Name>
-								<Value>7.54405729871785</Value>
+								<Value>7.56371142756263</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS1.Actuator2.MotorEncoderCounts_rev</Name>
@@ -13552,7 +13552,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS2.HomeLocationSize</Name>
-								<Value>0.0025</Value>
+								<Value>0.002</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS2.NominalPositionOpSpace[0]</Name>
@@ -13596,7 +13596,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS2.Actuator1.AbsEncoderOffset</Name>
-								<Value>4.50708751851024</Value>
+								<Value>3.15363709459888</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.BROS2.Actuator1.MotorEncoderCounts_rev</Name>
@@ -14532,7 +14532,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.KpConnection_Value</Name>
-								<Value>450</Value>
+								<Value>120</Value>
 							</Value>
 							<Value>
 								<Name>ModelParameters.KdConnection_Value</Name>
@@ -15360,7 +15360,7 @@
 							</Value>
 							<Value>
 								<Name>ModelParameters.Connected_Value</Name>
-								<EnumText>TRUE</EnumText>
+								<EnumText>FALSE</EnumText>
 							</Value>
 							<Value>
 								<Name>ModelParameters.Constant_Value_io</Name>

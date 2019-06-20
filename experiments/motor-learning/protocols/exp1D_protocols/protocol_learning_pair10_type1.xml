@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <experiment>
-   <expID>learning_pair8_type1</expID>
+   <expID>learning_pair10_type1</expID>
    <trialFeedback>1</trialFeedback>
    <trialPerformanceThreshold>0.05</trialPerformanceThreshold>
    <groupTypeNr>1</groupTypeNr>
    <sessionNr>1</sessionNr>
-   <partnersNr>8</partnersNr>
+   <partnersNr>10</partnersNr>
    <activeBROSID>
       <id0>1</id0>
       <id1>2</id1>
