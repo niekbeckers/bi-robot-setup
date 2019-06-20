@@ -77,6 +77,8 @@ void ofAppDisplay::update()
 
 
 	//target.setPosition(ofPoint(0.05*sin(2.0*M_PI*0.2*ofGetElapsedTimef() + 0.5)*dots_per_m, 0.075*sin(2.0*M_PI*0.1*ofGetElapsedTimef())*dots_per_m));
+	
+	// change orientation of target and cursor 
 	target.setPosition(ofPoint(-(*pData).posTargetX*dots_per_m, (*pData).posTargetY*dots_per_m));
 	target.update();
 	cursor.setPosition(ofPoint(-((*pData).posCursorX - x0)*dots_per_m, ((*pData).posCursorY - y0)*dots_per_m));
@@ -104,7 +106,8 @@ void ofAppDisplay::draw()
 		// countdown for task time
 		if (_drawTrialTimeCountdown && experimentApp->experimentIsLoaded()) {
 			ofPushMatrix();
-			// translate back to top-left corner
+			// translate back to top-left cornerelips
+
 			ofTranslate(-ofGetWidth() / 2, ofGetHeight() / 2);
 			float trialDuration = experimentApp->getCurrentTrial().trialDuration;
 			float trialTime = (float)mainApp->getTrialTime();
@@ -370,7 +373,8 @@ void ofAppDisplay::setDisplayType(DisplayType dtype)
 		cursor.setColor(clrCursor);
 		//cursor.setFillMode(OF_OUTLINE);
 		cursor.radius = 20.0f;
-		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
+		//cursor.setShape(ParticleShape::PARTICLESHAPE_CROSSHAIR);
+		cursor.setShape(ParticleShape::PARTICLESHAPE_CROSS);
 		cursor.reset();
 
 		target.setMode(PARENTPARTICLE_MODE_MOVINGCLOUD);

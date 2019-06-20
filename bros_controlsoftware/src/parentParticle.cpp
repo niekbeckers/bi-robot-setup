@@ -190,7 +190,8 @@ void parentParticle::draw()
 		case PARTICLESHAPE_CIRCLE:
 			ofSetCircleResolution(200);
 			ofSetLineWidth(6.0);
-			ofDrawCircle(_pos.x, _pos.y, radius);
+			ofFill();
+			ofDrawCircle(_pos.x, _pos.y, 10.0 );
 			/*
 			if (_fillMode == OF_FILLED) {
 				ofSetLineWidth(2.0);
@@ -209,7 +210,7 @@ void parentParticle::draw()
 
 			break;
 		case PARTICLESHAPE_CROSS:
-			ofSetLineWidth(4);
+			ofSetLineWidth(4);  
 			//ofPushMatrix();
 			//ofTranslate(_pos);
 			ofDrawLine(_pos + ofPoint(0.0, radius), _pos - ofPoint(0.0, radius));
@@ -218,15 +219,28 @@ void parentParticle::draw()
 			break;
 
 		case PARTICLESHAPE_CROSSHAIR:
-			ofSetLineWidth(5.0);
+			
+			//stel je wil iets transparant maken
+			ofEnableAlphaBlending();
+			float alpha = 0.7 * 255; 
+			ofColor mycolor = ofColor(255,255, 255,alpha);
+			ofSetColor(mycolor);
+
 			ofSetCircleResolution(120);
+			// outer circle + streepjes
+			ofSetLineWidth(5.0);  
 			ofDrawCircle(_pos, radius);
 			ofDrawLine(_pos + ofPoint(0.0, -radius), _pos + ofPoint(0.0, -radius - 0.5*radius));
 			ofDrawLine(_pos + ofPoint(0.0, radius), _pos + ofPoint(0.0, radius + 0.5*radius));
 			ofDrawLine(_pos + ofPoint(-radius, 0.0), _pos + ofPoint(-radius - 0.5*radius, 0.0));
 			ofDrawLine(_pos + ofPoint(radius, 0.0), _pos + ofPoint(radius + 0.5*radius, 0.0));
+			
+			ofDisableAlphaBlending();
+
+
+			// inner circle/dot
 			ofFill();
-			ofDrawCircle(_pos, 4.0);
+			ofDrawCircle(_pos, 5.0);
 			break;
 		}
         

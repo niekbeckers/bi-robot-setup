@@ -391,11 +391,11 @@ void ofAppExperiment::showVisualReward()
 	// explosion when highscore is improved
 
 	// BROS1
-	if (_trialScore[0] < _trialMaxScore[0]) {
+	if (_trialScore[0] < _trialMaxScore[0] && _trialMaxScore[0] < 90) {
 		display1->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 	// BROS2
-	if (_trialScore[1] < _trialMaxScore[1]) {
+	if (_trialScore[1] < _trialMaxScore[1] && _trialMaxScore[1] < 90) {
 		display2->cursor.setMode(PARENTPARTICLE_MODE_EXPLODE);
 	}
 }
@@ -650,8 +650,8 @@ void ofAppExperiment::esmCountdownDone()
 		//display2->target.setMode(parentParticleMode::PARENTPARTICLE_MODE_NORMAL);
 
 		// give textual feedback about trial
-		display1->showMessageNorth(true, "BASELINE TRIAL\n\nRELAX, DON'T MOVE");
-		display2->showMessageNorth(true, "BASELINE TRIAL\n\nRELAX, DON'T MOVE");
+		display1->showMessageNorth(true, "BASELINE TRIAL");  //(true, "BASELINE TRIAL\n\nRELAX, DON'T MOVE");
+		display2->showMessageNorth(true, "BASELINE TRIAL");
 
 	}
 	
@@ -747,10 +747,7 @@ void ofAppExperiment::esmTrialFeedback()
 				_trialScore[0] = _trialPerformance[0]; // 1000.0 - 2.0 * (_trialPerformance[0] - lowestRMSE) * 100.0;
 				_trialScore[1] = _trialPerformance[1]; // 1000.0 - 2.0 * (_trialPerformance[1] - lowestRMSE) * 100.0;
 
-				// if maximum score is improved, update
-				_trialMaxScore[0] = (_trialScore[0] < _trialMaxScore[0]) ? _trialScore[0] : _trialMaxScore[0];
-				_trialMaxScore[1] = (_trialScore[1] < _trialMaxScore[1]) ? _trialScore[1] : _trialMaxScore[1];
-
+				
 				// cap to zero
 				//_trialScore[0] = (_trialScore[0] < 0) ? _trialScore[0] : 0.0;
 				//_trialScore[1] = (_trialScore[1] < 0) ? _trialScore[1] : 0.0;
@@ -759,12 +756,20 @@ void ofAppExperiment::esmTrialFeedback()
 				msg1 += "Score: " + ofToString(_trialScore[0],2);
 				msg2 += "Score: " + ofToString(_trialScore[1],2);
 
-				if (_trialScore[0] < _trialMaxScore[0]) {
+				if (_trialScore[0] < _trialMaxScore[0] && _trialMaxScore[0] < 90) {			
 					msg1 += "\nYou improved your highscore! Yeah!";
 				}
-				if (_trialScore[1] < _trialMaxScore[1]) {
+				if (_trialScore[1] < _trialMaxScore[1] && _trialMaxScore[1] < 90) {
 					msg2 += "\nYou improved your highscore! Yeah!";
 				}
+
+				// visual reward
+				showVisualReward();
+
+				// if maximum score is improved, update
+				_trialMaxScore[0] = (_trialScore[0] < _trialMaxScore[0]) ? _trialScore[0] : _trialMaxScore[0];
+				_trialMaxScore[1] = (_trialScore[1] < _trialMaxScore[1]) ? _trialScore[1] : _trialMaxScore[1];
+				
 
 				// show high score and trials left
 				display1->showMessageNorthWest(true, "Your high score: " + ofToString(_trialMaxScore[0],2) + "\nTrial " + ofToString(_currentTrialNumber + 1) + " of " + ofToString(_currentBlock.trials.size()));
@@ -793,8 +798,6 @@ void ofAppExperiment::esmTrialFeedback()
 			display1->drawTask = true;
 			display2->drawTask = true;
 
-			// visual reward
-			showVisualReward();
 
 			// add performance to performance log, print to console
 			_trackingPerformanceLog_BROS1.push_back(_trialPerformance[0]);
