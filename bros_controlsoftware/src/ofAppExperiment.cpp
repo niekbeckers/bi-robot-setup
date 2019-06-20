@@ -305,9 +305,19 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 	mainApp->lblBlockNumber = _currentBlockNumber + 1;
 
 
+	
+
+	display1->setCursorShape(_settings.cursorShape);
+	display2->setCursorShape(_settings.cursorShape);
+
+	display1->setTargetMode(_settings.targetMode);
+	display2->setTargetMode(_settings.targetMode);
+
 	// set displaytype and cursorshapwe
 	display1->setDisplayType(_settings.displayType);
 	display2->setDisplayType(_settings.displayType);
+
+	ofLogNotice() << _settings.targetMode << " " << _settings.cursorShape;
 
 	// target particle settings
 	display1->target.numberParticles = _settings.targetParticleCount;

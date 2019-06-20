@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <experiment>
    <displayType>0</displayType>
-   <cursorshape>3</cursorshape>
+   <cursorShape>3</cursorShape>
+   <targetMode>2</targetMode>
    <expID>test_traj_VN</expID>
    <trialFeedback>1</trialFeedback>
    <trialPerformanceThreshold>0.05</trialPerformanceThreshold>
@@ -15,6 +16,7 @@
    <targetParticleCount>5</targetParticleCount>
    <targetParticlePeriod>0.5</targetParticlePeriod>
    <targetParticleSize>6</targetParticleSize>
+   
    <block>
       <breakDuration>120</breakDuration>
       <homingType>302</homingType>

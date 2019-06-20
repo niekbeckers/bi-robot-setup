@@ -282,7 +282,7 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(_btnExpLoad.set("Load"));
 	_guiExperiment.add(lblExpLoaded.set("", "No protocol loaded"));
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
-	_guiExperiment.add(_btnToggleTargetType.setup("Target cloud", true));
+	_guiExperiment.add(_btnToggleTargetType.setup("Target cloud", false));
 
 	_grpExpControl.setup("Experiment control");
 	_grpExpControl.setName("Experiment control");

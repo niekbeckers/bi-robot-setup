@@ -9,12 +9,7 @@
 #include "myCommon.h"
 
 
-enum parentParticleMode {
-    PARENTPARTICLE_MODE_NORMAL = 0,
-    PARENTPARTICLE_MODE_CLOUD,
-	PARENTPARTICLE_MODE_MOVINGCLOUD,
-    PARENTPARTICLE_MODE_EXPLODE
-};
+
 
 static std::default_random_engine generator;
 static std::normal_distribution<float> distribution(0, 1);
