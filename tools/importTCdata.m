@@ -88,17 +88,24 @@ switch lower(modelname)
         
         % id model (disturbance added)
         if (size(dataArray,2) > 88)
-            param_lbls = [param_lbls; 'dist_pos_BROS1'; 'dist_pos_BROS2'; 'dist_vel_BROS1'; 'dist_vel_BROS2'; 'dist_acc_BROS1'; 'dist_acc_BROS2'];
-            param_idx = [param_idx; 89:90; 91:92; 93:94; 95:96; 97:98; 99:100];
+%             param_lbls = [param_lbls; 'dist_pos_BROS1'; 'dist_pos_BROS2'; 'dist_vel_BROS1'; 'dist_vel_BROS2'; 'dist_acc_BROS1'; 'dist_acc_BROS2'];
+%             param_idx = [param_idx; 89:90; 91:92; 93:94; 95:96; 97:98; 99:100];
+            param_lbls = [param_lbls; 'null';];
+            param_idx = [param_idx; 89:94];
         end
         
         % emg
-        if (size(dataArray,2) > 100)
-%             params_emg = {'EMG_pecmajor';'EMG_posdeltoid';'EMG_bicbrachii';'EMG_tricepslong';'EMG_tricepslat';'EMG_brachiorad';'EMG_flexorcarpi'};
+        if (size(dataArray,2) > 94) % 100
+% %             params_emg = {'EMG_pecmajor';'EMG_posdeltoid';'EMG_bicbrachii';'EMG_tricepslong';'EMG_tricepslat';'EMG_brachiorad';'EMG_flexorcarpi'};
+%             params_emg = {'EMG1';'EMG2';'EMG3';'EMG4';'EMG5';'EMG6';'EMG7';'EMG8';'EMG9';'EMG10';'EMG11';'EMG12';'EMG13';'EMG14'};
+% %             param_lbls = [param_lbls; strcat(params_emg,'_BROS1'); strcat(params_emg,'_BROS2')];
+%             param_lbls = [param_lbls; params_emg];
+%             param_idx = [param_idx; 101;102;103;104;105;106;107;108;109;110;111;112;113;114];
+            
             params_emg = {'EMG1';'EMG2';'EMG3';'EMG4';'EMG5';'EMG6';'EMG7';'EMG8';'EMG9';'EMG10';'EMG11';'EMG12';'EMG13';'EMG14'};
 %             param_lbls = [param_lbls; strcat(params_emg,'_BROS1'); strcat(params_emg,'_BROS2')];
             param_lbls = [param_lbls; params_emg];
-            param_idx = [param_idx; 101;102;103;104;105;106;107;108;109;110;111;112;113;114];
+            param_idx = [param_idx; 95;96;97;98;99;100;101;102;103;104;105;106;107;108];
         end
         
     case 'model_virtualpartner_bros'
