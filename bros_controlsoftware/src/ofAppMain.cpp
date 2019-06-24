@@ -284,6 +284,8 @@ void ofAppMain::setupGUI()
 	_guiExperiment.add(lblExpState.set("ExpState", ""));
 	_guiExperiment.add(_btnToggleTargetType.setup("Target cloud", false));
 
+	
+
 	_grpExpControl.setup("Experiment control");
 	_grpExpControl.setName("Experiment control");
 	_grpExpControl.add(_btnExpStart.set("Start"));

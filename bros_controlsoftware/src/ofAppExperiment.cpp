@@ -312,6 +312,12 @@ void ofAppExperiment::onProtocolLoaded(bool success, std::string filename, exper
 
 	display1->setTargetMode(_settings.targetMode);
 	display2->setTargetMode(_settings.targetMode);
+	if (_settings.targetMode == parentParticleMode::PARENTPARTICLE_MODE_MOVINGCLOUD) {
+		mainApp->setToggleTaskType(true);
+	}
+	else {
+		mainApp->setToggleTaskType(false);
+	}
 
 	// set displaytype and cursorshapwe
 	display1->setDisplayType(_settings.displayType);
