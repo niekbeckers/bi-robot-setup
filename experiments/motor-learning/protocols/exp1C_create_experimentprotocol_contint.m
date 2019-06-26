@@ -45,7 +45,7 @@ condition = [zeros(21,1); 2*ones(21,1); 2*ones(21,1); 2*ones(21,1)];
 condition(13) = 2; % trial 16 is a 'catch' visuomotor trial.
     
 numTrials = numel(condition); % example
-breakDuration = 10*ones(numTrials,1);
+breakDuration = 3*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
 
 % connection
@@ -119,7 +119,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = 180.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};

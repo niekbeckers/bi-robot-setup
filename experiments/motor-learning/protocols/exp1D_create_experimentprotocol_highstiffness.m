@@ -32,8 +32,9 @@ s.experiment.partnersNr = pairNr;
 s.experiment.activeBROSID.id0 = 1;
 s.experiment.activeBROSID.id1 = 2;
 
-s.experiment.targetMode = 0; % normal
-s.experiment.cursorShape = 1;
+s.experiment.targetMode = 0;   % 0 = pursuit_2D; 1 = pursuit_1D; 2 = compensatory_1D; 3 = compensatory_2D; 4 = pursuit_roll; 5 = compensatory_roll 
+s.experiment.cursorShape = 1;  % 0 = circle; 1 = circle_open; 2 = line; 3 = cross; 4 = crosshair  
+
 
 %% trial data
 
@@ -44,7 +45,7 @@ s.experiment.cursorShape = 1;
 condition = [zeros(21,1); 2*ones(21,1); 2*ones(21,1); 2*ones(21,1)];
     
 numTrials = numel(condition); % example
-breakDuration = 10*ones(numTrials,1);
+breakDuration = 3*ones(numTrials,1);
 trialDuration = 20*ones(numTrials,1);
 
 % connection
@@ -122,7 +123,7 @@ end
 % NOTE: you always need at least 1 block
 numBlocks = length(divTrials);
 for ii = 1:numBlocks
-    s.experiment.block{ii}.breakDuration = 240.0;
+    s.experiment.block{ii}.breakDuration = 180.0;
     s.experiment.block{ii}.homingType = 302;
     for jj = 1:length(divTrials{ii})
         s.experiment.block{ii}.trial{jj} = trial{divTrials{ii}(jj)};

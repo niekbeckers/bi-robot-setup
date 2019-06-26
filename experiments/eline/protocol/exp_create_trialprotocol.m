@@ -34,6 +34,10 @@ st.experiment.partnersNr = pairNr;
 st.experiment.activeBROSID.id0 = 1;
 st.experiment.activeBROSID.id1 = 2;
 
+st.experiment.displayType = 0;    % 0 = pursuit_2D; 1 = pursuit_1D; 2 = compensatory_1D; 3 = compensatory_2D; 4 = pursuit_roll; 5 = compensatory_roll 
+st.experiment.cursorShape = 3;    % 0 = circle; 1 = circle_open; 2 = line; 3 = cross; 4 = crosshair   
+st.experiment.targetMode = 2;     % 0 = normal; 1 = cloud; 2 = moving cloud; 3 = exploding cloud 
+
 % target stettingst
 st.experiment.targetParticleCount = 5;
 st.experiment.targetParticlePeriod = 0.5;% how long each child particle mopves before reset
