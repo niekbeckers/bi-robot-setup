@@ -32,3 +32,4 @@ ftsensordebug.m
 *.ilk
 *.exp
 *.pdb
+/experiments/eline/pilot_CI/

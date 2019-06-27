@@ -10,6 +10,11 @@ Lb = 0.07;                      % base width [m]
 
 
 % load target signal data
+% load('forcingfunction_data_id_2d_nt11.mat');
+% load('forcingfunction_data_id_2d_nt10.mat');
+% load('forcingfunction_id_CI.mat');
+% msin_data_dist1 = zeros(5,6);
+% msin_data_dist2 = zeros(5,6);
 load('data_target_signal.mat','nx','ny','Ax','Ay','phx','phy');
 
 % force field
@@ -114,4 +119,4 @@ BROS2.Actuator2.FilterButterB = Bbutter;
 % force/torque sensor data
 BROS2.FTSensor.MaxAllowableForcesTorqueSensor = 0.8*[100 100 200 2 2 2]'; % maximum allowable forces and torques
 BROS2.FTSensor.TransformationMatrixSide = 2; % 1 = transformation matrix based from q1, 2 = transformation from q5.
-BROS2.FTSensor.ThresholdDiffForceSensorSpike = 5;%0.05*4; % 0.05 is based on diff (between two steps) of exp1c (learning) data.is based on diff (between two steps) of exp1c (learning) data.
+BROS2.FTSensor.ThresholdDiffForceSensorSpike = 5;%0.05*4; % 0.05 is based on diff (between two steps) of exp1c (learning) data.
